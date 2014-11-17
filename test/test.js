@@ -62,7 +62,7 @@ var loginJSONbad = {email: 'test@example.com', password: 'hi', loc:'98027', scre
     .send(loginJSONbad)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.statusCode).to.eql(500);
+      expect(res.statusCode).to.eql(400);
       done();
     });
   });
