@@ -1,6 +1,6 @@
 'use strict';
 // grunt test runs of different database (notes_test)
-process.env.MONGO_URL = 'mongodb://localhost/notes_test';
+process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var chai = require('chai');
