@@ -6,10 +6,8 @@ var jwt = require('jwt-simple');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  basic: {
-    email: String,
-    password: String
-  },
+  email: String,
+  password: String,
   screenName: String,
   zip: String,
   hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}],
@@ -25,7 +23,7 @@ userSchema.methods.validPassword = function(password) {
 	// first param: password user typed in
 	// 2nd param: will behashed password stored in db
 
-	return bcrypt.compareSync(password, this.basic.password);
+	return bcrypt.compareSync(password, this.password);
 };
 
 
