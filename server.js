@@ -29,7 +29,7 @@ require('./lib/passport')(passport);
 //passes in the secret to decode the jwt
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 
-require('./routes/users_routes')(app, jwtauth);
+require('./routes/users_routes')(app);
 require('./routes/game_routes')(app, jwtauth);
 
 //listen on port 3000

@@ -22,7 +22,8 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.validPassword = function(password) {
 	// first param: password user typed in
 	// 2nd param: will behashed password stored in db
-
+	console.log(typeof password);
+	console.log(typeof this.password)
 	return bcrypt.compareSync(password, this.password);
 };
 

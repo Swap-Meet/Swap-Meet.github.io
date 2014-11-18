@@ -18,12 +18,13 @@ module.exports = function(app) {
   app.get('/api/user', function(req, res) {//passport.authenticate('basic', {session: false}),
     var email = req.query.email;
     var password = req.query.password;
+    console.log("pw", password);
+    console.log("email", email);
 
     User.findOne({'email': email}, function(err, user) {
       if (err) return res.status(500).json({error: 1});
       console.log(user);
       if (!user) return res.status(400).json({"error": 6});//done('access error');
-
       //check to see if password is valid
       if (!user.validPassword(password)) return res.status(400).json({"error": 4});//done('access error');
 
