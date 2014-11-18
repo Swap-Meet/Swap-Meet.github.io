@@ -11,7 +11,7 @@ var userSchema = new Schema({
     password: String
   },
   screenName: String,
-  location: String,
+  zip: String,
   hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}],
   wantsGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]
 });
