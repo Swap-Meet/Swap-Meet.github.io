@@ -47,6 +47,31 @@ module.exports = function(app, passport) {
     });
   });
 
+  app.get('/api/wantsgames', function(){
+    //searching
+  });
+
+  app.post('/api/games/wantsgames', function(){
+    //adding to wants
+  });
+
+  app.delete('/api/games/wantsgames', function(){
+    //delete a game user no longer wants
+  });
+
+  app.get('/api/user/mygames', function(){
+    //see my has and wants
+  });
+
+  app.post('/api/user/hasgames', function(){
+    //create a has
+  });
+
+  app.delete('/api/user/hasgames', function(){
+    //delete a game from user's inventory
+  });
+
+
   /*app.delete('/api/users', jwtadminauth, function(req, res) {
     User.findOne({'basic.email': req.body.email}, function(err, user) {
       if (err) return res.status(500).send('server error');
