@@ -19,19 +19,19 @@ module.exports = function(app, passport) {
     //console.log(req.body);
     User.findOne({'basic.email': req.body.email}, function(err, user) {
 
-      if (err) return res.status(400).send('server error');
+      if (err) return res.status(400).json({error: 'server error'});
 
-      if (user) return res.status(400).send('cannot create that user');
+      if (user) return res.status(400).json({error: 'cannot create that user'});
 
       if (req.body.password === req.body.email) {
-        return res.status(400).send('email and password cannot be the same');
+        return res.status(400).json({error:'email and password cannot be the same'});
       }
 
       //password pattern: any 8-12 character length combo of ASCII
       //with at least one number and one letter
       var passwordPattern = /^(?=.*\d+)(?=.*[a-z A-Z])[ -~]{8,12}$/;
       if (!passwordPattern.test(req.body.password)) {
-        return res.status(400).send('invalid password');
+        return res.status(400).json({error: 'invalid password'});
       }
 
       var newUser = new User();
@@ -42,8 +42,8 @@ module.exports = function(app, passport) {
       newUser.loc = req.body.loc;
 
       newUser.save(function(err, data) {
-        if (err) return res.status(400).send('server error');
-        res.status(200).json({jwt: newUser.generateToken(app.get('jwtSecret'))});
+        if (err) return res.status(400).json({error: 'server error'});
+        res.status(200).json({error:0, jwt: newUser.generateToken(app.get('jwtSecret'))});
       });
     });
   });
