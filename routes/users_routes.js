@@ -10,7 +10,7 @@ module.exports = function(app, passport) {
     //this function overrides the default authentication
     function(req, res) {
       //console.log(req);
-      res.status(200).json({jwt: req.user.generateToken(app.get('jwtSecret'))});
+      res.status(200).json({error: 0, jwt: req.user.generateToken(app.get('jwtSecret'))});
     }
   );
 
