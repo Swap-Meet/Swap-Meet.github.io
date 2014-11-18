@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   email: String,
   password: String,
-  screenName: String,
+  screenname: String,
   zip: String,
   hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}],
   wantsGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]

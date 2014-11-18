@@ -37,7 +37,7 @@ module.exports = function(app) {
   app.post('/api/user', function(req, res) {
     var email = req.query.email;
     var password = req.query.password;
-    var screenName = req.query.screenName;
+    var screenname = req.query.screenname;
     var loc = req.query.zip;
 
     User.findOne({'email': email}, function(err, user) {
@@ -60,7 +60,7 @@ module.exports = function(app) {
       newUser.email = email;
       newUser.password = newUser.generateHash(password);
       //insert code to make sure password and confirmation password match
-      newUser.screenName = screenName;
+      newUser.screenname = screenname;
       newUser.zip = loc;
 
       newUser.save(function(err, data) {

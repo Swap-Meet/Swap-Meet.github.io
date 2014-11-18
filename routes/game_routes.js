@@ -5,12 +5,14 @@ var plat, searchTerms, zipCode, expression, search, searchJSON;
 
 module.exports = function(app, auth) {
   //return first 10 games in db (change this to random later)
-  app.get('/api/wantsgames', function(req, res) {
-    var plat, searchTerms, zipCode, expression, search, searchJSON = {};
+  app.get('/api/wantsgames', auth, function(req, res) {
+    var total, plat, searchTerms, passback, zipCode, expression, search, start = 0, totalLeft, searchJSON = {};
+    console.log(req);
     //read in params into object
     console.log("req.query", req.query);
 
     if (req.query.hasOwnProperty('q')) {
+      console.log(req.query.q);
       searchTerms = req.query.q.split('%');
       for (var i = 0; i < searchTerms.length; i++) {
         searchTerms[i] = "(?=.*" + searchTerms[i] + ")";
@@ -26,6 +28,9 @@ module.exports = function(app, auth) {
     if (req.query.hasOwnProperty('z')) {
       searchJSON.zip = Number(req.query.z);
     }
+    if (req.query.hasOwnProperty('s')) {
+      start = Number(req.query.s);
+    }
 
     console.log(typeof searchJSON);
     console.log(searchJSON)
@@ -33,10 +38,14 @@ module.exports = function(app, auth) {
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
       console.log("body", data.body);
-      //if (!data[0]) return res.status(200).json({error: 5});
-
-      res.status(200).json({count: data.length, items_left: -1, games:data});
+      total = data.length;
+      passback = data.slice(start, Math.min(data.length+1,start+10))
+      if (!passback[0]) return res.status(200).json({error: 5});
+      res.status(200).json({"count": total,
+        "items_left": Math.max(0,total - start - 10),
+        "games":passback});
     });
+
   });
 
   app.post('/api/games/wantsgames', function(){
