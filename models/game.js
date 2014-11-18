@@ -1,12 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var gameSchema = new Schema({
-  title: 'String',
-  score: 'String',
-  publisher: 'String',
-  short_description: 'String',
-  platform: 'String',
-  thumb: 'String'
+  title: String,
+  score: String,
+  publisher: String,
+  short_description: String,
+  platform: String,
+  thumb: String,
+  owner: String
+  images: [String]
 });
 var Games = mongoose.model('Game', gameSchema);
 

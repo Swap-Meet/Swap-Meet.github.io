@@ -1,4 +1,5 @@
 'use strict';
+var User = require('../models/user');
 var Game = require('../models/game');
 var queryString = require('query-string');
 var plat, searchTerms, zipCode, expression, search, searchJSON;
@@ -52,7 +53,26 @@ module.exports = function(app, auth) {
   });
 
   app.post('/api/user/hasgames', function(){
-    //create a has
+    var newGame = new Game({
+      newGame.owner: req.user._id,
+      newGame.title: req.body.title,
+      newGame.platform: req.body.score,
+      newGame.images: [String]
+    });
+
+    newGame.save(function(err, game) {
+      if (err) return res.send(err);
+      User.findById(req.user._id, function(err, user) {
+        if (err) return console.log('error finding user');
+        if (user === null) return console.log('user is null');
+        user.hasGames.push(game._id);
+        user.save(function(err) {
+          if (err) return console.log('error saving to user's hasGames);
+          console.log('success');
+        });
+      });
+      res.json(game);
+    });
   });
 
   app.delete('/api/user/hasgames', function(){
