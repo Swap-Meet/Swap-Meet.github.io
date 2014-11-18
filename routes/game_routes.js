@@ -9,7 +9,7 @@ module.exports = function(app) {
     URL = req.params.ext;
     console.log(URL);
     Game.find({}, function(err, data) {
-      if (err) return res.status(500).send('there was an error');
+      if (err) return res.status(500).json({error:'there was an error'});
       res.json(data);
     });
   });
