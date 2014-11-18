@@ -18,8 +18,6 @@ module.exports = function(app, passport) {
   app.post('/api/user', function(req, res) {
     //console.log(req.body);
     User.findOne({'basic.email': req.body.email}, function(err, user) {
-      console.log('hi', req);
-      res.send(req);
       if (err) return res.status(400).json({error: 'server error'});
 
       if (user) return res.status(400).json({error: 'cannot create that user'});
