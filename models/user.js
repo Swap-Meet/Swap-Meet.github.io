@@ -26,7 +26,6 @@ userSchema.methods.validPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
 
-
 //the ID from the mongo database is what's passed back and forth
 userSchema.methods.generateToken = function(secret) {
 	var self = this;

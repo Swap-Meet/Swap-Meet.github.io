@@ -1,8 +1,9 @@
 'use strict';
 
 var User = require('../models/user');
+var Game = require('../models/game');
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
 
   //existing users come in here, generates jwt token
   //don't have jwt token, but know password and email
@@ -70,29 +71,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.get('/api/wantsgames', function(){
-    //searching
-  });
 
-  app.post('/api/games/wantsgames', function(){
-    //adding to wants
-  });
-
-  app.delete('/api/games/wantsgames', function(){
-    //delete a game user no longer wants
-  });
-
-  app.get('/api/user/mygames', function(){
-    //see my has and wants
-  });
-
-  app.post('/api/user/hasgames', function(){
-    //create a has
-  });
-
-  app.delete('/api/user/hasgames', function(){
-    //delete a game from user's inventory
-  });
 
 
   /*app.delete('/api/users', jwtadminauth, function(req, res) {
