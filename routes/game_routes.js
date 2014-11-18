@@ -41,9 +41,9 @@ module.exports = function(app, auth) {
       total = data.length;
       passback = data.slice(start, Math.min(data.length+1,start+10))
       //if (!passback[0]) return res.status(200).json({error: 5});
-      res.status(200).json({"count": total,
+      res.status(200).json({"error": 0, "count": 10,
         "items_left": Math.max(0,total - start - 10),
-        "games":passback});
+        "items":passback});
     });
 
   });
