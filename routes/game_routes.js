@@ -70,7 +70,7 @@ module.exports = function(app, auth) {
       //check to see if game is already in this user's wantsgames
       var alreadyWanted = false;
       for (var i = 0; i < user.wantsGames.length; i++) {
-        if (user.wantsGames[i].id == gameId) {
+        if (user.wantsGames[i].gameId == gameId) {
           alreadyWanted = true;
         }
       }
