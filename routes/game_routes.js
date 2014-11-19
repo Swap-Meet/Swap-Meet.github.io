@@ -81,7 +81,7 @@ module.exports = function(app, auth) {
       console.log("gameId", gameId);
       if (!alreadyWanted) {
         console.log("wants", user.wantsGames);
-        user.wantsGames.push({gameId: "hi", ownerId: "you"});
+        user.wantsGames.push({gameId: gameId, ownerId: ownerId});
         console.log(user.wantsGames);
         user.save(function(err) {
           if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
