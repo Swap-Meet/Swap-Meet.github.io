@@ -86,7 +86,7 @@ module.exports = function(app, auth) {
         user.save(function(err) {
           if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
           console.log('success');
-          return res.status(200).json({error:0, 'user':user}); //updated user
+          return res.status(200).json({error:0}); //updated user
         });
       }
       else {
@@ -138,7 +138,7 @@ module.exports = function(app, auth) {
           console.log('success');
         });
       });
-      res.status(200).json({'error': 0, 'user': user});
+      res.status(200).json({'error': 0});
     });
   });
 
