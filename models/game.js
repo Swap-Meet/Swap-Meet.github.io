@@ -7,17 +7,10 @@ var gameSchema = new Schema({
   score: 'String',
   publisher: 'String',
   zip: 'String',
-  owner: 'String',
+  owner: 'String', //id number
   short_description: 'String',
   platform: 'String',
   thumb: 'String'
 });
-
-var Games = mongoose.model('Game', gameSchema);
-
-
-//thanks to the Mongoose validation docs:
-// http://mongoosejs.com/docs/2.7.x/docs/validation.html
-
 
 module.exports = mongoose.model('Game', gameSchema);

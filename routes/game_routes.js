@@ -54,10 +54,12 @@ module.exports = function(app, auth) {
   app.post('/api/games/wantsgames', auth, function(req, res){
 
     var gameId = req.body.id;
-
+    var owner;// = req.body.owner;
+    //console.log(req.body);
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
       if (err) return res.json({"error":'invalid id'});
+      if(game) owner = game.owner;
     });
 
     //find the user based on the incoming jwt token
@@ -68,16 +70,21 @@ module.exports = function(app, auth) {
       //check to see if game is already in this user's wantsgames
       var alreadyWanted = false;
       for (var i = 0; i < user.wantsGames.length; i++) {
-        if (user.wantsGames[i] == gameId) {
+        if (user.wantsGames[i].id == gameId) {
           alreadyWanted = true;
         }
       }
 
+      //if not already wanted, add to wantsgames
       console.log(alreadyWanted);
+      console.log("owner", owner);
+      console.log("gameId", gameId);
       if (!alreadyWanted) {
-        user.wantsGames.push(gameId);
+        console.log("wants", user.wantsGames);
+        user.wantsGames.push({gameId: "hi", ownerId: "you"});
+        console.log(user.wantsGames);
         user.save(function(err) {
-          if (err) return res.json({"error": 'error saving to user hasGames'});
+          if (err) return res.json({"error": 'error saving to user wantsGames'});
           console.log('success');
           return res.json(user); //updated user
         });
@@ -125,7 +132,7 @@ module.exports = function(app, auth) {
       User.findById(req.user._id, function(err, user) {
         if (err) return console.log('error finding user');
         if (user === null) return console.log('user is null');
-        user.hasGames.push(game._id);
+        user.hasGames.push({"id": game._id});
         user.save(function(err) {
           if (err) return console.log('error saving to user hasGames');
           console.log('success');
