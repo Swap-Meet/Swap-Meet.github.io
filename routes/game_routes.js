@@ -1,7 +1,6 @@
 'use strict';
 var User = require('../models/user');
 var Game = require('../models/game');
-var User = require('../models/user');
 var plat, searchTerms, zipCode, expression, search, searchJSON;
 
 module.exports = function(app, auth) {
@@ -49,7 +48,6 @@ module.exports = function(app, auth) {
 
   });
 
-
   //add a game to user's wantgames list
   app.post('/api/games/wantsgames', auth, function(req, res){
 
@@ -95,7 +93,7 @@ module.exports = function(app, auth) {
   });
 
   //get the hasgames and wantsgames of user
-  /*app.get('/api/games/mygames', auth, function(req, res) {
+  app.get('/api/games/mygames', auth, function(req, res) {
     var _id = req.user._id;
     var hasGames, wantsGames;
     User.find({"_id" : _id}, function(err, data){
@@ -110,7 +108,7 @@ module.exports = function(app, auth) {
       });
       res.status(200).send({"error":0,
         "items": {"wantsgames": wantsGames, "hasgames": hasGames}})});
-  });*/
+  });
 
   //add a game to user's hasgames inventory
   app.post('/api/games/hasgames', auth, function(req, res){
