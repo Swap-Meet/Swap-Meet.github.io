@@ -58,14 +58,14 @@ module.exports = function(app, auth) {
     //console.log(req.body);
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
-      if (err) return res.json({"error":'invalid id'});
+      if (err) return res.json({"error":10, "msg":"invalid id"});
       if(game) owner = game.owner;
     });
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({"error":'error finding user'});
-      if (user === null) return res.json({"error":'user is null'});
+      if (err) return res.json({"error":6, 'msg': 'error finding user'});
+      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
 
       //check to see if game is already in this user's wantsgames
       var alreadyWanted = false;
@@ -84,14 +84,14 @@ module.exports = function(app, auth) {
         user.wantsGames.push({gameId: "hi", ownerId: "you"});
         console.log(user.wantsGames);
         user.save(function(err) {
-          if (err) return res.json({"error": 'error saving to user wantsGames'});
+          if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
           console.log('success');
-          return res.json(user); //updated user
+          return res.status(200).json({error:0, 'user':user}); //updated user
         });
       }
       else {
         console.log("i");
-        res.json({"error": 8, "message": "game already in favorites"});
+        res.json({"error": 8, "msg": "game already in favorites"});
       }
     });
 
@@ -130,15 +130,15 @@ module.exports = function(app, auth) {
     newGame.save(function(err, game) {
       if (err) return res.send(err);
       User.findById(req.user._id, function(err, user) {
-        if (err) return console.log('error finding user');
-        if (user === null) return console.log('user is null');
+        if (err) return console.log({error: 1, 'msg':'error finding user'});
+        if (user === null) return console.log({error: 1, 'msg':'user is null'});
         user.hasGames.push({"id": game._id});
         user.save(function(err) {
-          if (err) return console.log('error saving to user hasGames');
+          if (err) return console.log({error:1, 'msg':'error saving to user hasGames'});
           console.log('success');
         });
       });
-      res.json(game);
+      res.status(200).json({'error': 0, 'user': user});
     });
   });
 
