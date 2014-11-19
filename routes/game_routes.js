@@ -26,7 +26,7 @@ module.exports = function(app, auth) {
       searchJSON.platform = req.query.p;
     }
     if (req.query.hasOwnProperty('z')) {
-      searchJSON.zip = Number(req.query.z);
+      searchJSON.zip = req.query.z;
     }
     if (req.query.hasOwnProperty('s')) {
       start = Number(req.query.s);

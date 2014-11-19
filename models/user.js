@@ -9,7 +9,7 @@ var userSchema = new Schema({
   email: String,
   password: String,
   screenname: String,
-  zip: Number,
+  zip: String,
   hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}],
   wantsGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]
 });
