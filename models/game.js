@@ -4,7 +4,7 @@ var gameSchema = new Schema({
   title: 'String',
   score: 'String',
   publisher: 'String',
-  zip: 'Number',
+  zip: 'String',
   owner: 'String',
   short_description: 'String',
   platform: 'String',
