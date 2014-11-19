@@ -3,7 +3,7 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 
-module.exports = function(app) {
+module.exports = function(app, auth) {
 
   app.get('/api/user', function(req, res) {//passport.authenticate('basic', {session: false}),
     var email = req.query.email;
@@ -61,6 +61,17 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/user/myprofile', auth, function(req, res) {
+    var passback = {};
+    User.findById(req.user._id, function(err, myInfo){
+      if (err) return res.status(400).json({error:1});
+      passback.email = myInfo.email;
+      passback.screenanme = myInfo.screenname;
+      passback.zip = myInfo.zip;
+      res.status(200).json({error: 0, profile:passback});
+    });
+
+  });
   /*app.delete('/api/users', jwtadminauth, function(req, res) {
     User.findOne({'basic.email': req.body.email}, function(err, user) {
       if (err) return res.status(500).send('server error');
