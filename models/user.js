@@ -10,10 +10,10 @@ var userSchema = new Schema({
   password: String,
   screenname: String,
   zip: String,
-  hasGames: [{gameId: String}],
-	  wantsGames: [{"gameId": String, "ownerId": String}]
+  //hasGames: [{gameId: String}],
+	  wantsGames: [{"gameId": String, "ownerId": String}],
   	//{type: Schema.Types.ObjectId, ref: 'Game.owner'}]
-  //hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}],
+  hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]
   //wantsGames: [{type: Schema.Types.ObjectId, ref: 'Game'},
   	//{type: Schema.Types.ObjectId, ref: 'Game.owner'}]
 });

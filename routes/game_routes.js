@@ -38,7 +38,7 @@ module.exports = function(app, auth) {
       if (err) return res.status(500).json({error:1});
       console.log("body", data.body);
       total = data.length;
-      passback = data.slice(start, Math.min(data.length+1,start+10))
+      passback = data.slice(start, Math.min(data.length + 1,start + 10))
       if (!passback) return res.status(200).json({"error": 0, "count": 0,
         "items_left": 0,
         "items":[]});
@@ -102,22 +102,25 @@ module.exports = function(app, auth) {
   });
 
   //get the hasgames and wantsgames of user
-  /*app.get('/api/games/mygames', auth, function(req, res) {
+  app.get('/api/games/mygames', auth, function(req, res) {
     var _id = req.user._id;
     var hasGames, wantsGames;
-    User.find({"_id" : _id}, function(err, data){
+    User.findById(_id, function(err, data){
+      console.log("data", data);
       if (err) return res.status(500).json({error:7});
       Game.find({"_id": {$in: data.hasgames}}, function(errGame, dataGame){
-        if (errGame) hasGames = [];
-        return hasGames = dataGame;
+        if (errGame) return hasGames = [];
+         hasGames = dataGame;
       });
       Game.find({"_id": {$in: data.wantsgames}}, function(errGame, dataGame){
-        if (errGame) wantsGames = [];
-        return wantsGames = dataGame;
+
+        if (errGame) return wantsGames = [];
+         wantsGames = dataGame;
       });
+      console.log("has", hasGames);
       res.status(200).send({"error":0,
         "items": {"wantsgames": wantsGames, "hasgames": hasGames}})});
-  });*/
+  });
 
   //add a game to user's hasgames inventory
   app.post('/api/games/hasgames', auth, function(req, res){
@@ -132,7 +135,7 @@ module.exports = function(app, auth) {
       User.findById(req.user._id, function(err, user) {
         if (err) return console.log({error: 1, 'msg':'error finding user'});
         if (user === null) return console.log({error: 1, 'msg':'user is null'});
-        user.hasGames.push({"id": game._id});
+        user.hasGames.push(game._id);
         user.save(function(err) {
           if (err) return console.log({error:1, 'msg':'error saving to user hasGames'});
           console.log('success');
