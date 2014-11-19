@@ -13,7 +13,7 @@ module.exports = function(app, auth) {
 
     if (req.query.hasOwnProperty('q')) {
       console.log(req.query.q);
-      searchTerms = req.query.q.split('%');
+      searchTerms = req.query.q.split('%20');
       for (var i = 0; i < searchTerms.length; i++) {
         searchTerms[i] = "(?=.*" + searchTerms[i] + ")";
       //searchTerms[i] = new RegExp("(?=.*" + searchTerms[i] + ")");
