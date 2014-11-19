@@ -43,7 +43,7 @@ module.exports = function(app, auth) {
       if (!passback) return res.status(200).json({"error": 0, "count": 0,
         "items_left": 0,
         "items":[]});
-      res.status(200).json({"error": 0, "count": 10,
+      res.status(200).json({"error": 0, "count": Math.min(10, passback.length),
         "items_left": Math.max(0,total - start - 10),
         "items":passback});
     });

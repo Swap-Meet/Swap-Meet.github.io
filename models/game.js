@@ -4,10 +4,13 @@ var gameSchema = new Schema({
   title: 'String',
   score: 'String',
   publisher: 'String',
+  zip: 'Number',
+  owner: 'String',
   short_description: 'String',
   platform: 'String',
   thumb: 'String'
 });
+
 var Games = mongoose.model('Game', gameSchema);
 
 
