@@ -72,7 +72,7 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
     chai.request(url)
     .get('api/browse')
     .end(function(err, res){
-      console.log(res);
+      //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');

@@ -9,4 +9,4 @@ var matchSchema = new Schema({
   status: 'String'
 });
 
-module.exports = mongoose.model('Match', gameSchema);
+module.exports = mongoose.model('Match', matchSchema);
