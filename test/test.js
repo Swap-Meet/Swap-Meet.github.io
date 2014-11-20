@@ -85,9 +85,11 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     .set('jwt',jwt)
     .send(game)
     .end(function(err, res) {
-      //console.log(err, res);
+      //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      //expect(res.body.item.title).to.eql("Monkey Island");
       done();
     });
   });
@@ -100,7 +102,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       console.log(res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array')
-      expect(res.body.items[0].title).to.be.a('String');
+      expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
