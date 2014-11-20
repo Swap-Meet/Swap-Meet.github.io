@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
@@ -36,9 +36,9 @@ module.exports = function(app, auth) {
 
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
-      console.log("body", data.body);
       total = data.length;
       passback = data.slice(start, Math.min(data.length + 1,start + 10))
+      //console.log('passback: ', passback);
       if (!passback) return res.status(200).json({"error": 0, "count": 0,
         "items_left": 0,
         "items":[]});
@@ -260,7 +260,7 @@ module.exports = function(app, auth) {
  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
 
-    Game.remove(gameId, function(err) {
+    Game.remove({ _id: gameId }, function(err) {
       if (err) return res.json({"error":10, "msg":"invalid id"});
       console.log('removed game document');
     });
