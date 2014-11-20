@@ -123,7 +123,7 @@ module.exports = function(app, auth) {
       if (!stillWants) {
         user.save(function(err) {
           if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
-          return res.json(user); //updated user
+          res.status(200).json({'error': 0}); //updated user
         });
       } else {
         res.json({"error": 9, 'msg': 'game not found in user list'});
@@ -202,7 +202,7 @@ module.exports = function(app, auth) {
       if (!stillHas) {
         user.save(function(err) {
           if (err) return res.json({"error":1, 'msg': 'error saving'});
-          return res.json(user); //updated user
+          res.status(200).json({'error': 0}); //updated user
         });
       } else {
         res.json({'error': 9, 'message': 'game not found in user list'});
