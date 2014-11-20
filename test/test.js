@@ -106,6 +106,5 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
-  it
 
 });

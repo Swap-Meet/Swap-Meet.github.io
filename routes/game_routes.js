@@ -34,6 +34,8 @@ module.exports = function(app, auth) {
       start = Number(req.query.s);
     }
 
+    searchJSON.owner = { $ne: req.body.user._id };
+
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
       console.log("body", data.body);
