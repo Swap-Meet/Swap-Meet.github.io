@@ -8,12 +8,12 @@ module.exports = function(grunt) {
       options: {
         node: true
       },
-      //src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
+      src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
     },
 
     jscs: {
 
-      //src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
+      src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
 
       options: {
         config: '.jscsrc'
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
       src: ['test/**/*.js']
     }
   });
-
-  grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
+  grunt.registerTask('test', ['simplemocha']);
+  //grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
   grunt.registerTask('default', ['test']);
 };
