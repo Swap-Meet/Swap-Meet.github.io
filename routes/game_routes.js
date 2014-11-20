@@ -264,8 +264,7 @@ module.exports = function(app, auth) {
   /////////////////DELETES ALL GAMES //////////////
  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
-
-    Game.remove(gameId, function(err) {
+    Game.remove({ _id: gameId }, function(err) {
       if (err) return res.json({"error":10, "msg":"invalid id"});
       console.log('removed game document');
     });
