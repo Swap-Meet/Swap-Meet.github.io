@@ -1,5 +1,10 @@
 'use strict';
+<<<<<<< HEAD
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+=======
+// grunt test runs of different database (notes_test)
+//process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+>>>>>>> b84d2805cf1135e92c368038e8794cec52d80d99
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var chai = require('chai');
@@ -15,18 +20,20 @@ User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
 
 describe('basic notes/users tests', function() {
-  var jwt;
-  var loginJSON = {email: 'test@example.com', password: 'foobar123', loc:'98027', screenName: 'foxyLinda911'};
-  var loginJSONbad = {email: 'test@example.com', password: 'hi', loc:'98027', screenName: 'foxyLinda911'};
+
+var jwt, url = process.env.url;
+var loginURLGood = '?email=munckn'+Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
+var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
 
   it('should be able to create a new user', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/user')
-    .send(loginJSON)
+    chai.request(url)
+    .post('api/user'+loginURLGood)
     .end(function(err, res) {
+      //console.log(res);
       expect(err).to.eql(null);
-      //expect(res.statusCode).to.eql(200);
+      expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
       jwt = res.body.jwt;
       expect(jwt).to.be.a('string');
       done();
@@ -34,34 +41,43 @@ describe('basic notes/users tests', function() {
   });
 
   it('should not be able to do anything without authentication', function(done) {
-    chai.request('http://localhost:3000')
-    .get('/api/user')
+    chai.request(url)
+    .get('api/games/mygames')
     .end(function(err, res) {
       //console.log(res);
-      expect(res.statusCode).to.eql(401);
+      expect(res.statusCode).to.eql(403);
       done();
     });
   });
   it('should be able to get a token for an existing user', function(done) {
-    chai.request('http://localhost:3000')
-    .get('/api/user')
-    .auth(loginJSON.email, loginJSON.password)
+    chai.request(url)
+    .get('api/user' + loginURLGood)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //expect(res.statusCode).to.eql(200);
+      expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
       jwt = res.body.jwt;
       expect(jwt).to.be.a('string');
       done();
     });
   });
   it('should refuse to create a new user with a short PW', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/user')
-    .send(loginJSONbad)
+    chai.request(url)
+    .post('api/user' + loginURLBadPW)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(400);
+      done();
+    });
+  });
+  it('should be able to get some games without authentication', function(done) {
+    chai.request(url)
+    .post('api/browse')
+    .end(function(err, res){
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
       done();
     });
   });
