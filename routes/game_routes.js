@@ -232,11 +232,14 @@ module.exports = function(app, auth) {
   app.post('/api/games/hasgames', auth, function(req, res){
     var newGame = new Game();
     newGame.owner = req.user._id;
-    console.log(req.body);
+    if (req.body.title === '' || req.body.platform === '') {
+      res.status(400).json({error:11});
+    }
+    //console.log(req.body);
     newGame.title = req.body.title;
     newGame.platform =  req.body.platform;
-    newGame.condition = req.body.condition;
-    newGame.image_urls = req.body.image_urls;
+    newGame.condition = req.body.condition || '';
+    newGame.image_urls = req.body.image_urls || [];
     newGame.short_description = req.body.short_description;
 
     newGame.save(function(err, game) {
