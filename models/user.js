@@ -10,6 +10,7 @@ var userSchema = new Schema({
   password: String,
   screenname: String,
   zip: String,
+  pic_url: String,
   //hasGames: [{gameId: String}],
 	  wantsGames: [{"gameId": String, "ownerId": String}],
   	//{type: Schema.Types.ObjectId, ref: 'Game.owner'}]

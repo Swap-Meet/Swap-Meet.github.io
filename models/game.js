@@ -10,7 +10,7 @@ var gameSchema = new Schema({
   owner: 'String', //id number
   short_description: 'String',
   platform: 'String',
-  thumb: 'String'
+  image_url: ['String']
 });
 
 module.exports = mongoose.model('Game', gameSchema);
