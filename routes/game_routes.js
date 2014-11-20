@@ -1,5 +1,6 @@
 'use strict';
 var eachAsync = require('each-async');
+var async = require('async');
 var User = require('../models/user');
 var Game = require('../models/game');
 var User = require('../models/user');
@@ -137,24 +138,22 @@ module.exports = function(app, auth) {
     var i, _id = req.user._id;
     var myWants = [];
 
-    //finds the user's info
     User.findById(_id, function(err, data){
       if (err) return res.status(500).json({error:7});
-
-      //cycles through the user's wantsGames
-      for (i = 0; i < data.wantsGames.length; i++) {
-        //console.log("puppy", Game.find({'_id': data.wantsGames[i]}));
-        Game.find({'_id': data.wantsGames[i]}, function(errGame, dataGame){
-
-          if (dataGame) myWants.push(dataGame);
-          console.log("test:", myWants);
-
-        })
-      }
-      res.status(200).json({"error":0,
-      "items": {"wantsgames": myWants}});
+      eachAsync(data.wantsGames, function(item, index, done) {
+        console.log("item", item, index);
+        Game.find({'_id': item.gameId}, function(errGame, dataGame){
+            myWants.push(dataGame[0]);
+            done(err);
+          })
+        },
+        function(err){
+          if (err) return (err);
+          res.status(200).json({"error":0,
+             "items": myWants})
+        }
+      )
     });
-
   });
 
   //returns all the users's games
@@ -165,16 +164,16 @@ module.exports = function(app, auth) {
     User.findById(_id, function(err, data){
       if (err) return res.status(500).json({error:7});
 
-      eachAsync(data.hasGames, function(item, index, done) {
+      async.each(data.hasGames, function(item, done) {
         Game.find({'_id': item}, function(errGame, dataGame){
-            myGames.push(dataGame);
-            console.log("test:", myGames);
+            myGames.push(dataGame[0]);
+            done(err);
           })
-          done(err);
         },
         function(err){
           if (err) return (err);
-          console.log("hi");
+          res.status(200).json({"error":0,
+             "items": myGames})
         }
       )
     });
