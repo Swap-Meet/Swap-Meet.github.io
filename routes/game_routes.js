@@ -179,14 +179,14 @@ module.exports = function(app, auth) {
     var gameId = req.body.id;
 
     Game.remove(gameId, function(err) {
-      if (err) return res.json({'error':'invalid id'});
+      if (err) return res.json({"error":10, "msg":"invalid id"});
       console.log('removed game document');
     });
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({'error':'error finding user'});
-      if (user === null) return res.json({'error':'user is null'});
+      if (err) return res.json({"error":6, 'msg': 'error finding user'});
+      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
       console.log('found user');
 
       //check to see if game is in this user's hasGames
@@ -201,7 +201,7 @@ module.exports = function(app, auth) {
 
       if (!stillHas) {
         user.save(function(err) {
-          if (err) return res.json({'error': 'error saving'});
+          if (err) return res.json({"error":1, 'msg': 'error saving'});
           return res.json(user); //updated user
         });
       } else {
