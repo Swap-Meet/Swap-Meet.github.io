@@ -171,7 +171,7 @@ module.exports = function(app, auth) {
           })
         },
         function(err){
-          if (err) return (err);
+          if (err) return res.json({error:1});
           res.status(200).json({"error":0,
              "items": myGames})
         }
