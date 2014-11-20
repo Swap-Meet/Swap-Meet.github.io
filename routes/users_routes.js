@@ -72,15 +72,11 @@ module.exports = function(app, auth) {
     });
 
   });
-  /*app.delete('/api/users', jwtadminauth, function(req, res) {
-    User.findOne({'basic.email': req.body.email}, function(err, user) {
-      if (err) return res.status(500).send('server error');
-      if (!user) return res.status(500).send('user not found');
-
-      User.remove({'basic.email': req.body.email}, function(err) {
-        if (err) return res.status(500).send('server error');
-        return res.status(200).send('user deleted');
-      });
-    });
-  });*/
+  //remove a user
+  // app.delete('/api/user', auth, function(req, res) {
+  //   User.remove(req.user._id, function(err) {
+  //     if (err) return res.status(500).json({"error":1, 'msg': 'error removing user'});
+  //     return res.status(200).json({'error': 0});
+  //   });
+  // });
 };

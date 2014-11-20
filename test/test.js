@@ -1,6 +1,10 @@
 'use strict';
+<<<<<<< HEAD
+process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+=======
 // grunt test runs of different database (notes_test)
 //process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+>>>>>>> b84d2805cf1135e92c368038e8794cec52d80d99
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var chai = require('chai');
@@ -16,6 +20,7 @@ User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
 
 describe('basic notes/users tests', function() {
+
 var jwt, url = process.env.url;
 var loginURLGood = '?email=munckn'+Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
 var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
