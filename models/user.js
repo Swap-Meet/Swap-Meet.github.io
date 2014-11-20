@@ -10,9 +10,9 @@ var userSchema = new Schema({
   password: String,
   screenname: String,
   zip: String,
-  pic_url: String,
+  avatar_url: String,
   //hasGames: [{gameId: String}],
-	  wantsGames: [{"gameId": String, "ownerId": String}],
+	 wantsGames: [{"gameId": String, "ownerId": String}],
   	//{type: Schema.Types.ObjectId, ref: 'Game.owner'}]
   hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]
   //wantsGames: [{type: Schema.Types.ObjectId, ref: 'Game'},

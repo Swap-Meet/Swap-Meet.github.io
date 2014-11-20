@@ -34,6 +34,9 @@ module.exports = function(app, auth) {
       start = Number(req.query.s);
     }
 
+    console.log("id", req.user._id)
+    searchJSON.owner = { $ne: req.user._id };
+
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
       total = data.length;
@@ -137,10 +140,11 @@ module.exports = function(app, auth) {
     var myWants = [];
 
     User.findById(_id, function(err, data){
-      if (err) return res.status(500).json({error:7});
+      if (err) return res.status(400).json({error:7});
       eachAsync(data.wantsGames, function(item, index, done) {
         console.log("item", item, index);
         Game.find({'_id': item.gameId}, function(errGame, dataGame){
+            if (errGame) { return res.json({error:1})}
             myWants.push(dataGame[0]);
             done(err);
           })
@@ -162,71 +166,22 @@ module.exports = function(app, auth) {
     User.findById(_id, function(err, data){
       if (err) return res.status(500).json({error:7});
 
-      async.each(data.hasGames, function(item, done) {
+      eachAsync(data.hasGames, function(item, index, done) {
         Game.find({'_id': item}, function(errGame, dataGame){
+            console.log(dataGame);
+            if (errGame) { return res.status(400).json({error:1})}
             myGames.push(dataGame[0]);
-            done(err);
+            done();
           })
         },
         function(err){
-          if (err) return (err);
+          if (err) return res.json({error:1});
           res.status(200).json({"error":0,
              "items": myGames})
         }
       )
     });
   });
-
-  // //get the hasgames and wantsgames of user
-  // app.get('/api/games/mygames', auth, function(req, res) {
-  //   var i, _id = req.user._id;
-  //   var myGames = [], myWants = [];
-
-
-  //   //find the user who is making the request
-  //   User.findById(_id, function(err, data){
-  //     console.log("data.hasgames", data.hasGames);
-  //     if (err) return res.status(500).json({error:7});
-  //     //console.log("userinfo", data);
-
-  //     for (i = 0; i < data.hasGames.length; i++) {
-  //       //console.log(data.hasGames[i]);
-  //       console.log("puppy", Game.find({'_id': data.hasGames[i]}));
-  //       Game.find({'_id': data.hasGames[i]}, function(errGame, dataGame){
-  //         //if (errGame || !dataGame) hasGames = [];
-  //         myGames[i] = dataGame;
-  //         console.log("test:", myGames);
-  //         //console.log("dataGame", dataGame);
-  //       })
-  //     }
-
-  //     for (i = 0; i < data.wantsGames.length; i++) {
-  //       Game.find({'_id': data.wantsGames[i]._id}, function(errGame, dataGame){
-  //         //console.log("dataGame", dataGame);
-  //         //if (errGame || !dataGame) hasGames = [];
-  //         myWants[i] = dataGame;
-  //         //console.log("dataGame", dataGame);
-  //       })
-  //     }
-  //     //find game info for hasgames
-  //     /*Game.findById(data.hasGames, function(errGame, dataGame){
-  //       console.log("dataGame", dataGame);
-  //       //if (errGame || !dataGame) hasGames = [];
-  //       myGames = dataGame;
-  //     });
-
-  //     Game.findById(data.wantsGames, function(errGame, dataGame){
-  //       //if (errGame || !dataGame) wantsGames = [];
-  //       myWants = dataGame;
-  //       console.log("wantsgames", dataGame, errGame);
-  //     });*/
-  //   });
-
-  //   console.log("has", myGames);
-  //   console.log("wants", myWants)
-  //   res.status(200).json({"error":0,
-  //     "items": {"wantsgames": myWants, "hasgames": myGames}})
-  // });
 
   //add a game to user's hasgames inventory
   app.post('/api/games/hasgames', auth, function(req, res){
@@ -243,6 +198,7 @@ module.exports = function(app, auth) {
     newGame.short_description = req.body.short_description;
 
     newGame.save(function(err, game) {
+
       if (err) return res.send(err);
       User.findById(req.user._id, function(err, user) {
         if (err) return console.log({error: 1, 'msg':'error finding user'});
@@ -253,13 +209,14 @@ module.exports = function(app, auth) {
           console.log('success');
         });
       });
-      res.status(200).json({'error': 0});
+      res.status(200).json({'error': 0, item: newGame});
     });
   });
 
+
+  /////////////////DELETES ALL GAMES //////////////
  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
-
     Game.remove({ _id: gameId }, function(err) {
       if (err) return res.json({"error":10, "msg":"invalid id"});
       console.log('removed game document');

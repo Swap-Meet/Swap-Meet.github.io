@@ -1,10 +1,7 @@
 'use strict';
-<<<<<<< HEAD
+
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
-=======
-// grunt test runs of different database (notes_test)
-//process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
->>>>>>> b84d2805cf1135e92c368038e8794cec52d80d99
+
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var chai = require('chai');
@@ -22,12 +19,12 @@ Game.collection.remove(function(err) {if (err) throw err;});
 describe('basic notes/users tests', function() {
 
 var jwt, url = process.env.url;
-var loginURLGood = '?email=munckn'+Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
+var loginURLGood = '?email=munchkins' + Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
 var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
-
+var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
   it('should be able to create a new user', function(done) {
     chai.request(url)
-    .post('api/user'+loginURLGood)
+    .post('api/user' + loginURLGood)
     .end(function(err, res) {
       //console.log(res);
       expect(err).to.eql(null);
@@ -75,10 +72,37 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
     chai.request(url)
     .get('api/browse')
     .end(function(err, res){
-      console.log(res);
+      //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
+      done();
+    });
+  });
+  it('should be able to add a game using jwt token', function(done){
+    chai.request(url)
+    .post('api/games/hasgames')
+    .set('jwt',jwt)
+    .send(game)
+    .end(function(err, res) {
+      //console.log(res);
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      //expect(res.body.item.title).to.eql("Monkey Island");
+      done();
+    });
+  });
+  it('should be able to view inventory with a jwt token', function(done) {
+    chai.request(url)
+    .get('api/games/mygames')
+    .set('jwt',jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log(res.body);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array')
+      expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
