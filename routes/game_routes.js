@@ -1,6 +1,5 @@
 'use strict';
 var eachAsync = require('each-async');
-var async = require('async');
 var User = require('../models/user');
 var Game = require('../models/game');
 var User = require('../models/user');

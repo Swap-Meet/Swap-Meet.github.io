@@ -3,7 +3,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
-var passport = require('passport');
+//var passport = require('passport');
 var app = express();
 
 //conncect to mongoose
@@ -21,16 +21,17 @@ app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'totallysecretsecret');
 
 //use passport middleware
-app.use(passport.initialize());
+//app.use(passport.initialize());
 
 //calls passport module we wrote in class with passport module as parameter
-require('./lib/passport')(passport);
+//require('./lib/passport')(passport);
 
 //passes in the secret to decode the jwt
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 
 require('./routes/users_routes')(app, jwtauth);
 require('./routes/game_routes')(app, jwtauth);
+require('./routes/browsing_routes')(app);
 
 //listen on port 3000
 app.set('port', process.env.PORT || 3000);

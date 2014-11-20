@@ -28,6 +28,7 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
       jwt = res.body.jwt;
       expect(jwt).to.be.a('string');
       done();
@@ -50,6 +51,7 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
       jwt = res.body.jwt;
       expect(jwt).to.be.a('string');
       done();
@@ -61,6 +63,16 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(400);
+      done();
+    });
+  });
+  it('should be able to get some games without authentication', function(done) {
+    chai.request(url)
+    .post('api/browse')
+    .end(function(err, res){
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
       done();
     });
   });
