@@ -79,5 +79,16 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
       done();
     });
   });
+  it('should be able to add a game using jwt token', function(done){
+    chai.request(url)
+    .set('jwt', jwt)
+    .get('api/user')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.statusCode).to.eql(200);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
 
 });
