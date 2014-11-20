@@ -97,7 +97,7 @@ module.exports = function(app, auth) {
 
   });
 
-  app.delete('/api/games/wantsgames', auth, function(req, res) {
+/*  app.delete('/api/games/wantsgames', auth, function(req, res) {
     var gameId = req.body.id;
 
     //checks to see if game ID is valid
@@ -129,7 +129,7 @@ module.exports = function(app, auth) {
         res.json({"error": 9, 'msg': 'game not found in user list'});
       }
     });
-  });
+  });*/
 
   //returns all the user's wanted games
   app.get('/api/games/mywants', auth, function(req, res) {
@@ -141,6 +141,7 @@ module.exports = function(app, auth) {
       eachAsync(data.wantsGames, function(item, index, done) {
         console.log("item", item, index);
         Game.find({'_id': item.gameId}, function(errGame, dataGame){
+            if (errGame) { return res.json({error:1})}
             myWants.push(dataGame[0]);
             done(err);
           })
@@ -164,8 +165,9 @@ module.exports = function(app, auth) {
 
       eachAsync(data.hasGames, function(item, done) {
         Game.find({'_id': item}, function(errGame, dataGame){
+            if (errGame) { return res.json({error:1})}
             myGames.push(dataGame[0]);
-            done(err);
+            done();
           })
         },
         function(err){
@@ -257,6 +259,8 @@ module.exports = function(app, auth) {
     });
   });
 
+/*
+  /////////////////DELETES ALL GAMES //////////////
  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
 
@@ -291,4 +295,4 @@ module.exports = function(app, auth) {
       }
     });
   });
-};
+};*/
