@@ -97,8 +97,38 @@ module.exports = function(app, auth) {
 
   });
 
-  app.delete('/api/games/wantsgames', function() {
-    //delete a game user no longer wants
+  app.delete('/api/games/wantsgames', auth, function(req, res) {
+    var gameId = req.body.id;
+
+    //checks to see if game ID is valid
+    Game.findById(gameId, function(err, game) {
+      if (err) return res.json({"error":10, "msg":"invalid id"});
+    });
+
+    //find the user based on the incoming jwt token
+    User.findById(req.user._id, function(err, user) {
+      if (err) return res.json({"error":6, 'msg': 'error finding user'});
+      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+
+      //check to see if game is in this user's wantsGames
+      var stillWants = true;
+      for (var i = 0; i < user.wantsGames.length; i++) {
+        if (user.wantsGames[i].gameId == gameId) {
+          user.wantsGames.splice(i, 1);
+          stillWants = false;
+          break;
+        }
+      }
+
+      if (!stillWants) {
+        user.save(function(err) {
+          if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
+          return res.json(user); //updated user
+        });
+      } else {
+        res.json({"error": 9, 'msg': 'game not found in user list'});
+      }
+    });
   });
 
   //get the hasgames and wantsgames of user
@@ -145,7 +175,38 @@ module.exports = function(app, auth) {
     });
   });
 
-  app.delete('/api/games/hasgames', function(){
-    //delete a game from user's inventory
+ app.delete('/api/games/hasgames', auth, function(req, res) {
+    var gameId = req.body.id;
+
+    Game.remove(gameId, function(err) {
+      if (err) return res.json({'error':'invalid id'});
+      console.log('removed game document');
+    });
+
+    //find the user based on the incoming jwt token
+    User.findById(req.user._id, function(err, user) {
+      if (err) return res.json({'error':'error finding user'});
+      if (user === null) return res.json({'error':'user is null'});
+      console.log('found user');
+
+      //check to see if game is in this user's hasGames
+      var stillHas = true;
+      for (var i = 0; i < user.hasGames.length; i++) {
+        if (user.hasGames[i] == gameId) {
+          user.hasGames.splice(i, 1);
+          stillHas = false;
+          break;
+        }
+      }
+
+      if (!stillHas) {
+        user.save(function(err) {
+          if (err) return res.json({'error': 'error saving'});
+          return res.json(user); //updated user
+        });
+      } else {
+        res.json({'error': 9, 'message': 'game not found in user list'});
+      }
+    });
   });
 };
