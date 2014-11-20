@@ -19,6 +19,7 @@ Game.collection.remove(function(err) {if (err) throw err;});
 describe('basic notes/users tests', function() {
 
 var jwt, url = process.env.url;
+var jwtA, jwtB, jwtC;
 var loginURLGood = '?email=munchkins' + Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
 var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
 var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
@@ -106,5 +107,21 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
+  it('should be able to view inventory with a jwt token', function(done) {
+    chai.request(url)
+    .get('api/games/mygames')
+    .set('jwt',jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log(res.body);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array')
+      expect(res.body.items[0]._id).to.be.a('String');
+      done();
+    });
+  });
+
+
 
 });

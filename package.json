@@ -33,6 +33,7 @@
     "each-async": "^1.1.0",
     "express": "^4.10.1",
     "jwt-simple": "^0.2.0",
+    "lodash": "^2.4.1",
     "mongoose": "^3.8.18",
     "query-string": "^1.0.0"
   }

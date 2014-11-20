@@ -9,7 +9,7 @@ var data = [
 email: "hello",
 zip: "98027",
 hasGames:['1', '2', '3', '4'],
-wantsGames:[{gameId:'5', ownerId:'B'}, {gameId:'8', ownerId:'C'}]
+wantsGames:[{gameId:'5', ownerId:'B'}, {gameId:'8', ownerId:'C'}, {gameId:'9', ownerId: 'C'}]
 },
 
 {_id: 'B',
@@ -43,5 +43,5 @@ wantsGames:[{gameId:'11', ownerId:'D'}]
 //matches(data);
 var result = matches(data);
 
-console.log(result[1].user1game);
+console.log(result[0].user1game);
 //console.log(result[0].user1game);
