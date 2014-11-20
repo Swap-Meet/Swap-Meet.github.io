@@ -259,7 +259,7 @@ module.exports = function(app, auth) {
     });
   });
 
-/*
+
   /////////////////DELETES ALL GAMES //////////////
  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
@@ -295,5 +295,4 @@ module.exports = function(app, auth) {
       }
     });
   });
-};*/
-
+};
