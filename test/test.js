@@ -1,5 +1,4 @@
 'use strict';
-// grunt test runs of different database (notes_test)
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
@@ -16,9 +15,9 @@ User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
 
 describe('basic notes/users tests', function() {
-var jwt;
-var loginJSON = {email: 'test@example.com', password: 'foobar123', loc:'98027', screenName: 'foxyLinda911'};
-var loginJSONbad = {email: 'test@example.com', password: 'hi', loc:'98027', screenName: 'foxyLinda911'};
+  var jwt;
+  var loginJSON = {email: 'test@example.com', password: 'foobar123', loc:'98027', screenName: 'foxyLinda911'};
+  var loginJSONbad = {email: 'test@example.com', password: 'hi', loc:'98027', screenName: 'foxyLinda911'};
 
   it('should be able to create a new user', function(done) {
     chai.request('http://localhost:3000')

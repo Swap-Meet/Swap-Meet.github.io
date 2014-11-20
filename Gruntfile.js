@@ -8,11 +8,11 @@ module.exports = function(grunt) {
       options: {
         node: true
       },
-      //src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
+      src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
     },
 
     jscs: {
-      //src: ['lib/*.js', 'routes/*.js', 'server.js', 'routes/*.js'],
+      src: ['lib/*.js', 'routes/*.js', 'server.js', 'routes/*.js'],
       options: {
         config: '.jscsrc'
       }
