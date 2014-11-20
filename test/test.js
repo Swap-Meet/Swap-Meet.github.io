@@ -68,10 +68,11 @@ var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfoo
   });
   it('should be able to get some games without authentication', function(done) {
     chai.request(url)
-    .post('api/browse')
+    .get('api/browse')
     .end(function(err, res){
+      console.log(res);
       expect(err).to.eql(null);
-      //expect(res.body.error).to.eql(0);
+      expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       done();
     });

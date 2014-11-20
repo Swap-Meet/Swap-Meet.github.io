@@ -235,6 +235,9 @@ module.exports = function(app, auth) {
     console.log(req.body);
     newGame.title = req.body.title;
     newGame.platform =  req.body.platform;
+    newGame.condition = req.body.condition;
+    newGame.image_urls = req.body.image_urls;
+    newGame.short_description = req.body.short_description;
 
     newGame.save(function(err, game) {
       if (err) return res.send(err);
