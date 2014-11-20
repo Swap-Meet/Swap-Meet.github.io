@@ -163,9 +163,10 @@ module.exports = function(app, auth) {
     User.findById(_id, function(err, data){
       if (err) return res.status(500).json({error:7});
 
-      eachAsync(data.hasGames, function(item, done) {
+      eachAsync(data.hasGames, function(item, index, done) {
         Game.find({'_id': item}, function(errGame, dataGame){
-            if (errGame) { return res.json({error:1})}
+            console.log(dataGame);
+            if (errGame) { return res.status(400).json({error:1})}
             myGames.push(dataGame[0]);
             done();
           })
