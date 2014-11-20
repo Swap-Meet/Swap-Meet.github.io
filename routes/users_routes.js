@@ -66,8 +66,9 @@ module.exports = function(app, auth) {
     User.findById(req.user._id, function(err, myInfo){
       if (err) return res.status(400).json({error:1});
       passback.email = myInfo.email;
-      passback.screenanme = myInfo.screenname;
+      passback.screename = myInfo.screenname;
       passback.zip = myInfo.zip;
+      passback.avatar_url = myInfo.avatar_url;
       res.status(200).json({error: 0, profile:passback});
     });
 
