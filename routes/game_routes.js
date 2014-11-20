@@ -162,7 +162,7 @@ module.exports = function(app, auth) {
     User.findById(_id, function(err, data){
       if (err) return res.status(500).json({error:7});
 
-      async.each(data.hasGames, function(item, done) {
+      eachAsync(data.hasGames, function(item, done) {
         Game.find({'_id': item}, function(errGame, dataGame){
             myGames.push(dataGame[0]);
             done(err);
@@ -253,7 +253,7 @@ module.exports = function(app, auth) {
           console.log('success');
         });
       });
-      res.status(200).json({'error': 0});
+      res.status(200).json({'error': 0, item: newGame});
     });
   });
 
