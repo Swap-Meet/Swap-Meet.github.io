@@ -170,7 +170,7 @@ module.exports = function(app, auth) {
             myGames.push(dataGame);
             console.log("test:", myGames);
           })
-          done();
+          done(err);
         },
         function(err){
           if (err) return (err);
