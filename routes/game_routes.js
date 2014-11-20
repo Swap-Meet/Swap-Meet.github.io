@@ -2,7 +2,6 @@
 var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
-var User = require('../models/user');
 var plat, searchTerms, zipCode, expression, search, searchJSON;
 
 module.exports = function(app, auth) {
