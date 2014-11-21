@@ -45,15 +45,15 @@ module.exports = function(app, auth) {
 
         for (var i = 0; i < data.length; i++) {
           var dataObj = {};
-          dataObj["_id"] = data[i]._id;
-          dataObj["title"] = data[i].title;
-          dataObj["platform"] = data[i].platform;
-          dataObj["image_urls"] = data[i].image_urls;
-          dataObj["already_wanted"] = false;
+          dataObj._id = data[i]._id;
+          dataObj.title = data[i].title;
+          dataObj.platform = data[i].platform;
+          dataObj.image_urls = data[i].image_urls;
+          dataObj.already_wanted = false;
 
           for (var j = 0; j < user.wantsGames.length; j++) {
             if (data[i]._id == user.wantsGames[j].gameId ) {
-              dataObj["already_wanted"] = true;
+              dataObj.already_wanted = true;
               break;
             }
           }
