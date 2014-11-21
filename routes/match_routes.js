@@ -35,8 +35,17 @@ module.exports = function(app, auth) {
             console.log('game', g);
             //var local = i;
             //match.user1game.push(g);
-            matches[0][0].yourgame[0]=g;
-            res.status(200).json({error: 0, items: matches});
+            matches[0][0].yourgame[0] = g;
+
+            var returnMatches = {};
+            returnMatches.yourgame = matches[0][0].yourgame[0];
+            returnMatches.mygame = matches[0][0].mygame[0];
+            console.log("me", matches[0][0].me);
+            console.log("you", matches[0][0].me);
+            returnMatches.me = matches[0][0].me;
+            returnMatches.you = matches.you;
+
+            res.status(200).json({error: 0, items: returnMatches});
           });
         //res.status(200).json({error: 0, items: matches});
       }
