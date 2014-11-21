@@ -50,11 +50,11 @@ module.exports = function(app, auth) {
           dataObj["title"] = data[i].title;
           dataObj["platform"] = data[i].platform;
           dataObj["image_urls"] = data[i].image_urls;
-          dataObj["already_wanted"] = 'False'
+          dataObj["already_wanted"] = false;
 
           for (var j = 0; j < user.wantsGames.length; j++) {
             if (data[i]._id == user.wantsGames[j].gameId ) {
-              dataObj["already_wanted"] = 'True';
+              dataObj["already_wanted"] = true;
               break;
             }
           }
