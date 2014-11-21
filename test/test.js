@@ -23,7 +23,7 @@ var jwtA, jwtB, jwtC;
 var loginURLGood = '?email=munchkins' + Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
 var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
 var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
-  it('should be able to create a new user', function(done) {
+  it('should be able to create a new user and get back info', function(done) {
     chai.request(url)
     .post('api/user' + loginURLGood)
     .end(function(err, res) {
@@ -32,6 +32,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
       expect(res.body.error).to.eql(0);
+      expect(res.body.profile.zip).to.eql('99999');
       jwt = res.body.jwt;
       expect(jwt).to.be.a('string');
       done();
@@ -46,6 +47,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should be able to get a token for an existing user', function(done) {
     chai.request(url)
     .get('api/user' + loginURLGood)
@@ -59,6 +61,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should refuse to create a new user with a short PW', function(done) {
     chai.request(url)
     .post('api/user' + loginURLBadPW)
@@ -68,6 +71,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should be able to get some games without authentication', function(done) {
     chai.request(url)
     .get('api/browse')
@@ -79,6 +83,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should be able to add a game using jwt token', function(done){
     chai.request(url)
     .post('api/games/hasgames')
@@ -93,6 +98,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/mygames')
@@ -120,27 +126,27 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
       done();
     });
   });
+
   it('should not be able to search games without authorization', function(done) {
     chai.request(url)
     .get('api/wantsgames?p=XBOX')
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body);
       expect(res.body.error).to.eql(7);
       done();
     });
   });
+
   it('should be able to browse games without authorization', function(done) {
     chai.request(url)
     .get('api/browse')
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body);
-      console.log(res.body.items[0]);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      expect(res.body.items[0].title).to.be.a('String');
+      expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
+
 });

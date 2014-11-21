@@ -9,7 +9,7 @@ module.exports = function(app, auth) {
   //search all available games
   app.get('/api/wantsgames', auth, function(req, res) {
     var wants, total, plat, searchTerms, passback, zipCode, expression, search, start = 0, totalLeft, searchJSON = {};
-    //console.log(req);
+
     //read in params into object
     console.log("req.query", req.query);
 
@@ -18,9 +18,8 @@ module.exports = function(app, auth) {
       searchTerms = req.query.q.split('%20');
       for (var i = 0; i < searchTerms.length; i++) {
         searchTerms[i] = "(?=.*" + searchTerms[i] + ")";
-      //searchTerms[i] = new RegExp("(?=.*" + searchTerms[i] + ")");
       }
-      searchTerms = searchTerms.join('');//new RegExp("" + s + "", "i");
+      searchTerms = searchTerms.join('');
       searchJSON.title = new RegExp('' + searchTerms + '', "i");
 
     }
@@ -40,8 +39,8 @@ module.exports = function(app, auth) {
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
       User.findById(req.user._id, function(err, user) {
-        if (err) return res.json({"error":6, 'msg': 'error finding user'});
-        if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+        if (err) return res.json({"error": 6, 'msg': 'error finding user'});
+        if (user === null) return res.json({"error": 6, 'msg': 'user is null'});
         var actualResult = [];
 
         for (var i = 0; i < data.length; i++) {
@@ -184,18 +183,18 @@ module.exports = function(app, auth) {
     var i, _id = req.user._id;
     var myGames = [];
 
-    User.findById(_id, function(err, data){
+    User.findById(_id, function(err, data) {
       if (err) return res.status(500).json({error:7});
 
       eachAsync(data.hasGames, function(item, index, done) {
-        Game.find({'_id': item}, function(errGame, dataGame){
+        Game.find({'_id': item}, function(errGame, dataGame) {
             console.log(dataGame);
             if (errGame) { return res.status(400).json({error:1})}
             myGames.push(dataGame[0]);
             done();
           })
         },
-        function(err){
+        function(err) {
           if (err) return res.json({error:1});
           res.status(200).json({"error":0,
              "items": myGames})
@@ -205,7 +204,7 @@ module.exports = function(app, auth) {
   });
 
   //add a game to user's hasgames inventory
-  app.post('/api/games/hasgames', auth, function(req, res){
+  app.post('/api/games/hasgames', auth, function(req, res) {
     var newGame = new Game();
     newGame.owner = req.user._id;
     if (req.body.title === '' || req.body.platform === '') {

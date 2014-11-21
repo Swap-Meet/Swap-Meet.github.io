@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var matchSchema = new Schema({
@@ -11,4 +11,4 @@ var matchSchema = new Schema({
   status: 'String'
 });
 
-module.exports = mongoose.model('Match', matchSchema);
+module.exports = mongoose.model('Match', matchSchema);*/
