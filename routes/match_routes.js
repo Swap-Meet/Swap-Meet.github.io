@@ -19,7 +19,7 @@ module.exports = function(app, auth) {
 
        if (err) { done(err)}
           //run findMatches algorithm
-          findMatchesInDB(data, res, function(err, data){
+          findMatchesInDB(req.user, data, res, function(err, data){
             done(err, data);
           });
         });
