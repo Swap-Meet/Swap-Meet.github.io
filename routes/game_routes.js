@@ -199,7 +199,6 @@ module.exports = function(app, auth) {
 
       eachAsync(data.hasGames, function(item, index, done) {
         Game.find({_id: item}, function(errGame, dataGame) {
-            console.log(dataGame);
             if (errGame) return res.status(400).json({error:1});
             myGames.push(dataGame[0]);
             done();
@@ -267,9 +266,13 @@ module.exports = function(app, auth) {
         }
       }
 
+      //callback for find funciton
+      var response = function(err) {
+        if (err) return res.json({error: 1, msg: 'error saving'});
+      };
 
       //delete game from other user's wants games
-      User.find({wantsGames: { $elemMatch: {'gameId': gameId} } }, function(err, data){
+      User.find({wantsGames: { $elemMatch: {gameId: gameId} } }, function(err, data) {
         if (!data) return res.json({error: 1});
         for (var i = 0; i < data.length; i++) {
           for (var j = 0; j < data[i].wantsGames.length; j++) {
@@ -278,30 +281,9 @@ module.exports = function(app, auth) {
               break;
             }
           }
-          data[i].save(function(err) {
-            if (err) return res.json({"error":1, 'msg': 'error saving'});
-            //res.status(200).json({'error': 0}); //updated user
-          });
+          data[i].save(response);
         }
       });
-      /*
-      //delete game from other user's wants games
-      User.find({wantsGames: { $elemMatch: {gameId: gameId} } }, function(err, user) {
-        if (err) return res.json({error: 1});
-        if (!user) return res.json({error: 1});
-        console.log(user);
-        if (user.wantsGames) {
-          console.log('wat', user.wantsGames);
-          var counter = user.wantsGames.length || 0;
-          for (var i = 0; i < counter; i++) {
-            console.log(user.wantsGames.length);
-            if (user.wantsGames[i].gameId == gameId) {
-              user.wantsGames.splice(i, 1);
-              counter--;
-            }
-          }
-        }
-      });*/
 
       //executes only the game has been successfully removed from hasgames
       if (!stillHas) {
