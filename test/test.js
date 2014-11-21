@@ -142,11 +142,9 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     .get('api/browse')
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body);
-      console.log(res.body.items[0]);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      expect(res.body.items[0].title).to.be.a('String');
+      expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
