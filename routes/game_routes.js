@@ -246,7 +246,7 @@ module.exports = function(app, auth) {
     User.findById(req.user._id, function(err, user) {
       if (err) return res.json({"error":6, 'msg': 'error finding user'});
       if (user === null) return res.json({"error":6, 'msg': 'user is null'});
-      console.log('found user');
+      //console.log('found user');
 
       //check to see if game is in this user's hasGames
       var stillHas = true;
@@ -257,6 +257,26 @@ module.exports = function(app, auth) {
           break;
         }
       }
+
+      //delete game from other user's wants games
+      User.find({wantsGames: { $elemMatch: {'gameId': gameId} } }, function(err, data){
+
+        //console.log('mongoose wants: ' + data[0].wantsGames);
+        if (!data) return res.json({error: 1});
+        for (var i = 0; i < data.length; i++) {
+          for (var j = 0; j < data[i].wantsGames.length; j++) {
+            if (data[i].wantsGames[j].gameId == gameId) {
+              data[i].wantsGames.splice(j, 1);
+              //console.log('spliced');
+              break;
+            }
+          }
+          data[i].save(function(err) {
+            if (err) return res.json({"error":1, 'msg': 'error saving'});
+            //res.status(200).json({'error': 0}); //updated user
+          });
+        }
+      });
 
       if (!stillHas) {
         user.save(function(err) {
