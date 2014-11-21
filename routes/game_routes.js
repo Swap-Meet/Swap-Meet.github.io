@@ -8,7 +8,7 @@ module.exports = function(app, auth) {
 
   //search all available games
   app.get('/api/wantsgames', auth, function(req, res) {
-    var total, plat, searchTerms, passback, zipCode, expression, search, start = 0, totalLeft, searchJSON = {};
+    var wants, total, plat, searchTerms, passback, zipCode, expression, search, start = 0, totalLeft, searchJSON = {};
     //console.log(req);
     //read in params into object
     console.log("req.query", req.query);
@@ -34,24 +34,46 @@ module.exports = function(app, auth) {
       start = Number(req.query.s);
     }
 
-    console.log("id", req.user._id)
+    //console.log("id", req.user._id)
     searchJSON.owner = { $ne: req.user._id };
 
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
-      total = data.length;
-      passback = data.slice(start, Math.min(data.length + 1,start + 10))
-      //console.log('passback: ', passback);
-      if (!passback) return res.status(200).json({"error": 0, "count": 0,
-        "items_left": 0,
-        "items":[]});
-      res.status(200).json({"error": 0, "count": Math.min(10, passback.length),
-        "items_left": Math.max(0,total - start - 10),
-        "items":passback});
+      User.findById(req.user._id, function(err, user) {
+        if (err) return res.json({"error":6, 'msg': 'error finding user'});
+        if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+        var actualResult = [];
+
+        for (var i = 0; i < data.length; i++) {
+          var dataObj = {};
+          dataObj["_id"] = data[i]._id;
+          dataObj["title"] = data[i].title;
+          dataObj["platform"] = data[i].platform;
+          dataObj["image_urls"] = data[i].image_urls;
+
+          for (var j = 0; j < user.wantsGames.length; j++) {
+            if (data[i]._id == user.wantsGames[j].gameId ) {
+              dataObj["already_wanted"] = 'True';
+              break;
+            } else {
+              dataObj["already_wanted"] = 'False';
+            }
+          }
+          actualResult.push(dataObj);
+        }
+
+        total = data.length;
+        passback = actualResult.slice(start, Math.min(actualResult.length + 1,start + 10))
+        //console.log('passback: ', passback);
+        if (!passback) return res.status(200).json({"error": 0, "count": 0,
+          "items_left": 0,
+          "items":[]});
+        res.status(200).json({"error": 0, "count": Math.min(10, passback.length),
+          "items_left": Math.max(0,total - start - 10),
+          "items":passback});
+      });
     });
-
   });
-
 
   //add a game to user's wantgames list
   app.post('/api/games/wantsgames', auth, function(req, res){
