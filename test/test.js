@@ -18,11 +18,16 @@ Game.collection.remove(function(err) {if (err) throw err;});
 
 describe('basic notes/users tests', function() {
 
-var jwt, url = process.env.url;
-var jwtA, jwtB, jwtC;
-var loginURLGood = '?email=munchkins' + Date.now() + '&password=Hero99999&zip=99999&screenname=crazyfool';
-var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
-var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
+  var jwt;
+  var url = process.env.url;
+  var jwtA;
+  var jwtB;
+  var jwtC;
+  var loginURLGood = '?email=munchkins' + Date.now() +
+    '&password=Hero99999&zip=99999&screenname=crazyfool';
+  var loginURLBadPW = '?email=munchkins&password=pie&zip=99999&screenname=crazyfool';
+  var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
+
   it('should be able to create a new user and get back info', function(done) {
     chai.request(url)
     .post('api/user' + loginURLGood)
@@ -87,7 +92,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
   it('should be able to add a game using jwt token', function(done){
     chai.request(url)
     .post('api/games/hasgames')
-    .set('jwt',jwt)
+    .set('jwt', jwt)
     .send(game)
     .end(function(err, res) {
       //console.log(res);
@@ -102,12 +107,12 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
   it('should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/mygames')
-    .set('jwt',jwt)
+    .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res.body);
       expect(res.body.error).to.eql(0);
-      expect(res.body.items).to.be.an('Array')
+      expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
@@ -116,13 +121,13 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
   it('should be able to search games while logged in', function(done) {
     chai.request(url)
     .get('api/wantsgames?p=XBOX')
-    .set('jwt',jwt)
+    .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res.body);
       expect(res.body.error).to.eql(0);
-      expect(res.body.items).to.be.an('Array')
-      expect(res.body.items[0]._id).to.be.a('String');
+      expect(res.body.items).to.be.an('Array');
+      //expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
@@ -149,6 +154,16 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     });
   });
 
+  it('should be able to add a gam', function(done) {
+    chai.request(url)
+    .get('api/browse')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      expect(res.body.items[0]._id).to.be.a('String');
+      done();
+    });
+  });
+
 });
-
-
