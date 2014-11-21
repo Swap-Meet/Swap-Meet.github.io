@@ -42,7 +42,6 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     chai.request(url)
     .get('api/games/mygames')
     .end(function(err, res) {
-      //console.log(res);
       expect(res.statusCode).to.eql(403);
       done();
     });
@@ -100,7 +99,7 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     .set('jwt',jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log(res.body);
+      //console.log(res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array')
       expect(res.body.items[0]._id).to.be.a('String');
@@ -108,20 +107,40 @@ var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
     });
   });
 
-  it('should be able to view inventory with a jwt token', function(done) {
+  it('should be able to search games while logged in', function(done) {
     chai.request(url)
-    .get('api/games/mygames')
+    .get('api/wantsgames?p=XBOX')
     .set('jwt',jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log(res.body);
+      //console.log(res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array')
       expect(res.body.items[0]._id).to.be.a('String');
       done();
     });
   });
-
-
-
+  it('should not be able to search games without authorization', function(done) {
+    chai.request(url)
+    .get('api/wantsgames?p=XBOX')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res.body);
+      expect(res.body.error).to.eql(7);
+      done();
+    });
+  });
+  it('should be able to browse games without authorization', function(done) {
+    chai.request(url)
+    .get('api/browse')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res.body);
+      console.log(res.body.items[0]);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      expect(res.body.items[0].title).to.be.a('String');
+      done();
+    });
+  });
 });
