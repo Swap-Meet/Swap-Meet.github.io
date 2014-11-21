@@ -26,6 +26,8 @@ module.exports = function(app, auth) {
       }],
       function(err, matches){
         if (err) console.log('hi2');
+        console.log('cat', matches[0][0]);
+        if (!matches[0][0]) return res.status(200).json({'error':0, msg: "no matches"});
         //console.log(matches[0]);
         //console.dir(matches[0][0].user1game);
         console.log('match0', matches[0][0].user1game[0].gameId);
