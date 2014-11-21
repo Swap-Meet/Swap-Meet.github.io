@@ -28,7 +28,14 @@ module.exports = function(app, auth) {
         if (err) console.log('hi2');
         //console.log(matches[0]);
         //console.dir(matches[0][0].user1game);
-        res.status(200).json({error: 0, items: matches});
+        console.log('match0', matches[0][0])
+          Game.find({'_id': matches[0][0].user1game.gameId}, function(err, g){
+            console.log('game', g);
+            //var local = i;
+            //match.user1game.push(g);
+            res.status(200).json({error: 0, items: matches});
+          });
+        //res.status(200).json({error: 0, items: matches});
       }
     );
 
