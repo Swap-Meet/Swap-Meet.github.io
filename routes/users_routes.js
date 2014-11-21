@@ -6,6 +6,7 @@ var Game = require('../models/game');
 module.exports = function(app, auth) {
 
   app.get('/api/user', function(req, res) {//passport.authenticate('basic', {session: false}),
+    var passback = {};
     var email = req.query.email;
     var password = req.query.password;
     console.log("pw", password);
@@ -13,22 +14,28 @@ module.exports = function(app, auth) {
 
     User.findOne({'email': email}, function(err, user) {
       if (err) return res.status(500).json({error: 1});
-      console.log(user);
+      //console.log(user);
       if (!user) return res.status(400).json({"error": 6});
 
       //check to see if password is valid
       if (!user.validPassword(password)) return res.status(400).json({"error": 4});
 
-      res.status(200).json({error: 0, jwt: user.generateToken(app.get('jwtSecret'))});
+      passback.email = user.email;
+      passback.screename = user.screenname || '';
+      passback.zip = user.zip || '';
+      passback.avatar_url = user.avatar_url || '';
+      res.status(200).json({error: 0, jwt: user.generateToken(app.get('jwtSecret')), profile: passback });
     });
   });
 
   //creating a new user
   app.post('/api/user', function(req, res) {
+    var passback = {};
     var email = req.query.email;
     var password = req.query.password;
     var screenname = req.query.screenname;
     var loc = req.query.zip;
+    var avatar_url = req.query.avatar_url;
 
     User.findOne({'email': email}, function(err, user) {
       if (err) return res.status(400).json({error: 1});
@@ -53,10 +60,15 @@ module.exports = function(app, auth) {
       newUser.screenname = screenname;
       newUser.zip = loc;
 
+      passback.email = newUser.email;
+      passback.screename = newUser.screenname || '';
+      passback.zip = newUser.zip || '';
+      passback.avatar_url = newUser.avatar_url || '';
+
       newUser.save(function(err, data) {
         //console.log(data);
         if (err) return res.status(400).json({error: 1});
-        res.status(200).json({error:0, jwt: newUser.generateToken(app.get('jwtSecret'))});
+        res.status(200).json({error:0, jwt: newUser.generateToken(app.get('jwtSecret')), profile: passback });
       });
     });
   });
@@ -73,6 +85,21 @@ module.exports = function(app, auth) {
     });
 
   });
+
+  // app.put('/api/user/myprofile', auth, function(req, res) {
+  //   var passback = {};
+  //   User.findById(req.user._id, function(err, myInfo){
+  //     if (err) return res.status(400).json({error:1});
+  //     passback.email = myInfo.email;
+  //     passback.screename = myInfo.screenname;
+  //     passback.zip = myInfo.zip;
+  //     passback.avatar_url = myInfo.avatar_url;
+  //     res.status(200).json({error: 0, profile:passback});
+  //   });
+
+
+
+  // });
   //remove a user
   // app.delete('/api/user', auth, function(req, res) {
   //   User.remove(req.user._id, function(err) {
