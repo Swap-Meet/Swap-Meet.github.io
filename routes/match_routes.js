@@ -30,12 +30,12 @@ module.exports = function(app, auth) {
         if (!matches[0][0]) return res.status(200).json({'error':0, items: []});
         //console.log(matches[0]);
         //console.dir(matches[0][0].user1game);
-        console.log('match0', matches[0][0].yourgame[0].gameId);
-          Game.find({'_id': matches[0][0].mygame[0].gameId}, function(err, g){
+        console.log('match0', matches[0][0].mygame[0].gameId);
+          Game.find({'_id': matches[0][0].yourgame[0].gameId}, function(err, g){
             console.log('game', g);
             //var local = i;
             //match.user1game.push(g);
-            matches[0][0].mygame[0]=g;
+            matches[0][0].yourgame[0]=g;
             res.status(200).json({error: 0, items: matches});
           });
         //res.status(200).json({error: 0, items: matches});
