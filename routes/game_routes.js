@@ -276,9 +276,7 @@ module.exports = function(app, auth) {
             //res.status(200).json({'error': 0}); //updated user
           });
         }
-      });
-
-      if (!stillHas) {
+        if (!stillHas) {
         user.save(function(err) {
           if (err) return res.json({"error":1, 'msg': 'error saving'});
           res.status(200).json({'error': 0}); //updated user
@@ -286,6 +284,9 @@ module.exports = function(app, auth) {
       } else {
         res.json({'error': 9, 'message': 'game not found in user list'});
       }
+      });
+
+
     });
   });
 };
