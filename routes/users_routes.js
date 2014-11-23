@@ -9,16 +9,16 @@ module.exports = function(app, auth) {
     var passback = {};
     var email = req.query.email;
     var password = req.query.password;
-    console.log("pw", password);
-    console.log("email", email);
+    console.log('pw', password);
+    console.log('email', email);
 
-    User.findOne({'email': email}, function(err, user) {
+    User.findOne({email: email}, function(err, user) {
       if (err) return res.status(500).json({error: 1});
       //console.log(user);
-      if (!user) return res.status(400).json({"error": 6});
+      if (!user) return res.status(400).json({error: 6});
 
       //check to see if password is valid
-      if (!user.validPassword(password)) return res.status(400).json({"error": 4});
+      if (!user.validPassword(password)) return res.status(400).json({error: 4});
 
       passback.email = user.email;
       passback.screename = user.screenname || '';
@@ -37,7 +37,7 @@ module.exports = function(app, auth) {
     var loc = req.query.zip;
     var avatar_url = req.query.avatar_url;
 
-    User.findOne({'email': email}, function(err, user) {
+    User.findOne({email: email}, function(err, user) {
       if (err) return res.status(400).json({error: 1});
 
       if (user) return res.status(400).json({error: 2});
@@ -75,7 +75,7 @@ module.exports = function(app, auth) {
 
   app.get('/api/user/myprofile', auth, function(req, res) {
     var passback = {};
-    User.findById(req.user._id, function(err, myInfo){
+    User.findById(req.user._id, function(err, myInfo) {
       if (err) return res.status(400).json({error:1});
       passback.email = myInfo.email;
       passback.screename = myInfo.screenname;
@@ -108,7 +108,7 @@ module.exports = function(app, auth) {
   //remove a user
   // app.delete('/api/user', auth, function(req, res) {
   //   User.remove(req.user._id, function(err) {
-  //     if (err) return res.status(500).json({"error":1, 'msg': 'error removing user'});
+  //     if (err) return res.status(500).json({'error':1, 'msg': 'error removing user'});
   //     return res.status(200).json({'error': 0});
   //   });
   // });

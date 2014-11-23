@@ -3,13 +3,11 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
-//var passport = require('passport');
 var app = express();
 
 //conncect to mongoose
-mongoose.connect(process.env.MONGOLAB_URI
-	|| process.env.MONGO_URL
-	|| 'mongodb://localhost/gameSwap');
+mongoose.connect(process.env.MONGOLAB_URI ||
+	process.env.MONGO_URL || 'mongodb://localhost/gameSwap');
 
 //use bodyparser middleware for encoded (thanks to Jake for helping me )
 //necessary to use postman!
@@ -19,12 +17,6 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
 
 app.set('jwtSecret', process.env.JWT_SECRET || 'totallysecretsecret');
-
-//use passport middleware
-//app.use(passport.initialize());
-
-//calls passport module we wrote in class with passport module as parameter
-//require('./lib/passport')(passport);
 
 //passes in the secret to decode the jwt
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
@@ -39,5 +31,3 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });
-
-

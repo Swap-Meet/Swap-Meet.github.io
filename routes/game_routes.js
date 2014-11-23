@@ -1,26 +1,41 @@
-  'use strict';
+'use strict';
 var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
-var plat, searchTerms, zipCode, expression, search, searchJSON;
+var plat;
+var searchTerms;
+var zipCode;
+var expression;
+var search;
+var searchJSON;
 
 module.exports = function(app, auth) {
 
   //search all available games
   app.get('/api/wantsgames', auth, function(req, res) {
-    var wants, total, plat, searchTerms, passback, zipCode, expression, search, start = 0, totalLeft, searchJSON = {};
+    var wants;
+    var total;
+    var plat;
+    var searchTerms;
+    var passback;
+    var zipCode;
+    var expression;
+    var search;
+    var totalLeft;
+    var i;
+    var start = 0;
+    var searchJSON = {};
+    var dataObj;
 
     //read in params into object
-    console.log("req.query", req.query);
-
     if (req.query.hasOwnProperty('q')) {
       //console.log(req.query.q);
       searchTerms = req.query.q.split('%20');
-      for (var i = 0; i < searchTerms.length; i++) {
-        searchTerms[i] = "(?=.*" + searchTerms[i] + ")";
+      for (i = 0; i < searchTerms.length; i++) {
+        searchTerms[i] = '(?=.*' + searchTerms[i] + ')';
       }
       searchTerms = searchTerms.join('');
-      searchJSON.title = new RegExp('' + searchTerms + '', "i");
+      searchJSON.title = new RegExp('' + searchTerms + '', 'i');
 
     }
     if (req.query.hasOwnProperty('p')) {
@@ -39,21 +54,21 @@ module.exports = function(app, auth) {
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
       User.findById(req.user._id, function(err, user) {
-        if (err) return res.json({"error": 6, 'msg': 'error finding user'});
-        if (user === null) return res.json({"error": 6, 'msg': 'user is null'});
+        if (err) return res.json({error: 6, msg: 'error finding user'});
+        if (user === null) return res.json({error: 6, msg: 'user is null'});
         var actualResult = [];
 
         for (var i = 0; i < data.length; i++) {
-          var dataObj = {};
-          dataObj["_id"] = data[i]._id;
-          dataObj["title"] = data[i].title;
-          dataObj["platform"] = data[i].platform;
-          dataObj["image_urls"] = data[i].image_urls;
-          dataObj["already_wanted"] = false;
+          dataObj = {};
+          dataObj._id = data[i]._id;
+          dataObj.title = data[i].title;
+          dataObj.platform = data[i].platform;
+          dataObj.image_urls = data[i].image_urls;
+          dataObj.already_wanted = false;
 
           for (var j = 0; j < user.wantsGames.length; j++) {
-            if (data[i]._id == user.wantsGames[j].gameId ) {
-              dataObj["already_wanted"] = true;
+            if (data[i]._id == user.wantsGames[j].gameId) {
+              dataObj.already_wanted = true;
               break;
             }
           }
@@ -61,34 +76,35 @@ module.exports = function(app, auth) {
         }
 
         total = data.length;
-        passback = actualResult.slice(start, Math.min(actualResult.length + 1,start + 10))
+        passback = actualResult.slice(start,
+          Math.min(actualResult.length + 1, start + 10));
         //console.log('passback: ', passback);
-        if (!passback) return res.status(200).json({"error": 0, "count": 0,
-          "items_left": 0,
-          "items":[]});
-        res.status(200).json({"error": 0, "count": Math.min(10, passback.length),
-          "items_left": Math.max(0,total - start - 10),
-          "items":passback});
+        if (!passback) return res.status(200).json({error: 0, count: 0,
+          items_left: 0,
+          items:[]});
+        res.status(200).json({error: 0, count: Math.min(10, passback.length),
+          items_left: Math.max(0, total - start - 10),
+          items:passback});
       });
     });
   });
 
   //add a game to user's wantgames list
-  app.post('/api/games/wantsgames', auth, function(req, res){
+  app.post('/api/games/wantsgames', auth, function(req, res) {
 
     var gameId = req.body.id;
     var owner;// = req.body.owner;
     //console.log(req.body);
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
-      if (err) return res.json({"error":10, "msg":"invalid id"});
-      if(game) owner = game.owner;
+      if (err) return res.json({error: 10, msg: 'invalid id'});
+      if (game) owner = game.owner;
     });
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({"error":6, 'msg': 'error finding user'});
-      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+      if (err) return res.json({error: 6, msg: 'error finding user'});
+      if (user === null) return res.json({error:6, msg: 'user is null'});
 
       //check to see if game is already in this user's wantsgames
       var alreadyWanted = false;
@@ -99,22 +115,16 @@ module.exports = function(app, auth) {
       }
 
       //if not already wanted, add to wantsgames
-      console.log(alreadyWanted);
-      console.log("owner", owner);
-      console.log("gameId", gameId);
       if (!alreadyWanted) {
-        console.log("wants", user.wantsGames);
         user.wantsGames.push({gameId: gameId, ownerId: owner});
         console.log(user.wantsGames);
         user.save(function(err) {
-          if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
-          console.log('success');
+          if (err) return res.json({error: 1, msg: 'error saving to user wantsGames'});
           res.status(200).json({error:0}); //updated user
         });
       }
       else {
-        console.log("i");
-        res.json({"error": 8, "msg": "game already in favorites"});
+        res.json({error: 8, msg: 'game already in favorites'});
       }
     });
 
@@ -125,13 +135,13 @@ module.exports = function(app, auth) {
 
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
-      if (err) return res.json({"error":10, "msg":"invalid id"});
+      if (err) return res.json({error:10, msg:'invalid id'});
     });
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({"error":6, 'msg': 'error finding user'});
-      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+      if (err) return res.json({error: 6, msg: 'error finding user'});
+      if (user === null) return res.json({error: 6, msg: 'user is null'});
 
       //check to see if game is in this user's wantsGames
       var stillWants = true;
@@ -145,61 +155,61 @@ module.exports = function(app, auth) {
 
       if (!stillWants) {
         user.save(function(err) {
-          if (err) return res.json({"error":1, 'msg': 'error saving to user wantsGames'});
-          res.status(200).json({'error': 0}); //updated user
+          if (err) return res.json({error: 1, msg: 'error saving to user wantsGames'});
+          res.status(200).json({error: 0}); //updated user
         });
       } else {
-        res.json({"error": 9, 'msg': 'game not found in user list'});
+        res.json({error: 9, msg: 'game not found in user list'});
       }
     });
   });
 
   //returns all the user's wanted games
   app.get('/api/games/mywants', auth, function(req, res) {
-    var i, _id = req.user._id;
+    var i;
+    var _id = req.user._id;
     var myWants = [];
 
-    User.findById(_id, function(err, data){
+    User.findById(_id, function(err, data) {
       if (err) return res.status(400).json({error:7});
       eachAsync(data.wantsGames, function(item, index, done) {
-        console.log("item", item, index);
-        Game.find({'_id': item.gameId}, function(errGame, dataGame){
-            if (errGame) { return res.json({error:1})}
+        console.log(item, item, index);
+        Game.find({_id: item.gameId}, function(errGame, dataGame) {
+            if (errGame) return res.json({error:1});
             myWants.push(dataGame[0]);
             done(err);
-          })
-        },
-        function(err){
-          if (err) return (err);
-          res.status(200).json({"error":0,
-             "items": myWants})
-        }
-      )
+          });
+      },
+      function(err) {
+        if (err) return (err);
+        res.status(200).json({error:0, items: myWants});
+      }
+      );
     });
   });
 
   //returns all the users's games
   app.get('/api/games/mygames', auth, function(req, res) {
-    var i, _id = req.user._id;
+    var i;
+    var _id = req.user._id;
     var myGames = [];
 
     User.findById(_id, function(err, data) {
       if (err) return res.status(500).json({error:7});
 
       eachAsync(data.hasGames, function(item, index, done) {
-        Game.find({'_id': item}, function(errGame, dataGame) {
-            console.log(dataGame);
-            if (errGame) { return res.status(400).json({error:1})}
+        Game.find({_id: item}, function(errGame, dataGame) {
+            if (errGame) return res.status(400).json({error:1});
             myGames.push(dataGame[0]);
             done();
-          })
-        },
+          });
+      },
         function(err) {
           if (err) return res.json({error:1});
-          res.status(200).json({"error":0,
-             "items": myGames})
+          res.status(200).json({error:0,
+             items: myGames});
         }
-      )
+      );
     });
   });
 
@@ -221,24 +231,22 @@ module.exports = function(app, auth) {
 
       if (err) return res.send(err);
       User.findById(req.user._id, function(err, user) {
-        if (err) return console.log({error: 1, 'msg':'error finding user'});
-        if (user === null) return console.log({error: 1, 'msg':'user is null'});
+        if (err) return console.log({error: 1, msg: 'error finding user'});
+        if (user === null) return console.log({error: 1, msg:'user is null'});
         user.hasGames.push(game._id);
         user.save(function(err) {
-          if (err) return console.log({error:1, 'msg':'error saving to user hasGames'});
+          if (err) return console.log({error:1, msg: 'error saving to user hasGames'});
           console.log('success');
         });
       });
-      res.status(200).json({'error': 0, item: newGame});
+      res.status(200).json({error: 0, item: newGame});
     });
   });
 
-
-  /////////////////DELETES ALL GAMES //////////////
- app.delete('/api/games/hasgames', auth, function(req, res) {
+  app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
     Game.remove({ _id: gameId }, function(err) {
-      if (err) return res.json({"error":10, "msg":"invalid id"});
+      if (err) return res.json({error:10, msg:'invalid id'});
       console.log('removed game document');
     });
 
@@ -278,11 +286,11 @@ module.exports = function(app, auth) {
         }
         if (!stillHas) {
         user.save(function(err) {
-          if (err) return res.json({"error":1, 'msg': 'error saving'});
-          res.status(200).json({'error': 0}); //updated user
+          if (err) return res.json({error: 1, msg: 'error saving'});
+          res.status(200).json({error: 0}); //updated user
         });
       } else {
-        res.json({'error': 9, 'message': 'game not found in user list'});
+        res.json({error: 9, message: 'game not found in user list'});
       }
       });
 
