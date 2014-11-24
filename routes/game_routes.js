@@ -252,8 +252,8 @@ module.exports = function(app, auth) {
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({"error":6, 'msg': 'error finding user'});
-      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
+      if (err) return res.json({error: 6, msg: 'error finding user'});
+      if (user === null) return res.json({error:6, msg: 'user is null'});
 
       //check to see if game is in this user's hasGames
       var stillHas = true;
@@ -267,7 +267,7 @@ module.exports = function(app, auth) {
 
       //delete game from other user's wants games
       User.find(
-        {wantsGames: {$elemMatch: {'gameId': gameId}}}, function(err, data) {
+        {wantsGames: {$elemMatch: {gameId: gameId}}}, function(err, data) {
           if (!data) return res.json({error: 1});
           for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < data[i].wantsGames.length; j++) {
@@ -276,9 +276,7 @@ module.exports = function(app, auth) {
                 break;
               }
             }
-            data[i].save(function(err) {
-              if (err) return res.json({'error':1, 'msg': 'error saving'});
-            });
+            data[i].save(returnError(err, res));
           }
           if (!stillHas) {
             user.save(function(err) {
@@ -292,3 +290,7 @@ module.exports = function(app, auth) {
     });
   });
 };
+
+function returnError(err, res) {
+  if (err) return res.json({error:1, msg: 'error saving'});
+}
