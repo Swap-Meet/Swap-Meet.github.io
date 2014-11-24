@@ -32,7 +32,6 @@ describe('basic notes/users tests', function() {
     chai.request(url)
     .post('api/user' + loginURLGood)
     .end(function(err, res) {
-      //console.log(res);
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
@@ -90,8 +89,7 @@ describe('basic notes/users tests', function() {
   it('should be able to get some games without authentication', function(done) {
     chai.request(url)
     .get('api/browse')
-    .end(function(err, res){
-      //console.log(res);
+    .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
@@ -99,17 +97,15 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should be able to add a game using jwt token', function(done){
+  it('should be able to add a game using jwt token', function(done) {
     chai.request(url)
     .post('api/games/hasgames')
     .set('jwt', jwt)
     .send(game)
     .end(function(err, res) {
-      //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.item.owner).to.be.a('String');
-      //expect(res.body.item.title).to.eql("Monkey Island");
       done();
     });
   });
@@ -120,7 +116,6 @@ describe('basic notes/users tests', function() {
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0]._id).to.be.a('String');
@@ -134,7 +129,6 @@ describe('basic notes/users tests', function() {
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       done();

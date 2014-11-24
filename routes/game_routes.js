@@ -11,7 +11,7 @@ var searchJSON;
 
 module.exports = function(app, auth) {
 
-  //search all available games
+  //search all available games that are not in current user's inventory
   app.get('/api/wantsgames', auth, function(req, res) {
     var wants;
     var total;
@@ -29,7 +29,6 @@ module.exports = function(app, auth) {
 
     //read in params into object
     if (req.query.hasOwnProperty('q')) {
-      //console.log(req.query.q);
       searchTerms = req.query.q.split('%20');
       for (i = 0; i < searchTerms.length; i++) {
         searchTerms[i] = '(?=.*' + searchTerms[i] + ')';
@@ -48,16 +47,19 @@ module.exports = function(app, auth) {
       start = Number(req.query.s);
     }
 
-    //console.log("id", req.user._id)
     searchJSON.owner = { $ne: req.user._id };
 
+    //find games that match query params
     Game.find(searchJSON, function(err, data) {
       if (err) return res.status(500).json({error:1});
+
+      //Flag current user's already wanted games so that front-end can display
       User.findById(req.user._id, function(err, user) {
         if (err) return res.json({error: 6, msg: 'error finding user'});
         if (user === null) return res.json({error: 6, msg: 'user is null'});
         var actualResult = [];
 
+        //create JS object from Mongoose object to add boolean flag to results
         for (var i = 0; i < data.length; i++) {
           dataObj = {};
           dataObj._id = data[i]._id;
@@ -65,7 +67,6 @@ module.exports = function(app, auth) {
           dataObj.platform = data[i].platform;
           dataObj.image_urls = data[i].image_urls;
           dataObj.already_wanted = false;
-
           for (var j = 0; j < user.wantsGames.length; j++) {
             if (data[i]._id == user.wantsGames[j].gameId) {
               dataObj.already_wanted = true;
@@ -74,11 +75,10 @@ module.exports = function(app, auth) {
           }
           actualResult.push(dataObj);
         }
-
+        //Return results in chunks for front-end pagination
         total = data.length;
         passback = actualResult.slice(start,
           Math.min(actualResult.length + 1, start + 10));
-        //console.log('passback: ', passback);
         if (!passback) return res.status(200).json({error: 0, count: 0,
           items_left: 0,
           items:[]});
@@ -89,12 +89,10 @@ module.exports = function(app, auth) {
     });
   });
 
-  //add a game to user's wantgames list
+  //add a game to user's wantGames list
   app.post('/api/games/wantsgames', auth, function(req, res) {
-
     var gameId = req.body.id;
-    var owner;// = req.body.owner;
-    //console.log(req.body);
+    var owner;
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
       if (err) return res.json({error: 10, msg: 'invalid id'});
@@ -130,6 +128,7 @@ module.exports = function(app, auth) {
 
   });
 
+  //remove a game from user's wantsGames list
   app.delete('/api/games/wantsgames', auth, function(req, res) {
     var gameId = req.body.id;
 
@@ -213,23 +212,23 @@ module.exports = function(app, auth) {
     });
   });
 
-  //add a game to user's hasgames inventory
+  //add a game to user's hasGames inventory
   app.post('/api/games/hasgames', auth, function(req, res) {
     var newGame = new Game();
     newGame.owner = req.user._id;
     if (req.body.title === '' || req.body.platform === '') {
       res.status(400).json({error:11});
     }
-    //console.log(req.body);
+    //create new game
     newGame.title = req.body.title;
     newGame.platform =  req.body.platform;
     newGame.condition = req.body.condition || '';
     newGame.image_urls = req.body.image_urls || [];
     newGame.short_description = req.body.short_description;
-
+    //save game
     newGame.save(function(err, game) {
-
       if (err) return res.send(err);
+      //find the current user & push new game's reference ID to hasGames list
       User.findById(req.user._id, function(err, user) {
         if (err) return console.log({error: 1, msg: 'error finding user'});
         if (user === null) return console.log({error: 1, msg:'user is null'});
@@ -243,6 +242,7 @@ module.exports = function(app, auth) {
     });
   });
 
+  //Remove game from user's hasGames list
   app.delete('/api/games/hasgames', auth, function(req, res) {
     var gameId = req.body.id;
     Game.remove({ _id: gameId }, function(err) {
@@ -252,9 +252,8 @@ module.exports = function(app, auth) {
 
     //find the user based on the incoming jwt token
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.json({error:6, msg: 'error finding user'});
-      if (user === null) return res.json({error: 6, msg: 'user is null'});
-      console.log('found user');
+      if (err) return res.json({"error":6, 'msg': 'error finding user'});
+      if (user === null) return res.json({"error":6, 'msg': 'user is null'});
 
       //check to see if game is in this user's hasGames
       var stillHas = true;
@@ -266,34 +265,30 @@ module.exports = function(app, auth) {
         }
       }
 
-      //callback for find funciton
-      var response = function(err) {
-        if (err) return res.json({error: 1, msg: 'error saving'});
-      };
-
       //delete game from other user's wants games
-      User.find({wantsGames: { $elemMatch: {gameId: gameId} } }, function(err, data) {
-        if (!data) return res.json({error: 1});
-        for (var i = 0; i < data.length; i++) {
-          for (var j = 0; j < data[i].wantsGames.length; j++) {
-            if (data[i].wantsGames[j].gameId == gameId) {
-              data[i].wantsGames.splice(j, 1);
-              break;
+      User.find(
+        {wantsGames: {$elemMatch: {'gameId': gameId}}}, function(err, data) {
+          if (!data) return res.json({error: 1});
+          for (var i = 0; i < data.length; i++) {
+            for (var j = 0; j < data[i].wantsGames.length; j++) {
+              if (data[i].wantsGames[j].gameId == gameId) {
+                data[i].wantsGames.splice(j, 1);
+                break;
+              }
             }
+            data[i].save(function(err) {
+              if (err) return res.json({'error':1, 'msg': 'error saving'});
+            });
           }
-          data[i].save(response);
-        }
-      });
-
-      //executes only the game has been successfully removed from hasgames
-      if (!stillHas) {
-        user.save(function(err) {
-          if (err) return res.json({error: 1, msg: 'error saving'});
-          res.status(200).json({error: 0}); //updated user
+          if (!stillHas) {
+            user.save(function(err) {
+              if (err) return res.json({error: 1, msg: 'error saving'});
+              res.status(200).json({error: 0}); //updated user
+            });
+          } else {
+            res.json({error: 9, message: 'game not found in user list'});
+          }
         });
-      } else {
-        res.json({error: 9, message: 'game not found in user list'});
-      }
     });
   });
 };
