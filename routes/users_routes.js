@@ -5,20 +5,20 @@ var Game = require('../models/game');
 
 module.exports = function(app, auth) {
 
-  app.get('/api/user', function(req, res) {//passport.authenticate('basic', {session: false}),
+  //user log-in
+  app.get('/api/user', function(req, res) {
     var passback = {};
     var email = req.query.email;
     var password = req.query.password;
     console.log('pw', password);
     console.log('email', email);
 
-    User.findOne({'email': email}, function(err, user) {
+    User.findOne({email: email}, function(err, user) {
       if (err) return res.status(500).json({error: 1});
-      //console.log(user);
-      if (!user) return res.status(400).json({"error": 6});
+      if (!user) return res.status(400).json({error: 6});
 
       //check to see if password is valid
-      if (!user.validPassword(password)) return res.status(400).json({'error': 4});
+      if (!user.validPassword(password)) return res.status(400).json({error: 4});
 
       passback.email = user.email;
       passback.screename = user.screenname || '';
@@ -37,7 +37,7 @@ module.exports = function(app, auth) {
     var loc = req.query.zip;
     var avatar_url = req.query.avatar_url;
 
-    User.findOne({'email': email}, function(err, user) {
+    User.findOne({email: email}, function(err, user) {
       if (err) return res.status(400).json({error: 1});
 
       if (user) return res.status(400).json({error: 2});
@@ -56,7 +56,6 @@ module.exports = function(app, auth) {
       var newUser = new User();
       newUser.email = email;
       newUser.password = newUser.generateHash(password);
-      //insert code to make sure password and confirmation password match
       newUser.screenname = screenname;
       newUser.zip = loc;
 
@@ -66,16 +65,16 @@ module.exports = function(app, auth) {
       passback.avatar_url = newUser.avatar_url || '';
 
       newUser.save(function(err, data) {
-        //console.log(data);
         if (err) return res.status(400).json({error: 1});
         res.status(200).json({error:0, jwt: newUser.generateToken(app.get('jwtSecret')), profile: passback });
       });
     });
   });
 
+  //get user profile upon sending jwt token
   app.get('/api/user/myprofile', auth, function(req, res) {
     var passback = {};
-    User.findById(req.user._id, function(err, myInfo){
+    User.findById(req.user._id, function(err, myInfo) {
       if (err) return res.status(400).json({error:1});
       passback.email = myInfo.email;
       passback.screename = myInfo.screenname;
@@ -86,6 +85,7 @@ module.exports = function(app, auth) {
 
   });
 
+  //allow user to update avatar_url upon sending jwt token
   app.put('/api/user', auth, function(req, res) {
     var passback = {};
     var avatar_url = req.body.avatar_url;
@@ -103,13 +103,4 @@ module.exports = function(app, auth) {
       res.status(200).json({error: 0, profile:passback});
     });
   });
-
-  // });
-  //remove a user
-  // app.delete('/api/user', auth, function(req, res) {
-  //   User.remove(req.user._id, function(err) {
-  //     if (err) return res.status(500).json({"error":1, 'msg': 'error removing user'});
-  //     return res.status(200).json({'error': 0});
-  //   });
-  // });
 };

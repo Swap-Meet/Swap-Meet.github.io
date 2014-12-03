@@ -13,47 +13,47 @@ module.exports = function(app, auth) {
 
     //run finding matches and returning data is series
     async.series([
-      function(done){
-
+      function(done) {
         var matches;
-        User.find({'zip': zip}, function(err, data) {
+        User.find({zip: zip}, function(err, data) {
 
           //throws error to callback function
-          if (err) {done(err)}
+          if (err) {done(err);}
 
-            //run findMatches algorithm
-            findMatchesInDB(req.user, data, res, function(err, data){
-
+          //run findMatches algorithm
+          findMatchesInDB(req.user, data, res, function(err, data) {
             done(err, data);
           });
         });
       }],
-      function(err, matches){
-        if (err) return res.status(400).json({'error': 1});
+      function(err, matches) {
+        if (err) return res.status(400).json({error: 1});
 
-        //
+        var returnMatches = {};
+        var returnMatch = [];
+
+        //compensate for adjustment from algorithm providing multiple matches
+        //to just one match
         matches = matches[0][0];
-        console.log('cat', matches);
-        if (!matches) return res.status(200).json({'error':0, items: []});
 
-        console.log('match0', matches.mygame[0].gameId);
-          Game.find({'_id': matches.yourgame[0].gameId}, function(err, g){
+        //there are no matches
+        if (!matches) return res.status(200).json({error:0, items: []});
 
-            matches.yourgame[0] = g;
+        //find the game in the array
+        Game.find({_id: matches.yourgame[0].gameId}, function(err, game) {
 
-            var returnMatches = {};
-            returnMatches.yourgame = matches.yourgame[0][0];
-            returnMatches.mygame = matches.mygame[0];
-            returnMatches.me = {'_id': matches.me};
-            returnMatches.you = matches.you[0];
-            var returnMatch = [returnMatches];
+          matches.yourgame[0] = game;
 
-            res.status(200).json({error: 0, items: returnMatch});
-          });
-        //res.status(200).json({error: 0, items: matches});
+          //create new object to return
+          returnMatches.yourgame = matches.yourgame[0][0];
+          returnMatches.mygame = matches.mygame[0];
+          returnMatches.me = {_id: matches.me};
+          returnMatches.you = matches.you[0];
+          returnMatch = [returnMatches];
+
+          res.status(200).json({error: 0, items: returnMatch});
+        });
       }
     );
-
-
   });
 };
