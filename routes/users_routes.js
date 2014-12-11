@@ -2,6 +2,7 @@
 
 var User = require('../models/user');
 var Game = require('../models/game');
+var returnIfError = require('../lib/returnIfError');
 
 module.exports = function(app, auth) {
 
@@ -10,8 +11,6 @@ module.exports = function(app, auth) {
     var passback = {};
     var email = req.query.email;
     var password = req.query.password;
-    console.log('pw', password);
-    console.log('email', email);
 
     User.findOne({email: email}, function(err, user) {
       if (err) return res.status(500).json({error: 1});
@@ -58,6 +57,11 @@ module.exports = function(app, auth) {
       newUser.password = newUser.generateHash(password);
       newUser.screenname = screenname;
       newUser.zip = loc;
+      newUser.favorites = [];
+      newUser.incomingRequests = [];
+      newUser.outgoingRequests = [];
+      newUser.latitude = '';
+      newUser.longitude = '';
 
       passback.email = newUser.email;
       passback.screename = newUser.screenname || '';
@@ -85,17 +89,28 @@ module.exports = function(app, auth) {
 
   });
 
-  //allow user to update avatar_url upon sending jwt token
-  app.put('/api/user', auth, function(req, res) {
+  //allow user to update avatar_url upon sending jwt token, returns profile info
+  app.put('/api/user/myprofile', auth, function(req, res) {
     var passback = {};
-    var avatar_url = req.body.avatar_url;
+
     User.findById(req.user._id, function(err, user) {
-      if (err) return res.status(400).json({error:1});
-      user.avatar_url = avatar_url;
-      passback.email = user.email;
-      passback.screename = user.screenname || '';
-      passback.zip = user.zip || '';
-      passback.avatar_url = user.avatar_url || '';
+      returnIfError(err, res, 1, 'cannot find user');
+
+      user.avatar_url = req.body.avatar_url || '';
+      user.email = req.body.email || user.email;
+      user.screename = req.body.screenname || user.screenname || '';
+
+      //updating zip code needs to change lat/long
+      user.zip = req.body.zip || user.zip || '';
+      //user.latitude
+      //user.longitude
+
+      user.avatar_url = req.bodyuser.avatar_url || '';
+
+      passback.email = req.body.email || user.email;
+      passback.screename = req.body.screenname || user.screenname || '';
+      passback.zip = req.body.zip || user.zip || '';
+      passback.avatar_url = req.bodyuser.avatar_url || '';
 
       user.save(function(err, data) {
         if (err) return res.status(400).json({error: 1});

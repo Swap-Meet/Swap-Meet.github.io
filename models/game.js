@@ -3,13 +3,15 @@ var Schema = mongoose.Schema;
 
 var gameSchema = new Schema({
 
-  title: 'String',
-  score: 'String',
-  publisher: 'String',
-  zip: 'String',
-  owner: 'String', //id number
-  short_description: 'String',
-  platform: 'String',
+  title: String,
+  score: String,
+  publisher: String,
+  zip: String,
+  latitude: String,
+  longitude: String,
+  owner: String, //id number
+  short_description: String,
+  platform: String,
   image_urls: ['String']
 });
 

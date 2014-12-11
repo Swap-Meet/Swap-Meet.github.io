@@ -23,8 +23,10 @@ var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 
 require('./routes/users_routes')(app, jwtauth);
 require('./routes/game_routes')(app, jwtauth);
+require('./routes/inventory_routes')(app, jwtauth);
+require('./routes/trade_routes')(app, jwtauth);
+require('./routes/favorites_routes')(app, jwtauth);
 require('./routes/browsing_routes')(app);
-require('./routes/match_routes')(app, jwtauth);
 
 //listen on port 3000
 app.set('port', process.env.PORT || 3000);

@@ -19,6 +19,7 @@ Game.collection.remove(function(err) {if (err) throw err;});
 describe('basic notes/users tests', function() {
 
   var jwt;
+  var gameId = 0;
   var url = process.env.url;
   var jwtA;
   var jwtB;
@@ -29,6 +30,7 @@ describe('basic notes/users tests', function() {
   var game = "{'title': 'Monkey Island'" + Date.now() + ", 'platform':XBOX'}";
 
   it('should be able to create a new user and get back info', function(done) {
+    console.log(url);
     chai.request(url)
     .post('api/user' + loginURLGood)
     .end(function(err, res) {
@@ -55,7 +57,7 @@ describe('basic notes/users tests', function() {
 
   it('should not be able to do anything without authentication', function(done) {
     chai.request(url)
-    .get('api/games/mygames')
+    .get('api/games/inventory')
     .end(function(err, res) {
       expect(res.statusCode).to.eql(403);
       done();
@@ -99,17 +101,88 @@ describe('basic notes/users tests', function() {
 
   it('should be able to add a game using jwt token', function(done) {
     chai.request(url)
-    .post('api/games/hasgames')
+    .post('api/games/inventory')
     .set('jwt', jwt)
     .send(game)
     .end(function(err, res) {
       expect(err).to.eql(null);
+      var gameId = res.body.id;
       expect(res.body.error).to.eql(0);
       expect(res.body.item.owner).to.be.a('String');
       done();
     });
   });
 
+  it('should be able to add a game to favorites', function(done) {
+    chai.request(url)
+    .post('api/games/favorites')
+    .set('jwt', jwt)
+    .send({'id': gameId})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should be able to view favorites', function(done) {
+    chai.request(url)
+    .get('api/games/favorites')
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.favorites).to.be.an('array');
+      done();
+    });
+  });
+
+  it('should be able to delete a favorite', function(done) {
+    chai.request(url)
+    .get('api/games/favorites')
+    .set('jwt', jwt)
+    .send({'id': gameId})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should not be able to delete a favorite for an invalid game id', function(done) {
+    chai.request(url)
+    .get('api/games/favorites')
+    .set('jwt', jwt)
+    .send({'id': 8675309})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should not be able to search games without authorization', function(done) {
+    chai.request(url)
+    .get('api/search?p=XBOX')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(7);
+      done();
+    });
+  });
+
+  it('should be able to browse games without authorization', function(done) {
+    chai.request(url)
+    .get('api/browse')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.items).to.be.an('Array');
+      expect(res.body.items[0]._id).to.be.a('String');
+      done();
+    });
+  });
+
+ /*
   it('should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/mygames')
@@ -135,26 +208,6 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should not be able to search games without authorization', function(done) {
-    chai.request(url)
-    .get('api/wantsgames?p=XBOX')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(7);
-      done();
-    });
-  });
-
-  it('should be able to browse games without authorization', function(done) {
-    chai.request(url)
-    .get('api/browse')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.items).to.be.an('Array');
-      expect(res.body.items[0]._id).to.be.a('String');
-      done();
-    });
-  });
 
   it('should be able to add a game', function(done) {
     chai.request(url)
@@ -178,6 +231,6 @@ describe('basic notes/users tests', function() {
       var gameId = res.body.items.gameId;
       done();
     });
-  });
+  }); */
 
 });

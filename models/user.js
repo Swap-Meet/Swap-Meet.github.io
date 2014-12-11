@@ -10,9 +10,13 @@ var userSchema = new Schema({
   password: String,
   screenname: String,
   zip: String,
+  latitude: String,
+  longitude: String,
   avatar_url: String,
-  wantsGames: [{gameId: String, ownerId: String}],
-  hasGames: [{type: Schema.Types.ObjectId, ref: 'Game'}]
+  inventory: [String],
+  favorites: [String],
+  outgoingRequests: [{type: Schema.Types.ObjectId, ref: 'Game'}],
+  incomingRequests: [{type: Schema.Types.ObjectId, ref: 'Game'}]
 });
 
 userSchema.methods.generateHash = function(password) {
