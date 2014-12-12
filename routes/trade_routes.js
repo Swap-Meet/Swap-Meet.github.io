@@ -35,7 +35,7 @@ module.exports = function(app, auth) {
       //if not already wanted, add to wantsgames
       if (!alreadyWanted) {
         user.wantsGames.push({gameId: gameId, ownerId: owner});
-        console.log(user.wantsGames);
+        //console.log(user.wantsGames);
         user.save(function(err) {
           if (err) return res.json({error: 1, msg: 'error saving to user wantsGames'});
           res.status(200).json({error:0}); //updated user

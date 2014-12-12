@@ -6,12 +6,12 @@ var returnIfError = require('../lib/returnIfError');
 
 module.exports = function(app, auth) {
 
-//Remove game from user's list
-  app.delete('/api/games/hasgames', auth, function(req, res) {
+  //Remove game from user's list
+  app.delete('/api/games/inventory', auth, function(req, res) {
     var gameId = req.body.id;
     Game.remove({ _id: gameId }, function(err) {
       if (err) return res.json({error:10, msg:'invalid id'});
-      console.log('removed game document');
+      //console.log('removed game document');
     });
 
     //find the user based on the incoming jwt token
@@ -56,7 +56,7 @@ module.exports = function(app, auth) {
 
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
-
+    return res.status(200).json({error: 0, items: req.user.inventory});
   });
 
   //add a game to user's inventory

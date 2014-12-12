@@ -58,7 +58,7 @@ module.exports = function(app, auth) {
     User.findById(_id, function(err, data) {
       if (err) return res.status(400).json({error:7});
       eachAsync(data.wantsGames, function(item, index, done) {
-        console.log(item, item, index);
+        //console.log(item, item, index);
         Game.find({_id: item.gameId}, function(errGame, dataGame) {
             if (errGame) return res.json({error:1});
             myWants.push(dataGame[0]);
