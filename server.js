@@ -6,10 +6,13 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var app = express();
 
+// Serve the WebApp Homepage starter
+var staticDir = __dirname + '/build';
+app.use(express.static(staticDir));
+
 //conncect to mongoose
-mongoose.connect(process.env.MONGOLAB_URI
-	|| process.env.MONGO_URL
-	|| 'mongodb://localhost/gameSwap');
+mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGO_URL ||
+  'mongodb://localhost/gameSwap');
 
 //use bodyparser middleware for encoded (thanks to Jake for helping me )
 //necessary to use postman!
@@ -38,5 +41,3 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });
-
-
