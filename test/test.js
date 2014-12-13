@@ -106,6 +106,7 @@ describe('basic notes/users tests', function() {
     .send(game)
     .end(function(err, res) {
       expect(err).to.eql(null);
+      //console.log(res);
       var gameId = res.body.id;
       expect(res.body.error).to.eql(0);
       expect(res.body.item.owner).to.be.a('String');
@@ -195,12 +196,13 @@ describe('basic notes/users tests', function() {
       done();
     });
   });
-  /*
+
   it('should be able to search games while logged in', function(done) {
     chai.request(url)
-    .get('api/wantsgames?p=XBOX')
+    .get('api/search')
     .set('jwt', jwt)
     .end(function(err, res) {
+      //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
@@ -208,7 +210,31 @@ describe('basic notes/users tests', function() {
     });
   });
 
+  // it('should be able to save an outgoing request', function(done) {
+  //   chai.request(url)
+  //   .post('api/games/outgoingrequests')
+  //   .set('jwt', jwt)
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     expect(res.body.error).to.eql(0);
+  //     done();
+  //   });
+  // });
 
+  it('should be able get a user\'s incoming requests', function(done) {
+    chai.request(url)
+    .get('api/games/incomingrequests')
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      //console.log(res);
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      done();
+    });
+  });
+
+/*
   it('should be able to add a game', function(done) {
     chai.request(url)
     .post('api/games/hasgames')
