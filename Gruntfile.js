@@ -16,8 +16,7 @@ module.exports = function(grunt) {
       'test/client/*.js'],
       options: {
         node: true
-      },
-      src: ['lib/**/*.js', 'models/**/*.js', 'server.js', 'routes/**/*.js']
+      }
     },
 
     jscs: {
