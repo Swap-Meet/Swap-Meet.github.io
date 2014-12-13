@@ -2,8 +2,8 @@
 
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
-//var User = require('../models/user.js');
-//var Game = require('../models/game.js');
+var User = require('../models/user.js');
+var Game = require('../models/game.js');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
@@ -13,42 +13,60 @@ require('../../server');
 var expect = chai.expect;
 
 //clear existing users and games
-//User.collection.remove(function(err) {if (err) throw err;});
-//Game.collection.remove(function(err) {if (err) throw err;});
+User.collection.remove(function(err) {if (err) throw err;});
+Game.collection.remove(function(err) {if (err) throw err;});
 
 describe('basic notes/users tests', function() {
 
-  var jwt;
-  var gameId = 0;
-  var url = process.env.url;
-  //var jwtA;
-  //var jwtB;
-  //var jwtC;
-  var loginURLGood = '?email=munchkins' + Date.now() +
-    '&password=Hero99999&zip=99999&screenname=crazyfool';
+  var jwtA;
+  var jwtB;
+  var gameId;
+  var url = process.env.url || 'http://localhost:3000/';
+  var loginA = '?email=test@example.com&password=Monkeys911' +
+    '&screenname=BunniesFromHell&zip=99999';
+  var loginB = '?email=test@example.com&password=Monkeys911' +
+    '&screenname=BunniesFromHell&zip=99999';
+  //var loginURLGood = '?email=munchkins' + Date.now() +
+    //'&password=Hero99999&zip=99999&screenname=crazyfool';
   var loginURLBadPW =
     '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
+  //var loginURLNoZip =
+   // '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
   var game = {title: 'Monkey Island', platform:'XBOX'};
 
-  it('should be able to create a new user and get back info', function(done) {
-    console.log(url);
+  it('should be able to create a new user A and get back info', function(done) {
     chai.request(url)
-    .post('api/user' + loginURLGood)
+    .post('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
       expect(res.body.error).to.eql(0);
       expect(res.body.profile.zip).to.eql('99999');
-      jwt = res.body.jwt;
-      expect(jwt).to.be.a('string');
+      jwtA = res.body.jwt;
+      expect(jwtA).to.be.a('string');
+      done();
+    });
+  });
+
+  it('should be able to create a new user B and get back info', function(done) {
+    chai.request(url)
+    .post('api/user' + loginB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.statusCode).to.eql(200);
+      expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
+      expect(res.body.profile.zip).to.eql('99999');
+      jwtB = res.body.jwt;
+      expect(jwtB).to.be.a('string');
       done();
     });
   });
 
   it('should refuse to create a user with the same email', function(done) {
     chai.request(url)
-    .post('api/user' + loginURLGood)
+    .post('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
@@ -67,14 +85,13 @@ describe('basic notes/users tests', function() {
 
   it('should be able to get a token for an existing user', function(done) {
     chai.request(url)
-    .get('api/user' + loginURLGood)
+    .get('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
       expect(res.body.error).to.eql(0);
-      jwt = res.body.jwt;
-      expect(jwt).to.be.a('string');
+      expect(res.body.jwt).to.be.a('string');
       done();
     });
   });
@@ -100,10 +117,10 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should be able to add a game using jwt token', function(done) {
+  it('should be able to add a game to A using jwt token', function(done) {
     chai.request(url)
     .post('api/games/inventory')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .send(game)
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -119,7 +136,7 @@ describe('basic notes/users tests', function() {
     console.log('id is', gameId);
     chai.request(url)
     .post('api/games/favorites')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .send({_id: '548a177f6a9a649512b3d674'})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -131,7 +148,7 @@ describe('basic notes/users tests', function() {
   it('should be able to view favorites', function(done) {
     chai.request(url)
     .get('api/games/favorites')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -143,7 +160,7 @@ describe('basic notes/users tests', function() {
   it('should be able to delete a favorite', function(done) {
     chai.request(url)
     .get('api/games/favorites')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .send({id: gameId})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -155,7 +172,7 @@ describe('basic notes/users tests', function() {
   it('should not be able to delete a favorite w/ invalid id', function(done) {
     chai.request(url)
     .get('api/games/favorites')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .send({id: 8675309})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -188,7 +205,7 @@ describe('basic notes/users tests', function() {
   it('should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/inventory')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -201,7 +218,7 @@ describe('basic notes/users tests', function() {
   it('should be able to search games while logged in', function(done) {
     chai.request(url)
     .get('api/search')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       //console.log(res);
       expect(err).to.eql(null);
@@ -225,7 +242,7 @@ describe('basic notes/users tests', function() {
   it('should be able get a user\'s incoming requests', function(done) {
     chai.request(url)
     .get('api/games/incomingrequests')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       //console.log(res);
       expect(err).to.eql(null);
