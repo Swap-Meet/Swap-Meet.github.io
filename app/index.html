@@ -5,12 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WebApp Homepage</title>
-
     <link href="css/style.css" rel="stylesheet">
-
   </head>
-  <body>
-    <h1 id="hello">Hello, Swap Meet, World!</h1>
-    <script src="/js/app.js"></script>
+
+<body>
+  <h1 id="hello">Hello, Swap Meet, World!</h1>
+<!--   <div data-ng-view> templates/views go here -->
+
+  <div data-ng-app="swapApp">
+    <section data-ng-controller="PanelController as panel">
+      <!-- selectTab, click to choose -->
+      <ul class="nav nav-pills">  <!-- classes for styling -->
+        <!-- active: tab style-->
+        <li data-ng-class="{{ active: panel.isSelected(1) }}">
+          <a href data-ng-click="panel.selectTab(1)">InSwaps</a>
+        </li>
+        <li data-ng-class="{{ active: panel.isSelected(2) }}">
+          <a href data-ng-click="panel.selectTab(2)">OutSwaps</a>
+        </li>
+        <li data-ng-class="{{ active: panel.isSelected(3) }}">
+          <a href data-ng-click="panel.selectTab(3)">MyFavs</a>
+        </li>
+        <li data-ng-class="{{ active: panel.isSelected(4) }}">
+          <a href data-ng-click="panel.selectTab(4)">MyGames</a>
+        </li>
+      </ul>
+      {{ tab }}
+    </section>
+
+  <div ng-show="tab.isSet(1)">
+    <h4>Description</h4>
+    <blockquote>{{product.description}}</blockquote>
+  </div>
+  <div ng-show="tab.isSet(2)">
+    <h4>Specs</h4>
+    <blockquote>Shine: {{product.shine}}</blockquote>
+  </div>
+  <div ng-show="tab.isSet(3)">
+    <h4>Reviews</h4>
+  </div>
+
+
+    <!-- TESTING ANGULAR BY IMPLEMENTING SOME TABS
+        Needs some fixing, and will be moved into a profile view -->
+    <div class="panel" data-ng-show="tab === 1">
+         <h4>InSwaps</h4>
+    <!-- <p>{{ ??? }}</p> -->
+    </div>
+    <div class="panel" data-ng-show="tab === 2">
+         <h4>OutSwaps</h4>
+    <!-- <p>{{ ??? }}</p> -->
+    </div>
+    <div class="panel" data-ng-show="tab === 3">
+         <h4>MyFavs</h4>
+    <!-- <p>{{ ??? }}</p> -->
+    </div>
+    <div class="panel" data-ng-show="tab === 4">
+         <h4>MyGames</h4>
+    <!-- <p>{{ ??? }}</p> -->
+    </div>
+  </div><!-- end app div -->
+
+  <script src='../build/client_bundle.js'></script>
+<!--   <script src="client_bundle.js"></script> -->
+<!--     <script src="/js/app.js"></script> -->
   </body>
 </html>

@@ -35,5 +35,5 @@ require('./routes/browsing_routes')(app);
 //listen on port 3000
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
-  console.log('server running on port: %d', app.get('port'));
+  console.log('SwapMeet server running on port: %d', app.get('port'));
 });
