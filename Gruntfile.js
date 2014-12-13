@@ -109,24 +109,12 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      sass: {
-        files: '<%= project.app %>/sass/{,*/}*.{scss,sass}',
-        tasks: ['build']
-      },
       express: {
         files:  ['server.js', 'app/index.html'],
         tasks:  ['build', 'express:dev'],
         options: {
           spawn: false
         }
-      },
-      app: {
-        files: ['<%= project.alljs %>'],
-        tasks: ['browserify:dev']
-      },
-      test: {
-        files: ['<%= project.alljs %>', 'test/front-end/**/*.js'],
-        tasks: ['build:dev', 'browserify:frontEndTest', 'karma:unit']
       }
     }
   });
