@@ -12,24 +12,23 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      src: ['server.js', 'app/js/**/*.js', 'Gruntfile.js', 'test/server/*.js',
+      'test/client/*.js'],
       options: {
-        node: true,
-        jshintrc: '.jshintrc'
-      }
+        node: true
+      },
+      src: ['lib/**/*.js', 'models/**/*.js', 'server.js', 'routes/**/*.js']
     },
 
     jscs: {
-      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
       options: {
         config: '.jscsrc'
       }
     },
 
     simplemocha: {
-      src: ['test/back-end/*.js']
+      src: ['test/server/*.js']
     },
 
     sass: {
