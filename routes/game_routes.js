@@ -1,9 +1,9 @@
 'use strict';
-var eachAsync = require('each-async');
-var User = require('../models/user');
-var Game = require('../models/game');
+//var eachAsync = require('each-async');
+//var User = require('../models/user');
+//var Game = require('../models/game');
 var findGameInDB = require('../lib/findGameInDB');
-var returnIfError = require('../lib/returnIfError');
+//var returnIfError = require('../lib/returnIfError');
 
 module.exports = function(app, auth) {
 
@@ -41,7 +41,7 @@ module.exports = function(app, auth) {
 
     games = findGameInDB(searchJSON, req.user_id);
 
-    if (!games || typeof games == 'object') {
+    if (!games || typeof games === 'object') {
       res.status(200).json({error: 0, items: games || []});
     }
     else {

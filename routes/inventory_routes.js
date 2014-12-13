@@ -1,5 +1,5 @@
 'use strict';
-var eachAsync = require('each-async');
+//var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
@@ -22,7 +22,7 @@ module.exports = function(app, auth) {
       //check to see if game is in this user's hasGames
       var stillHas = true;
       for (var i = 0; i < user.hasGames.length; i++) {
-        if (user.hasGames[i] == gameId) {
+        if (user.hasGames[i] === gameId) {
           user.hasGames.splice(i, 1);
           stillHas = false;
           break;
@@ -35,7 +35,7 @@ module.exports = function(app, auth) {
           if (!data) return res.json({error: 1});
           for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < data[i].wantsGames.length; j++) {
-              if (data[i].wantsGames[j].gameId == gameId) {
+              if (data[i].wantsGames[j].gameId === gameId) {
                 data[i].wantsGames.splice(j, 1);
                 break;
               }
