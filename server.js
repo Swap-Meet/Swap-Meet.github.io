@@ -5,7 +5,11 @@ var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var app = express();
 
-//conncect to mongoose
+// Serve the WebApp Homepage starter
+var staticDir = __dirname + '/build';
+app.use(express.static(staticDir));
+
+//connect to mongoose
 mongoose.connect(process.env.MONGOLAB_URI ||
 	process.env.MONGO_URL || 'mongodb://localhost/gameSwap');
 
