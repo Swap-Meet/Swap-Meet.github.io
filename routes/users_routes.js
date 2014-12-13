@@ -1,7 +1,7 @@
 'use strict';
 
 var User = require('../models/user');
-var Game = require('../models/game');
+//var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
 
 module.exports = function(app, auth) {
@@ -17,13 +17,16 @@ module.exports = function(app, auth) {
       if (!user) return res.status(400).json({error: 6});
 
       //check to see if password is valid
-      if (!user.validPassword(password)) return res.status(400).json({error: 4});
+      if (!user.validPassword(password)) return res.json({error: 4});
 
       passback.email = user.email;
       passback.screename = user.screenname || '';
       passback.zip = user.zip || '';
       passback.avatar_url = user.avatar_url || '';
-      res.status(200).json({error: 0, jwt: user.generateToken(app.get('jwtSecret')), profile: passback });
+      res.status(200).json({
+        error: 0,
+        jwt: user.generateToken(app.get('jwtSecret')), profile: passback
+      });
     });
   });
 
@@ -34,7 +37,7 @@ module.exports = function(app, auth) {
     var password = req.query.password;
     var screenname = req.query.screenname;
     var loc = req.query.zip;
-    var avatar_url = req.query.avatar_url;
+    //var avatar_url = req.query.avatar_url;
 
     User.findOne({email: email}, function(err, user) {
       if (err) return res.status(400).json({error: 1});
@@ -68,9 +71,13 @@ module.exports = function(app, auth) {
       passback.zip = newUser.zip || '';
       passback.avatar_url = newUser.avatar_url || '';
 
-      newUser.save(function(err, data) {
+      newUser.save(function(err) {
         if (err) return res.status(400).json({error: 1});
-        res.status(200).json({error:0, jwt: newUser.generateToken(app.get('jwtSecret')), profile: passback });
+        res.status(200).json({
+          error:0,
+          jwt: newUser.generateToken(app.get('jwtSecret')),
+          profile: passback
+        });
       });
     });
   });
@@ -112,7 +119,7 @@ module.exports = function(app, auth) {
       passback.zip = req.body.zip || user.zip || '';
       passback.avatar_url = req.bodyuser.avatar_url || '';
 
-      user.save(function(err, data) {
+      user.save(function(err) {
         if (err) return res.status(400).json({error: 1});
       });
       res.status(200).json({error: 0, profile:passback});

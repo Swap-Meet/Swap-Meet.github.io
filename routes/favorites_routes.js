@@ -1,7 +1,7 @@
 'use strict';
 var User = require('../models/user');
-var Game = require('../models/game');
-var findGameInDB = require('../lib/findGameInDB');
+//var Game = require('../models/game');
+//var findGameInDB = require('../lib/findGameInDB');
 var getGameInfo = require('../lib/getGameInfo');
 
 var returnIfError = require('../lib/returnIfError');
@@ -29,7 +29,7 @@ module.exports = function(app, auth) {
 
     User.findById(req.user._id, function(err, user) {
       gameIndex = user.favorites.indexOf(gameId);
-      if (gameIndex != -1) {
+      if (gameIndex !== -1) {
         user.favorites.splice(gameIndex, 1);
       }
       else {

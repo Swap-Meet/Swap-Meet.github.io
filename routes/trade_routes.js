@@ -2,7 +2,7 @@
 var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
-var findGameInDB = require('../lib/findGameInDB');
+//var findGameInDB = require('../lib/findGameInDB');
 var returnIfError = require('../lib/returnIfError');
 var getGameInfo = require('../lib/getGameInfo');
 
@@ -18,7 +18,7 @@ module.exports = function(app, auth) {
 
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
-      returnIfError(err, res, 10, 'invalid id'); //if (err) return res.json({error: 10, msg: 'invalid id'});
+      returnIfError(err, res, 10, 'invalid id');
       //if (game)
       owner = game.owner;
 
@@ -30,23 +30,31 @@ module.exports = function(app, auth) {
         //check to see if game is already in this user's wantsgames
         alreadyWanted = false;
         for (i = 0; i < user.outgoingRequests.length; i++) {
-          if (user.outgoingRequests[i].gameId == gameId) {
+          if (user.outgoingRequests[i].gameId === gameId) {
             alreadyWanted = true;
           }
         }
 
-        //if not already on outgoing requests, add to this user's outgoingRequests
-        //and add to other user's incoming requests
+        //if not already on outgoing requests, add to this user's
+        //outgoingRequests and add to other user's incoming requests
         if (!alreadyWanted) {
-          user.outgoingRequests.push({gameId: gameId, ownerId: owner, potentialTrades: potentialTrades});
+          user.outgoingRequests.push({
+            gameId: gameId,
+            ownerId: owner,
+            potentialTrades: potentialTrades
+          });
 
           user.save(function(err) {
-            returnIfError(err, res, 1, 'error saving'); //if (err) return res.json({error: 1, msg: 'error saving to user wantsGames'});
+            returnIfError(err, res, 1, 'error saving');
 
             //find owner of other game
             User.findById(owner, function(err, gameOwner) {
               returnIfError(err, res, 1, 'error finding owner');
-              gameOwner.incomingRequests.push({gameId: gameId, ownerId: user._id, potentialTrades: potentialTrades});
+              gameOwner.incomingRequests.push({
+                gameId: gameId,
+                ownerId: user._id,
+                potentialTrades: potentialTrades
+              });
               res.status(200).json({error:0}); //updated user
             });
           });
@@ -68,7 +76,7 @@ module.exports = function(app, auth) {
       returnIfError(err, res, 2, 'cannot find user');
 
       //cycles through each of that user's incoming requests
-      eachAsync(user.incomingRequests, function(item, index, done) {
+      eachAsync(user.incomingRequests, function(item) {
         //looks up info about each incoming request
         incomingRequests.push({
           gameId: item.gameId,
@@ -108,7 +116,8 @@ module.exports = function(app, auth) {
 
       if (!stillWants) {
         user.save(function(err) {
-          if (err) return res.json({error: 1, msg: 'error saving to user wantsGames'});
+          if (err) return res.json({error: 1, msg: 'error saving to user
+          wantsGames'});
           res.status(200).json({error: 0}); //updated user
         });
       } else {

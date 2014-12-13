@@ -2,13 +2,13 @@
 
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
-var User = require('../models/user.js');
-var Game = require('../models/game.js');
+//var User = require('../models/user.js');
+//var Game = require('../models/game.js');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
 
-require('../server');
+require('../../server');
 
 var expect = chai.expect;
 
@@ -21,13 +21,14 @@ describe('basic notes/users tests', function() {
   var jwt;
   var gameId = 0;
   var url = process.env.url;
-  var jwtA;
-  var jwtB;
-  var jwtC;
+  //var jwtA;
+  //var jwtB;
+  //var jwtC;
   var loginURLGood = '?email=munchkins' + Date.now() +
     '&password=Hero99999&zip=99999&screenname=crazyfool';
-  var loginURLBadPW = '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
-  var game = "{'title': 'Monkey Island'" + ", 'platform':XBOX'}";
+  var loginURLBadPW =
+    '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
+  var game = {title: 'Monkey Island', platform:'XBOX'};
 
   it('should be able to create a new user and get back info', function(done) {
     console.log(url);
@@ -55,7 +56,7 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should not be able to do anything without authentication', function(done) {
+  it('should not be able to do stuff without authentication', function(done) {
     chai.request(url)
     .get('api/games/inventory')
     .end(function(err, res) {
@@ -107,7 +108,7 @@ describe('basic notes/users tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
-      var gameId = res.body.id;
+      //var gameId = res.body.id;
       expect(res.body.error).to.eql(0);
       expect(res.body.item.owner).to.be.a('String');
       done();
@@ -119,7 +120,7 @@ describe('basic notes/users tests', function() {
     chai.request(url)
     .post('api/games/favorites')
     .set('jwt', jwt)
-    .send({'_id': '548a177f6a9a649512b3d674'})
+    .send({_id: '548a177f6a9a649512b3d674'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -143,7 +144,7 @@ describe('basic notes/users tests', function() {
     chai.request(url)
     .get('api/games/favorites')
     .set('jwt', jwt)
-    .send({'id': gameId})
+    .send({id: gameId})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -151,11 +152,11 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should not be able to delete a favorite for an invalid game id', function(done) {
+  it('should not be able to delete a favorite w/ invalid id', function(done) {
     chai.request(url)
     .get('api/games/favorites')
     .set('jwt', jwt)
-    .send({'id': 8675309})
+    .send({id: 8675309})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -163,7 +164,7 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should not be able to search games without authorization', function(done) {
+  it('should not be able to search games without jwt', function(done) {
     chai.request(url)
     .get('api/search?p=XBOX')
     .end(function(err, res) {
