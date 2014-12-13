@@ -15,13 +15,13 @@ module.exports = function(grunt) {
       src: ['server.js', 'app/js/**/*.js', 'Gruntfile.js', 'test/server/*.js',
       'test/client/*.js'],
       options: {
-        jshintrc: true
-      }
+        node: true
+      },
+      src: ['lib/**/*.js', 'models/**/*.js', 'server.js', 'routes/**/*.js']
     },
 
     jscs: {
-      src: ['server.js', 'app/js/**/*.js', 'Gruntfile.js', 'test/server/*.js',
-      'test/client/*.js'],
+      src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
       options: {
         config: '.jscsrc'
       }

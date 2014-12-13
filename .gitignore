@@ -23,20 +23,10 @@ build/Release
 # Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
-
-# Users Environment Variables
-.lock-wscript
-**/*.sw?
-
-# Eclipse or Webstorm junk
-workbench.xmi
-
-#Mac OS X
+bower_components
+build
+db
+lib/findMatches.js
+test/angular_testbundle.js
 .DS_Store
 
-#Others
-build/
-bower_components
-test/angular_testbundle.js
-bundle.js
-client_bundle.js
