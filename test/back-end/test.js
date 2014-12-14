@@ -114,17 +114,6 @@ describe('basic user tests', function() {
     });
   });
 
-  it('should be able to get some games without authentication', function(done) {
-    chai.request(url)
-    .get('api/browse')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(0);
-      expect(res.body.items).to.be.an('Array');
-      done();
-    });
-  });
-
   it('should be able to add a game to A using jwt token', function(done) {
     chai.request(url)
     .post('api/games/inventory')
@@ -196,6 +185,20 @@ describe('basic user tests', function() {
       gameA3Id = res.body.item._id;
       expect(res.body.error).to.eql(0);
       expect(res.body.item.owner).to.be.a('String');
+      done();
+    });
+  });
+
+
+  it('A should have games in user inventory', function(done) {
+    chai.request(url)
+    .get('api/games/inventory')
+    .set('jwt', jwtA)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      //var gameId = res.body.items.gameId;
       done();
     });
   });
@@ -311,20 +314,20 @@ describe('basic user tests', function() {
     });
   });
 
-  // it('should be able to search games while logged in', function(done) {
-  //   chai.request(url)
-  //   .get('api/search')
-  //   .set('jwt', jwtA)
-  //   .end(function(err, res) {
-  //     //console.log(res);
-  //     expect(err).to.eql(null);
-  //     expect(res.body.error).to.eql(0);
-  //     expect(res.body.items).to.be.an('Array');
-  //     console.log('monkeymonkey', res.body.items);
-  //     expect(res.body.items[0].title).to.be.a('String');
-  //     done();
-  //   });
-  // });
+  it('should be able to search games while logged in', function(done) {
+    chai.request(url)
+    .get('api/search')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      //console.log(res);
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      //console.log('monkeymonkey', res.body);
+      expect(res.body.items[0].title).to.be.a('String');
+      done();
+    });
+  });
 
   // it('should be able to save an outgoing request', function(done) {
   //   chai.request(url)
@@ -350,18 +353,16 @@ describe('basic user tests', function() {
     });
   });
 
-/*
-  it('should have a game in user inventory', function(done) {
+  it('should be able to get some games without authentication', function(done) {
     chai.request(url)
-    .get('api/games/mygames')
-    .set('jwt', jwt)
+    .get('api/browse')
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      var gameId = res.body.items.gameId;
+      expect(res.body.items[0].platform).to.be.a('String');
       done();
     });
-  }); */
+  });
 
 });

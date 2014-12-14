@@ -1,12 +1,12 @@
 'use strict';
-//var eachAsync = require('each-async');
+
 var User = require('../models/user');
 var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
 var getGameInfo = require('../lib/getGameInfo');
 
 module.exports = function(app, auth) {
-
+/*
   //Remove game from user's list
   app.delete('/api/games/inventory', auth, function(req, res) {
     var gameId = req.body.id;
@@ -54,7 +54,7 @@ module.exports = function(app, auth) {
         });
     });
   });
-
+*/
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
     return getGameInfo(req.user.inventory, res);
