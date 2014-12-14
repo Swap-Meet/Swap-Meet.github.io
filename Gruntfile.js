@@ -22,22 +22,23 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      src: ['server.js', 'app/js/**/*.js', 'Gruntfile.js', 'test/server/*.js',
-      'test/client/*.js'],
+      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
+      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         node: true
       }
     },
 
     jscs: {
-      src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
+      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
+      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         config: '.jscsrc'
       }
     },
 
     simplemocha: {
-      src: ['test/server/*.js']
+      src: ['test/back-end/*.js']
     },
 
     sass: {
