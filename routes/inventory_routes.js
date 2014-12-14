@@ -3,7 +3,7 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
-var getGameInfo = require('../lib/getGameInfo')
+var getGameInfo = require('../lib/getGameInfo');
 
 module.exports = function(app, auth) {
 
