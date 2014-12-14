@@ -9,36 +9,44 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-express-server');
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
+    project: {
+      app: ['app'],
+      scss: ['<%= project.app %>/scss/**/*.scss'],
+      alljs: ['<%= project.app %>/js/**/*.js']
+    },
+
     jshint: {
-      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      src: ['server.js', 'app/js/**/*.js', 'Gruntfile.js', 'test/server/*.js',
+      'test/client/*.js'],
       options: {
-        node: true,
-        jshintrc: '.jshintrc'
+        node: true
       }
     },
 
     jscs: {
-      src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
       options: {
         config: '.jscsrc'
       }
     },
 
     simplemocha: {
-      src: ['test/back-end/*.js']
+      src: ['test/server/*.js']
     },
 
     sass: {
       dev: {
         files: [{
           expand: true,
-          cwd: 'app/css/',
+          cwd: 'app/scss/',
           src: ['*.scss', '*.sass'],
-          dest: 'build/',
+          dest: 'build/css',
           ext: '.css'
         }]
       }
@@ -86,12 +94,41 @@ module.exports = function(grunt) {
         singleRun: true,
         browsers: ['PhantomJS']
       }
+    },
+    express: {
+      options: {
+         // Override defaults here
+         output: 'listening'
+      },
+      dev: {
+        options: {
+          script: 'server.js'
+        }
+      }
+    },
+    watch: {
+      sass: {
+        files: '<%= project.app %>/scss/{,*/}*.{scss,sass}',
+        tasks: ['sass:dev']
+      },
+      express: {
+        files:  ['server.js', 'app/index.html'],
+        tasks:  ['build', 'express:dev'],
+        options: {
+          spawn: false
+        }
+      },
+      app: {
+        files: ['<%= project.alljs %>'],
+        tasks: ['browserify:dev']
+      }
     }
   });
   grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
   grunt.registerTask('test:client', ['browserify:test', 'karma:unit']);
-  grunt.registerTask('build:dev', ['clean:dev', 'browserify:dev', 'copy:dev',
+  grunt.registerTask('build', ['clean:dev', 'browserify:dev', 'copy:dev',
     'sass:dev']);
-  grunt.registerTask('default', ['build:dev', 'test', 'test:client']);
+  grunt.registerTask('serve', ['build', 'express', 'watch']);
+  grunt.registerTask('default', ['build', 'test', 'test:client']);
 
 };
