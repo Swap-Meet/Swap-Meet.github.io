@@ -2,8 +2,8 @@
 
 process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
-//var User = require('../models/user.js');
-//var Game = require('../models/game.js');
+var User = require('../../models/user.js');
+var Game = require('../../models/game.js');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
@@ -13,42 +13,68 @@ require('../../server');
 var expect = chai.expect;
 
 //clear existing users and games
-//User.collection.remove(function(err) {if (err) throw err;});
-//Game.collection.remove(function(err) {if (err) throw err;});
+User.collection.remove(function(err) {if (err) throw err;});
+Game.collection.remove(function(err) {if (err) throw err;});
 
-describe('basic notes/users tests', function() {
-
-  var jwt;
-  var gameId = 0;
-  var url = process.env.url;
-  //var jwtA;
-  //var jwtB;
-  //var jwtC;
-  var loginURLGood = '?email=munchkins' + Date.now() +
-    '&password=Hero99999&zip=99999&screenname=crazyfool';
+describe('basic user tests', function() {
+  this.timeout(2000);
+  var jwtA;
+  var jwtB;
+  var gameA3Id;
+  var gameA2Id;
+  var url = process.env.url || 'http://localhost:3000/';
+  var loginA = '?email=testA@example.com&password=Monkeys911' +
+    '&screenname=BunniesFromHell&zip=99999';
+  var loginB = '?email=testB@example.com&password=Monkeys911' +
+    '&screenname=BunniesFromHell&zip=99999';
+  //var loginURLGood = '?email=munchkins' + Date.now() +
+    //'&password=Hero99999&zip=99999&screenname=crazyfool';
   var loginURLBadPW =
     '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
-  var game = {title: 'Monkey Island', platform:'XBOX'};
+  //var loginURLNoZip =
+   // '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
+  var game1A = {title: 'Monkey Island', platform:'XBOX'};
+  var game2A = {title: 'Grim Fandango', platform:'PC'};
+  var game3A = {title: 'Settlers of Catan', platform:'Board'};
+  //var game4A = {title: 'Uno', platform:'Card'};
+  var game1B = {title: 'Heroes of Might and Magic', platform:'PC'};
+  var game2B = {title: 'Mental Floss', platform:'Board'};
+  //var game3B = {title: 'Chess', platform:'Board'};
+  //var game4B = {title: 'Team Fortress 2', platform:'PC'};
 
-  it('should be able to create a new user and get back info', function(done) {
-    console.log(url);
+  it('should be able to create a new user A and get back info', function(done) {
     chai.request(url)
-    .post('api/user' + loginURLGood)
+    .post('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
       expect(res.body.error).to.eql(0);
       expect(res.body.profile.zip).to.eql('99999');
-      jwt = res.body.jwt;
-      expect(jwt).to.be.a('string');
+      jwtA = res.body.jwt;
+      expect(jwtA).to.be.a('string');
+      done();
+    });
+  });
+
+  it('should be able to create a new user B and get back info', function(done) {
+    chai.request(url)
+    .post('api/user' + loginB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.statusCode).to.eql(200);
+      expect(res.body).to.have.property('jwt');
+      expect(res.body.error).to.eql(0);
+      expect(res.body.profile.zip).to.eql('99999');
+      jwtB = res.body.jwt;
+      expect(jwtB).to.be.a('string');
       done();
     });
   });
 
   it('should refuse to create a user with the same email', function(done) {
     chai.request(url)
-    .post('api/user' + loginURLGood)
+    .post('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
@@ -67,14 +93,13 @@ describe('basic notes/users tests', function() {
 
   it('should be able to get a token for an existing user', function(done) {
     chai.request(url)
-    .get('api/user' + loginURLGood)
+    .get('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.statusCode).to.eql(200);
       expect(res.body).to.have.property('jwt');
       expect(res.body.error).to.eql(0);
-      jwt = res.body.jwt;
-      expect(jwt).to.be.a('string');
+      expect(res.body.jwt).to.be.a('string');
       done();
     });
   });
@@ -100,11 +125,11 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should be able to add a game using jwt token', function(done) {
+  it('should be able to add a game to A using jwt token', function(done) {
     chai.request(url)
     .post('api/games/inventory')
-    .set('jwt', jwt)
-    .send(game)
+    .set('jwt', jwtA)
+    .send(game1A)
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
@@ -115,12 +140,112 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should be able to add a game to favorites', function(done) {
-    console.log('id is', gameId);
+  it('should be able to add a game to A using jwt token', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(game2A)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res);
+      gameA2Id = res.body.item._id;
+      expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      done();
+    });
+  });
+
+  it('should be able to add a game to A using jwt token', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(game3A)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res);
+      gameA3Id = res.body.item._id;
+      expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      done();
+    });
+  });
+
+  it('should be able to add a game to B using jwt token', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(game1B)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res);
+      gameA3Id = res.body.item._id;
+      expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      done();
+    });
+  });
+
+  it('should be able to add a game to B using jwt token', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(game2B)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res);
+      gameA3Id = res.body.item._id;
+      expect(res.body.error).to.eql(0);
+      expect(res.body.item.owner).to.be.a('String');
+      done();
+    });
+  });
+
+  it('B should be able to add a game to favorites', function(done) {
+    //console.log('id is', gameId);
     chai.request(url)
     .post('api/games/favorites')
-    .set('jwt', jwt)
-    .send({_id: '548a177f6a9a649512b3d674'})
+    .set('jwt', jwtB)
+    .send({_id: gameA2Id})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log('2', res.body);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('B should be able to add another game to favorites', function(done) {
+    //console.log('id is', gameId);
+    chai.request(url)
+    .post('api/games/favorites')
+    .set('jwt', jwtB)
+    .send({_id: gameA3Id})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      console.log('gameids', gameA3Id, gameA2Id);
+      done();
+    });
+  });
+
+  it('B should be able to view favorites', function(done) {
+    chai.request(url)
+    .get('api/games/favorites')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('array');
+      expect(res.body.items.length).to.eql(2);
+      done();
+    });
+  });
+
+  it('B should be able to delete a favorite', function(done) {
+    chai.request(url)
+    .delete('api/games/favorites')
+    .set('jwt', jwtB)
+    .send({id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -128,38 +253,25 @@ describe('basic notes/users tests', function() {
     });
   });
 
-  it('should be able to view favorites', function(done) {
+  it('B now have 2 games in favorites', function(done) {
     chai.request(url)
     .get('api/games/favorites')
-    .set('jwt', jwt)
+    .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      //expect(res.body.items).to.be.an('array');
-      done();
-    });
-  });
-
-  it('should be able to delete a favorite', function(done) {
-    chai.request(url)
-    .get('api/games/favorites')
-    .set('jwt', jwt)
-    .send({id: gameId})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(0);
+      expect(res.body.items.length).to.eql(1);
       done();
     });
   });
 
   it('should not be able to delete a favorite w/ invalid id', function(done) {
     chai.request(url)
-    .get('api/games/favorites')
-    .set('jwt', jwt)
-    .send({id: 8675309})
+    .delete('api/games/favorites')
+    .set('jwt', jwtB)
+    .send({id: '8675309'})
     .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(0);
+      expect(res.body.error).to.eql(7);
       done();
     });
   });
@@ -188,28 +300,31 @@ describe('basic notes/users tests', function() {
   it('should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/inventory')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
+      //console.log('items', res.body.items);
       expect(res.body.items).to.be.an('Array');
-      //expect(res.body.items[0]._id).to.be.a('String');
+      expect(res.body.items[0].title).to.be.a('String');
       done();
     });
   });
 
-  it('should be able to search games while logged in', function(done) {
-    chai.request(url)
-    .get('api/search')
-    .set('jwt', jwt)
-    .end(function(err, res) {
-      //console.log(res);
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(0);
-      expect(res.body.items).to.be.an('Array');
-      done();
-    });
-  });
+  // it('should be able to search games while logged in', function(done) {
+  //   chai.request(url)
+  //   .get('api/search')
+  //   .set('jwt', jwtA)
+  //   .end(function(err, res) {
+  //     //console.log(res);
+  //     expect(err).to.eql(null);
+  //     expect(res.body.error).to.eql(0);
+  //     expect(res.body.items).to.be.an('Array');
+  //     console.log('monkeymonkey', res.body.items);
+  //     expect(res.body.items[0].title).to.be.a('String');
+  //     done();
+  //   });
+  // });
 
   // it('should be able to save an outgoing request', function(done) {
   //   chai.request(url)
@@ -225,7 +340,7 @@ describe('basic notes/users tests', function() {
   it('should be able get a user\'s incoming requests', function(done) {
     chai.request(url)
     .get('api/games/incomingrequests')
-    .set('jwt', jwt)
+    .set('jwt', jwtA)
     .end(function(err, res) {
       //console.log(res);
       expect(err).to.eql(null);
@@ -236,17 +351,6 @@ describe('basic notes/users tests', function() {
   });
 
 /*
-  it('should be able to add a game', function(done) {
-    chai.request(url)
-    .post('api/games/hasgames')
-    .set('jwt', jwt)
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.error).to.eql(0);
-      done();
-    });
-  });
-
   it('should have a game in user inventory', function(done) {
     chai.request(url)
     .get('api/games/mygames')

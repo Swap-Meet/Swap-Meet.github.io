@@ -3,6 +3,7 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
+var getGameInfo = require('../lib/getGameInfo');
 
 module.exports = function(app, auth) {
 
@@ -56,7 +57,7 @@ module.exports = function(app, auth) {
 
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
-    return res.status(200).json({error: 0, items: req.user.inventory});
+    return getGameInfo(req.user.inventory, res);
   });
 
   //add a game to user's inventory
@@ -84,7 +85,7 @@ module.exports = function(app, auth) {
           returnIfError(err, res, 1, 'error saving game');
         });
       });
-      res.status(200).json({error: 0, item: newGame});
+      return res.status(200).json({error: 0, item: newGame});
     });
   });
 };
