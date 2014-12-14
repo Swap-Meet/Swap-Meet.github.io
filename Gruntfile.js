@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
     project: {
       app: ['app'],
-      css: ['<%= project.app %>/css/**/*.css'],
+      scss: ['<%= project.app %>/scss/**/*.scss'],
       alljs: ['<%= project.app %>/js/**/*.js']
     },
 
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         node: true
       }
     },
-//
+
     jscs: {
       src: ['lib/*.js', 'routes/*.js', 'server.js', 'models/*.js'],
       options: {
@@ -95,7 +95,6 @@ module.exports = function(grunt) {
         browsers: ['PhantomJS']
       }
     },
-
     express: {
       options: {
          // Override defaults here
@@ -107,22 +106,29 @@ module.exports = function(grunt) {
         }
       }
     },
-
     watch: {
+      sass: {
+        files: '<%= project.app %>/scss/{,*/}*.{scss,sass}',
+        tasks: ['sass:dev']
+      },
       express: {
         files:  ['server.js', 'app/index.html'],
         tasks:  ['build', 'express:dev'],
         options: {
           spawn: false
         }
+      },
+      app: {
+        files: ['<%= project.alljs %>'],
+        tasks: ['browserify:dev']
       }
     }
   });
   grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
   grunt.registerTask('test:client', ['browserify:test', 'karma:unit']);
-  grunt.registerTask('build:dev', ['clean:dev', 'browserify:dev', 'copy:dev',
+  grunt.registerTask('build', ['clean:dev', 'browserify:dev', 'copy:dev',
     'sass:dev']);
-  grunt.registerTask('serve', ['build:dev', 'express:dev', 'watch']);
-  grunt.registerTask('default', ['build:dev', 'test', 'test:client']);
+  grunt.registerTask('serve', ['build', 'express', 'watch']);
+  grunt.registerTask('default', ['build', 'test', 'test:client']);
 
 };
