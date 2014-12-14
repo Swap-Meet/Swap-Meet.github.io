@@ -16,8 +16,13 @@ module.exports = function(app, auth) {
       returnIfError(err, res, 5, 'error finding user');
       user.favorites.push(gameId);
       user.save(function(err) {
-        if (err) returnIfError(err, res, 1, 'error saving favorites');
-        res.status(200).json({error: 0, items: getGameInfo(user.favorites)});
+        returnIfError(err, res, 1, 'error saving favorites');
+        return res.status(200).json({error: 0});
+        //   error: 0//getGameInfo(req.user.favorites, res);
+        // res.status(200).json({
+        //   error: 0//,
+        //   //items: getGameInfo(user.favorites)
+        // });
       });
     });
   });
@@ -30,22 +35,26 @@ module.exports = function(app, auth) {
     User.findById(req.user._id, function(err, user) {
       gameIndex = user.favorites.indexOf(gameId);
       if (gameIndex !== -1) {
-        user.favorites.splice(gameIndex, 1);
+        user.favorites = user.favorites.slice(gameIndex, gameIndex + 1);
       }
       else {
-        res.status(200).json({error:7, msg: 'invalid gameID'});
+        return res.status(400).json({error: 7, msg: 'invalid gameID'});
       }
       user.save(function(err) {
         if (err) returnIfError(err, res, 1, 'error saving favorites');
-        res.status(200).json({error: 0, items: getGameInfo(user.favorites)});
+        return res.status(200).json({
+          error: 0//,
+          //items: getGameInfo(user.favorites)
+        });
       });
     });
   });
 
   //return an array of favorites
   app.get('/api/games/favorites', auth, function(req, res) {
-    var returnThis = getGameInfo(req.user.favorites);
-    //console.log('this', returnThis);
-    return res.status(200).json({error: 0, items: returnThis});
+    //var gameArray;
+    return getGameInfo(req.user.favorites, res);
+    //console.log('gameinfo', gameArray);
+    //return res.status(200).json({error: 0, items: gameArray});
   });
 };
