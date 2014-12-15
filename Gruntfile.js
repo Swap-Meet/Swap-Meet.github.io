@@ -63,7 +63,7 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         cwd: 'app/',
-        src: ['**/*.html'],
+        src: ['**/*.html', '**/*.css'],
         expand: true,
         dest: 'build/'
       }
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dev']
       },
       express: {
-        files:  ['server.js', 'app/index.html'],
+        files:  ['server.js', 'app/**/*.html'],
         tasks:  ['build', 'express:dev'],
         options: {
           spawn: false
