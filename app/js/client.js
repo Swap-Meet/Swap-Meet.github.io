@@ -27,7 +27,7 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
       controller: 'profileCtrl'
     })
     .when('/filtersearch', {
-      templateUrl: 'templates/filter_search_template.html',
+      templateUrl: 'templates/filter_template.html',
       controller: 'mainCtrl'
     })
     .otherwise({
