@@ -22,13 +22,13 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
       templateUrl: 'templates/main_template.html',
       controller: 'mainCtrl'
     })
-    .when('/search', {
-      templateUrl: 'templates/search_template.html',
-      controller: 'mainCtrl'
-    })
     .when('/profile', {
       templateUrl: 'templates/profile_template.html',
       controller: 'profileCtrl'
+    })
+    .when('/filtersearch', {
+      templateUrl: 'templates/filter_search_template.html',
+      controller: 'mainCtrl'
     })
     .otherwise({
       redirectTo: '/'
