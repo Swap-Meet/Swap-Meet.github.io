@@ -20,7 +20,7 @@
   "browser": true,
   "node": true,
   "camelcase": false,
-  "eqeqeq": true,
+  "eqeqeq": false,
   "indent": 2,
   "latedef": true,
   "maxlen": 120,

@@ -2,7 +2,7 @@
 //var eachAsync = require('each-async');
 //var User = require('../models/user');
 //var Game = require('../models/game');
-var findGameInDB = require('../lib/findGameInDB');
+var returnGamesFromDB = require('../lib/returnGamesFromDB');
 //var returnIfError = require('../lib/returnIfError');
 
 module.exports = function(app, auth) {
@@ -39,14 +39,10 @@ module.exports = function(app, auth) {
 
     searchJSON.owner = { $ne: req.user._id };
 
-    games = findGameInDB(searchJSON, req.user_id);
+    //console.log(searchJSON);
 
-    if (!games || typeof games === 'object') {
-      res.status(200).json({error: 0, items: games || []});
-    }
-    else {
-      res.status(500).json({error: games});
-    }
+    games = returnGamesFromDB(searchJSON, req.user._id, res);
+
   });
 };
   //returns all the user's wanted games
