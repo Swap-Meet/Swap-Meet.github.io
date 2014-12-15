@@ -123,8 +123,8 @@ describe('basic user tests', function() {
     .send(game1A)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log(res);
-      console.log('body', res.body);
+      //console.log(res);
+      //console.log('body', res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items.owner).to.be.a('String');
       done();
@@ -311,7 +311,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      console.log('items', res.body.items);
+      //console.log('items', res.body.items);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].title).to.be.a('String');
       done();
@@ -368,7 +368,7 @@ describe('basic user tests', function() {
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].platform).to.be.a('String');
-      console.log('gameId to look for', gameB1Id);
+      //console.log('gameId to look for', gameB1Id);
       done();
     });
   });
@@ -398,6 +398,5 @@ describe('basic user tests', function() {
       done();
     });
   });
-
 
 });

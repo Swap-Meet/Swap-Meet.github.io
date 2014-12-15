@@ -5,7 +5,7 @@ var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
 var getGameInfo = require('../lib/getGameInfo');
 var returnSuccess = require('../lib/returnSuccess');
-var _ = require('lodash');
+//var _ = require('lodash');
 
 module.exports = function(app, auth) {
 /*
@@ -80,7 +80,7 @@ module.exports = function(app, auth) {
     //save the new game
     newGame.save(function(err, game) {
 
-      returnIfError(err, res, 37, 'cannot save new game', 400);//if (err) returnIfErr res.send(err);
+      returnIfError(err, res, 37, 'cannot save new game', 400);
       //find the current user & push new game's reference ID to hasGames list
       User.findById(req.user._id, function(err, user) {
 
@@ -93,7 +93,7 @@ module.exports = function(app, auth) {
         });
       });
 
-      returnSuccess(res, newGame);//return res.status(200).json({error: 0, item: newGame});
+      returnSuccess(res, newGame);
     });
   });
 };

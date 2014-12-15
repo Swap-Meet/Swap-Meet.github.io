@@ -37,12 +37,12 @@ module.exports = function(app, auth) {
       //find the user who requested this trade
       User.findById(ownerId, function(err, otherUser) {
         returnIfError(err, res, 99, 'cannot find user 2');
-        console.log('found other user', otherUser, gameId);
+        //console.log('found other user', otherUser, gameId);
         otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
           function(item) {
             return (item.gameId == gameId) ? false : true;
           });
-        console.log('found other user', otherUser);
+        //console.log('found other user', otherUser);
         otherUser.save(function(err) {
           returnIfError(err, res, 5, 'cannot save user 2', 403);
           returnSuccess(res);
@@ -69,7 +69,6 @@ module.exports = function(app, auth) {
       // });
     });
   });
-
 
   //add a game to user's outgoing requests list
   app.post('/api/games/outgoingrequests', auth, function(req, res) {
@@ -108,8 +107,8 @@ module.exports = function(app, auth) {
             ownerId: owner,
             potentialTrades: potentialTrades
           });
-          console.log(user);
-          console.log(user.outgoingRequests[0].potentialTrades);
+          // console.log(user);
+          // console.log(user.outgoingRequests[0].potentialTrades);
 
           user.save(function(err) {
             returnIfError(err, res, 1, 'error saving');
@@ -166,13 +165,6 @@ module.exports = function(app, auth) {
             if (err) return res.status(400).json({error: 99});
             incomingRequests.push(_.pick(game,
               ['_id', 'owner', 'title', 'image_url', 'platform']));
-            // incomingRequests.push({
-            //   gameId: game._id,
-            //   owner: game.owner,
-            //   title: game.title,
-            //   image_url: game.image_url,
-            //   platform: game.platform
-            // });
             counter++;
             //console.log('incomingRequests', incomingRequests);
             if (counter === numRequests) {
@@ -211,12 +203,12 @@ module.exports = function(app, auth) {
       //find the user the delete trade was directed at
       User.findById(ownerId, function(err, otherUser) {
         returnIfError(err, res, 99, 'cannot find user 2');
-        console.log('found other user', otherUser, gameId);
+        //console.log('found other user', otherUser, gameId);
         otherUser.incomingRequests = _.remove(otherUser.incomingRequests,
           function(item) {
             return (item.gameId == gameId) ? false : true;
           });
-        console.log('found other user', otherUser);
+        //console.log('found other user', otherUser);
         otherUser.save(function(err) {
           returnIfError(err, res, 5, 'cannot save user 2', 403);
           returnSuccess(res);
