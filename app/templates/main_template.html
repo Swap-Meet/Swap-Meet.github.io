@@ -1,0 +1,21 @@
+<div class="container">
+  <div>
+    The Place to Trade Your Games
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          Recent Games Added
+        </div>
+        <div class="panel-body">
+          <div ng-repeat="game in games | limitTo:10" class="row">
+            <div class="col-md-9">
+              <a href="/games/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

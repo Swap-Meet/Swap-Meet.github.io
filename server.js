@@ -32,12 +32,18 @@ require('./routes/trade_routes')(app, jwtauth);
 require('./routes/favorites_routes')(app, jwtauth);
 require('./routes/browsing_routes')(app);
 
-//listen on port 3000
-// app.set('port', process.env.PORT || 3000);
-// app.listen(app.get('port'), function() {
-//   console.log('SwapMeet server running on port: %d', app.get('port'));
+//*** Karl's Possibilities
+//For the potential of using jade
+// app.set('views', config.rootPath + '/server/views');
+// app.set('view engine', 'jade');
+// app.get('/templates/:partialPath', function(req, res) {
+//   res.render('/templates/' + req.params.partialPath);
+// });
+// app.get('*', function(req, res) {
+//   res.render('index');
 // });
 
-app.listen(3000, function() {
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
   console.log('Server listening on port 3000');
 });
