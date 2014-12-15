@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('mainCtrl', ['$scope', function($scope) {
+  app.controller('searchCtrl', ['$scope', function($scope) {
     //this is fake data
     $scope.games = [
     {title: 'Grim Fandango', platform: 'C64' },
@@ -16,6 +16,10 @@ module.exports = function(app) {
     {title: 'Super Mario Bros.', platform: 'Amiga' },
     {title: 'Castle Wolfenstein', platform: 'IIc' }
     ];
+
+    $scope.filterSearch = function() {
+        console.log('Imagine I am doing a search now...');
+    }
     //var swapBackend = new ResourceBackend('swaps');
 
     // $scope.index = function() {
