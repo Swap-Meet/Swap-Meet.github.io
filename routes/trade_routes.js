@@ -168,7 +168,7 @@ module.exports = function(app, auth) {
             counter++;
             //console.log('incomingRequests', incomingRequests);
             if (counter === numRequests) {
-              return res.status(200).json({error: 0, items: incomingRequests});
+              returnSuccess(incomingRequests);//return res.status(200).json({error: 0, items: incomingRequests});
             }
           });
         });
