@@ -22,13 +22,15 @@ describe('basic user tests', function() {
   var jwtB;
   var gameA3Id;
   var gameA2Id;
-  var url = process.env.url || 'http://localhost:3000/';
+  var gameB1Id;
+  var Agames;
+  var AId;
+  var BId;
+  var url = 'http://localhost:3000/';
   var loginA = '?email=testA@example.com&password=Monkeys911' +
     '&screenname=BunniesFromHell&zip=99999';
   var loginB = '?email=testB@example.com&password=Monkeys911' +
     '&screenname=BunniesFromHell&zip=99999';
-  //var loginURLGood = '?email=munchkins' + Date.now() +
-    //'&password=Hero99999&zip=99999&screenname=crazyfool';
   var loginURLBadPW =
     '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
   //var loginURLNoZip =
@@ -121,10 +123,10 @@ describe('basic user tests', function() {
     .send(game1A)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res);
-      //var gameId = res.body.id;
+      console.log(res);
+      console.log('body', res.body);
       expect(res.body.error).to.eql(0);
-      expect(res.body.item.owner).to.be.a('String');
+      expect(res.body.items.owner).to.be.a('String');
       done();
     });
   });
@@ -137,9 +139,9 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
-      gameA2Id = res.body.item._id;
+      gameA2Id = res.body.items._id;
       expect(res.body.error).to.eql(0);
-      expect(res.body.item.owner).to.be.a('String');
+      expect(res.body.items.owner).to.be.a('String');
       done();
     });
   });
@@ -152,9 +154,10 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
-      gameA3Id = res.body.item._id;
+      gameA3Id = res.body.items._id;
       expect(res.body.error).to.eql(0);
-      expect(res.body.item.owner).to.be.a('String');
+      expect(res.body.items.owner).to.be.a('String');
+      AId = res.body.items.owner;
       done();
     });
   });
@@ -167,9 +170,9 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
-      gameA3Id = res.body.item._id;
+      gameB1Id = res.body.items._id;
       expect(res.body.error).to.eql(0);
-      expect(res.body.item.owner).to.be.a('String');
+      expect(res.body.items.owner).to.be.a('String');
       done();
     });
   });
@@ -182,13 +185,13 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log(res);
-      gameA3Id = res.body.item._id;
+      gameA3Id = res.body.items._id;
+      BId = res.body.items.owner;
       expect(res.body.error).to.eql(0);
-      expect(res.body.item.owner).to.be.a('String');
+      expect(res.body.items.owner).to.be.a('String');
       done();
     });
   });
-
 
   it('A should have games in user inventory', function(done) {
     chai.request(url)
@@ -198,6 +201,7 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
+      Agames = res.body.items;
       //var gameId = res.body.items.gameId;
       done();
     });
@@ -226,7 +230,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      console.log('gameids', gameA3Id, gameA2Id);
+      //console.log('gameids', gameA3Id, gameA2Id);
       done();
     });
   });
@@ -289,7 +293,7 @@ describe('basic user tests', function() {
     });
   });
 
-  it('should be able to browse games without authorization', function(done) {
+  it('anyone should be able to browse games without jwt', function(done) {
     chai.request(url)
     .get('api/browse')
     .end(function(err, res) {
@@ -300,14 +304,14 @@ describe('basic user tests', function() {
     });
   });
 
-  it('should be able to view inventory with a jwt token', function(done) {
+  it('A should be able to view inventory with a jwt token', function(done) {
     chai.request(url)
     .get('api/games/inventory')
     .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      //console.log('items', res.body.items);
+      console.log('items', res.body.items);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].title).to.be.a('String');
       done();
@@ -329,26 +333,29 @@ describe('basic user tests', function() {
     });
   });
 
-  // it('should be able to save an outgoing request', function(done) {
-  //   chai.request(url)
-  //   .post('api/games/outgoingrequests')
-  //   .set('jwt', jwt)
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     expect(res.body.error).to.eql(0);
-  //     done();
-  //   });
-  // });
+  it('A should be able to save an outgoing request', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtA)
+    .send({id: gameB1Id, gameIdArray: [Agames[0].id, Agames[1].id]})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log('a games', Agames)
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
 
-  it('should be able get a user\'s incoming requests', function(done) {
+  it('B should be able get see As incoming request', function(done) {
     chai.request(url)
     .get('api/games/incomingrequests')
-    .set('jwt', jwtA)
+    .set('jwt', jwtB)
     .end(function(err, res) {
       //console.log(res);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
+      expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
   });
@@ -361,8 +368,36 @@ describe('basic user tests', function() {
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].platform).to.be.a('String');
+      console.log('gameId to look for', gameB1Id);
       done();
     });
   });
+
+  // it('B should be able to delete an incoming request', function(done) {
+  //   chai.request(url)
+  //   .delete('api/games/incomingrequests')
+  //   .set('jwt', jwtB)
+  //   .send({gameId: gameB1Id, ownerId: AId})
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     console.log('gameId to look for', gameB1Id);
+  //     expect(res.body.error).to.eql(0);
+  //     done();
+  //   });
+  // });
+
+  it('A should be able to delete an outgoing request', function(done) {
+    chai.request(url)
+    .delete('api/games/outgoingrequests')
+    .set('jwt', jwtA)
+    .send({gameId: gameB1Id, ownerId: BId})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log('gameId to look for', gameB1Id);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
 
 });
