@@ -13,11 +13,12 @@ module.exports = function(app, auth) {
     var password = req.query.password;
 
     User.findOne({email: email}, function(err, user) {
-      if (err) return res.status(500).json({error: 1});
+      returnIfError(err, res, 1, 'cannot find user', 500);//if (err) return res.status(500).json({error: 1});
       if (!user) return res.status(400).json({error: 6});
 
       //check to see if password is valid
-      if (!user.validPassword(password)) return res.json({error: 4});
+      if (!user.validPassword(password))
+        return res.status(400).json({error: 4});
 
       passback.email = user.email;
       passback.screename = user.screenname || '';
@@ -40,7 +41,7 @@ module.exports = function(app, auth) {
     //var avatar_url = req.query.avatar_url;
 
     User.findOne({email: email}, function(err, user) {
-      if (err) return res.status(400).json({error: 1});
+      returnIfError(err, res, 1, 'cannot find user', 400);//if (err) return res.status(400).json({error: 1});
 
       if (user) return res.status(400).json({error: 2});
 

@@ -15,8 +15,8 @@ var userSchema = new Schema({
   avatar_url: String,
   inventory: [String],
   favorites: [String],
-  outgoingRequests: [{type: Schema.Types.ObjectId, ref: 'Game'}],
-  incomingRequests: [{type: Schema.Types.ObjectId, ref: 'Game'}]
+  outgoingRequests: [Schema.Types.Mixed],
+  incomingRequests: [Schema.Types.Mixed]
 });
 
 userSchema.methods.generateHash = function(password) {

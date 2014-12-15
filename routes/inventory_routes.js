@@ -1,12 +1,14 @@
 'use strict';
-//var eachAsync = require('each-async');
+
 var User = require('../models/user');
 var Game = require('../models/game');
 var returnIfError = require('../lib/returnIfError');
 var getGameInfo = require('../lib/getGameInfo');
+var returnSuccess = require('../lib/returnSuccess');
+//var _ = require('lodash');
 
 module.exports = function(app, auth) {
-
+/*
   //Remove game from user's list
   app.delete('/api/games/inventory', auth, function(req, res) {
     var gameId = req.body.id;
@@ -54,7 +56,7 @@ module.exports = function(app, auth) {
         });
     });
   });
-
+*/
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
     return getGameInfo(req.user.inventory, res);
@@ -68,24 +70,30 @@ module.exports = function(app, auth) {
       res.status(400).json({error:11});
     }
     //create new game
+    //newGame = _.pick(req.body, ['title', 'platform']);
     newGame.title = req.body.title;
     newGame.platform =  req.body.platform;
     newGame.condition = req.body.condition || '';
     newGame.image_urls = req.body.image_urls || [];
-    newGame.short_description = req.body.short_description;
-    //save game
+    newGame.short_description = req.body.short_description || '';
+
+    //save the new game
     newGame.save(function(err, game) {
-      if (err) return res.send(err);
+
+      returnIfError(err, res, 37, 'cannot save new game', 400);
       //find the current user & push new game's reference ID to hasGames list
       User.findById(req.user._id, function(err, user) {
+
         returnIfError(err, res, 1, 'error finding user');
         if (user === null) return console.log({error: 1, msg:'user is null'});
+
         user.inventory.push(game._id);
         user.save(function(err) {
           returnIfError(err, res, 1, 'error saving game');
         });
       });
-      return res.status(200).json({error: 0, item: newGame});
+
+      returnSuccess(res, newGame);
     });
   });
 };
