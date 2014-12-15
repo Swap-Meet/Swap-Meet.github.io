@@ -1,9 +1,35 @@
 <div class="container">
   <form>
-    <input type="radio" ng-model="search.miles" value="5" />5 miles
-    <input type="radio" ng-model="search.miles" value="15" />15 miles
-    <input type="radio" ng-model="search.miles" value="45" />45 miles
+    <input type="text" data-ng-model="search.title" placeholder="search"/>
+    <input type="submit" data-ng-click="filterSearch()" value="Go"/>
+    <div>
+      <input type="radio" data-ng-model="search.miles" value="5" />5 miles
+      <input type="radio" data-ng-model="search.miles" value="15" />15 miles
+      <input type="radio" data-ng-model="search.miles" value="45" />45 miles
+    </div>
+    <div>
+      <input type="checkbox" data-ng-model="search.platform.xbox" value="XBOX" />XBOX
+      <input type="checkbox" data-ng-model="search.platform.xbox360" value="XBOX360" />XBOX360
+      <input type="checkbox" data-ng-model="search.platform.xboxone" value="XBOXONE" />XBOXone
+    </div>
+    <div>
+      <input type="checkbox" data-ng-model="search.platform.ps4" value="PS4" />PS4
+      <input type="checkbox" data-ng-model="search.platform.ps3" value="PS3" />PS3
+      <input type="checkbox" data-ng-model="search.platform.ps2" value="PS2" />PS2
+    </div>
+    <div>
+      <input type="checkbox" data-ng-model="search.platform.wii" value="Wii" />Wii
+      <input type="checkbox" data-ng-model="search.platform.n64" value="N64" />N64
+      <input type="checkbox" data-ng-model="search.platform.nes" value="NES" />NES
+    </div>
+    <div>
+      <input type="checkbox" data-ng-model="search.platform.pc" value="PC" />PC
+      <input type="checkbox" data-ng-model="search.platform.mac" value="MAC" />MAC
+    </div>
+    <div>
+      <input type="checkbox" data-ng-model="search.platform.board" value="BOARD" />BOARD
+      <input type="checkbox" data-ng-model="search.platform.card" value="CARD" />CARD
+    </div>
 
-    <!-- <input type="checkbox" ng-model="search.platform" value="XBOX" -->
   </form>
 </div>
