@@ -1,1 +1,6 @@
 @import "variables";
+
+@mixin secondary-font {
+  line-spacing: .25em;
+  font-family: $Gasalt;
+}
