@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     },
 
     simplemocha: {
-      src: ['test/back-end/*.js']
+      src: ['test/back-end/test.js']
     },
 
     sass: {
