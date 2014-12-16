@@ -1,10 +1,6 @@
 <div class="container">
-  Game Details Page
-  <!--  send req button -->
-  <input type="button" ng-click="sendRequest()" value="SEND REQUEST"/><br />
-
-  <!-- add to favorite button -->
-  <input type="button" ng-click="addFavorite()" value="FavThisStar"/><br />
+  Add Game Page
+  <input type="button" ng-click="addGame()" value="ADD GAME"/><br />
 
   <!-- title bar -->
   <div>{{ game.title }}</div>
@@ -12,12 +8,18 @@
   <!-- game image -->
   <img src='{{ game.image_urls[0] }}'></img>
 
+  <!-- ADD/EDIT an image -->
+  <input type="button" ng-click="addEditImage()" value="ADD/EDIT"/><br />
+
   <!-- user name --> <!-- TODO: id number -->
   <div>TODO: id number -> UserName HERE
     <div>{{ game.owner }}</div>
   </div>
 
-  <!-- game info -->
+  <!-- TODO: HERE -->
+  <!-- [ ] Platform Dropdown Chooser -->
+
+  <!-- game.short_description  only -->
   <div>Game Info:
     <div>{{ game.short_description }}</div>
   </div>

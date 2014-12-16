@@ -14,6 +14,9 @@ require('./services/resource_backend_service')(swapApp);
 require('./controllers/search_controller')(swapApp);
 require('./controllers/profile_controller')(swapApp);
 require('./controllers/gameDetails_controller')(swapApp);
+require('./controllers/myFavDetails_controller')(swapApp);
+require('./controllers/myGameDetails_controller')(swapApp);
+require('./controllers/addGame_controller')(swapApp);
 require('./controllers/inboxDetails_controller')(swapApp);
 require('./controllers/outboxDetails_controller')(swapApp);
 
@@ -37,6 +40,17 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
     })
+    .when('/myfavdetails', {
+      templateUrl: 'templates/myFavDetails_template.html',
+      controller: 'myFavDetailsCtrl'
+    })
+    .when('/mygamedetails', {
+      templateUrl: 'templates/myGameDetails_template.html',
+      controller: 'myGameDetailsCtrl'
+    })
+    .when('/addgame', {
+      templateUrl: 'templates/addGame_template.html',
+      controller: 'addGameCtrl'
     .when('/inboxrequestdetails', {
       templateUrl: 'templates/inboxDetails_template.html',
       controller: 'inboxDetailsCtrl'
