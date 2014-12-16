@@ -1,7 +1,6 @@
 'use strict';
 var Game = require('../models/game');
-var returnIfError = require('../lib/returnIfError');
-var returnSuccess = require('../lib/returnSuccess');
+var helpers = require('../lib/helpers');
 
 module.exports = function(app) {
 
@@ -9,12 +8,8 @@ module.exports = function(app) {
   //no authentication required
   app.get('/api/browse', function(req, res) {
     Game.find({}, function(err, data) {
-      returnIfError(err, res, 99, 'cannot get games', 404);
-      returnSuccess(res, data.slice(data.length - 20, data.length));
-      // return res.status(200).json({
-      //   error: 0,
-      //   items: data.slice(data.length - 20, data.length)
-      // });
+      if (err) helpers.returnError(res, 99, 'cannot get games', 404);
+      return helpers.returnSuccess(res, data.slice(data.length - 20, data.length));
     });
   });
 };

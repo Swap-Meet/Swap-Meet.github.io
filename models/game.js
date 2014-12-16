@@ -12,6 +12,8 @@ var gameSchema = new Schema({
   latitude: String,
   longitude: String,
   owner: String, //id number
+  owner_screenname: String,
+  date_added: Object,
   short_description: String,
   platform: String,
   image_urls: ['String']
