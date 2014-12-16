@@ -21,12 +21,8 @@ module.exports = function(app) {
       'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
     };
 
-    $scope.sendRequest = function() {
-      console.log('Imagine I am sending a request now...');
-    };
-
-    $scope.addFavorite = function() {
-      console.log('Imagine Adding to favorites');
+    $scope.cancelRequest = function() {
+      console.log('Imagine I am canceling a request now...');
     };
 
   }]);
