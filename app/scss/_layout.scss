@@ -23,21 +23,6 @@ header {
   margin: 0 auto;
 }
 
-.game-info_main {
-  @include secondary-font;
-  text-align: center;
-  margin: 5% 10%;
-  &>h1 {
-    @include secondary-font;
-    font-size: 1.5em;
-    text-transform: uppercase;
-  }
-  &>h2 {
-    font-size: 1.25em;
-    color: $primary-color;
-    @include secondary-font;
-  }
-}
 
 
 
