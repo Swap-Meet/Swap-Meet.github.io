@@ -20,6 +20,7 @@ require('./controllers/myGameDetails_controller')(swapApp);
 require('./controllers/addGame_controller')(swapApp);
 require('./controllers/inboxDetails_controller')(swapApp);
 require('./controllers/outboxDetails_controller')(swapApp);
+require('./controllers/login_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) {
@@ -59,6 +60,10 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
     .when('/outboxrequestdetails', {
       templateUrl: 'templates/outboxDetails_template.html',
       controller: 'outboxDetailsCtrl'
+    })
+    .when('/login', {
+      templateUrl: 'templates/login_template.html',
+      controller: 'loginCtrl'
     })
     .otherwise({
       redirectTo: '/'

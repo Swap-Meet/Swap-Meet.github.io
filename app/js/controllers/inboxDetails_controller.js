@@ -20,7 +20,8 @@ module.exports = function(app) {
       platform: 'NES',
       image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
       'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-    },{
+    },
+    {
       title: 'Ms. Pac Man',
       score: 'String',
       publisher: 'String',
