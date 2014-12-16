@@ -17,7 +17,8 @@ module.exports = function(app) {
       owner: 'String_id_number', //id number
       short_description: 'Eat all the dots, run from the ghosts, for now...',
       platform: 'NES',
-      image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg', 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
+      image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
+      'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
     };
 
     $scope.removeFavorite = function() {

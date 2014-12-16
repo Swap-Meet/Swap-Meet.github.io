@@ -1,36 +1,29 @@
-<section>
 
-
-
-
-  <section class="section group no-margin">
-
+  <section class="section group">
     <!-- information bar -->
-    <h2 class="inform col span_3_of_3">Game Details</h2>
+    <h2 class="inform col span_4_of_4">Game Details</h2>
 
     <!--  send req button -->
-    <a href="#/gamedetails" class="btn-positive col span_2_of_3" type="button" ng-click="sendRequest()" value="Send Request"/>SEND REQUEST
-    </a>
+    <a href="#/gamedetails" class="btn-positive col span_3_of_4" type="button" ng-click="sendRequest()" value="Send Request"/>SEND REQUEST</a>
 
      <!-- favorite button -->
-    <label class="btn-fav col span_1_of_3" for="fav"><span class="icon-star"></span></label>
+    <button class="btn-fav col span_1_of_4" for="fav"><span class="icon-star" ng-click="addFavorite()"></span></button>
   </section>
 
-  <input class="btn-fav-checkbox" id="fav" type="checkbox" ng-click="addFavorite()" value="FavThisStar"/>
+  <article class="section group">
+    <!-- title bar -->
+    <h1 class="game-title_main col span_6_of_6">{{ game.title }}</h1>
+
+    <!-- game image -->
+    <img src='{{ game.image_urls[0] }}' class="img_main col span_6_of_6"></img>
+
+    <!-- user name --> <!-- TODO: id number -->
+
+      <h3>User Name{{ game.owner }}</h3>
 
 
+    <!-- game info -->
+  </article>
 
-  <!-- title bar -->
-  <div>{{ game.title }}</div>
 
-  <!-- game image -->
-  <img src='{{ game.image_urls[0] }}'></img>
-
-  <!-- user name --> <!-- TODO: id number -->
-  <div>TODO: id number -> UserName HERE
-    <div>{{ game.owner }}</div>
-  </div>
-
-  <!-- game info -->
-</section>
 
