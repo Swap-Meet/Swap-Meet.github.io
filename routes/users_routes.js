@@ -2,48 +2,49 @@
 
 var User = require('../models/user');
 //var Game = require('../models/game');
-var returnIfError = require('../lib/returnIfError');
+var helpers = require('../lib/helpers');
+var _ = require('lodash');
 
 module.exports = function(app, auth) {
 
-  //user log-in
+  //previous user gets jwt token
   app.get('/api/user', function(req, res) {
-    var passback = {};
+    var profile = {};
     var email = req.query.email;
     var password = req.query.password;
 
+    //look for a user with this email in the DB
     User.findOne({email: email}, function(err, user) {
-      returnIfError(err, res, 1, 'cannot find user', 500);//if (err) return res.status(500).json({error: 1});
-      if (!user) return res.status(400).json({error: 6});
+      if (err) return helpers.returnError(err, res, 1, 'cannot find user');
+      if (!user) return helpers.returnError(user, res, 6, 'user not defined');
 
-      //check to see if password is valid
+      //access is denied for invalid password
       if (!user.validPassword(password))
-        return res.status(400).json({error: 4});
+        return helpers.returnError(res, 4, 'invalid password', 404);
 
-      passback.email = user.email;
-      passback.screename = user.screenname || '';
-      passback.zip = user.zip || '';
-      passback.avatar_url = user.avatar_url || '';
-      res.status(200).json({
+      //pull profile infomation from the DB
+      profile = _.pick(user, ['email', 'screenname', 'zip', 'avatar_url']);
+
+      //return profile info to user
+      return res.status(200).json({
         error: 0,
-        jwt: user.generateToken(app.get('jwtSecret')), profile: passback
+        jwt: user.generateToken(app.get('jwtSecret')),
+        profile: profile
       });
     });
   });
 
   //creating a new user
   app.post('/api/user', function(req, res) {
-    var passback = {};
-    var email = req.query.email;
+    var profile = {};
     var password = req.query.password;
-    var screenname = req.query.screenname;
     var loc = req.query.zip;
-    //var avatar_url = req.query.avatar_url;
 
-    User.findOne({email: email}, function(err, user) {
-      returnIfError(err, res, 1, 'cannot find user', 400);//if (err) return res.status(400).json({error: 1});
+    User.findOne({email: req.query.email}, function(err, user) {
+      if (err) return helpers.returnError(err, res, 1, 'cannot find user', 400);//if (err) return res.status(400).json({error: 1});
 
-      if (user) return res.status(400).json({error: 2});
+      if (user) return helpers.returnError(res, 2, 'user already exists'); //
+      //return res.status(400).json({error: 2});
 
       if (req.body.password && (req.body.password === req.body.email)) {
         return res.status(400).json({error:3});
@@ -57,9 +58,9 @@ module.exports = function(app, auth) {
       }
 
       var newUser = new User();
-      newUser.email = email;
+      newUser.email = req.query.email;
       newUser.password = newUser.generateHash(password);
-      newUser.screenname = screenname;
+      newUser.screenname = req.query.screenname;
       newUser.zip = loc;
       newUser.favorites = [];
       newUser.incomingRequests = [];
@@ -67,17 +68,17 @@ module.exports = function(app, auth) {
       newUser.latitude = '';
       newUser.longitude = '';
 
-      passback.email = newUser.email;
-      passback.screename = newUser.screenname || '';
-      passback.zip = newUser.zip || '';
-      passback.avatar_url = newUser.avatar_url || '';
+      profile.email = newUser.email;
+      profile.screename = newUser.screenname || '';
+      profile.zip = newUser.zip || '';
+      profile.avatar_url = newUser.avatar_url || '';
 
       newUser.save(function(err) {
         if (err) return res.status(400).json({error: 1});
-        res.status(200).json({
+        return res.status(200).json({
           error:0,
           jwt: newUser.generateToken(app.get('jwtSecret')),
-          profile: passback
+          profile: profile
         });
       });
     });
@@ -85,14 +86,16 @@ module.exports = function(app, auth) {
 
   //get user profile upon sending jwt token
   app.get('/api/user/myprofile', auth, function(req, res) {
-    var passback = {};
+    var profile = {};
     User.findById(req.user._id, function(err, myInfo) {
       if (err) return res.status(400).json({error:1});
-      passback.email = myInfo.email;
-      passback.screename = myInfo.screenname;
-      passback.zip = myInfo.zip;
-      passback.avatar_url = myInfo.avatar_url;
-      res.status(200).json({error: 0, profile:passback});
+
+      profile = _.pick(myInfo, ['email', 'screenname', 'zip', 'avatar_url']);
+
+      return res.status(200).json({
+        error: 0,
+        profile: profile
+      });
     });
 
   });
@@ -102,7 +105,7 @@ module.exports = function(app, auth) {
     var passback = {};
 
     User.findById(req.user._id, function(err, user) {
-      returnIfError(err, res, 1, 'cannot find user');
+      if (err) return helpers.returnError(res, 1, 'cannot find user');
 
       user.avatar_url = req.body.avatar_url || '';
       user.email = req.body.email || user.email;
@@ -121,9 +124,9 @@ module.exports = function(app, auth) {
       passback.avatar_url = req.bodyuser.avatar_url || '';
 
       user.save(function(err) {
-        if (err) return res.status(400).json({error: 1});
+        if (err) return helpers.returnError(res, 1, 'cannot save user');
       });
-      res.status(200).json({error: 0, profile:passback});
+      return res.status(200).json({error: 0, profile:passback});
     });
   });
 };

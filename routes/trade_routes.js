@@ -3,10 +3,8 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 //var findGameInDB = require('../lib/findGameInDB');
-var returnIfError = require('../lib/returnIfError');
-//var getGameInfo = require('../lib/getGameInfo');
+var helpers = require('../lib/helpers');
 var _ = require('lodash');
-var returnSuccess = require('../lib/returnSuccess');
 
 module.exports = function(app, auth) {
 
@@ -14,14 +12,15 @@ module.exports = function(app, auth) {
   app.delete('/api/games/incomingrequests', auth, function(req, res) {
     var gameId = req.body.gameId;
     var ownerId = req.body.ownerId;
-    //var i;
-    //var counter = 0;
+
     console.log('route is called');
 
     //find this user
     User.findById(req.user._id, function(err, user) {
-      returnIfError(err, res, 99, 'cannot find user 1');
-      if (!user) return res.status(400).json({error: 100, msg: 'user is null'});
+      if (err) return helpers.returnError(res, 99, 'cannot find user 1');
+
+      if (!user) return helpers.returnError(res, 100, 'cannot find user', 400);
+      // if (!user) return res.status(400).json({error: 100, msg: 'user is null'});
 
       user.incomingRequests = _.remove(user.incomingRequests, function(item) {
         if (gameId == item.gameId) {
@@ -31,12 +30,12 @@ module.exports = function(app, auth) {
       });
 
       user.save(function(err) {
-        returnIfError(err, res, 99, 'cannot save user', 400);
+        if (err) return helpers.returnError(res, 99, 'cannot save user');
       });
 
       //find the user who requested this trade
       User.findById(ownerId, function(err, otherUser) {
-        returnIfError(err, res, 99, 'cannot find user 2');
+        if (err) return helpers.returnError(res, 99, 'cannot find user 2');
         //console.log('found other user', otherUser, gameId);
         otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
           function(item) {
@@ -44,8 +43,8 @@ module.exports = function(app, auth) {
           });
         //console.log('found other user', otherUser);
         otherUser.save(function(err) {
-          returnIfError(err, res, 5, 'cannot save user 2', 403);
-          returnSuccess(res);
+          if (err) return helpers.returnError(res, 5, 'cannot save user 2');
+          return helpers.returnSuccess(res);
         });
       });
       // //find any users who requested to trade this game
@@ -81,14 +80,14 @@ module.exports = function(app, auth) {
 
     //checks to see if game ID is valid
     Game.findById(gameId, function(err, game) {
-      returnIfError(err, res, 10, 'invalid id');
+      if (err) return helpers.returnError(res, 10, 'invalid id');
       //if (game)
       owner = game.owner;
 
       //find the user based on the incoming jwt token
       User.findById(req.user._id, function(err, user) {
-        returnIfError(err, res, 6, 'error finding user');
-        if (!user) return res.json({error:6, msg: 'user is null'});
+        if (err) return helpers.returnError(res, 6, 'error finding user');
+        if (!user) return helpers.returnError(res, 6, 'user is null');
 
         //check to see if game is already in this user's wantsgames
         alreadyWanted = false;
@@ -111,11 +110,11 @@ module.exports = function(app, auth) {
           // console.log(user.outgoingRequests[0].potentialTrades);
 
           user.save(function(err) {
-            returnIfError(err, res, 1, 'error saving');
+            if (err) return helpers.returnError(res, 1, 'error saving');
 
             //find owner of other game
             User.findById(owner, function(err, gameOwner) {
-              returnIfError(err, res, 1, 'error finding owner');
+              if (err) return helpers.returnError(res, 1, 'error finding owner');
 
               //add this request as an incoming request
               gameOwner.incomingRequests.push({
@@ -126,14 +125,16 @@ module.exports = function(app, auth) {
 
               //save the other user
               gameOwner.save(function(err) {
-                returnIfError(err, res, 453, 'err saving user');
-                return res.status(200).json({error:0}); //updated user
+                if (err) return helpers.returnError(res, 453, 'err saving user');
+                return helpers.returnSuccess(res);
+                //res.status(200).json({error:0}); //updated user
               });
             });
           });
         }
         else {
-          return res.json({error: 8, msg: 'game already in favorites'});
+          return helpers.returnError(res, 8, 'game already in favs', 400);
+          //res.json({error: 8, msg: 'game already in favorites'});
         }
       });
     });
@@ -148,27 +149,30 @@ module.exports = function(app, auth) {
 
     //find user making the request
     User.findById(req.user._id, function(err, user) {
-      returnIfError(err, res, 2, 'cannot find user');
+      if (err) return helpers.returnError(res, 2, 'cannot find user');
 
       //console.log('array', user.incomingRequests);
       numRequests = _.reduce(user.incomingRequests, function(numRequests, num) {
         //console.log('pooooo');
         return numRequests + num.potentialTrades.length;
       }, numRequests);
-      //numRequests = user.incomingRequests.length;
-      //console.log('num requests', numRequests);
 
       _.forEach(user.incomingRequests, function(incomingRequest) {
-        returnIfError(err, res, 33, 'cannot find request');
+
+        if (err) return helpers.returnError(res, 33, 'cannot find request');
+
         _.forEach(incomingRequest.potentialTrades, function(item) {
+
           Game.findById(item, function(err, game) {
-            if (err) return res.status(400).json({error: 99});
+            if (err) return helpers.returnError(res, 99);
+
             incomingRequests.push(_.pick(game,
               ['_id', 'owner', 'title', 'image_url', 'platform']));
             counter++;
             //console.log('incomingRequests', incomingRequests);
             if (counter === numRequests) {
-              returnSuccess(incomingRequests);//return res.status(200).json({error: 0, items: incomingRequests});
+              return helpers.returnSuccess(res, incomingRequests);
+              //return res.status(200).json({error: 0, items: incomingRequests});
             }
           });
         });
@@ -186,23 +190,21 @@ module.exports = function(app, auth) {
 
     //find this user
     User.findById(req.user._id, function(err, user) {
-      returnIfError(err, res, 99, 'cannot find user 1');
-      if (!user) return res.status(400).json({error: 100, msg: 'user is null'});
+      if (err) return helpers.returnError(res, 99, 'cannot find user 1');
+      if (!user) return helpers.returnError(res, 100, 'user is null');
+      //if (!user) return res.status(400).json({error: 100, msg: 'user is null'});
 
       user.outgoingRequests = _.remove(user.outgoingRequests, function(item) {
-        if (gameId == item.gameId) {
-          return false;
-        }
-        return true;
+        return (gameId == item.gameId) ? false : true;
       });
 
       user.save(function(err) {
-        returnIfError(err, res, 99, 'cannot save user', 400);
+        if (err) helpers.returnError(res, 99, 'cannot save user', 400);
       });
 
       //find the user the delete trade was directed at
       User.findById(ownerId, function(err, otherUser) {
-        returnIfError(err, res, 99, 'cannot find user 2');
+        if (err) return helpers.returnError(err, res, 99, 'cannot find user 2');
         //console.log('found other user', otherUser, gameId);
         otherUser.incomingRequests = _.remove(otherUser.incomingRequests,
           function(item) {
@@ -210,8 +212,8 @@ module.exports = function(app, auth) {
           });
         //console.log('found other user', otherUser);
         otherUser.save(function(err) {
-          returnIfError(err, res, 5, 'cannot save user 2', 403);
-          returnSuccess(res);
+          if (err) return helpers.returnError(res, 5, 'cannot save user 2', 403);
+          helpers.returnSuccess(res);
         });
       });
       // //find any users who requested to trade this game

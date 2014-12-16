@@ -80,6 +80,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
+      console.log(res.body.msg);
       done();
     });
   });
