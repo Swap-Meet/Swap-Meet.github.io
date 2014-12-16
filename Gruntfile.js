@@ -63,8 +63,8 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         cwd: 'app/',
-        src: ['**/*.html', '**/*.css', 'assets/imgs/*.png',
-        'assets/fonts/*.ttf', 'assets/fonts/*.otf', 'assets/fonts/*.svg' ],
+        src: ['**/*.html', '**/*.css', 'assets/imgs/*.png', 'assets/fonts/*.ttf',
+        'assets/fonts/*.otf', 'assets/fonts/*.svg'],
         expand: true,
         dest: 'build/'
       }
@@ -134,7 +134,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test:client', ['browserify:test', 'karma:unit']);
   grunt.registerTask('build', ['clean:dev', 'browserify:dev', 'copy:dev',
     'sass:dev']);
-  grunt.registerTask('serve', ['build', 'express', 'watch']);
+  grunt.registerTask('serve', ['jshint', 'jscs', 'build', 'express', 'watch']);
   grunt.registerTask('default', ['build', 'test', 'test:client']);
 
 };

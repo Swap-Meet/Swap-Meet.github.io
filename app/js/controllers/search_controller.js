@@ -5,10 +5,9 @@ module.exports = function(app) {
     //getting data from service
     $scope.games = Games.searchResults();
 
-
     $scope.filterSearch = function() {
-        console.log('Imagine I am doing a search now...');
-    }
+      console.log('Imagine I am doing a search now...');
+    };
     //var swapBackend = new ResourceBackend('swaps');
 
     // $scope.index = function() {
