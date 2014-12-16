@@ -12,7 +12,7 @@ module.exports = function(app, auth) {
   app.delete('/api/games/inventory', auth, function(req, res) {
     var gameId = req.body.id;
 
-    remove the game from the game database
+    //remove the game from the game database
     Game.remove({ _id: gameId }, function(err) {
       if (err) return helpers.returnError(res, 10, 'invalid id');
       console.log('removed game document');
@@ -26,7 +26,7 @@ module.exports = function(app, auth) {
       if (err || !user) return helpers.returnError(res, 9, 'cannot find user');
       user.inventory = helpers.filterOutGame(user.inventory, gameId);
       user.save(function(err) {
-        if (err) return helpers.returnError(res, 10 'cannot save user');
+        if (err) return helpers.returnError(res, 10, 'cannot save user');
       });
     });
 
@@ -41,7 +41,7 @@ module.exports = function(app, auth) {
 
     //find everyone who has proposed a trade for this game, delete their trades
     User.find({outgoingrequests: {$elemMatch: {gameId: gameId}}},
-      //function(err, user) {
+      function(err, user) {
 
     });
 
@@ -49,8 +49,8 @@ module.exports = function(app, auth) {
     //splice out the game, delete if there are no games left in the request
     User.findById(req.user._id, function(err, user) {
       if (err || !user) return helpers.returnError(res, 9, 'cannot find user');
-      user.outgoingrequests = _.filter(user.outgoingrequests, function(item){
-        (item.gameId == gameId) ? false : true;
+      user.outgoingrequests = _.filter(user.outgoingrequests, function(item) {
+        return (item.gameId == gameId) ? false : true;
       });
     });
 
@@ -174,8 +174,8 @@ module.exports = function(app, auth) {
     //find user making the request
     User.findById(req.user._id, function(err, user) {
       if (err) return helpers.returnError(res, 2, 'cannot find user');
-
-      //console.log('array', user.incomingRequests);
+      console.log('user', user);
+      console.log('array', user.incomingRequests);
       numRequests = _.reduce(user.incomingRequests, function(numRequests, num) {
         //console.log('pooooo');
         return numRequests + num.potentialTrades.length;
@@ -189,9 +189,12 @@ module.exports = function(app, auth) {
 
           Game.findById(item, function(err, game) {
             if (err) return helpers.returnError(res, 99);
-
-            incomingRequests.push(_.pick(game,
-              ['_id', 'owner', 'title', 'image_url', 'platform']));
+            console.log('game', game);
+            incomingRequests.push({owner: game.owner, gameId: game._id, games: _.pick(game,
+              ['_id', 'title', 'zip', 'owner', 'owner_screenname',
+                'date_added', 'short_description', 'platform', 'owner',
+                'image_urls'])});
+            console.log('incomingrequests', incomingRequests);
             counter++;
             //console.log('incomingRequests', incomingRequests);
             if (counter === numRequests) {

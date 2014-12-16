@@ -41,9 +41,9 @@ module.exports = function(app, auth) {
     var loc = req.query.zip;
 
     User.findOne({email: req.query.email}, function(err, user) {
-      if (err) return helpers.returnError(err, res, 1, 'cannot find user', 400);//if (err) return res.status(400).json({error: 1});
+      if (err) return helpers.returnError(err, res, 1, 'cannot find user', 400);
 
-      if (user) return helpers.returnError(res, 2, 'user already exists'); //
+      if (user) return helpers.returnError(res, 2, 'user already exists');
       //return res.status(400).json({error: 2});
 
       if (req.body.password && (req.body.password === req.body.email)) {

@@ -77,7 +77,7 @@ module.exports = function(app, auth) {
   //add a game to user's inventory
   app.post('/api/games/inventory', auth, function(req, res) {
     var newGame = new Game();
-    newGame.owner = req.user._id;
+
     if (req.body.title === '' || req.body.platform === '') {
       helpers.returnError(res, 11, 'title or platform undef', 400);
     }
@@ -89,7 +89,12 @@ module.exports = function(app, auth) {
     newGame.condition = req.body.condition || '';
     newGame.image_urls = req.body.image_urls || [];
     newGame.short_description = req.body.short_description || '';
+    newGame.zip = req.user.zip || '';
+    newGame.owner_screenname = req.user.screenname;
+    newGame.date_added = Date.now();
+    newGame.owner = req.user._id;
 
+    //console.log(newGame);
     //save the new game
     newGame.save(function(err, game) {
 
