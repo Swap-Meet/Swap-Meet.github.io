@@ -14,6 +14,8 @@ require('./services/resource_backend_service')(swapApp);
 require('./controllers/search_controller')(swapApp);
 require('./controllers/profile_controller')(swapApp);
 require('./controllers/gameDetails_controller')(swapApp);
+require('./controllers/inboxDetails_controller')(swapApp);
+require('./controllers/outboxDetails_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -34,6 +36,14 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
     .when('/gamedetails', {
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
+    })
+    .when('/inboxrequestdetails', {
+      templateUrl: 'templates/inboxDetails_template.html',
+      controller: 'inboxDetailsCtrl'
+    })
+    .when('/outboxrequestdetails', {
+      templateUrl: 'templates/outboxDetails_template.html',
+      controller: 'outboxDetailsCtrl'
     })
     .otherwise({
       redirectTo: '/'
