@@ -1,20 +1,68 @@
 @import "variables";
 
-%padding{
+%padding {
   padding: 1em;
-}
-
-.logo {
-  width: 30%;
-  float: left;
-  @extend %padding;
 }
 
 .header-profile {
   color: $primary-color;
   float: right;
-  @extend %padding;
+  font-size: 1.5em;
+  padding: .75em 1em;
+}
 
+.logo {
+  width: 50%;
+  float: left;
+  @extend %padding;
+}
+
+form {
+ background-color: $primary-color;
+ border-bottom: solid .1em;
+ border-color: $info-color;
+}
+
+.search-input {
+  width: 46%;
+  padding: 2em 1.5em;;
+  border:none;
+  font-size: 1em;
+  font-family: $secondary-font;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+}
+
+.search-button {
+  border-style: none;
+  background-color: white;
+  font-size: 1.5em;
+  font-family: $primary-font;
+  margin-left: -3em;
+  border-bottom: solid white;
+  color: $info-color;
+}
+
+.filter {
+  display: inline-block;
+  font-family: $primary-font;
+  font-size: 1.25em;
+  background-color: $primary-color;
+  color: white;
+  margin-left: 3.5em;
+}
+
+.icon-search {
+  color: $primary-color;
+}
+
+.panel-body {
+   font-family: $primary-font;
+   a {
+    color: black;
+    line-height: 2em;
+    font-size: 1.25em;
+  }
 }
 
 .inform {
@@ -41,7 +89,3 @@
     font-size: 1.8em;
   }
 }
-
-
-
-

@@ -1,24 +1,22 @@
 <div class="container">
-  <div>
-    The Place to Trade Your Games
-  </div>
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading text-center">
-          Search Games
-        </div>
         <div class="container">
           <form>
-            <input type="text" data-ng-model="search.title" placeholder="search"/>
-            <input type="submit" data-ng-click="filterSearch()" value="Go"/>
-            <a href="#/filtersearch">Filter</a>
+            <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
+            <input type="submit" class="search-button" data-ng-click="filterSearch()" value=""/>
+            <a href="#" class="icon-search"></a>
+            <a href="/filtersearch" class="filter">Filter</a
+
           </form>
         </div>
         <div class="panel-body">
           <div ng-repeat="game in games | limitTo:10" class="row">
             <div class="col-md-9">
-              <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+              <img src='{{ game.image_urls[0] }}'></img>
+              <a href="/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+              <button class="icon-star" ng-click="addFavorite()"></button>
             </div>
           </div>
         </div>
