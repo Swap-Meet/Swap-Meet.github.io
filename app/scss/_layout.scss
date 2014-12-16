@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 header {
   background-color: black;
@@ -7,15 +8,38 @@ header {
   overflow: hidden;
 }
 
+
+// Game Details View
+
 .game-title_main {
+  margin: 5% 1.6%;
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 0;
+  @include secondary-font;
 }
 
 .img_main {
-  margin-top: 0;
-  margin-bottom: 0;
-  width: 90%;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
 }
+
+.game-info_main {
+  @include secondary-font;
+  text-align: center;
+  margin: 5% 10%;
+  &>h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+  &>h2 {
+    font-size: 1.25em;
+    color: $primary-color;
+    @include secondary-font;
+  }
+}
+
+
+
+
 

@@ -10,19 +10,19 @@
     <button class="btn-fav col span_1_of_4" for="fav"><span class="icon-star" ng-click="addFavorite()"></span></button>
   </section>
 
-  <article class="section group">
+  <article class="game-details_main">
     <!-- title bar -->
-    <h1 class="game-title_main col span_6_of_6">{{ game.title }}</h1>
+    <h1 class="game-title_main">{{ game.title }}</h1>
 
     <!-- game image -->
-    <img src='{{ game.image_urls[0] }}' class="img_main col span_6_of_6"></img>
-
-    <!-- user name --> <!-- TODO: id number -->
-
-      <h3>User Name{{ game.owner }}</h3>
-
+    <img src='{{ game.image_urls[0] }}' class="img_main"></img>
 
     <!-- game info -->
+    <section class="game-info_main">
+      <h1> user name </h1>
+      <h2> platform </h2>
+      <p> description </p>
+    </section>
   </article>
 
 
