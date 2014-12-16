@@ -1,6 +1,5 @@
 @import "variables";
-@import "mixins"
-;
+@import "mixins";
 
 .header-profile {
   color: $primary-color;
@@ -79,3 +78,45 @@
     font-size: 2.4em;
   }
 }
+
+.btn-negative {
+  background-color: $accent-color;
+  color: white;
+  font-family: $primary-font;
+}
+
+.game-title_main {
+  text-align: center;
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 2.5em;
+}
+
+.img-main {
+  width: 100%;
+}
+
+.btn-upload {
+  background-color: $primary-color;
+  color: white;
+  font-family: $primary-font;
+}
+
+.btn-remove {
+  background-color: $accent-color;
+  font-family: $primary-font;
+  color: white;
+}
+
+.game-info_main {
+  font-style: $primary-font;
+  h1 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+  h2 {
+    font-size: 1.25em;
+    color: $primary-color;
+    }
+  }
+}
+
