@@ -7,7 +7,7 @@
             <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
             <input type="submit" class="search-button" data-ng-click="filterSearch()" value=""/>
             <a href="#" class="icon-search"></a>
-            <a href="/filtersearch" class="filter">Filter</a
+            <a href="#/filtersearch" class="filter">Filter</a>
 
           </form>
         </div>
@@ -15,7 +15,7 @@
           <div ng-repeat="game in games | limitTo:10" class="row">
             <div class="col-md-9">
               <img src='{{ game.image_urls[0] }}'></img>
-              <a href="/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+              <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
               <button class="icon-star" ng-click="addFavorite()"></button>
             </div>
           </div>
