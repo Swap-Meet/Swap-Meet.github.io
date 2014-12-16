@@ -8,65 +8,89 @@ var _ = require('lodash');
 
 module.exports = function(app, auth) {
 
-  //delete an incoming request
-  app.delete('/api/games/incomingrequests', auth, function(req, res) {
-    var gameId = req.body.gameId;
-    var ownerId = req.body.ownerId;
+ //Remove game from user's list
+  app.delete('/api/games/inventory', auth, function(req, res) {
+    var gameId = req.body.id;
 
-    console.log('route is called');
-
-    //find this user
-    User.findById(req.user._id, function(err, user) {
-      if (err) return helpers.returnError(res, 99, 'cannot find user 1');
-
-      if (!user) return helpers.returnError(res, 100, 'cannot find user', 400);
-      // if (!user) return res.status(400).json({error: 100, msg: 'user is null'});
-
-      user.incomingRequests = _.remove(user.incomingRequests, function(item) {
-        if (gameId == item.gameId) {
-          return false;
-        }
-        return true;
-      });
-
-      user.save(function(err) {
-        if (err) return helpers.returnError(res, 99, 'cannot save user');
-      });
-
-      //find the user who requested this trade
-      User.findById(ownerId, function(err, otherUser) {
-        if (err) return helpers.returnError(res, 99, 'cannot find user 2');
-        //console.log('found other user', otherUser, gameId);
-        otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
-          function(item) {
-            return (item.gameId == gameId) ? false : true;
-          });
-        //console.log('found other user', otherUser);
-        otherUser.save(function(err) {
-          if (err) return helpers.returnError(res, 5, 'cannot save user 2');
-          return helpers.returnSuccess(res);
-        });
-      });
-      // //find any users who requested to trade this game
-      // User.find({outgoingRequests: {$elemMatch: {gameId: gameId}}},
-      //   function(err, otherUsers) {
-      //     returnIfError(err, res, 99, 'cannot find user 2');
-      //     _.forEach(otherUsers, function(otherUser) {
-      //       console.log('found other user', otherUser);
-      //       otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
-      //         function(item) return (item.gameId == gameId) ? false : true;
-      //     });
-      //       console.log('found other user', otherUser);
-      //     otherUser.save(function(err) {
-      //       returnIfError(err, res, 5, 'cannot save user 2', 403);
-      //       counter++;
-      //       if (counter === otherUsers.length) {
-      //         returnSuccess(res);
-      //       }
-      //     });
-      //   });
-      // });
+    remove the game from the game database
+    Game.remove({ _id: gameId }, function(err) {
+      if (err) return helpers.returnError(res, 10, 'invalid id');
+      console.log('removed game document');
     });
+
+    //async.parallel([deleteGameFromDB(callback)])
+
+    //find the user based on the incoming jwt token
+    //delete game from their inventory
+    User.findById(req.user._id, function(err, user) {
+      if (err || !user) return helpers.returnError(res, 9, 'cannot find user');
+      user.inventory = helpers.filterOutGame(user.inventory, gameId);
+      user.save(function(err) {
+        if (err) return helpers.returnError(res, 10 'cannot save user');
+      });
+    });
+
+    //find everyone who has favorited the game, delete game from their favorites
+    User.find({favorites: {$elemMatch: {gameId: gameId}}}, function(err, users) {
+      if (err) return helpers.returnError(res, 10, 'error finding user');
+
+      _.forEach(users, function(user) {
+        user.favorites = helpers.filterOutGame(user.favorites, gameId);
+      });
+    });
+
+    //find everyone who has proposed a trade for this game, delete their trades
+    User.find({outgoingrequests: {$elemMatch: {gameId: gameId}}},
+      //function(err, user) {
+
+    });
+
+    //find all trades the user has proposed with this game
+    //splice out the game, delete if there are no games left in the request
+    User.findById(req.user._id, function(err, user) {
+      if (err || !user) return helpers.returnError(res, 9, 'cannot find user');
+      user.outgoingrequests = _.filter(user.outgoingrequests, function(item){
+        (item.gameId == gameId) ? false : true;
+      });
+    });
+
+    // User.findById(req.user._id, function(err, user) {
+    //   returnIfError(err, res, 6, 'error finding user');
+    //   if (user === null) return res.json({error:6, msg: 'user is null'});
+
+    //   //check to see if game is in this user's hasGames
+    //   var stillHas = true;
+    //   for (var i = 0; i < user.hasGames.length; i++) {
+    //     if (user.hasGames[i] === gameId) {
+    //       user.hasGames.splice(i, 1);
+    //       stillHas = false;
+    //       break;
+    //     }
+    //   }
+
+    //   //delete game from other user's wants games
+    //   User.find(
+    //     {wantsGames: {$elemMatch: {gameId: gameId}}}, function(err, data) {
+    //       if (!data) return res.json({error: 1});
+    //       for (var i = 0; i < data.length; i++) {
+    //         for (var j = 0; j < data[i].wantsGames.length; j++) {
+    //           if (data[i].wantsGames[j].gameId === gameId) {
+    //             data[i].wantsGames.splice(j, 1);
+    //             break;
+    //           }
+    //         }
+    //         data[i].save(returnIfError(err, res, 1, 'error saving'));
+    //       }
+    //       if (!stillHas) {
+    //         user.save(function(err) {
+    //           returnIfError(err, res, 1, 'error saving');
+    //           res.status(200).json({error: 0}); //updated user
+    //         });
+    //       } else {
+    //         res.json({error: 9, message: 'game not found in user list'});
+    //       }
+    //     });
+    // });
   });
 
   //add a game to user's outgoing requests list
