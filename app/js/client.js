@@ -9,6 +9,7 @@ var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
 
 // load services
 require('./services/resource_backend_service')(swapApp);
+require('./services/game_service')(swapApp);
 
 // load controllers
 require('./controllers/search_controller')(swapApp);
@@ -51,6 +52,7 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',
       controller: 'addGameCtrl'
+    })
     .when('/inboxrequestdetails', {
       templateUrl: 'templates/inboxDetails_template.html',
       controller: 'inboxDetailsCtrl'
