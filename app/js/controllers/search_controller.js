@@ -2,19 +2,20 @@
 
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', function($scope) {
-    //this is fake data
+    //this is less fake data
     $scope.games = [
-    {title: 'Grim Fandango', platform: 'C64' },
-    {title: 'Lode Runner', platform: 'PS4' },
-    {title: 'Spy Hunter', platform: 'XBOX' },
-    {title: 'Pac Man', platform: 'NES' },
-    {title: 'Uno', platform: 'Card' },
-    {title: 'Punchout', platform: 'PS2' },
-    {title: 'Journey', platform: 'Atari' },
-    {title: 'Da Blob', platform: 'Wii' },
-    {title: 'Shadow Recruit', platform: 'SEGA' },
-    {title: 'Super Mario Bros.', platform: 'Amiga' },
-    {title: 'Castle Wolfenstein', platform: 'IIc' }
+      { id: '548f75df27398d8b9bfeac07',
+        owner: '548f75df27398d8b9bfeac05',
+        title: 'Monkey Island',
+        platform: 'XBOX' },
+      { id: '548f75df27398d8b9bfeac08',
+        owner: '548f75df27398d8b9bfeac05',
+        title: 'Grim Fandango',
+        platform: 'PC' },
+      { id: '548f75df27398d8b9bfeac09',
+        owner: '548f75df27398d8b9bfeac05',
+        title: 'Settlers of Catan',
+        platform: 'Board' }
     ];
 
     $scope.filterSearch = function() {
