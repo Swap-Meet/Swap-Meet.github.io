@@ -10,6 +10,7 @@
   font-size: 1.5em;
   padding: .75em 1em;
 }
+
 .logo {
   width: 50%;
   float: left;
@@ -61,6 +62,8 @@ form {
     color: black;
     line-height: 2em;
     font-size: 1.25em;
+  }
+}
 
 .inform {
   background-color: $info-color;
@@ -85,11 +88,11 @@ form {
     font-size: 1.5em;
     padding: 2em;
   }
+}
 
-  .btn-fav-checkbox {
+.btn-fav-checkbox {
     margin: 0;
-
-  }
+}
 
 
 

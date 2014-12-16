@@ -16,7 +16,7 @@
             <div class="col-md-9">
               <img src='{{ game.image_urls[0] }}'></img>
               <a href="/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
-              <a href="#" class="icon-star"></a>
+              <button class="icon-star" ng-click="addFavorite()"></button>
             </div>
           </div>
         </div>
