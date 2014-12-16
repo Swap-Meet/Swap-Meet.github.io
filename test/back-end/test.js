@@ -11,6 +11,7 @@ chai.use(chaihttp);
 require('../../server');
 
 var expect = chai.expect;
+var games;
 
 //clear existing users and games
 User.collection.remove(function(err) {if (err) throw err;});
@@ -80,6 +81,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
+      console.log(res.body.msg);
       done();
     });
   });
@@ -123,8 +125,6 @@ describe('basic user tests', function() {
     .send(game1A)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res);
-      //console.log('body', res.body);
       expect(res.body.error).to.eql(0);
       expect(res.body.items.owner).to.be.a('String');
       done();
@@ -138,7 +138,6 @@ describe('basic user tests', function() {
     .send(game2A)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res);
       gameA2Id = res.body.items._id;
       expect(res.body.error).to.eql(0);
       expect(res.body.items.owner).to.be.a('String');
@@ -153,7 +152,6 @@ describe('basic user tests', function() {
     .send(game3A)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res);
       gameA3Id = res.body.items._id;
       expect(res.body.error).to.eql(0);
       expect(res.body.items.owner).to.be.a('String');
@@ -177,7 +175,7 @@ describe('basic user tests', function() {
     });
   });
 
-  it('should be able to add a game to B using jwt token', function(done) {
+  it('should be able to add another game to B using jwt token', function(done) {
     chai.request(url)
     .post('api/games/inventory')
     .set('jwt', jwtB)
@@ -202,7 +200,7 @@ describe('basic user tests', function() {
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       Agames = res.body.items;
-      //var gameId = res.body.items.gameId;
+      expect(res.body.items.length).to.eql(3);
       done();
     });
   });
@@ -215,7 +213,6 @@ describe('basic user tests', function() {
     .send({_id: gameA2Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('2', res.body);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -230,7 +227,6 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      //console.log('gameids', gameA3Id, gameA2Id);
       done();
     });
   });
@@ -311,7 +307,6 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      //console.log('items', res.body.items);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].title).to.be.a('String');
       done();
@@ -327,20 +322,18 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      //console.log('monkeymonkey', res.body);
       expect(res.body.items[0].title).to.be.a('String');
       done();
     });
   });
 
-  it('A should be able to save an outgoing request', function(done) {
+  it('A should be able to send outgoing request', function(done) {
     chai.request(url)
     .post('api/games/outgoingrequests')
     .set('jwt', jwtA)
-    .send({id: gameB1Id, gameIdArray: [Agames[0].id, Agames[1].id]})
+    .send({id: gameB1Id, gameIdArray: [Agames[0]._id, Agames[1]._id]})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('a games', Agames)
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -351,7 +344,7 @@ describe('basic user tests', function() {
     .get('api/games/incomingrequests')
     .set('jwt', jwtB)
     .end(function(err, res) {
-      //console.log(res);
+      //console.log('see incoming request', res.body);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
@@ -368,7 +361,7 @@ describe('basic user tests', function() {
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0].platform).to.be.a('String');
-      //console.log('gameId to look for', gameB1Id);
+      //console.log('browse', res.body);
       done();
     });
   });
@@ -399,4 +392,73 @@ describe('basic user tests', function() {
     });
   });
 
+  it('should be able to populate the games DB', function(done) {
+    games = require('./games')();
+    //console.log(games);
+    expect(games).to.be.an('Array');
+    done();
+  });
+
+  it('should be able to add a game to A', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(games[0])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[0]._id = res.body._id;//console.log('gameId to look for', gameB1Id);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should be able to add a game to B', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(games[1])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[1]._id = res.body._id;
+      //console.log('gameId to look for', gameB1Id);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+  // it('should be able to populate the games DB', function(done) {
+  //   var games = require('./games')();
+  //   console.log(games);
+  //   expect(games).to.be.an('Array');
+  //   done();
+  // });
 });
+// function callback() {
+
+// }
+
+// describe('favorites testing', function() {
+
+//   var MongoClient = require('mongodb').MongoClient;
+//   var format = require('util').format;
+
+//   //connect away
+//   MongoClient.connect('mongodb://localhost/game_swap_test', function(err, db) {
+//     if (err) throw err;
+//     console.log('Connected to Database');
+
+//     //User.collection.remove(function(err) {if (err) throw err;});
+//     //Game.collection.remove(function(err) {if (err) throw err;});
+//     //simple json record
+//     var game1A = {_id:'1A', title:'Monkey Island', platform:'XBOX'};
+//     var game2A = {_id:'2A', title:'God of War', platform:'PC'};
+//     var game3A = {_id:'3A', title:'Bunny Wars', platform:'XBOX'};
+//     var game1B = {_id:'1B', title:'Pokemon Snap', platform:'PS2'};
+//     var game2B = {_id:'2B', title:'Monkey Island 4', platform:'XBOX'};
+//     var game3B = {_id:'3B', title:'Sam and Max', platform:'PC'};
+//     //insert record
+//     db.collection('games').insert([game1A, game2A, game3A, game1B, game2B, game3B], function(err, records) {
+//       if (err) throw err;
+//       console.log('Record added');
+//     });
+//   });
+// });

@@ -15,6 +15,7 @@ var userSchema = new Schema({
   avatar_url: String,
   inventory: [String],
   favorites: [String],
+  last_login: Object,
   outgoingRequests: [Schema.Types.Mixed],
   incomingRequests: [Schema.Types.Mixed]
 });
