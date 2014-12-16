@@ -111,7 +111,10 @@ module.exports = function(grunt) {
     watch: {
       sass: {
         files: '<%= project.app %>/scss/{,*/}*.{scss,sass}',
-        tasks: ['sass:dev']
+        tasks: ['sass:dev'],
+        options: {
+          livereload: true
+        }
       },
       express: {
         files:  ['server.js', 'app/**/*.html'],
