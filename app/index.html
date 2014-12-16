@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <base href="/" />
+    <!-- <base href="/#/" /> -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Swap Meet</title>
     <link href="css/app.css" rel="stylesheet">
@@ -11,13 +10,13 @@
   <body>
     <main data-ng-app="swapApp">
       <header class="section group">
-        <a href="/"><img class="logo" src="assets/imgs/logo-501.png"></a>
-        <a href="/profile" class="icon-user header-profile"></a>
+        <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
+        <a href="#/profile" class="icon-user header-profile"></a>
       </header>
 
-      <section class="content">
-        <div ng-view></div>
-      </section>
+      <article class="content">
+        <section ng-view></section>
+      </article>
       <script src='http://localhost:35729/livereload.js'></script>
     </main>
   <script src="client_bundle.js"></script>

@@ -20,7 +20,7 @@ require('./controllers/addGame_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(false);
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',

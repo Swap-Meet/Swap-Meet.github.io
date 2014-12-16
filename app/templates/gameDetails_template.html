@@ -1,10 +1,24 @@
-<div class="container">
-  Game Details Page
-  <!--  send req button -->
-  <input type="button" ng-click="sendRequest()" value="SEND REQUEST"/><br />
+<section>
 
-  <!-- add to favorite button -->
-  <input type="button" ng-click="addFavorite()" value="FavThisStar"/><br />
+
+
+
+  <section class="section group no-margin">
+
+    <!-- information bar -->
+    <h2 class="inform col span_3_of_3">Game Details</h2>
+
+    <!--  send req button -->
+    <a href="#/gamedetails" class="btn-positive col span_2_of_3" type="button" ng-click="sendRequest()" value="Send Request"/>SEND REQUEST
+    </a>
+
+     <!-- favorite button -->
+    <label class="btn-fav col span_1_of_3" for="fav"><span class="icon-star"></span></label>
+  </section>
+
+  <input class="btn-fav-checkbox" id="fav" type="checkbox" ng-click="addFavorite()" value="FavThisStar"/>
+
+
 
   <!-- title bar -->
   <div>{{ game.title }}</div>
@@ -18,8 +32,5 @@
   </div>
 
   <!-- game info -->
-  <div>Game Info:
-    <div>{{ game.short_description }}</div>
-  </div>
+</section>
 
-</div><!-- end container -->
