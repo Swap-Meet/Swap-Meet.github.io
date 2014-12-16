@@ -1,18 +1,12 @@
 <div class="container">
-  <div>
-    The Place to Trade Your Games
-  </div>
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading text-center">
-          Search Games
-        </div>
         <div class="container">
           <form>
-            <input type="text" data-ng-model="search.title" placeholder="search"/>
-            <input type="submit" data-ng-click="filterSearch()" value="Go"/>
-            <a href="/filtersearch">Filter</a>
+            <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
+            <input type="submit" class="search-button" data-ng-click="filterSearch()" value="Go"/>
+            <a href="/filtersearch" class="filter">Filter</a>
           </form>
         </div>
         <div class="panel-body">

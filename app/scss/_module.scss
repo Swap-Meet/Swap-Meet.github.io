@@ -7,13 +7,46 @@
 .header-profile {
   color: $primary-color;
   float: right;
-  @extend %padding;
-
+  font-size: 1.5em;
+  padding: .75em 1em;
 }
 
 .logo {
-  width: 30%;
+  width: 50%;
   float: left;
   @extend %padding;
 }
+
+form {
+ background-color: $primary-color;
+}
+
+.search-input {
+  width: 54%;
+  padding: 2.5em 1.5em;;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.search-button {
+  padding: 1.35em;
+  border-style: none;
+  background-color: white;
+  font-size: 1em;
+  font-family: $primary-font;
+  margin-left: -1em;
+}
+
+.filter {
+  display: inline-block;
+  font-family: $primary-font;
+  font-size: 1.25em;
+  background-color: $primary-color;
+  color: white;
+  padding-left: .5em;
+}
+
+
+
 
