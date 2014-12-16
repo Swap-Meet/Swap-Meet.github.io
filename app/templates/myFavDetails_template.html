@@ -1,11 +1,5 @@
 <div class="container">
-  Game Details Page
-  <!--  send req button -->
-  <input type="button" ng-click="sendRequest()" value="SEND REQUEST"/><br />
-
-  <!-- add to favorite button -->
-  <input type="button" ng-click="addFavorite()" value="FavThisStar"/><br />
-
+  My Fav Details Page
   <!-- title bar -->
   <div>{{ game.title }}</div>
 
@@ -21,5 +15,7 @@
   <div>Game Info:
     <div>{{ game.short_description }}</div>
   </div>
+
+  <input type="button" ng-click="removeFavorite()" value="Remove Favorite"/><br />
 
 </div><!-- end container -->
