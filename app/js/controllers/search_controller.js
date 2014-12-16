@@ -3,8 +3,7 @@
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', 'Games', function($scope, Games) {
     //getting data from service
-    var data = Games.searchResults();
-    $scope.games = data;
+    $scope.games = Games.searchResults();
 
 
     $scope.filterSearch = function() {

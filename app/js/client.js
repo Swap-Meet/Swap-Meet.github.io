@@ -22,8 +22,7 @@ require('./controllers/inboxDetails_controller')(swapApp);
 require('./controllers/outboxDetails_controller')(swapApp);
 
 //setup $routeProvider
-swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(false);
+swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',
