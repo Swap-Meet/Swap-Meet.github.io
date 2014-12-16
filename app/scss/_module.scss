@@ -1,0 +1,19 @@
+@import "variables";
+
+%padding{
+  padding: 1em;
+}
+
+.header-profile {
+  color: $primary-color;
+  float: right;
+  @extend %padding;
+
+}
+
+.logo {
+  width: 30%;
+  float: left;
+  @extend %padding;
+}
+

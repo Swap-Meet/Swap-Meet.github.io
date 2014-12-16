@@ -1,0 +1,27 @@
+<div class="container">
+  Add Game Page
+  <input type="button" ng-click="addGame()" value="ADD GAME"/><br />
+
+  <!-- title bar -->
+  <div>{{ game.title }}</div>
+
+  <!-- game image -->
+  <img src='{{ game.image_urls[0] }}'></img>
+
+  <!-- ADD/EDIT an image -->
+  <input type="button" ng-click="addEditImage()" value="ADD/EDIT"/><br />
+
+  <!-- user name --> <!-- TODO: id number -->
+  <div>TODO: id number -> UserName HERE
+    <div>{{ game.owner }}</div>
+  </div>
+
+  <!-- TODO: HERE -->
+  <!-- [ ] Platform Dropdown Chooser -->
+
+  <!-- game.short_description  only -->
+  <div>Game Info:
+    <div>{{ game.short_description }}</div>
+  </div>
+
+</div><!-- end container -->

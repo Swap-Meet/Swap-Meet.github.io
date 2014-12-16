@@ -63,7 +63,7 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         cwd: 'app/',
-        src: ['**/*.html', '**/*.css'],
+        src: ['**/*.html', '**/*.css', 'assets/imgs/*.png', 'assets/fonts/*.ttf', 'assets/fonts/*.otf', 'assets/fonts/*.svg' ],
         expand: true,
         dest: 'build/'
       }
@@ -111,7 +111,10 @@ module.exports = function(grunt) {
     watch: {
       sass: {
         files: '<%= project.app %>/scss/{,*/}*.{scss,sass}',
-        tasks: ['sass:dev']
+        tasks: ['sass:dev'],
+        options: {
+          livereload: true
+        }
       },
       express: {
         files:  ['server.js', 'app/**/*.html'],

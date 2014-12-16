@@ -1,0 +1,22 @@
+<div class="container">
+  My Game Details Page
+  <!-- title bar -->
+  <div>{{ game.title }}</div>
+
+  <!-- game image -->
+  <img src='{{ game.image_urls[0] }}'></img>
+
+  <!-- user name --> <!-- TODO: id number -->
+  <div>TODO: id number -> UserName HERE
+    <div>{{ game.owner }}</div>
+  </div>
+
+  <!-- game info -->
+  <div>Game Info:
+    <div>{{ game.platform }}</div>
+    <div>{{ game.short_description }}</div>
+  </div>
+
+  <input type="button" ng-click="removeGame()" value="Remove Game"/><br />
+
+</div><!-- end container -->
