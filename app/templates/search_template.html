@@ -1,28 +1,32 @@
-<div class="position-view_search"></div>
+<!-- initial search populate list -->
+<div data-ng-init="index()">
 
-<!-- information bar -->
-<section class="inform">
-    Games Available
-</section>
+  <!-- sets position of view -->
+  <div class="position-view_search"></div>
 
-<!-- search bar -->
-<section class ="search section group">
-  <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
-  <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
-  <a href="#/filtersearch" class="search-button col span_1_of_4">Filter</a>
-</section>
+  <!-- information bar -->
+  <section class="inform">
+      Games Available
+  </section>
 
-<!-- browse games list -->
-<section class="game-summary section group" ng-repeat="game in games | limitTo:10">
-  <a href="#/gamedetails" class="game-summary_img col span_3_of_6">
-    <img  src='{{ game.image_urls[0] }}'></img>
-  </a>
-  <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_2_of_6">
-    <h1>{{game.title}}</h1>
-    <h2>{{game.platform}}</h2>
-  </a>
-  <button class="icon-star game-summary_fav col span_1_of_6" ng-click="addFavorite()"></button>
-</section>
+  <!-- search bar -->
+  <section class ="search section group">
+    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
+    <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
+    <a href="#/filtersearch" class="search-button col span_1_of_4">Filter</a>
+  </section>
 
+  <!-- browse games list -->
+  <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+    <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_3_of_6">
+      <img  src='{{ game.image_urls[0] }}'></img>
+    </a>
+    <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_2_of_6">
+      <h1>{{game.title}}</h1>
+      <h2>{{game.platform}}</h2>
+    </a>
+    <button class="icon-star game-summary_fav col span_1_of_6" ng-click="addFavorite()"></button>
+  </section>
 
-
+<!-- END search populate list -->
+</div>

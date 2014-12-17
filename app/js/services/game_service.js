@@ -1,10 +1,20 @@
 'use strict';
 
 module.exports = function(app) {
+  var handleErrors = function(data) {
+    console.log(data);
+  };
 
-  app.factory('Games', function() {
-
+  app.factory('Games', ['$http', function($http) {
+//
     return {
+      index: function() {
+        return $http({
+          method: 'GET',
+          url: '/api/browse'
+        })
+        .error(handleErrors);
+      },
       searchResults: function() {
         // to-do item: use $http to make call to server
         return [
@@ -32,5 +42,5 @@ module.exports = function(app) {
           ];
       }
     };
-  });
+  }]);
 };
