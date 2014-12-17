@@ -3,4 +3,26 @@
 @mixin secondary-font {
   line-spacing: .25em;
   font-family: $Gasalt;
+  text-transform: uppercase;
 }
+
+@mixin login-page {
+    text-align: center;
+    font-family: $Gasalt;
+    text-transform: uppercase;
+    font-size: 1.75em;
+    color: white;
+    letter-spacing: .15em;
+    padding: 1.5em 0;
+  }
+
+@mixin login-input {
+    display: block;
+    width: 80%;
+    margin: 1em auto;
+    padding: 1em;
+    border: solid;
+    border-color: white;
+    color: white;
+}
+

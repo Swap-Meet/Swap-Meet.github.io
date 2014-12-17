@@ -72,6 +72,7 @@
   text-align: center;
   padding: 1em 0;
   font-family: $primary-font;
+
 }
 
 
@@ -127,23 +128,120 @@
     border-top: solid;
     border-bottom: solid;
     }
+  p {
+    margin-top: .5em;
+  }
+}
+
+// Login Page
+
+.login{
+  background-color: $primary-color;
+   @include login-page;
+   input {
+   @include login-input;
+   background-color: $primary-color;
+   }
+}
+
+.create-account {
+  background-color: $secondary-color;
+   @include login-page;
+    input {
+    @include login-input;
+    background-color: $secondary-color;
+  }
 }
 
 
+// My game Module
+.my-game {
+  font-family: $primary-font;
+  padding-bottom: 1em;
+  border-bottom: solid;
+  border-top: solid;
+  border-color: black;
+  background-color: $secondary-color;
+  color: white;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h3 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 1.2em;
+    padding: .25em;
+  }
+  h2 {
+    font-size: 2.5em;
+    padding: .5em 0 .25em 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $Gasalt;
+  }
+  p {
+    padding: 0 .5em;
+    margin: 0 10%;
+  }
+}
+.game-title_trade {
+  text-align: center;
+  margin: .5em 0;
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: .075em;
+}
+
 // Upload Button Module
+.upload{
+  overflow: hidden;
+}
+
 .btn-upload {
   background-color: $primary-color;
   color: white;
+  font-size: 1em;
   font-family: $primary-font;
+  float: right;
+  padding: 1em;
 }
 
 
 // Remove Button Module
 .btn-remove {
+  display: block;
   background-color: $accent-color;
   font-family: $primary-font;
+  width: 80%;
   color: white;
+  margin: auto;
+  font-size: 1.5em;
+  padding: .5em 0;
 }
 
+//Add Button Module
+.btn-add {
+  display: block;
+  background-color: $primary-color;
+  font-family: $primary-font;
+  width: 100%;
+  color: white;
+  margin: auto;
+  font-size: 1.5em;
+  padding: .5em 0;
+}
 
+// Buttons on Login Page
 
+.btn-login {
+  background-color: white;
+  width: 80%;
+  font-family: $primary-font;
+  font-size: .6em;
+  margin-top: .25em;
+}
