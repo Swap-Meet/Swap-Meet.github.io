@@ -1,27 +1,50 @@
-<div class="container">
-  Add Game Page
-  <input type="button" ng-click="addGame()" value="ADD GAME"/><br />
+
+<p class="inform"> Add Game Page </p>
+  <button class="btn-add" ng-click="addGame()"> Add Game </button>
 
   <!-- title bar -->
-  <div>{{ game.title }}</div>
+  <h1 class="game-title_main">{{ game.title }}</h1>
 
   <!-- game image -->
   <img src='{{ game.image_urls[0] }}'></img>
 
   <!-- ADD/EDIT an image -->
-  <input type="button" ng-click="addEditImage()" value="ADD/EDIT"/><br />
+<section class="upload">
+  <button class="btn-upload" ng-click="addEditImage()"> Add / Edit </button>
+</section>
 
   <!-- user name --> <!-- TODO: id number -->
-  <div>TODO: id number -> UserName HERE
-    <div>{{ game.owner }}</div>
-  </div>
 
+    <section class="game-info_main">
+      <h1>{{ game.owner }}</h1>
   <!-- TODO: HERE -->
   <!-- [ ] Platform Dropdown Chooser -->
+<select>
+  <option>Atari</option>
+  <option>Board</option>
+  <option>Card</option>
+  <option>DS</option>
+  <option>Game Boy</option>
+  <option>GameCube</option>
+  <option>NES</option>
+  <option>N64</option>
+  <option>Sega</option>
+  <option>PC</option>
+  <option>PS1</option>
+  <option>PS2</option>
+  <option>PS3</option>
+  <option>PS4</option>
+  <option>PSP</option>
+  <option>Wii</option>
+  <option>Wii PC</option>
+  <option>Wii U</option>
+  <option>Vita</option>
+  <option>Xbox</option>
+  <option>Xbox 360</option>
+  <option>Xbox One</option>
+  <option>Other</option>
+</select>
 
   <!-- game.short_description  only -->
-  <div>Game Info:
-    <div>{{ game.short_description }}</div>
-  </div>
-
-</div><!-- end container -->
+  <p>{{ game.short_description }}</p>
+</section>
