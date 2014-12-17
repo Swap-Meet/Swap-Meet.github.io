@@ -1,0 +1,14 @@
+  <p>Login</p>
+  <form name="userForm">
+    <input type="text" data-ng-model="user.email" placeholder="email">
+    <input type="password" data-ng-model="user.password" placeholder="password">
+    <button data-ng-click="signIn()">Sign In</button>
+  </form>
+
+  <p><h4>Create Account</p>
+  <form name="newUser">
+    <input type="text" data-ng-model="newUser.email" placeholder="email">
+    <input type="password" data-ng-model="newUser.password" placeholder="password">
+    <input type="password" data-ng-model="newUser.passwordConfirmation" placeholder="confirm password">
+    <button data-ng-click="signUp()">Create New User</button>
+  </form>

@@ -8,16 +8,17 @@ module.exports = function(app) {
     // $scope.game.title = 'Pac Man HI';
 
     $scope.game = {
-      title: 'Pac Man',
+      title: 'De Blob',
       score: 'String',
       publisher: 'String',
       zip: '98087',
       latitude: 'String',
       longitude: 'String',
       owner: 'String_id_number', //id number
-      short_description: 'Eat all the dots, run from the ghosts, for now...',
-      platform: 'NES',
-      image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
+      owner_screenname: 'Funkenstein',
+      short_description: 'Change the colors...',
+      platform: 'Wii',
+      image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416598221/hewndsp60tcvfmcwqljx.jpg',
       'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
     };
 
