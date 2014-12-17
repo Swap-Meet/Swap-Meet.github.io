@@ -1,22 +1,23 @@
-
-<!-- search and information bar -->
-<section class ="search">
-  <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
-
-  <button class="icon-search" data-ng-click="filterSearch()"></button>
-    <a href="#/filtersearch" class="search-button">Filter</a>
-  <section class="inform">
+<!-- information bar -->
+<section class="inform">
     Recent Games
-  </section>
 </section>
+
+<!-- search bar -->
+<section class ="search section group">
+  <input type="text" class="search-input col span_3_of_4" data-ng-model="search.title" placeholder="search"/>
+
+  <!-- <button class="icon-search" data-ng-click="filterSearch()"></button> -->
+  <a href="#/filtersearch" class="search-button col span_1_of_4">Filter</a>
+</section>
+
+
 
 <!-- browse games list -->
-<section class="game-summary">
-  <div ng-repeat="game in games | limitTo:10">
-      <img src='{{ game.image_urls[0] }}'></img>
-      <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
-
-      <button class="icon-star btn-fav" ng-click="addFavorite()"></button>
-  </div>
+<section class="game-summary" ng-repeat="game in games | limitTo:10">
+  <img src='{{ game.image_urls[0] }}'></img>
+  <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+  <button class="icon-star btn-fav" ng-click="addFavorite()"></button>
 </section>
+
 

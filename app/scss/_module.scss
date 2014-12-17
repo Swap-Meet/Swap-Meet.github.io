@@ -11,16 +11,6 @@
 
 
 // Search Module
-.search {
-  @include secondary-font;
-  padding: 2em 0;
-  border: none;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  background-color: white;
-}
-
 .icon-search {
   background-color: white;
   font-size: 1.5em;
@@ -28,9 +18,11 @@
 }
 
 .search-input {
+  font-size: 1.2em;
+  padding: .5em;
   @include secondary-font;
-  padding: 2em 0;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .search-button{
@@ -39,6 +31,8 @@
   background-color: $primary-color;
   color: white;
   text-align: center;
+  margin: 0;
+  padding: .6em;
 }
 
 
@@ -55,6 +49,7 @@
 
 // Information Bar Module
 .inform {
+  text-align: center;
   background-color: $info-color;
   margin: 0 auto;
   @include secondary-font;
