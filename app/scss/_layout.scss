@@ -6,8 +6,9 @@
 .header_main {
   background-color: black;
   width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  top: 0;
 }
 
 .header-profile {
@@ -15,6 +16,10 @@
   float: right;
   font-size: 1.5em;
   padding: .75em 1em;
+}
+
+.position-view_search {
+  margin-top: 8em;
 }
 
 

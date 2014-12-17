@@ -11,13 +11,10 @@
 
 
 // Search Module
-.icon-search {
-  background-color: white;
-  font-size: 1.2em;
-  color: $primary-color;
-  margin: 0;
-  padding: .58em 0em .58em 2em;
-  border-bottom: 1px solid $info-color;
+.search {
+  position: fixed;
+  top: 4.9em;
+  width: 100%;
 }
 
 .search-input {
@@ -28,6 +25,15 @@
   @include secondary-font;
   text-transform: uppercase;
   margin: 0;
+}
+
+.icon-search {
+  background-color: white;
+  font-size: 1.2em;
+  color: $primary-color;
+  margin: 0;
+  padding: .58em 0em .58em 2em;
+  border-bottom: 1px solid $info-color;
 }
 
 .search-button {
@@ -44,32 +50,49 @@
 // Game Summary Module
 .game-summary {
   width: 100%;
+  background-color: $secondary-color;
+  margin: .5em 0;
 }
 
 .game-summary_img {
   width: 35%;
-  padding: 5%;
+  padding: 3%;
   display: inline-block;
   &>img {
   width: 100%;
+  }
 }
 
 .game-summary_info {
-  font-family: $primary-font;
-  line-height: 2em;
-  width: 35%;
+  height: 40px;
+  width: 40%;
   display: inline-block;
+  color: white;
+  // padding: 3%;
+  // padding-bottom: 20%;
+  &>h1 {
+    font-size: 1.3em;
+    font-family: $primary-font;
+    margin-bottom: 1em;
+  }
+  &>h2 {
+    display: block;
+    font-family: $primary-font;
+    color: $primary-color;
+    padding-bottom: 7%;
+  }
 }
 
 .game-summary_fav {
+  width: 18%;
   color: white;
-  text-align: center;
-  margin: 0 auto;
-  background-color: $accent-color;
-  padding: .2em 0;
+  text-align: right;
+  // margin: 0 auto;
+  background-color: $secondary-color;
+  padding-left: 6%;
   border: none;
   font-size: 2.4em;
-  display: inline-block;
+  // display: inline-block;
 }
 
 
@@ -81,6 +104,9 @@
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
+  position: fixed;
+  top: 10.5%;
+  width: 100%;
 }
 
 
