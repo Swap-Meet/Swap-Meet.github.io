@@ -9,6 +9,7 @@ var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
 
 // load services
 require('./services/resource_backend_service')(swapApp);
+require('./services/game_service')(swapApp);
 
 // load controllers
 require('./controllers/search_controller')(swapApp);
@@ -17,10 +18,12 @@ require('./controllers/gameDetails_controller')(swapApp);
 require('./controllers/myFavDetails_controller')(swapApp);
 require('./controllers/myGameDetails_controller')(swapApp);
 require('./controllers/addGame_controller')(swapApp);
+require('./controllers/inboxDetails_controller')(swapApp);
+require('./controllers/outboxDetails_controller')(swapApp);
+require('./controllers/login_controller')(swapApp);
 
 //setup $routeProvider
-swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(false);
+swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',
@@ -49,6 +52,18 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider, 
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',
       controller: 'addGameCtrl'
+    })
+    .when('/inboxrequestdetails', {
+      templateUrl: 'templates/inboxDetails_template.html',
+      controller: 'inboxDetailsCtrl'
+    })
+    .when('/outboxrequestdetails', {
+      templateUrl: 'templates/outboxDetails_template.html',
+      controller: 'outboxDetailsCtrl'
+    })
+    .when('/login', {
+      templateUrl: 'templates/login_template.html',
+      controller: 'loginCtrl'
     })
     .otherwise({
       redirectTo: '/'

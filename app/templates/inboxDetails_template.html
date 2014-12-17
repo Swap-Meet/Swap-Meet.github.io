@@ -1,0 +1,32 @@
+<div class="container">
+  <p>Inbox Request Details</p>
+   <!--  accept trade button -->
+  <input type="button" ng-click="acceptTrade()" value="Accept Trade"/><br />
+
+  <!-- USER A SECTION-->
+  <!-- USER A - MY GAME: Title-->
+  <div>{{ trade[0].title }}</div>
+
+  <p>My Game</p>
+
+  <!-- USER A - MY GAME: platform-->
+  <div>{{ trade[0].platform }}</div>
+
+  <!-- USER A - MY GAME: short description-->
+  <div>{{ trade[0].short_description }}</div>
+
+
+  <!-- USER B SECTION-->
+  <p>Trade For This Game</p>
+  <!-- USER B - TRADING FOR GAME: Title -->
+  <div>{{ trade[1].title }}</div>
+
+  <!-- USER B - TRADING FOR GAME: Image -->
+  <img src='{{ trade[1].image_urls[0] }}'></img>
+
+  <!-- USER B - TRADING FOR GAME: platform -->
+  <div>{{ trade[1].platform }}</div>
+
+  <!--  decline trade button -->
+  <input type="button" ng-click="declineTrade()" value="Decline Trade"/><br />
+</div>
