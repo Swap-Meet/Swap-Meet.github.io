@@ -5,6 +5,7 @@ module.exports = function(app) {
   //app.controller('searchCtrl', ['$scope', '$http', function($scope, $http) {
   //This uses the Game service
   app.controller('searchCtrl', ['$scope', 'Games', function($scope, Games) {
+
     $scope.index = function() {
       Games.index()
       .success(function(data) {
@@ -15,10 +16,10 @@ module.exports = function(app) {
 
     $scope.filterSearch = function() {
       var querySuffix = $scope.search.title;
-      console.log('starting search now w title:' + $scope.search.title);
-      // replace spaces with %, and prepend with ?q=
+      console.log('start search_controller now w title:' + $scope.search.title);
       querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
-      Games.search(querySuffix)
+
+      Games.filterSearch(querySuffix)
       .success(function(data) {
         $scope.games = data.items;
       });

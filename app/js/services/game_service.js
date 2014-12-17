@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   var handleErrors = function(data) {
-    console.log(data);
+    console.log('game_service error: ' + data);
   };
 
   app.factory('Games', ['$http', function($http) {
@@ -15,18 +15,18 @@ module.exports = function(app) {
         })
         .error(handleErrors);
       },
-      search: function(searchTitleString) {
+      filterSearch: function(searchTitleString) {
+        console.log('game_service search attempt ' + searchTitleString);
         return $http({
           method: 'GET',
-          url: '/api/search'
+          url: '/api/search/' + searchTitleString
         })
         .error(handleErrors);
       }
-        // to-do item: use $http to make call to server
-
     };
+
   }]);
-};
+};  // end module
 
 // MOCK DATA
 // return [
