@@ -49,50 +49,37 @@
 
 // Game Summary Module
 .game-summary {
-  width: 100%;
+  border-bottom: 1px solid $accent-color;
   background-color: $secondary-color;
-  margin: .5em 0;
 }
 
 .game-summary_img {
-  width: 35%;
-  padding: 3%;
-  display: inline-block;
+  padding: .8em;
   &>img {
   width: 100%;
   }
 }
 
 .game-summary_info {
-  height: 40px;
-  width: 40%;
-  display: inline-block;
   color: white;
-  // padding: 3%;
-  // padding-bottom: 20%;
+  padding-top: .8em;
   &>h1 {
     font-size: 1.3em;
     font-family: $primary-font;
-    margin-bottom: 1em;
+
   }
   &>h2 {
-    display: block;
     font-family: $primary-font;
     color: $primary-color;
-    padding-bottom: 7%;
+    margin-top: 1em;
   }
 }
 
 .game-summary_fav {
-  width: 18%;
   color: white;
-  text-align: right;
-  // margin: 0 auto;
   background-color: $secondary-color;
-  padding-left: 6%;
-  border: none;
   font-size: 2.4em;
-  // display: inline-block;
+  margin-top: .8em;
 }
 
 

@@ -13,15 +13,15 @@
 </section>
 
 <!-- browse games list -->
-<section class="game-summary" ng-repeat="game in games | limitTo:10">
-  <a href="#/gamedetails" class="game-summary_img">
+<section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <a href="#/gamedetails" class="game-summary_img col span_3_of_6">
     <img  src='{{ game.image_urls[0] }}'></img>
   </a>
-  <a href="#/gamedetails/{{game._id}}" class="game-summary_info">
+  <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_2_of_6">
     <h1>{{game.title}}</h1>
     <h2>{{game.platform}}</h2>
   </a>
-  <button class="icon-star game-summary_fav" ng-click="addFavorite()"></button>
+  <button class="icon-star game-summary_fav col span_1_of_6" ng-click="addFavorite()"></button>
 </section>
 
 
