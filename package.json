@@ -54,6 +54,7 @@
     "karma-browserify": "^1.0.0",
     "karma-jasmine": "^0.3.1",
     "karma-phantomjs-launcher": "^0.1.4",
+    "mocha": "^2.0.1",
     "mongodb": "^1.4.23",
     "mongodb-uri": "^0.9.7",
     "util": "^0.10.3"
