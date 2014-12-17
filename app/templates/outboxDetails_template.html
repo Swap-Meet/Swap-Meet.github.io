@@ -1,0 +1,20 @@
+
+<div class="container">
+  <p>Outbox Request Details</p>
+  <p>Game Requested</p>
+  <!--  game requested: title -->
+  <div>{{ game.title }}</div>
+
+  <!--  game requested: img-->
+  <img src='{{ game.image_urls[0] }}'></img>
+
+  <!--  game requested: platform -->
+  <div>{{game.platform}}</div>
+
+  <!--  game requested: short description -->
+  <div>{{game.short_description}}</div>
+
+  <!-- cancel request -->
+  <input type="button" ng-click="cancelRequest()" value="Cancel Request"/><br />
+
+</div>
