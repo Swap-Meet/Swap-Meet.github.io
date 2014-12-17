@@ -121,8 +121,11 @@
     text-transform: uppercase;
   }
   &>h2 {
-    font-size: 1.25em;
+    margin: .5em 0;
+    font-size: 1.5em;
     color: $primary-color;
+    border-top: solid;
+    border-bottom: solid;
     }
 }
 
