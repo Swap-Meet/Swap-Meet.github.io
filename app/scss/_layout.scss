@@ -1,27 +1,22 @@
 @import "variables";
 @import "mixins";
 
-header {
+
+// Header
+.header_main {
   background-color: black;
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }
 
-
-// Game Details View
-
-.game-title_main {
-  margin: 5% 1.6%;
-  text-align: center;
-  @include secondary-font;
+.header-profile {
+  color: $primary-color;
+  float: right;
+  font-size: 1.5em;
+  padding: .75em 1em;
 }
 
-.img_main {
-  text-align: center;
-  width: 100%;
-  margin: 0 auto;
-}
 
 
 

@@ -1,23 +1,16 @@
 @import "variables";
 @import "mixins";
 
-.header-profile {
-  color: $primary-color;
-  float: right;
-  font-size: 1.5em;
-  padding: .75em 1em;
-}
 
 // Logo large
-
 .logo {
   width: 50%;
   float: left;
   padding: 1em;
 }
 
-// Search Module
 
+// Search Module
 .search {
   @include secondary-font;
   padding: 2em 0;
@@ -34,8 +27,6 @@
   color: $primary-color;
 }
 
-
-
 .search-input {
   @include secondary-font;
   padding: 2em 0;
@@ -50,6 +41,8 @@
   text-align: center;
 }
 
+
+// Game Summary Module
 .game-summary {
    font-family: $primary-font;
    a {
@@ -59,6 +52,8 @@
   }
 }
 
+
+// Information Bar Module
 .inform {
   background-color: $info-color;
   margin: 0 auto;
@@ -67,6 +62,8 @@
   padding: 0.2em 0 0.1em 1em;
 }
 
+
+// Button Positive Module
 .btn-positive {
   text-decoration: none;
   margin: 0;
@@ -77,6 +74,8 @@
   font-family: $primary-font;
 }
 
+
+// Favorite Button Module
 .btn-fav {
   text-align: center;
   margin: 0 auto;
@@ -89,33 +88,28 @@
   }
 }
 
+
+// Button Negative Module
 .btn-negative {
   background-color: $accent-color;
   color: white;
   font-family: $primary-font;
 }
 
+
+// Main Game Details Modules
 .game-title_main {
   text-align: center;
-  font-family: $Gasalt;
   text-transform: uppercase;
   font-size: 2.5em;
+  margin: 5% 1.6%;
+  @include secondary-font;
 }
 
-.img-main {
+.img_main {
+  text-align: center;
   width: 100%;
-}
-
-.btn-upload {
-  background-color: $primary-color;
-  color: white;
-  font-family: $primary-font;
-}
-
-.btn-remove {
-  background-color: $accent-color;
-  font-family: $primary-font;
-  color: white;
+  margin: 0 auto;
 }
 
 .game-info_main {
@@ -131,5 +125,23 @@
     color: $primary-color;
     }
 }
+
+
+// Upload Button Module
+.btn-upload {
+  background-color: $primary-color;
+  color: white;
+  font-family: $primary-font;
+}
+
+
+// Remove Button Module
+.btn-remove {
+  background-color: $accent-color;
+  font-family: $primary-font;
+  color: white;
+}
+
+
 
 
