@@ -1,32 +1,29 @@
 'use strict';
 
 module.exports = function(app) {
+
   //app.controller('searchCtrl', ['$scope', '$http', function($scope, $http) {
   //This uses the Game service
   app.controller('searchCtrl', ['$scope', 'Games', function($scope, Games) {
     $scope.index = function() {
       Games.index()
       .success(function(data) {
+        //console.log('Ran index() search, got: ' + data);
         $scope.games = data.items;
       });
     };
 
-    // //Here is index called inside the controller (i.e. not as a service)
-    // $scope.index = function() {
-    //   $http({
-    //     method: 'GET',
-    //     url: '/api/browse'
-    //   })
-    //   .success(function(data) {
-    //     $scope.games = data.items;
-    //   })
-    //   .error(function(data) {
-    //     console.log(data);
-    //   });
-    // };
-
     $scope.filterSearch = function() {
-      console.log('Imagine I am doing a search now...');
+      var querySuffix = $scope.search.title;
+      console.log('starting search now w title:' + $scope.search.title);
+      // replace spaces with %, and prepend with ?q=
+      querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+      Games.search(querySuffix)
+      .success(function(data) {
+        $scope.games = data.items;
+      });
     };
-  }]);
-};
+
+  }]); // end seachCtrl
+
+}; // end module exports
