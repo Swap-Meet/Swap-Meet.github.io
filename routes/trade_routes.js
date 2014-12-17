@@ -40,8 +40,8 @@ module.exports = function(app, auth) {
     });
 
     //find everyone who has proposed a trade for this game, delete their trades
-    User.find({outgoingrequests: {$elemMatch: {gameId: gameId}}},
-      function(err, user) {
+    User.find({outgoingrequests: {$elemMatch: {gameId: gameId}}}, function(err, user) {
+      console.log('user: ' + user);
 
     });
 
