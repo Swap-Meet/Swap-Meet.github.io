@@ -28,5 +28,6 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "eqnull": true
+  "eqnull": true,
+  "sub": true
 }

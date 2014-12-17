@@ -4,5 +4,6 @@
   "validateQuoteMarks": true,
   "disallowMultipleVarDecl": true,
   "requireCamelCaseOrUpperCaseIdentifiers": null,
-  "disallowQuotedKeysInObjects": null
+  "disallowQuotedKeysInObjects": null,
+  "requireDotNotation": null
 }

@@ -1,3 +1,4 @@
+        <div data-ng-init="index()">
           <section class ="search">
             <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
 
@@ -11,11 +12,12 @@
           <main class="game-summary">
             <div ng-repeat="game in games | limitTo:10" class="row">
               <div class="col-md-9">
-                <img src='{{ game.image_urls[0] }}'></img>
-                <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
-
+                <!-- <img src='{{ game.image_urls[0] }}'></img> -->
+                <!-- <a href="#/gamedetails/{{game._id)}}">{{game.title}}: {{game.platform}}</a> -->
+                <a href="#/gamedetails/{{games.indexOf(game)}}"><img src='{{ game.image_urls[0] }}'></img>{{game.title}}: {{game.platform}}</a>
                 <button class="icon-star btn-fav" ng-click="addFavorite()"></button>
               </div>
             </div>
           </main>
+        </div>
 
