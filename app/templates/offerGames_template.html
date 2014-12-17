@@ -1,12 +1,14 @@
-          <section>
-            <button data-ng-click="sendRequest()"></button>
-          </section>
-        <main>
-          <div ng-repeat="game in games" class="row">
-            <div class="col-md-9">
-              <input type="checkbox" ng-model="checkbox"><br/>
-              <a href="#/gamedetails/{{ game._id }}">{{ game.title }}: {{ game.platform }}</a>
-              <button ng-click="cancelRequest()"></button>
-            </div>
-          </div>
-        </main>
+  <div>
+    <p>Offer Games</p>
+    <button data-ng-click="sendRequest()"></button>
+  </div>
+<main>
+  <div ng-repeat="game in games" class="row">
+    <div class="col-md-9">
+      <input type="checkbox" ng-model="checkbox"><br/>
+      <p> {{ game.title }} </p>
+      <p> {{ game.platform }} </p>
+      <button ng-click="cancelRequest()"></button>
+    </div>
+  </div>
+</main>
