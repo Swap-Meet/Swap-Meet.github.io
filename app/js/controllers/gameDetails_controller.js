@@ -16,7 +16,7 @@ module.exports = function(app) {
       longitude: 'String',
       owner: 'String_id_number', //id number
       owner_screenname: 'Funkenstein',
-      short_description: 'Change the colors...',
+      short_description: 'Change the colors in Inktown with your friendly Blob.',
       platform: 'Wii',
       image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416598221/hewndsp60tcvfmcwqljx.jpg',
       'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
