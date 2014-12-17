@@ -12,54 +12,88 @@
 
 // Search Module
 .search {
-  @include secondary-font;
-  padding: 2em 0;
+  position: fixed;
+  top: 4.9em;
+  width: 100%;
+}
+
+.search-input {
   border: none;
-  font-size: 1em;
+  border-bottom: 1px solid $info-color;
+  font-size: 1.2em;
+  padding: .5em;
+  @include secondary-font;
   text-transform: uppercase;
-  letter-spacing: .15em;
-  background-color: white;
+  margin: 0;
 }
 
 .icon-search {
   background-color: white;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: $primary-color;
+  margin: 0;
+  padding: .58em 0em .58em 2em;
+  border-bottom: 1px solid $info-color;
 }
 
-.search-input {
-  @include secondary-font;
-  padding: 2em 0;
-  text-transform: uppercase;
-}
-
-.search-button{
+.search-button {
   font-family: $primary-font;
-  font-size: 1.25em;
+  font-size: 1.2em;
   background-color: $primary-color;
   color: white;
   text-align: center;
+  margin: 0;
+  padding: .6em;
 }
 
 
 // Game Summary Module
 .game-summary {
-   font-family: $primary-font;
-   a {
-    color: black;
-    line-height: 2em;
-    font-size: 1.25em;
+  border-bottom: 1px solid $accent-color;
+  background-color: $secondary-color;
+}
+
+.game-summary_img {
+  padding: .8em;
+  &>img {
+  width: 100%;
   }
+}
+
+.game-summary_info {
+  color: white;
+  padding-top: .8em;
+  &>h1 {
+    font-size: 1.3em;
+    font-family: $primary-font;
+
+  }
+  &>h2 {
+    font-family: $primary-font;
+    color: $primary-color;
+    margin-top: 1em;
+  }
+}
+
+.game-summary_fav {
+  color: white;
+  background-color: $secondary-color;
+  font-size: 2.4em;
+  margin-top: .8em;
 }
 
 
 // Information Bar Module
 .inform {
+  text-align: center;
   background-color: $info-color;
   margin: 0 auto;
   @include secondary-font;
   text-transform: uppercase;
-  padding: 0.2em 0 0.1em 1em;
+  padding: 0.2em 0 0 1em;
+  position: fixed;
+  top: 10.5%;
+  width: 100%;
 }
 
 
@@ -147,9 +181,9 @@
 .create-account {
   background-color: $secondary-color;
    @include login-page;
-    input {
-    @include login-input;
-    background-color: $secondary-color;
+   input {
+   @include login-input;
+   background-color: $secondary-color;
   }
 }
 
@@ -245,3 +279,4 @@
   font-size: .6em;
   margin-top: .25em;
 }
+
