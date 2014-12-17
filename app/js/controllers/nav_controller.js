@@ -1,7 +1,22 @@
-// 'use strict';
+'use strict';
 
-// module.exports = function(app) {
-//   app.controller('mainCtrl', [function() {'$scope', '$rootScope', function($scope, $rootScope) {
+module.exports = function(app) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
+    function($scope, $location, $cookies, $http, AuthService) {
+      $scope.identity = AuthService;
+      $scope.signIn = function() {
+        console.log('signing in');
+        $location.path('#/login');
+      };
+      $scope.signOut = function() {
+        $cookies.jwt = null;
+        $http.defaults.headers.common['jwt'] = null;
+        AuthService.currentUser = undefined;
+        console.log('signing out');
+        $location.path('/');
+      };
+    }]);
+};
 
 //       $scope.isAuthenticated = function() {
 //         if (!$cookies.jwt || $cookies.jwt.length === 0) {
@@ -30,7 +45,6 @@
 
 //   }]);
 // };
-
 // .controller('NavController',function($scope,$http, $rootScope) {
 
 //     $scope.isLoggedIn = function() {

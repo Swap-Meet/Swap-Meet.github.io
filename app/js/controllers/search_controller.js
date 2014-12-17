@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
+  //app.controller('searchCtrl', ['$scope', '$http', function($scope, $http) {
+  //This uses the Game service
   app.controller('searchCtrl', ['$scope', 'Games', function($scope, Games) {
-
     $scope.index = function() {
       Games.index()
       .success(function(data) {
@@ -10,7 +11,7 @@ module.exports = function(app) {
       });
     };
 
-    //Here is index called inside the controller (i.e. not as a service)
+    // //Here is index called inside the controller (i.e. not as a service)
     // $scope.index = function() {
     //   $http({
     //     method: 'GET',

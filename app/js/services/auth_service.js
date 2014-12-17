@@ -1,3 +1,18 @@
+'use strict';
+
+module.exports = function(app) {
+  app.factory('AuthService', [function() {
+
+    return {
+      currentUser: undefined,
+      isAuthenticated: function() {
+        console.log(this.currentUser);
+        return !!this.currentUser;
+      }
+    };
+  }]);
+};
+
 // 'use strict';
 
 // module.exports = function(app) {
