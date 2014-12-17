@@ -31,9 +31,9 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
       templateUrl: 'templates/search_template.html',
       controller: 'searchCtrl'
     })
-    .when('/profile', {
-      templateUrl: 'templates/profile_template.html',
-      controller: 'profileCtrl'
+    .when('/login', {
+      templateUrl: 'templates/login_template.html',
+      controller: 'loginCtrl'
     })
     .when('/filtersearch', {
       templateUrl: 'templates/filter_template.html',
@@ -43,13 +43,25 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
     })
-    .when('/myfavdetails', {
-      templateUrl: 'templates/myFavDetails_template.html',
-      controller: 'myFavDetailsCtrl'
+    .when('/offergames', {
+      templateUrl: 'templates/offerGames_template.html',
+      controller: 'offerGamesCtrl'
+    })
+    .when('/choosegame', {
+      templateUrl: 'templates/chooseGame_template.html',
+      controller: 'chooseGameCtrl'
     })
     .when('/mygamedetails', {
       templateUrl: 'templates/myGameDetails_template.html',
       controller: 'myGameDetailsCtrl'
+    })
+    .when('/myfavdetails', {
+      templateUrl: 'templates/myFavDetails_template.html',
+      controller: 'myFavDetailsCtrl'
+    })
+    .when('/profile', {
+      templateUrl: 'templates/profile_template.html',
+      controller: 'profileCtrl'
     })
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',
@@ -62,18 +74,6 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
     .when('/outboxrequestdetails', {
       templateUrl: 'templates/outboxDetails_template.html',
       controller: 'outboxDetailsCtrl'
-    })
-    .when('/login', {
-      templateUrl: 'templates/login_template.html',
-      controller: 'loginCtrl'
-    })
-    .when('/choosegame', {
-      templateUrl: 'templates/chooseGame_template.html',
-      controller: 'chooseGameCtrl'
-    })
-    .when('/offerGames', {
-      templateUrl: 'templates/offerGames_template.html',
-      controller: 'offerGamesCtrl'
     })
     .otherwise({
       redirectTo: '/'
