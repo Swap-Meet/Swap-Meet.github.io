@@ -5,18 +5,22 @@
 
 <!-- search bar -->
 <section class ="search section group">
-  <input type="text" class="search-input col span_3_of_4" data-ng-model="search.title" placeholder="search"/>
-  <button class="icon-search" data-ng-click="filterSearch()"></button>
+  <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
+  <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
   <a href="#/filtersearch" class="search-button col span_1_of_4">Filter</a>
 </section>
 
-
-
 <!-- browse games list -->
 <section class="game-summary" ng-repeat="game in games | limitTo:10">
-  <img src='{{ game.image_urls[0] }}'></img>
-  <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
-  <button class="icon-star btn-fav" ng-click="addFavorite()"></button>
+  <a href="#/gamedetails" class="game-summary_img">
+    <img  src='{{ game.image_urls[0] }}'></img>
+  </a>
+  <a href="#/gamedetails/{{game._id}}" class="game-summary_info">
+    <h1>{{game.title}}</h1>
+    <h2>{{game.platform}}</h2>
+  </a>
+  <button class="icon-star game-summary_fav" ng-click="addFavorite()"></button>
 </section>
+
 
 

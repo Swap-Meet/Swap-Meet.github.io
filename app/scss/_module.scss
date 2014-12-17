@@ -13,11 +13,16 @@
 // Search Module
 .icon-search {
   background-color: white;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: $primary-color;
+  margin: 0;
+  padding: .58em 0em .58em 2em;
+  border-bottom: 1px solid $info-color;
 }
 
 .search-input {
+  border: none;
+  border-bottom: 1px solid $info-color;
   font-size: 1.2em;
   padding: .5em;
   @include secondary-font;
@@ -25,9 +30,9 @@
   margin: 0;
 }
 
-.search-button{
+.search-button {
   font-family: $primary-font;
-  font-size: 1.25em;
+  font-size: 1.2em;
   background-color: $primary-color;
   color: white;
   text-align: center;
@@ -38,12 +43,33 @@
 
 // Game Summary Module
 .game-summary {
-   font-family: $primary-font;
-   a {
-    color: black;
-    line-height: 2em;
-    font-size: 1.25em;
-  }
+  width: 100%;
+}
+
+.game-summary_img {
+  width: 35%;
+  padding: 5%;
+  display: inline-block;
+  &>img {
+  width: 100%;
+}
+
+.game-summary_info {
+  font-family: $primary-font;
+  line-height: 2em;
+  width: 35%;
+  display: inline-block;
+}
+
+.game-summary_fav {
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+  background-color: $accent-color;
+  padding: .2em 0;
+  border: none;
+  font-size: 2.4em;
+  display: inline-block;
 }
 
 
@@ -54,7 +80,7 @@
   margin: 0 auto;
   @include secondary-font;
   text-transform: uppercase;
-  padding: 0.2em 0 0.1em 1em;
+  padding: 0.2em 0 0 1em;
 }
 
 
@@ -118,7 +144,7 @@
   &>h2 {
     font-size: 1.25em;
     color: $primary-color;
-    }
+  }
 }
 
 
@@ -136,7 +162,3 @@
   font-family: $primary-font;
   color: white;
 }
-
-
-
-
