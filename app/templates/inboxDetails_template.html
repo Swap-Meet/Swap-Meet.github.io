@@ -1,32 +1,30 @@
-<div class="container">
-  <p>Inbox Request Details</p>
+<h2 class="inform">Inbox Request Details</h2>
    <!--  accept trade button -->
-  <input type="button" ng-click="acceptTrade()" value="Accept Trade"/><br />
+  <button class="btn-add" ng-click="acceptTrade()"> Accept Trade </button>
 
   <!-- USER A SECTION-->
   <!-- USER A - MY GAME: Title-->
-  <div>{{ trade[0].title }}</div>
-
-  <p>My Game</p>
-
-  <!-- USER A - MY GAME: platform-->
-  <div>{{ trade[0].platform }}</div>
-
-  <!-- USER A - MY GAME: short description-->
-  <div>{{ trade[0].short_description }}</div>
+<section class="my-game">
+  <h4>My Game</h4>
+  <h2>{{ trade[0].title }}</h2>
+    <!-- USER A - MY GAME: platform-->
+    <h3>{{ trade[0].platform }}</h3>
+   <!-- USER A - MY GAME: short description-->
+  <p>{{ trade[0].short_description }}</p>
+</section>
 
 
   <!-- USER B SECTION-->
-  <p>Trade For This Game</p>
-  <!-- USER B - TRADING FOR GAME: Title -->
-  <div>{{ trade[1].title }}</div>
-
+  <h1 class="game-title_trade">Trade For This Game</h1>
   <!-- USER B - TRADING FOR GAME: Image -->
-  <img src='{{ trade[1].image_urls[0] }}'></img>
+    <img src='{{ trade[1].image_urls[0] }}'></img>
 
+<section class="game-info_main">
+  <!-- USER B - TRADING FOR GAME: Title -->
+  <h1>{{ trade[1].title }}</h2>
   <!-- USER B - TRADING FOR GAME: platform -->
-  <div>{{ trade[1].platform }}</div>
+  <h2>{{ trade[1].platform }}</h3>
+</section>
 
   <!--  decline trade button -->
-  <input type="button" ng-click="declineTrade()" value="Decline Trade"/><br />
-</div>
+  <button class="btn-remove" ng-click="declineTrade()"> Decline Trade</button>

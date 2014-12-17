@@ -1,21 +1,15 @@
-<div class="container">
-  My Fav Details Page
+<h2 class="inform"> My Fav Details Page </h2>
   <!-- title bar -->
-  <div>{{ game.title }}</div>
+  <h1 class="game-title_main">{{ game.title }}</h1>
 
   <!-- game image -->
   <img src='{{ game.image_urls[0] }}'></img>
 
   <!-- user name --> <!-- TODO: id number -->
-  <div>TODO: id number -> UserName HERE
-    <div>{{ game.owner }}</div>
-  </div>
 
-  <!-- game info -->
-  <div>Game Info:
-    <div>{{ game.short_description }}</div>
-  </div>
+  <section class="game-info_main">
+    <h1>{{ game.owner }}</h1>
+    <p>{{ game.short_description }}</p>
+  </section>
 
-  <input type="button" ng-click="removeFavorite()" value="Remove Favorite"/><br />
-
-</div><!-- end container -->
+  <button class="btn-remove" ng-click="removeFavorite()"> Remove Favorite</button>
