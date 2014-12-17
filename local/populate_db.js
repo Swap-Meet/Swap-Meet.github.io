@@ -1,17 +1,17 @@
 'use strict';
 
-process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+process.env.MONGO_URL = 'mongodb://localhost/gameSwap';
 
-var User = require('../../models/user.js');
-var Game = require('../../models/game.js');
+var User = require('../models/user.js');
+var Game = require('../models/game.js');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
 
-require('../../server');
+require('../server');
 
 var expect = chai.expect;
-var games;
+//var games;
 
 //clear existing users and games
 User.collection.remove(function(err) {if (err) throw err;});
@@ -31,17 +31,48 @@ describe('basic user tests', function() {
   var loginA = '?email=testA@example.com&password=Monkeys911' +
     '&screenname=BunniesFromHell&zip=99999';
   var loginB = '?email=testB@example.com&password=Monkeys911' +
-    '&screenname=BunniesFromHell&zip=99999';
+    '&screenname=The12thVan&zip=99999';
   var loginURLBadPW =
     '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
   //var loginURLNoZip =
    // '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
-  var game1A = {title: 'Monkey Island', platform:'XBOX'};
-  var game2A = {title: 'Grim Fandango', platform:'PC'};
-  var game3A = {title: 'Settlers of Catan', platform:'Board'};
+  var game1A =
+  {
+    title: 'Da Blob',
+    platform: 'Wii',
+    short_description: 'Paint the town red with blobs of fun!',
+    image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416608782/lwdaetajtauu3fi681kt.jpg']
+  };
+  var game2A =
+  {
+    title: 'Wario: Smooth Moves',
+    platform: 'Wii',
+    short_description: 'La Schmoove! Yo, wario ain\'t got nothin\' to prove',
+    image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416560287/gtnjubrv8zsvfnm3eqql.jpg']
+  };
+  var game3A =
+  {
+    title: 'Wii Fit',
+    platform: 'Wii',
+    short_description: 'Get off the couch and get on a balance board.',
+    image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416601976/rcopdo45tbyfgkqajzae.jpg',
+    'http://res.cloudinary.com/swapmeet/image/upload/v1416602082/fw6q5qd7hfasa5rrkpo3.jpg']
+  };
   //var game4A = {title: 'Uno', platform:'Card'};
-  var game1B = {title: 'Heroes of Might and Magic', platform:'PC'};
-  var game2B = {title: 'Mental Floss', platform:'Board'};
+  var game1B =
+  {
+    title: 'Rayman: Raving Rabbids',
+    platform: 'Wii',
+    short_description: 'These rabbits are cray-cray!',
+    image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416602702/fm4tjzvzztzqw2rhxovn.jpg']
+  };
+  var game2B =
+  {
+    title: 'Resident Evil: The Umbrella Chronicles',
+    platform: 'Wii',
+    short_description: 'Evil resides in your umbrella closet.',
+    image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416596033/ebu7tfmqkiah3zvelff3.jpg']
+  };
   //var game3B = {title: 'Chess', platform:'Board'};
   //var game4B = {title: 'Team Fortress 2', platform:'PC'};
 
@@ -81,7 +112,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
-      console.log(res.body.msg);
+      //console.log(res.body.msg);
       done();
     });
   });
@@ -366,19 +397,6 @@ describe('basic user tests', function() {
     });
   });
 
-  // it('B should be able to delete an incoming request', function(done) {
-  //   chai.request(url)
-  //   .delete('api/games/incomingrequests')
-  //   .set('jwt', jwtB)
-  //   .send({gameId: gameB1Id, ownerId: AId})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log('gameId to look for', gameB1Id);
-  //     expect(res.body.error).to.eql(0);
-  //     done();
-  //   });
-  // });
-
   it('A should be able to delete an outgoing request', function(done) {
     chai.request(url)
     .delete('api/games/outgoingrequests')
@@ -392,73 +410,37 @@ describe('basic user tests', function() {
     });
   });
 
-  it('should be able to populate the games DB', function(done) {
-    games = require('./games')();
-    //console.log(games);
-    expect(games).to.be.an('Array');
-    done();
-  });
-
-  it('should be able to add a game to A', function(done) {
-    chai.request(url)
-    .post('api/games/inventory')
-    .set('jwt', jwtA)
-    .send(games[0])
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      games[0]._id = res.body._id;//console.log('gameId to look for', gameB1Id);
-      expect(res.body.error).to.eql(0);
-      done();
-    });
-  });
-
-  it('should be able to add a game to B', function(done) {
-    chai.request(url)
-    .post('api/games/inventory')
-    .set('jwt', jwtB)
-    .send(games[1])
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      games[1]._id = res.body._id;
-      //console.log('gameId to look for', gameB1Id);
-      expect(res.body.error).to.eql(0);
-      done();
-    });
-  });
   // it('should be able to populate the games DB', function(done) {
-  //   var games = require('./games')();
-  //   console.log(games);
+  //   games = require('./games')();
+  //   //console.log(games);
   //   expect(games).to.be.an('Array');
   //   done();
   // });
+
+  // it('should be able to add a game to A', function(done) {
+  //   chai.request(url)
+  //   .post('api/games/inventory')
+  //   .set('jwt', jwtA)
+  //   .send(games[0])
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     games[0]._id = res.body._id;//console.log('gameId to look for', gameB1Id);
+  //     expect(res.body.error).to.eql(0);
+  //     done();
+  //   });
+  // });
+
+  // it('should be able to add a game to B', function(done) {
+  //   chai.request(url)
+  //   .post('api/games/inventory')
+  //   .set('jwt', jwtB)
+  //   .send(games[1])
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     games[1]._id = res.body._id;
+  //     //console.log('gameId to look for', gameB1Id);
+  //     expect(res.body.error).to.eql(0);
+  //     done();
+  //   });
+  // });
 });
-// function callback() {
-
-// }
-
-// describe('favorites testing', function() {
-
-//   var MongoClient = require('mongodb').MongoClient;
-//   var format = require('util').format;
-
-//   //connect away
-//   MongoClient.connect('mongodb://localhost/game_swap_test', function(err, db) {
-//     if (err) throw err;
-//     console.log('Connected to Database');
-
-//     //User.collection.remove(function(err) {if (err) throw err;});
-//     //Game.collection.remove(function(err) {if (err) throw err;});
-//     //simple json record
-//     var game1A = {_id:'1A', title:'Monkey Island', platform:'XBOX'};
-//     var game2A = {_id:'2A', title:'God of War', platform:'PC'};
-//     var game3A = {_id:'3A', title:'Bunny Wars', platform:'XBOX'};
-//     var game1B = {_id:'1B', title:'Pokemon Snap', platform:'PS2'};
-//     var game2B = {_id:'2B', title:'Monkey Island 4', platform:'XBOX'};
-//     var game3B = {_id:'3B', title:'Sam and Max', platform:'PC'};
-//     //insert record
-//     db.collection('games').insert([game1A, game2A, game3A, game1B, game2B, game3B], function(err, records) {
-//       if (err) throw err;
-//       console.log('Record added');
-//     });
-//   });
-// });

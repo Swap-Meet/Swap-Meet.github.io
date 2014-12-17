@@ -5,8 +5,8 @@ module.exports = function(app) {
     console.log(data);
   };
 
-  app.factory('Games', function() {
-
+  app.factory('Games', ['$http', function($http) {
+//
     return {
       index: function() {
         return $http({
@@ -42,5 +42,5 @@ module.exports = function(app) {
           ];
       }
     };
-  });
+  }]);
 };
