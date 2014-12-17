@@ -21,6 +21,8 @@ require('./controllers/addGame_controller')(swapApp);
 require('./controllers/inboxDetails_controller')(swapApp);
 require('./controllers/outboxDetails_controller')(swapApp);
 require('./controllers/login_controller')(swapApp);
+require('./controllers/chooseGame_controller')(swapApp);
+require('./controllers/offerGames_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) {
@@ -64,6 +66,14 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
     .when('/login', {
       templateUrl: 'templates/login_template.html',
       controller: 'loginCtrl'
+    })
+    .when('/choosegame', {
+      templateUrl: 'templates/chooseGame_template.html',
+      controller: 'chooseGameCtrl'
+    })
+    .when('/offerGames', {
+      templateUrl: 'templates/offerGames_template.html',
+      controller: 'offerGamesCtrl'
     })
     .otherwise({
       redirectTo: '/'
