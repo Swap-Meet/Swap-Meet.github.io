@@ -8,17 +8,25 @@
     <link href="css/app.css" rel="stylesheet">
   </head>
   <body>
-    <main data-ng-app="swapApp">
-      <header class="header_main section group">
-        <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
-        <a href="#/profile" class="icon-user header-profile"></a>
-      </header>
+    <!-- <div data-ng-controller="mainCtrl"> -->
+      <main data-ng-app="swapApp">
+        <header class="header_main section group">
+          <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
+            <!-- <div data-ng-show="isAuthenticated()"> -->
+              <!-- <button data-ng-click="logOut()">Log Out</button> -->
+            <!-- </div> -->
+            <!-- <div data-ng-show="!isAuthenticated()"> -->
+              <!-- <a href="#/login">Log In</a> -->
+            <!-- </div> -->
+          <a href="#/profile" class="icon-user header-profile"></a>
+        </header>
 
-      <article class="content">
-        <section ng-view></section>
-      </article>
-      <script src='http://localhost:35729/livereload.js'></script>
-    </main>
+        <article class="content">
+          <section ng-view></section>
+        </article>
+        <script src='http://localhost:35729/livereload.js'></script>
+      </main>
+    <!-- </div> -->
     <footer>
       <a href="#/">1-Search</a><br>
       <a href="#/login">2-Login</a><br>

@@ -1,6 +1,7 @@
 'use strict';
 
-process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+process.env.MONGO_URL = 'mongodb://localhost/gameSwap';
+//process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
 var User = require('../../models/user.js');
 var Game = require('../../models/game.js');
