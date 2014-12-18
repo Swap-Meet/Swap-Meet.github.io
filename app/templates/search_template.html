@@ -10,7 +10,7 @@
   </section>
   <!-- search bar -->
   <section class ="search section group">
-    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
+    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title">
     <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
     <a href="#/filtersearch" class="btn-filter-search col span_1_of_4">Filter</a>
   </section>
@@ -25,7 +25,7 @@
       <h2>{{game.platform}}</h2>
       <!-- <p>User Name {{ games[whichGame].owner_screenname }}</p> -->
     </a>
-    <button class="icon-star2 game-summary_select col span_1_of_6" ng-model='game.id' ng-click="addFavorite()"></button>
+    <button class="icon-star2 game-summary_fav col span_1_of_6" ng-model='game.id' ng-click="addFavorite()"></button>
   </section>
 
 <!-- END search populate list -->
