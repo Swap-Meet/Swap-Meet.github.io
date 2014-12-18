@@ -53,12 +53,12 @@ image_urls: ['http://gamerepublic.ru/UserFiles/CD_Cover2(62).jpg'],
 condition: 'used', short_description:
   'I am getting rid of this so my boyfriend will spend time with me.'};
 
-users[0] = {email:'test@example.com', password:'SecretPW101',
-  username: 'IHeartGames', zip: '99999'};
-users[1] = {email:'user@example.com', password:'Password123',
-  username: 'PCs4Eva', zip: '99999'};
-users[2] = {email:'test@example.com', password:'SecretPW101',
-  username: 'MonkeysAreCute', zip: '99999'};
+// users[0] = {email:'test@example.com', password:'SecretPW101',
+//   username: 'IHeartGames', zip: '99999'};
+// users[1] = {email:'user@example.com', password:'Password123',
+//   username: 'PCs4Eva', zip: '99999'};
+// users[2] = {email:'test@example.com', password:'SecretPW101',
+//   username: 'MonkeysAreCute', zip: '99999'};
 
 users[0] = '?email=test@example.com&password=SecretPW101&screenname=' +
   'IHeartGames&zip=99999';
