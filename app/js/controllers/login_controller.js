@@ -4,11 +4,7 @@ module.exports = function(app) {
   app.controller('loginCtrl', ['$scope', '$http', '$cookies', '$base64', '$location', 'AuthService',
     function($scope, $http, $cookies, $base64, $location, AuthService) {
 
-    //$scope.errors = [];
     $scope.signIn = function() {
-      //$scope.errors = [];
-      // $http.defaults.headers.common['Authorization'] =
-      //   'Basic ' + $base64.encode($scope.user.email + ':' + $scope.user.password);
       var signInSuffix = '?email=' + $scope.user.email + '&password=' + $scope.user.password;
       $http({
         method: 'GET',
@@ -23,7 +19,6 @@ module.exports = function(app) {
       .error(function(data) {
         console.log(data);
         $scope.errors = 'sign-in failed!';
-        //$scope.errors = data;
       });
     };
 

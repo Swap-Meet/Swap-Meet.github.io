@@ -2,17 +2,16 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('addGameCtrl', ['$scope', '$http', '$location', '$cookies', 'AuthService',
-    function($scope, $http, $location, $cookies, AuthService) {
+  app.controller('addGameCtrl', ['$scope', '$http', '$location', '$cookies',
+    function($scope, $http, $location, $cookies) {
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Add Game Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       //this is fake data
-      // $scope.game.title = 'Pac Man HI';
       $scope.game =
       {
         title: 'Pac Man',
