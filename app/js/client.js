@@ -27,6 +27,7 @@ require('./controllers/login_controller')(swapApp);
 require('./controllers/chooseGame_controller')(swapApp);
 require('./controllers/offerGames_controller')(swapApp);
 require('./controllers/nav_controller')(swapApp);
+require('./controllers/profileTabs_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', function($routeProvider) {
