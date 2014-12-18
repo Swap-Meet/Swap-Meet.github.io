@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = function(app) {
-  // app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
-  //   function($scope, $location, $cookies, $http, AuthService) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies',
-    function($scope, $location, $cookies) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
+    function($scope, $location, $cookies, $http, AuthService) {
+
       if ($cookies.jwt) {
-        console.log('Cookie has been found!');
+        console.log('Nav Controller Sees the Cookie!');
         $location.path('/');
       }
       //$scope.identity = AuthService;
+
       $scope.signIn = function() {
         if ($cookies.jwt) {
           console.log('You already have a cookie');
@@ -22,7 +22,7 @@ module.exports = function(app) {
       $scope.signOut = function() {
         delete $cookies.jwt;
         // $http.defaults.headers.common['jwt'] = null;
-        // AuthService.currentUser = undefined;
+        AuthService.currentUser = undefined;
         console.log('signing out');
         $location.path('/');
       };
