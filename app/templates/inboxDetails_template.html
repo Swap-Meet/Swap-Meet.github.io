@@ -26,6 +26,9 @@
   <h2>{{ trade[1].platform }}</h2>
 </section>
 
-   <button class="btn-add" ng-click="acceptTrade()"> Accept Trade </button>
-  <!--  decline trade button -->
-  <button class="btn-remove" ng-click="declineTrade()"> Decline Trade</button>
+ <!-- Send request and cancel request buttons -->
+<section class="btn-pair section group">
+  <button class="btn-pair_pos col span_3_of_4" data-ng-click="sendRequest()">Send Request</button>
+  <button class="btn-pair_neg col span_1_of_4" ng-click="cancelRequest()">Cancel Request</button>
+</section>
+>>>>>>> dev

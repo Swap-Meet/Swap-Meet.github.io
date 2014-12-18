@@ -1,13 +1,7 @@
 
 <section class="inform">
-
+  <h2>My Games To Trade</h2>
 </section>
-
-
-
-
-  <input type="checkbox" ng-model="checkbox"><br/>
-
 
 <!-- browse games list -->
 <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
@@ -18,12 +12,13 @@
     <h1>{{game.title}}</h1>
     <h2>{{game.platform}}</h2>
   </a>
-  <button class="icon-star2 game-summary_fav col span_1_of_6" ng-click="addFavorite()"></button>
+  <label class="icon-checkbox-checked game-summary_select col span_1_of_6" for="offer"></label>
+  <input type="checkbox" id="offer" ng-model="checkbox">
 </section>
 
 <!-- Send request and cancel request buttons -->
-<section class="section group">
-  <button class="btn-add col span_3_of_4" data-ng-click="sendRequest()">Send Request</button>
-  <button class="btn-remove col span_1_of_4" ng-click="cancelRequest()">Cancel Request</button>
+<section class="btn-pair section group">
+  <button class="btn-pair_pos col span_3_of_4" data-ng-click="sendRequest()">Send Request</button>
+  <button class="btn-pair_neg col span_1_of_4" ng-click="cancelRequest()">Cancel Request</button>
 </section>
 >>>>>>> dev
