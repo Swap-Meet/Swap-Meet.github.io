@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
 var Schema = mongoose.Schema;
+//var Trade = require('./trade');
 
 var userSchema = new Schema({
   email: String,
@@ -16,8 +17,10 @@ var userSchema = new Schema({
   inventory: [String],
   favorites: [String],
   last_login: Object,
-  outgoingRequests: [Schema.Types.Mixed],
-  incomingRequests: [Schema.Types.Mixed]
+  outgoingRequests: [String],
+  incomingRequests: [String]
+  //outgoingRequests: [{ type: Schema.Types.ObjectId, ref: 'Trade' }],
+  //incomingRequests: [[{ type: Schema.Types.ObjectId, ref: 'Trade' }]]
 });
 
 userSchema.methods.generateHash = function(password) {

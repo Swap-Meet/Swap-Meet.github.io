@@ -1,3 +1,10 @@
 @import "variables";
 
+.btn-fav:active {
+  background-color: $accent-color;
+}
+
+.btn-fav:visited {
+  background-color: $accent-color;
+}
 

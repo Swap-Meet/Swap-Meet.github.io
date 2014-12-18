@@ -1,14 +1,18 @@
-        <p>Choose A Game<p>
+        <p class="inform">Choose A Game<p>
         <!-- game title -->
-        <p>Title: {{ game.title }}    My Game</p>
+        <section class= "game-preview">
+          <h4>My Game</h4>
+        <h1 {{ game.title }}> Call of Duty</h1>
+        <h2>{{ game.platform }} XBox</h2>
+      </section>
         <!-- game info -->
         <main class="game-summary">
           <div ng-repeat="game in games | limitTo:10" class="row">
             <div class="col-md-9">
-              <img src='{{ game.image_urls[0] }}'></img>
+              <img class="game-image" src='{{ game.image_urls[0] }}'></img>
               <a href="#/gamedetails/{{game._id}}">{{ game.title }}: {{ game.platform }}</a>
             </div>
           </div>
         </main>
-        <br>
-        <input type="button" ng-click="declineRequest()" value="Decline Request"/><br/>
+        <button ng-click="declineRequest()">Decline Request<button>
+

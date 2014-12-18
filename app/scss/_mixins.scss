@@ -26,3 +26,22 @@
     color: white;
 }
 
+@mixin top {
+  font-family: $primary-font;
+  border-bottom: solid;
+  border-top: solid;
+  border-color: black;
+  background-color: $secondary-color;
+  color: white;
+  margin-bottom: .5em;
+}
+
+
+@mixin button-pair {
+  font-size: 1.3em;
+  color: white;
+  font-family: $primary-font;
+  margin: 0;
+  height: 3.25em;
+
+}

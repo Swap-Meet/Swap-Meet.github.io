@@ -10,6 +10,42 @@
 }
 
 
+// Search Module
+.search {
+  top: 4.9em;
+  width: 100%;
+}
+
+.search-input {
+  border: none;
+  border-bottom: 1px solid $info-color;
+  font-size: 1.2em;
+  padding: .5em;
+  @include secondary-font;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.icon-search {
+  background-color: white;
+  font-size: 1.2em;
+  color: $primary-color;
+  margin: 0;
+  padding: .58em 0em .58em 2em;
+  border-bottom: 1px solid $info-color;
+}
+
+.search-button {
+  font-family: $primary-font;
+  font-size: 1.2em;
+  background-color: $primary-color;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: .6em;
+}
+
+
 // Game Summary Module
 .game-summary {
   border-bottom: .4em solid $secondary-color;
@@ -53,12 +89,12 @@
 
 // Information Bar Module
 .inform {
-  text-align: center;
   background-color: $info-color;
   margin: 0 auto;
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
+  top: 10.5%;
   width: 100%;
 }
 
@@ -80,7 +116,7 @@
 .btn-fav {
   text-align: center;
   margin: 0 auto;
-  background-color: $accent-color;
+  background-color: $secondary-color;
   padding: 1em 0;
   border: none;
   &>span {
@@ -135,7 +171,7 @@
 
 // Login Page
 
-.login{
+.login {
   background-color: $primary-color;
    @include login-page;
    input {
@@ -155,14 +191,8 @@
 
 
 // My game Module
-.my-game {
-  font-family: $primary-font;
-  padding-bottom: 1em;
-  border-bottom: solid;
-  border-top: solid;
-  border-color: black;
-  background-color: $secondary-color;
-  color: white;
+.top-game {
+  @include top;
   h4 {
     text-transform: uppercase;
     text-align: right;
@@ -209,25 +239,43 @@
   font-family: $primary-font;
   float: right;
   padding: 1em;
+  margin-right:10%;
 }
 
+// Remove Button Module
+.btn-remove {
+  display: block;
+  background-color: $accent-color;
+  font-family: $primary-font;
+  width: 80%;
+  color: white;
+  margin: auto;
+  font-size: 1.5em;
+  padding: .5em 0;
+}
+
+//Add Button Module
+.btn-add {
+  display: block;
+  width:80%;
+  background-color: $primary-color;
+  font-family: $primary-font;
+  color: white;
+  margin: auto;
+  font-size: 1.5em;
+  padding: .5em 0;
+  width: 80%;
+}
 
 // Positive and negative button pair
-.btn-pair_pos, .btn-pair_neg {
-  font-size: 1.3em;
-  color: white;
-  font-family: $primary-font;
-  margin: 0;
-}
-
 .btn-pair_neg {
   background-color: $accent-color;
-  padding: .43em;
+  @include button-pair;
 }
 
 .btn-pair_pos {
   background-color: $primary-color;
-  padding: 1em;
+  @include button-pair;
 }
 
 
@@ -240,6 +288,7 @@
   margin-top: .25em;
   padding: 1em;
 }
+
 
 // Search Module
 .search {
@@ -271,5 +320,81 @@
   text-align: center;
   margin: 0;
   padding: .62em;
+}
+
+
+// Choose Platfom
+.choose-platform {
+  width: 80%;
+  border-color: $primary-color;
+  border-radius: none;
+  text-align: center;
+  border-radius: 0;
+  border-width: .15em;
+  -webkit-appearance: none;
+  margin: 1em;
+  font-size: 1em;
+}
+
+.error {
+  font-family: $primary-font;
+  color: $accent-color;
+  padding: 1em
+  }
+
+.game-image {
+  display: block;
+  width:80%;
+  margin: 0 10%;
+}
+
+.filter {
+
+}
+
+.title-single {
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: .15em;
+  color: black;
+  text-align: center;
+  margin-top: 1em;
+  border-bottom: solid;
+  border-width: .1em;
+  border-color: $primary-color;
+  width: 80%;
+  margin: 1em auto;
+}
+
+.buttons-checks{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: .5em 1em;
+  font-size: 1em;
+  font-family: $primary-font;
+  background-color: $info-color;
+}
+
+.game-preview {
+  @include top;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h1 {
+    padding: .5em 0 .25em 1em;
+    font-size: 1.25em;
+    text-transform: uppercase;
+  }
+  h2 {
+    padding: .25em 1em;
+    font-size: 1.25em;
+    color: $primary-color;
+  }
 }
 
