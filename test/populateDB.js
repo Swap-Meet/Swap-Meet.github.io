@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+//process.env.MONGO_URL = 'mongodb://heroku_app31711059:mapl87ps9dn8d23p3s0ollrf5i@ds051980.mongolab.com:51980/heroku_app31711059';
 
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
@@ -11,8 +11,8 @@ chai.use(chaihttp);
 
 require('../server');
 
-var url = 'http://localhost:3000/';
-url = 'https://cryptic-savannah-2534.herokuapp.com/';
+//var url = 'http://localhost:3000/';
+var url = 'https://cryptic-savannah-2534.herokuapp.com/';
 //var expect = chai.expect;
 
 //clear existing users and games
@@ -60,7 +60,7 @@ condition: 'used', short_description:
 // users[2] = {email:'test@example.com', password:'SecretPW101',
 //   username: 'MonkeysAreCute', zip: '99999'};
 
-users[0] = '?email=test@example.com&password=SecretPW101&screenname=' +
+users[0] = '?email=bunnies@example.com&password=SecretPW101&screenname=' +
   'IHeartGames&zip=99999';
 users[1] = '?email=user@example.com&password=Password123&screenname=' +
   'PCs4Eva&zip=99999';
@@ -86,6 +86,7 @@ describe('should populate the database', function() {
     chai.request(url)
     .post('api/user' + users[1])
     .end(function(err, res) {
+      console.log(res.body);
       jwtB = res.body.jwt;
       done();
     });
@@ -95,6 +96,7 @@ describe('should populate the database', function() {
     chai.request(url)
     .post('api/user' + users[2])
     .end(function(err, res) {
+      console.log(res.body);
       jwtC = res.body.jwt;
       done();
     });
@@ -107,6 +109,7 @@ describe('should populate the database', function() {
     .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
       'v1418941323/20141218_221818405_iOS_r4ollg.jpg'})
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -118,6 +121,7 @@ describe('should populate the database', function() {
     .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
       'v1418941297/20141218_221735199_iOS_otjt3z.jpg'})
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -129,6 +133,7 @@ describe('should populate the database', function() {
     .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
       'v1418941330/20141218_221829687_iOS_nzzyim.jpg'})
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -139,6 +144,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[0])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -149,6 +155,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[1])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -158,6 +165,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[2])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -167,6 +175,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[3])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -176,6 +185,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[4])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -185,6 +195,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[5])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
@@ -194,6 +205,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtC)
     .send(games[6])
     .end(function(err, res) {
+      console.log(res.body);
       done();
     });
   });
