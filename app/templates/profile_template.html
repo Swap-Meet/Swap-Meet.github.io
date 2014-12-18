@@ -16,48 +16,64 @@
     </div>
   </section>
 
+<!-- add game button -->
 <button class="btn-add" ng-click="">Add Game<button>
 
-<section class="tab" ng-controller="TabCtrl as panel">
-  <ul>
-    <!-- if this tab isSelected, class="active" for styling -->
-    <li ng-class="{ active:panel.isSelected(1) }">
-      <!-- on click, selectTab(1) -->
-      <a href ng-click="panel.selectTab(1)">INBOX</a>
-    </li>
+<!-- tabs -->
+<article class="tab" ng-controller="TabCtrl as panel">
+  <section class="tab_tabs section group">
+    <button class="tab_tabs_btn col span_1_of_4"ng-class="{ active:panel.isSelected(1) }" ng-click="panel.selectTab(1)">
+      Inbox
+    </button>
+    <button class="tab_tabs_btn col span_1_of_4"ng-class="{ active:panel.isSelected(2) }" ng-click="panel.selectTab(2)">
+      Outbox
+    </button>
+    <button class="tab_tabs_btn col span_1_of_4"ng-class="{ active:panel.isSelected(3) }" ng-click="panel.selectTab(3)">
+      My Games
+    </button>
+    <button class="tab_tabs_btn col span_1_of_4"ng-class="{ active:panel.isSelected(4) }" ng-click="panel.selectTab(4)">
+      My Favs
+    </button>
+  </section>
 
-    <li ng-class="{ active:panel.isSelected(2) }">
-      <a href ng-click="panel.selectTab(2)">OUTBOX</a>
-    </li>
-
-    <li ng-class="{ active:panel.isSelected(3) }">
-      <a href ng-click="panel.selectTab(3)">GAMES</a>
-    </li>
-
-    <li ng-class="{ active:panel.isSelected(4) }">
-      <a href ng-click="panel.selectTab(4)">FAVS</a>
-    </li>
-  </ul>
   <!-- Show the current tab -->
   {{ tab }}
-  <br />
 
   <!-- if isSelected(1), show this div -->
-  <div ng-show="panel.isSelected(1)">
-    <p> SHOW USER INBOX HERE </p>
-  </div>
-
-  <div ng-show="panel.isSelected(2)">
-    <p> SHOW USER OUTBOX HERE </p>
-  </div>
-
-  <div ng-show="panel.isSelected(3)">
-    <p> SHOW USER GAMES HERE </p>
-  </div>
-
-  <div ng-show="panel.isSelected(4)">
-    <p> SHOW USER FAVS HERE </p>
-  </div>
-
-  <button data-ng-click="signOut()">Sign Out</button>
-</div>
+  <section class="tab_list section group" ng-show="panel.isSelected(1)">
+    <div class="col span_5_of_6">
+      <h1>Raving Rabbits {{game.title}}</h1>
+      <p>pOwbner57843 {{ }}</p>
+    </div>
+    <div class="col span_1_of_6">
+      <button class="icon-trash"></button>
+    </div>
+  </section>
+  <section class="tab_list section group" ng-show="panel.isSelected(2)">
+    <div class="col span_5_of_6">
+      <h1>Raving Rabbits {{game.title}}</h1>
+      <p>pOwbner57843 {{ }}</p>
+    </div>
+    <div class="col span_1_of_6">
+      <button class="icon-trash"></button>
+    </div>
+  </section>
+  <section class="tab_list section group" ng-show="panel.isSelected(3)">
+    <div class="col span_5_of_6">
+      <h1>Raving Rabbits {{game.title}}</h1>
+      <p>pOwbner57843 {{ }}</p>
+    </div>
+    <div class="col span_1_of_6">
+      <button class="icon-trash"></button>
+    </div>
+  </section>
+  <section class="tab_list section group" ng-show="panel.isSelected(3)">
+    <div class="col span_5_of_6">
+      <h1>Raving Rabbits {{game.title}}</h1>
+      <p>pOwbner57843 {{ }}</p>
+    </div>
+    <div class="col span_1_of_6">
+      <button class="icon-trash"></button>
+    </div>
+  </section>
+</article>
