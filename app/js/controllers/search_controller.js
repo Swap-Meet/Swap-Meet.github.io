@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('searchCtrl', ['$scope', '$http', '$cookies', 'Games',
-      function($scope, $http, $cookies, Games) {
+  app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
+      function($scope, $http, $cookies, $location, $routeParams, Games) {
 
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
@@ -30,6 +30,7 @@ module.exports = function(app) {
             .success(function(data) {
               console.log('set the list in Games service');
               Games.setList(data.items); //set the shared data on the Games service
+              //console.dir(Games.getList());
               $scope.games = data.items;
             })
             .error(function(data) {
@@ -52,6 +53,29 @@ module.exports = function(app) {
               console.log(data);
             });
           }
+        }
+      };
+
+      $scope.addFavorite = function() {
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('#/');
+        } else {
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'POST',
+            url: '/api/games/favorites',
+            //how do I know which array item the game should be?
+            data: {_id: Games.getList()[0]._id}
+          })
+          .success(function(data) {
+            //Create a shared data for Favorites? Just like games
+            //At this point, probably not, maybe for the profile partials
+            //Favorites.setList(data.items);
+            console.log('success! added to favorites: ' + data.items);
+          })
+          .error(function(data) {
+            console.log(data);
+          });
         }
       };
     }]);
