@@ -2,8 +2,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService',
-    function($scope, $routeParams, $http, $location, $cookies, AuthService) {
+  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies',
+    function($scope, $routeParams, $http, $location, $cookies) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
