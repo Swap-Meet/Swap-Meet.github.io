@@ -249,7 +249,7 @@
   font-family: $primary-font;
   width: 80%;
   color: white;
-  margin: auto;
+  margin: 1em auto;
   font-size: 1.5em;
   padding: .5em 0;
 }
@@ -296,20 +296,22 @@
 }
 
 .search-input {
+  outline: none;
   border: none;
   font-size: 1.2em;
-  padding: .5em;
   @include secondary-font;
   text-transform: uppercase;
   margin: 0;
+  height: 2.5em;
 }
 
 .icon-search {
+  border: none;
   background-color: white;
   font-size: 1.2em;
   color: $primary-color;
   margin: 0;
-  padding: .58em 0em .58em 2em;
+  height: 2.5em;
 }
 
 .btn-filter-search {
@@ -319,7 +321,8 @@
   color: white;
   text-align: center;
   margin: 0;
-  padding: .62em;
+  padding: .7em;
+  height: 2.5em;
 }
 
 
@@ -379,6 +382,7 @@
 
 .game-preview {
   @include top;
+
   h4 {
     text-transform: uppercase;
     text-align: right;
