@@ -14,15 +14,19 @@
     <!-- if this tab isSelected, class="active" for styling -->
     <li ng-class="{ active:panel.isSelected(1) }">
       <!-- on click, selectTab(1) -->
-      <a href ng-click="panel.selectTab(1)">What do you eat?</a>
+      <a href ng-click="panel.selectTab(1)">INBOX</a>
     </li>
 
-    <li ng-class="{ active:panel.isSelected(1) }">
-      <a href ng-click="panel.selectTab(2)">What do you drink?</a>
+    <li ng-class="{ active:panel.isSelected(2) }">
+      <a href ng-click="panel.selectTab(2)">OUTBOX</a>
     </li>
 
-    <li ng-class="{ active:panel.isSelected(1) }">
-      <a href ng-click="panel.selectTab(3)">Do you sleep too? :)</a>
+    <li ng-class="{ active:panel.isSelected(3) }">
+      <a href ng-click="panel.selectTab(3)">GAMES</a>
+    </li>
+
+    <li ng-class="{ active:panel.isSelected(4) }">
+      <a href ng-click="panel.selectTab(4)">FAVS</a>
     </li>
   </ul>
   <!-- Show the current tab -->
@@ -31,17 +35,20 @@
 
   <!-- if isSelected(1), show this div -->
   <div ng-show="panel.isSelected(1)">
-    <p> Chocolate! </p>
+    <p> SHOW USER INBOX HERE </p>
   </div>
 
   <div ng-show="panel.isSelected(2)">
-    <p> Hot Chocolate! or Shots! </p>
+    <p> SHOW USER OUTBOX HERE </p>
   </div>
 
   <div ng-show="panel.isSelected(3)">
-    <p> Sleeping, and dreaming of Chocolate! </p>
+    <p> SHOW USER GAMES HERE </p>
   </div>
 
+  <div ng-show="panel.isSelected(4)">
+    <p> SHOW USER FAVS HERE </p>
+  </div>
 
   <button data-ng-click="signOut()">Sign Out</button>
 </div>
