@@ -1,4 +1,4 @@
-<div class="position-view_main"></div>
+<div class="position-view_main" data-ng-init="filterSearch2()"></div>
 
 <section class="section group">
   <!-- information bar -->
@@ -14,16 +14,16 @@
 
 <article class="game-details_main" data-ng-model="games">
   <!-- title bar -->
-  <h1 class="game-title_main">{{games[whichGame].title}}</h1>
+  <h1 class="game-title_main">{{games[0].title}}</h1>
 
   <!-- game image -->
-  <img src='{{ games[whichGame].image_urls[0] }}' class="img_main"></img>
+  <img src='{{ games[0].image_urls[0] }}' class="img_main"></img>
 
   <!-- game info -->
   <section class="game-info_main">
-    <h1>Game Owner: {{ games[whichGame].owner_screenname }}</h1>
-    <h2>{{ games[whichGame].platform }}</h2>
-    <p>Description: {{ games[whichGame].short_description }}</p>
+    <h1>Game Owner: {{ games[0].owner_screenname }}</h1>
+    <h2>{{ games[0].platform }}</h2>
+    <p>Description: {{ games[0].short_description }}</p>
   </section>
 </article>
 

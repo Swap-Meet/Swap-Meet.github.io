@@ -2,8 +2,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService',
-    function($scope, $routeParams, $http, $location, $cookies, AuthService) {
+  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService', 'Games',
+    function($scope, $routeParams, $http, $location, $cookies, AuthService, Games) {
+
+      $scope.message = Games.message;
+      // console.log('GD-Message: ' + $scope.message);
 
       if (!AuthService.isAuthenticated()) {
         return $location.path('/login');
@@ -11,17 +14,30 @@ module.exports = function(app) {
         $http.defaults.headers.common['jwt'] = $cookies.jwt;
       }
 
-      $http({
-        method: 'GET',
-        url: '/api/browse'
-      })
-      .success(function(data) {
-        $scope.games = data.items;
-        $scope.whichGame = $routeParams.gameID;
-      })
-      .error(function(data) {
-        console.log(data);
-      });
+      // $http({
+      //   method: 'GET',
+      //   url: '/api/browse'
+      // })
+      // .success(function(data) {
+      //   $scope.games = data.items;
+      //   $scope.whichGame = $routeParams.gameID;
+      // })
+      // .error(function(data) {
+      //   console.log(data);
+      // });
+
+      // when this page loads, calls the service Games in game_service
+      // use the results to populate the game info
+
+      $scope.filterSearch2 = function() {
+        var querySuffix = $scope.message;
+        console.log('start gD search with: message: ' + $scope.message);
+
+        Games.filterSearch(querySuffix)
+          .success(function(data) {
+            $scope.games = data.items;
+          });
+      };
 
       // $scope.game = {
       //   //title: 'De Blob',
