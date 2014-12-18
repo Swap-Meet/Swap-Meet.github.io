@@ -16,6 +16,7 @@ module.exports = function(app) {
         $scope.games = data.items;
       });
     };
+    //
 
     $scope.filterSearch = function() {
       var querySuffix = $scope.search.title;

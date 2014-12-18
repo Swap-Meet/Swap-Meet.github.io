@@ -2,14 +2,14 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('inboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies', 'AuthService',
-    function($scope, $location, $http, $cookies, AuthService) {
+  app.controller('inboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
+    function($scope, $location, $http, $cookies) {
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Inbox Details Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       //I think that this will be an array holding 2 games:
       //The first game is this user A's game.

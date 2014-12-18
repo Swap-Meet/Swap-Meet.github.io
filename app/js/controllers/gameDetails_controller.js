@@ -8,11 +8,11 @@ module.exports = function(app) {
       $scope.message = Games.message;
       // console.log('GD-Message: ' + $scope.message);
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Game Details Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       // $http({
       //   method: 'GET',
