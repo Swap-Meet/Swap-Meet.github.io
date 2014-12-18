@@ -24,14 +24,12 @@
     border: solid;
     border-color: white;
     color: white;
+    outline-color: white;
 }
 
 @mixin top {
   font-family: $primary-font;
-  border-bottom: solid;
-  border-top: solid;
-  // border-color: black;
-  background-color: $secondary-color;
+  background-color: $primary-color;
   color: white;
 }
 
@@ -42,6 +40,7 @@
   font-family: $primary-font;
   margin: 0;
   height: 3.25em;
+  text-transform: uppercase;
 }
 
 @mixin button-upload {

@@ -18,11 +18,9 @@
 .search-input {
   outline: none;
   border: none;
-  font-size: 1.2em;
-  @include secondary-font;
-  text-transform: uppercase;
-  margin: 0;
+  padding-left: 1em;
   height: 2.5em;
+  font-size: 1.2em;
 }
 
 .icon-search {
@@ -48,8 +46,8 @@
 
 // Game Summary Module
 .game-summary {
-  border-bottom: .4em solid white;
-  background-color: #1b465a;
+  border-bottom: .1em solid $info-color;
+  background-color: $secondary-color;
 }
 
 .game-summary_img {
@@ -70,14 +68,14 @@
   }
   &>h2 {
     color: $primary-color;
-    margin-top: 1.3em;
+    margin-top: 1em;
     font-size: 1.4em;
   }
 }
 
 .game-summary_fav {
   color: white;
-  background-color: #1b465a;
+  background-color: $secondary-color;
   font-size: 1.9em;
   margin-top: .4em;
 }
@@ -179,6 +177,9 @@
    @include login-input;
    background-color: $primary-color;
    }
+   button {
+    color: $primary-color;
+   }
 }
 
 .create-account {
@@ -188,7 +189,13 @@
    @include login-input;
    background-color: $secondary-color;
   }
+    button {
+    color: $secondary-color;
+   }
 }
+
+
+
 
 
 // My game Module
@@ -209,7 +216,6 @@
   }
   h2 {
     font-size: 2.5em;
-    padding: .5em 0 .25em 0;
     text-align: center;
     text-transform: uppercase;
     font-family: $Gasalt;
@@ -219,6 +225,7 @@
     margin: 0 10%;
   }
 }
+
 .game-title_trade {
   text-align: center;
   margin: .5em 0;
@@ -392,12 +399,14 @@
 .icon-arrow-right {
   font-size: 4em;
   margin-top: .25em;
+   color: $secondary-color;
 
 }
 
 .icon-arrow-left {
   font-size: 4em;
   margin-top: .25em;
+  color: $secondary-color;
 }
 
 
