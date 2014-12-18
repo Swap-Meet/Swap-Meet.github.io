@@ -2,8 +2,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService',
-    function($scope, $routeParams, $http, $location, $cookies, AuthService) {
+  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games',
+    function($scope, $routeParams, $http, $location, $cookies, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
@@ -11,32 +11,8 @@ module.exports = function(app) {
       console.log('Game Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
-      $http({
-        method: 'GET',
-        url: '/api/browse'
-      })
-      .success(function(data) {
-        $scope.games = data.items;
-        $scope.whichGame = $routeParams.gameID;
-      })
-      .error(function(data) {
-        console.log(data);
-      });
-
-      // $scope.game = {
-      //   //title: 'De Blob',
-      //   score: 'String',
-      //   publisher: 'String',
-      //   zip: '98087',
-      //   latitude: 'String',
-      //   longitude: 'String',
-      //   owner: 'String_id_number', //id number
-      //   owner_screenname: 'Funkenstein',
-      //   short_description: 'Change the colors in Inktown with your friendly Blob.',
-      //   platform: 'Wii',
-      //   image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1416598221/hewndsp60tcvfmcwqljx.jpg',
-      //   'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      // };
+      $scope.games = Games.getList();
+      $scope.whichGame = $routeParams.gameID;
 
       $scope.sendRequest = function() {
         console.log('Imagine I am sending a request now...');
