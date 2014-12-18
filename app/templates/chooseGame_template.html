@@ -1,6 +1,10 @@
         <p class="inform">Choose A Game<p>
         <!-- game title -->
-        <h1 class="game-title_main"> {{ game.title }} My Game</p>
+        <section class= "game-preview">
+          <h4>My Game</h4>
+        <h1 {{ game.title }}> Call of Duty</h1>
+        <h2>{{ game.platform }} XBox</h2>
+      </section>
         <!-- game info -->
         <main class="game-summary">
           <div ng-repeat="game in games | limitTo:10" class="row">

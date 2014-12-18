@@ -195,14 +195,7 @@
 
 // My game Module
 .top-game {
-  font-family: $primary-font;
-  padding-bottom: 1em;
-  border-bottom: solid;
-  border-top: solid;
-  border-color: black;
-  background-color: $secondary-color;
-  color: white;
-  margin-bottom: .5em;
+  @include top;
   h4 {
     text-transform: uppercase;
     text-align: right;
@@ -341,4 +334,26 @@
   font-size: 1em;
   font-family: $primary-font;
   background-color: $info-color;
+}
+
+.game-preview {
+  @include top;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h1 {
+    padding: .5em 0 .25em 1em;
+    font-size: 1.25em;
+    text-transform: uppercase;
+  }
+  h2 {
+    padding: .25em 1em;
+    font-size: 1.25em;
+    color: $primary-color;
+  }
+
 }
