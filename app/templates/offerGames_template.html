@@ -1,6 +1,6 @@
   <div>
-    <p>Offer Games</p>
-    <button data-ng-click="sendRequest()"></button>
+    <p>My Games to Trade</p>
+
   </div>
 <main>
   <div ng-repeat="game in games" class="row">
@@ -8,6 +8,7 @@
       <input type="checkbox" ng-model="checkbox"><br/>
       <p> {{ game.title }} </p>
       <p> {{ game.platform }} </p>
+      <button data-ng-click="sendRequest()"></button>
       <button ng-click="cancelRequest()"></button>
     </div>
   </div>

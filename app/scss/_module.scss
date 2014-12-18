@@ -9,10 +9,8 @@
   padding: 1em;
 }
 
-
 // Search Module
 .search {
-  position: fixed;
   top: 4.9em;
   width: 100%;
 }
@@ -85,13 +83,12 @@
 
 // Information Bar Module
 .inform {
-  text-align: center;
   background-color: $info-color;
   margin: 0 auto;
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  position: fixed;
+  // position: fixed;
   top: 10.5%;
   width: 100%;
 }
@@ -114,7 +111,7 @@
 .btn-fav {
   text-align: center;
   margin: 0 auto;
-  background-color: $accent-color;
+  background-color: $secondary-color;
   padding: 1em 0;
   border: none;
   &>span {
@@ -169,7 +166,7 @@
 
 // Login Page
 
-.login{
+.login {
   background-color: $primary-color;
    @include login-page;
    input {
@@ -189,7 +186,7 @@
 
 
 // My game Module
-.my-game {
+.top-game {
   font-family: $primary-font;
   padding-bottom: 1em;
   border-bottom: solid;
@@ -197,6 +194,7 @@
   border-color: black;
   background-color: $secondary-color;
   color: white;
+  margin-bottom: .5em;
   h4 {
     text-transform: uppercase;
     text-align: right;
@@ -243,6 +241,7 @@
   font-family: $primary-font;
   float: right;
   padding: 1em;
+  margin-right:10%;
 }
 
 
@@ -268,6 +267,7 @@
   margin: auto;
   font-size: 1.5em;
   padding: .5em 0;
+  width: 80%;
 }
 
 // Buttons on Login Page
@@ -280,3 +280,27 @@
   margin-top: .25em;
 }
 
+// Choose Platfom
+.choose-platform {
+  width: 80%;
+  border-color: $primary-color;
+  border-radius: none;
+  text-align: center;
+  border-radius: 0;
+  border-width: .15em;
+  webkit-appearance: none;
+  margin: 1em;
+  font-size: 1em;
+}
+
+.error {
+  font-family: $primary-font;
+  color: $accent-color;
+  padding: 1em
+  }
+
+.game-image {
+  display: block;
+  width:80%;
+  margin: 0 10%;
+}

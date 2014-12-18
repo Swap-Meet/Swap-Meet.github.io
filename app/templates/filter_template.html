@@ -1,12 +1,18 @@
+<section class="inform">
+      Filter
+  </section>
 <div class="container">
+   <section class ="search section group">
+    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
+    <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
+    <a href="#/filtersearch" class="search-button col span_1_of_4">Filter</a>
+  </section>
   <form>
-    <input type="text" data-ng-model="search.title" placeholder="search"/>
-    <input type="submit" data-ng-click="filterSearch()" value="Go"/>
-    <div>
+    <section class="radio-buttons">
       <input type="radio" data-ng-model="search.miles" value="5" />5 miles
       <input type="radio" data-ng-model="search.miles" value="15" />15 miles
       <input type="radio" data-ng-model="search.miles" value="45" />45 miles
-    </div>
+    </section>
     <div>
       <input type="checkbox" data-ng-model="search.platform.xbox" value="XBOX" />XBOX
       <input type="checkbox" data-ng-model="search.platform.xbox360" value="XBOX360" />XBOX360

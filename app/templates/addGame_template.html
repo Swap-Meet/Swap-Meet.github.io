@@ -1,16 +1,17 @@
 
 <p class="inform"> Add Game Page </p>
-  <button class="btn-add" ng-click="addGame()"> Add Game </button>
+
 
   <!-- title bar -->
   <h1 class="game-title_main">{{ game.title }}</h1>
 
   <!-- game image -->
-  <img src='{{ game.image_urls[0] }}'></img>
+
+  <img class="game-image"src='{{ game.image_urls[0] }}'></img>
 
   <!-- ADD/EDIT an image -->
 <section class="upload">
-  <button class="btn-upload" ng-click="addEditImage()"> Add / Edit </button>
+  <button class="btn-upload" ng-click="addEditImage()"> Add / Edit</button>
 </section>
 
   <!-- user name --> <!-- TODO: id number -->
@@ -19,7 +20,7 @@
       <h1>{{ game.owner }}</h1>
   <!-- TODO: HERE -->
   <!-- [ ] Platform Dropdown Chooser -->
-<select>
+<select class="choose-platform">
   <option>Atari</option>
   <option>Board</option>
   <option>Card</option>
@@ -48,3 +49,5 @@
   <!-- game.short_description  only -->
   <p>{{ game.short_description }}</p>
 </section>
+
+<button class="btn-add" ng-click="addGame()"> Add Game </button>

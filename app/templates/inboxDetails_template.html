@@ -1,10 +1,9 @@
 <h2 class="inform">Inbox Request Details</h2>
    <!--  accept trade button -->
-  <button class="btn-add" ng-click="acceptTrade()"> Accept Trade </button>
 
   <!-- USER A SECTION-->
   <!-- USER A - MY GAME: Title-->
-<section class="my-game">
+<section class="top-game">
   <h4>My Game</h4>
   <h2>{{ trade[0].title }}</h2>
     <!-- USER A - MY GAME: platform-->
@@ -17,14 +16,15 @@
   <!-- USER B SECTION-->
   <h1 class="game-title_trade">Trade For This Game</h1>
   <!-- USER B - TRADING FOR GAME: Image -->
-    <img src='{{ trade[1].image_urls[0] }}'></img>
+    <img class="game-image" src='{{ trade[1].image_urls[0] }}'></img>
 
 <section class="game-info_main">
   <!-- USER B - TRADING FOR GAME: Title -->
-  <h1>{{ trade[1].title }}</h2>
+  <h1>{{ trade[1].title }}</h1>
   <!-- USER B - TRADING FOR GAME: platform -->
-  <h2>{{ trade[1].platform }}</h3>
+  <h2>{{ trade[1].platform }}</h2>
 </section>
 
+   <button class="btn-add" ng-click="acceptTrade()"> Accept Trade </button>
   <!--  decline trade button -->
   <button class="btn-remove" ng-click="declineTrade()"> Decline Trade</button>
