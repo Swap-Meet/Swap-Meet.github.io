@@ -1,7 +1,5 @@
 'use strict';
 
-//process.env.MONGO_URL = 'mongodb://heroku_app31711059:mapl87ps9dn8d23p3s0ollrf5i@ds051980.mongolab.com:51980/heroku_app31711059';
-
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var Trade = require('../models/trade.js');
