@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
-    function($scope, $location, $cookies, $http, AuthService) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies',
+    function($scope, $location, $cookies) {
 
       if ($cookies.jwt) {
         console.log('Nav Controller Sees the Cookie!');
