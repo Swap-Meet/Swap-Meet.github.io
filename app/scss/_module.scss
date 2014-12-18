@@ -10,47 +10,10 @@
 }
 
 
-// Search Module
-.search {
-  position: fixed;
-  top: 4.9em;
-  width: 100%;
-}
-
-.search-input {
-  border: none;
-  border-bottom: 1px solid $info-color;
-  font-size: 1.2em;
-  padding: .5em;
-  @include secondary-font;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.icon-search {
-  background-color: white;
-  font-size: 1.2em;
-  color: $primary-color;
-  margin: 0;
-  padding: .58em 0em .58em 2em;
-  border-bottom: 1px solid $info-color;
-}
-
-.search-button {
-  font-family: $primary-font;
-  font-size: 1.2em;
-  background-color: $primary-color;
-  color: white;
-  text-align: center;
-  margin: 0;
-  padding: .6em;
-}
-
-
 // Game Summary Module
 .game-summary {
-  border-bottom: 1px solid $accent-color;
-  background-color: $secondary-color;
+  border-bottom: .4em solid $secondary-color;
+  background-color: black;
 }
 
 .game-summary_img {
@@ -62,24 +25,32 @@
 
 .game-summary_info {
   color: white;
+  padding-left: .7em;
   padding-top: .8em;
+  font-family: $primary-font;
   &>h1 {
-    font-size: 1.3em;
-    font-family: $primary-font;
-
+    font-size: 1.4em;
+    text-transform: uppercase;
   }
   &>h2 {
-    font-family: $primary-font;
     color: $primary-color;
-    margin-top: 1em;
+    margin-top: 1.3em;
+    font-size: 1.4em;
+  }
+  &>p {
+    position: relative;
+    top: 5em;
   }
 }
 
 .game-summary_fav {
   color: white;
-  background-color: $secondary-color;
-  font-size: 2.4em;
-  margin-top: .8em;
+  background-color: black;
+  font-size: 1.9em;
+  margin-top: .4em;
+  &:active {
+    color: $accent-color;
+  }
 }
 
 
@@ -91,8 +62,6 @@
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  position: fixed;
-  top: 10.5%;
   width: 100%;
 }
 
@@ -248,26 +217,26 @@
 
 // Remove Button Module
 .btn-remove {
-  display: block;
+  // display: block;
   background-color: $accent-color;
   font-family: $primary-font;
-  width: 80%;
+  // width: 80%;
   color: white;
-  margin: auto;
+  // margin: auto;
   font-size: 1.5em;
-  padding: .5em 0;
+  // padding: .5em 0;
 }
 
 //Add Button Module
 .btn-add {
-  display: block;
+  // display: block;
   background-color: $primary-color;
   font-family: $primary-font;
-  width: 100%;
+  // width: 100%;
   color: white;
-  margin: auto;
+  // margin: auto;
   font-size: 1.5em;
-  padding: .5em 0;
+  // padding: .5em 0;
 }
 
 // Buttons on Login Page
