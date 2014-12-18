@@ -4,6 +4,7 @@ process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
 var User = require('../../models/user.js');
 var Game = require('../../models/game.js');
+var Trade = require('../../models/trade.js');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
@@ -12,10 +13,12 @@ require('../../server');
 
 var expect = chai.expect;
 var games;
+var tradeId;
 
 //clear existing users and games
 User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
+Trade.collection.remove(function(err) {if (err) throw err;});
 
 var jwtA;
 var jwtB;
@@ -27,7 +30,7 @@ var AId;
 var BId;
 var url = 'http://localhost:3000/';
 var loginA = '?email=testA@example.com&password=Monkeys911' +
-  '&screenname=BunniesFromHell&zip=99999';
+  '&screenname=Monkeymonkey&zip=99999';
 var loginB = '?email=testB@example.com&password=Monkeys911' +
   '&screenname=BunniesFromHell&zip=99999';
 var loginURLBadPW =
@@ -345,7 +348,25 @@ describe('basic user tests', function() {
     .send({id: gameB1Id, gameIdArray: [Agames[0]._id, Agames[1]._id]})
     .end(function(err, res) {
       expect(err).to.eql(null);
+      //console.log('the restponse is', res.body);
       expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('A should be able get see his outgoing request', function(done) {
+    chai.request(url)
+    .get('api/games/outgoingrequests')
+    .set('jwt', jwtA)
+    .end(function(err, res) {
+      console.log('see outgoing request', res.body);
+      console.log('see potential Trades', res.body.items[0].potentialTrades);
+      console.log('see game info', res.body.items[0].gameInfo);
+      tradeId = res.body.items[0]._id;
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
   });
@@ -359,7 +380,8 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      expect(res.body.items[0].owner).to.be.a('String');
+      console.log('output', res.body);
+      //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
   });
@@ -381,7 +403,7 @@ describe('basic user tests', function() {
     chai.request(url)
     .delete('api/games/outgoingrequests')
     .set('jwt', jwtA)
-    .send({gameId: gameB1Id, ownerId: BId})
+    .send({tradeId: tradeId})
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log('gameId to look for', gameB1Id);
@@ -483,8 +505,9 @@ describe('trading routes tests', function() {
     .set('jwt', jwtB)
     .send({id: games[0]._id, gameIdArray: [games[1]._id, games[2]._id]})
     .end(function(err, res) {
-      //console.log(games);
+      console.log(res.body);
       expect(err).to.eql(null);
+      tradeId = res.body.items._id;
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -507,7 +530,7 @@ describe('trading routes tests', function() {
     chai.request(url)
     .delete('api/games/incomingrequests')
     .set('jwt', jwtA)
-    .send({gameId: games[0]._id, ownerId: BId})
+    .send({tradeId: tradeId})
     .end(function(err, res) {
       expect(err).to.eql(null);
       //console.log('a', res.body);
@@ -674,6 +697,7 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtB)
     .send({id: games[4]._id})
     .end(function(err, res) {
+      console.log('id to be deleted is', games[4]._id);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       done();
@@ -698,7 +722,7 @@ describe('inventory deletion tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       console.log('the items are', res.body);
-      expect(res.body.items.length).to.eql(1);
+      expect(res.body.items.length).to.eql(0);
       done();
     });
   });
@@ -711,7 +735,7 @@ describe('inventory deletion tests', function() {
       expect(err).to.eql(null);
       console.log('itemsssss', res.body.items);
       expect(res.body.error).to.eql(0);
-      expect(res.body.items.potentialTrades.length).to.eql(2);
+      expect(res.body.items[0].potentialTrades.length).to.eql(2);
       done();
     });
   });

@@ -11,6 +11,7 @@ var tradeSchema = new Schema({
   incoming_user_screenname: String,
   gameId: String,
   potentialTrades: [String]
+  //potentialTrades: [{ type: Schema.Types.ObjectId, ref: 'Game' }]
   // title: String,
   // score: String,
   // publisher: String,
@@ -25,4 +26,4 @@ var tradeSchema = new Schema({
   // image_urls: ['String']
 });
 
-module.exports = mongoose.model('Trade', gameSchema);
+module.exports = mongoose.model('Trade', tradeSchema);
