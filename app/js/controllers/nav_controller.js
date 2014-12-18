@@ -21,8 +21,6 @@ module.exports = function(app) {
       };
       $scope.signOut = function() {
         delete $cookies.jwt;
-        // $http.defaults.headers.common['jwt'] = null;
-        AuthService.currentUser = undefined;
         console.log('signing out');
         $location.path('/');
       };

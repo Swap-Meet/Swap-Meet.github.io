@@ -28,11 +28,5 @@ module.exports = function(app) {
         console.log(data);
       });
 
-      $scope.signOut = function() {
-        delete $cookies.jwt;
-        console.log('signing out');
-        $location.path('/');
-      };
-
     }]);
 };

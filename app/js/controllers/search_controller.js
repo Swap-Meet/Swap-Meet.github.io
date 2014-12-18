@@ -56,7 +56,7 @@ module.exports = function(app) {
         }
       };
 
-      $scope.addFavorite = function() {
+      $scope.addFavorite = function(gameID) {
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
@@ -64,13 +64,10 @@ module.exports = function(app) {
           $http({
             method: 'POST',
             url: '/api/games/favorites',
-            //how do I know which array item the game should be?
-            data: {_id: Games.getList()[0]._id}
+            data: { _id: gameID }
           })
           .success(function(data) {
-            //Create a shared data for Favorites? Just like games
-            //At this point, probably not, maybe for the profile partials
-            //Favorites.setList(data.items);
+            //update the 'already favorited portion of the game service cache
             console.log('success! added to favorites: ' + data.items);
           })
           .error(function(data) {
