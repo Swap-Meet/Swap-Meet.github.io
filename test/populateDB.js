@@ -12,7 +12,7 @@ chai.use(chaihttp);
 require('../server');
 
 var url = 'http://localhost:3000/';
-
+url = 'https://cryptic-savannah-2534.herokuapp.com/';
 //var expect = chai.expect;
 
 //clear existing users and games
@@ -39,11 +39,13 @@ image_urls: ['https://c1.staticflickr.com/5/4148/5073031956_1e574de2ac_z.jpg'],
 condition: 'excellent', short_description:
   'My scythe--I like to keep it next to where my heart used to be'};
 games[4] = {title:'Settlers of Catan', platform:'Board',
-image_urls: ['http://images.fanpop.com/images/image_uploads/Differents-Boards-settlers-of-catan-521934_1157_768.jpg'],
+image_urls: ['http://images.fanpop.com/images/image_uploads/Differents-' +
+  'Boards-settlers-of-catan-521934_1157_768.jpg'],
 condition: 'good', short_description:
   'A brick for your sheep?'};
 games[5] = {title:'Settlers of Catan: Knights and Cities', platform:'Board',
-image_urls: ['http://www.catan.com/files/styles/lightboxy/public/gallery/soc-cak-game-situation.jpg?itok=16_k4pBl'],
+image_urls: ['http://www.catan.com/files/styles/lightboxy/public/gallery/' +
+  'soc-cak-game-situation.jpg?itok=16_k4pBl'],
 condition: 'used', short_description:
   'A Settlers of Catan expansion pack.'};
 games[6] = {title:'Team Fortress 2', platform:'PC',
@@ -58,9 +60,12 @@ users[1] = {email:'user@example.com', password:'Password123',
 users[2] = {email:'test@example.com', password:'SecretPW101',
   username: 'MonkeysAreCute', zip: '99999'};
 
-users[0] = '?email=test@example.com&password=SecretPW101&screenname=IHeartGames&zip=99999';
-users[1] = '?email=user@example.com&password=Password123&screenname=PCs4Eva&zip=99999';
-users[2] = '?email=fluffy@example.com&password=SecretPW101&screenname=MonkeysAreCute&zip=99999';
+users[0] = '?email=test@example.com&password=SecretPW101&screenname=' +
+  'IHeartGames&zip=99999';
+users[1] = '?email=user@example.com&password=Password123&screenname=' +
+  'PCs4Eva&zip=99999';
+users[2] = '?email=fluffy@example.com&password=SecretPW101&screenname=' +
+  'MonkeysAreCute&zip=99999';
 //users[1] = {email:'user@example.com', password:'Password123',
   //username: 'PCs4Eva', zip: '99999'};
 //users[2] = {email:'test@example.com', password:'SecretPW101',
@@ -99,7 +104,8 @@ describe('should populate the database', function() {
     chai.request(url)
     .put('api/user/myprofile')
     .set('jwt', jwtA)
-    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/v1418941323/20141218_221818405_iOS_r4ollg.jpg'})
+    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
+      'v1418941323/20141218_221818405_iOS_r4ollg.jpg'})
     .end(function(err, res) {
       done();
     });
@@ -109,7 +115,8 @@ describe('should populate the database', function() {
     chai.request(url)
     .put('api/user/myprofile')
     .set('jwt', jwtB)
-    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/v1418941297/20141218_221735199_iOS_otjt3z.jpg'})
+    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
+      'v1418941297/20141218_221735199_iOS_otjt3z.jpg'})
     .end(function(err, res) {
       done();
     });
@@ -119,12 +126,12 @@ describe('should populate the database', function() {
     chai.request(url)
     .put('api/user/myprofile')
     .set('jwt', jwtC)
-    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/v1418941330/20141218_221829687_iOS_nzzyim.jpg'})
+    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
+      'v1418941330/20141218_221829687_iOS_nzzyim.jpg'})
     .end(function(err, res) {
       done();
     });
   });
-
 
   it('should add game', function(done) {
     chai.request(url)
