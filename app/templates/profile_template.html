@@ -7,5 +7,42 @@
   <p>username: {{screenname}}</p>
   <p>email: {{email}}</p>
   <p>location: {{zip}}</p>
+
+
+<section class="tab" ng-controller="TabCtrl as panel">
+  <ul>
+    <!-- if this tab isSelected, class="active" for styling -->
+    <li ng-class="{ active:panel.isSelected(1) }">
+      <!-- on click, selectTab(1) -->
+      <a href ng-click="panel.selectTab(1)">What do you eat?</a>
+    </li>
+
+    <li ng-class="{ active:panel.isSelected(1) }">
+      <a href ng-click="panel.selectTab(2)">What do you drink?</a>
+    </li>
+
+    <li ng-class="{ active:panel.isSelected(1) }">
+      <a href ng-click="panel.selectTab(3)">Do you sleep too? :)</a>
+    </li>
+  </ul>
+  <!-- Show the current tab -->
+  {{ tab }}
+  <br />
+
+  <!-- if isSelected(1), show this div -->
+  <div ng-show="panel.isSelected(1)">
+    <p> Chocolate! </p>
+  </div>
+
+  <div ng-show="panel.isSelected(2)">
+    <p> Hot Chocolate! or Shots! </p>
+  </div>
+
+  <div ng-show="panel.isSelected(3)">
+    <p> Sleeping, and dreaming of Chocolate! </p>
+  </div>
+
+
   <button data-ng-click="signOut()">Sign Out</button>
 </div>
+
