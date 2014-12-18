@@ -276,21 +276,16 @@
 }
 
 // Positive and negative button pair
-.btn-pair_pos, .btn-pair_neg {
-  font-size: 1.3em;
-  color: white;
-  font-family: $primary-font;
-  margin: 0;
-}
+
 
 .btn-pair_neg {
   background-color: $accent-color;
-  padding: .43em;
+  @include button-pair;
 }
 
 .btn-pair_pos {
   background-color: $primary-color;
-  padding: 1em;
+  @include button-pair;
 }
 
 

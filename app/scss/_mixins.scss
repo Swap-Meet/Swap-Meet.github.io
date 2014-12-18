@@ -35,3 +35,13 @@
   color: white;
   margin-bottom: .5em;
 }
+
+
+@mixin button-pair {
+  font-size: 1.3em;
+  color: white;
+  font-family: $primary-font;
+  margin: 0;
+  height: 3.25em;
+
+}
