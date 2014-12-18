@@ -1,35 +1,84 @@
-<div class="container">
-  <form>
-    <input type="text" data-ng-model="search.title" placeholder="search"/>
-    <input type="submit" data-ng-click="filterSearch()" value="Go"/>
-    <div>
-      <input type="radio" data-ng-model="search.miles" value="5" />5 miles
-      <input type="radio" data-ng-model="search.miles" value="15" />15 miles
-      <input type="radio" data-ng-model="search.miles" value="45" />45 miles
-    </div>
-    <div>
-      <input type="checkbox" data-ng-model="search.platform.xbox" value="XBOX" />XBOX
-      <input type="checkbox" data-ng-model="search.platform.xbox360" value="XBOX360" />XBOX360
-      <input type="checkbox" data-ng-model="search.platform.xboxone" value="XBOXONE" />XBOXone
-    </div>
-    <div>
-      <input type="checkbox" data-ng-model="search.platform.ps4" value="PS4" />PS4
-      <input type="checkbox" data-ng-model="search.platform.ps3" value="PS3" />PS3
-      <input type="checkbox" data-ng-model="search.platform.ps2" value="PS2" />PS2
-    </div>
-    <div>
-      <input type="checkbox" data-ng-model="search.platform.wii" value="Wii" />Wii
-      <input type="checkbox" data-ng-model="search.platform.n64" value="N64" />N64
-      <input type="checkbox" data-ng-model="search.platform.nes" value="NES" />NES
-    </div>
-    <div>
-      <input type="checkbox" data-ng-model="search.platform.pc" value="PC" />PC
-      <input type="checkbox" data-ng-model="search.platform.mac" value="MAC" />MAC
-    </div>
-    <div>
-      <input type="checkbox" data-ng-model="search.platform.board" value="BOARD" />BOARD
-      <input type="checkbox" data-ng-model="search.platform.card" value="CARD" />CARD
-    </div>
+<!-- information bar -->
+  <section class="inform">
+      <h2>Games Available</h2>
+  </section>
 
+  <!-- search bar -->
+  <section class ="search section group">
+    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title">
+    <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
+    <a href="#/search" class="btn-filter-search col span_1_of_4">Go</a>
+  </section>
+
+  <!-- filter search form -->
+  <form class="filter">
+
+      <!-- search by radius -->
+
+    <fieldset class="filter_radius">
+      <h1 class="title-single">Search By Me</h1>
+      <select class="filter_radius_select">
+        <option data-ng-model="search.miles" value="5 miles">
+        <option data-ng-model="search.miles" value="15 miles">
+        <option data-ng-model="search.miles" value="45 miles">
+      </select>
+    </fieldset>
+
+    <!-- search by platform -->
+    <fieldset class="filter_platform">
+      <h1 class="title-single">Search By Platform</h1>
+      <input class="filter_platform_select" list="platforms" name="platforms">
+      <datalist id="platforms">
+        <option data-ng-model="search.platform.xbox" value="XBOX">
+        <option data-ng-model="search.platform.xbox360" value="XBOX360">
+        <option data-ng-model="search.platform.xboxone" value="XBOXONE">
+        <option data-ng-model="search.platform.ps4" value="PS4">
+        <option data-ng-model="search.platform.ps3" value="PS3">
+        <option data-ng-model="search.platform.ps2" value="PS2">
+        <option data-ng-model="search.platform.wii" value="Wii">
+        <option data-ng-model="search.platform.n64" value="N64">
+        <option data-ng-model="search.platform.nes" value="NES">
+        <option data-ng-model="search.platform.pc" value="PC">
+        <option data-ng-model="search.platform.mac" value="MAC">
+        <option data-ng-model="search.platform.board" value="BOARD">
+        <option data-ng-model="search.platform.card" value="CARD">
+      </datalist>
+    </fieldset>
   </form>
-</div>
+
+
+<!--   <option>Atari</option>
+  <option>Board</option>
+  <option>Card</option>
+  <option>DS</option>
+  <option>Game Boy</option>
+  <option>GameCube</option>
+  <option>NES</option>
+  <option>N64</option>
+  <option>Sega</option>
+  <option>PC</option>
+  <option>PS1</option>
+  <option>PS2</option>
+  <option>PS3</option>
+  <option>PS4</option>
+  <option>PSP</option>
+  <option>Wii</option>
+  <option>Wii PC</option>
+  <option>Wii U</option>
+  <option>Vita</option>
+  <option>Xbox</option>
+  <option>Xbox 360</option>
+  <option>Xbox One</option>
+  <option>Other</option> -->
+
+
+  <!-- browse games list -->
+<!-- <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
+    <img  src='{{ game.image_urls[0] }}'></img>
+  </a>
+  <section href="#/gamedetails/{{game._id}}" class="game-summary_info col span_3_of_6">
+    <h1>{{game.platform}}</h1>
+  </section>
+  <input class="game-summary_check col span_1_of_6" type="checkbox" ng-model="checkbox">
+</section> -->

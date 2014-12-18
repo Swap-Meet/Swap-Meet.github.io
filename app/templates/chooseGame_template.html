@@ -1,14 +1,24 @@
-        <p>Choose A Game<p>
-        <!-- game title -->
-        <p>Title: {{ game.title }}    My Game</p>
-        <!-- game info -->
-        <main class="game-summary">
-          <div ng-repeat="game in games | limitTo:10" class="row">
-            <div class="col-md-9">
-              <img src='{{ game.image_urls[0] }}'></img>
-              <a href="#/gamedetails/{{game._id}}">{{ game.title }}: {{ game.platform }}</a>
-            </div>
-          </div>
-        </main>
-        <br>
-        <input type="button" ng-click="declineRequest()" value="Decline Request"/><br/>
+<p class="inform">Choose A Game<p>
+
+
+<!-- game preview -->
+<section class= "game-preview">
+  <h4>My Game</h4>
+  <h1 {{ game.title }}> Call of Duty</h1>
+  <h2>{{ game.platform }} XBox</h2>
+</section>
+
+<!-- browse games list -->
+<section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
+    <img  src='{{ game.image_urls[0] }}'></img>
+  </a>
+  <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_3_of_6">
+    <h1>{{game.title}}</h1>
+    <h2>{{game.platform}}</h2>
+  </a>
+  <input class="game-summary_check col span_1_of_6" type="checkbox" ng-model="checkbox">
+</section>
+
+<button class="btn-remove"ng-click="declineRequest()">Decline Request<button>
+

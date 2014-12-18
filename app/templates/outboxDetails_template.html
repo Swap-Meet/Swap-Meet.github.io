@@ -1,20 +1,21 @@
+<h2 class="inform">Outbox Request Details</h2>
 
-<div class="container">
-  <p>Outbox Request Details</p>
-  <p>Game Requested</p>
+<section class="top-game">
+  <h4>Game Requested</h4>
   <!--  game requested: title -->
-  <div>{{ game.title }}</div>
-
+  <h2 class="game-title_trade">{{ game.title }}</h1>
+</section>
   <!--  game requested: img-->
-  <img src='{{ game.image_urls[0] }}'></img>
+  <img class="game-image" src= '{{ game.image_urls[0] }}'></img>
 
   <!--  game requested: platform -->
-  <div>{{game.platform}}</div>
+<section class="game-info_main">
+  <h2>{{game.platform}}</h2>
+  <p>{{game.short_description}}</p>
+</section>
 
   <!--  game requested: short description -->
-  <div>{{game.short_description}}</div>
+
 
   <!-- cancel request -->
-  <input type="button" ng-click="cancelRequest()" value="Cancel Request"/><br />
-
-</div>
+  <button class="btn-remove" ng-click="cancelRequest()"> Cancel Request<button>
