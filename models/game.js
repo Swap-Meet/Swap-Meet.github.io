@@ -11,6 +11,7 @@ var gameSchema = new Schema({
   zip: String,
   latitude: String,
   longitude: String,
+  condition: String,
   owner: String, //id number
   owner_screenname: String,
   date_added: Object,

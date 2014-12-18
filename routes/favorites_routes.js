@@ -18,7 +18,7 @@ module.exports = function(app, auth) {
       //save the user
       user.save(function(err) {
         if (err) helpers.returnError(res, 1, 'error saving favorites');
-        return helpers.returnSuccess(res, 200);//return res.status(200).json({error: 0});
+        return helpers.returnSuccess(res, 200);
       });
     });
   });
@@ -46,6 +46,7 @@ module.exports = function(app, auth) {
 
   //return an array of favorites
   app.get('/api/games/favorites', auth, function(req, res) {
+    //console.log('here is user infor', req.user.favorites);
     return getGameInfo(req.user.favorites, res);
   });
 };
