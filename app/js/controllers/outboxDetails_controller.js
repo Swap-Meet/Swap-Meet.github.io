@@ -2,17 +2,16 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('outboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies', 'AuthService',
-    function($scope, $location, $http, $cookies, AuthService) {
+  app.controller('outboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
+    function($scope, $location, $http, $cookies) {
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Outbox Details Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       //this is fake data
-      // $scope.game.title = 'Pac Man HI';
 
       $scope.game = {
         title: 'Pac Man',
