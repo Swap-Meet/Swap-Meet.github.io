@@ -28,11 +28,11 @@
 
 @font-face {
   font-family: 'swap';
-  src:url('../assets/fonts/swap.eot?-lwaol4');
-  src:url('../assets/fonts/swap.eot?#iefix-lwaol4') format('embedded-opentype'),
-    url('../assets/fonts/swap.woff?-lwaol4') format('woff'),
-    url('../assets/fonts/swap.ttf?-lwaol4') format('truetype'),
-    url('../assets/fonts/swap.svg?-lwaol4#swap') format('svg');
+  src:url('../assets/fonts/swap.eot?k83xfr');
+  src:url('../assets/fonts/swap.eot?#iefixk83xfr') format('embedded-opentype'),
+    url('../assets/fonts/swap.woff?k83xfr') format('woff'),
+    url('../assets/fonts/swap.ttf?k83xfr') format('truetype'),
+    url('../assets/fonts/swap.svg?k83xfr#swap') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -51,6 +51,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-user2:before {
+  content: "\e609";
+}
+.icon-user3:before {
+  content: "\e60a";
+}
 .icon-user:before {
   content: "\e600";
 }
@@ -72,7 +78,24 @@
 .icon-close:before {
   content: "\e603";
 }
+.icon-checkmark:before {
+  content: "\e60b";
+}
+.icon-arrow-right:before {
+  content: "\e60c";
+}
+.icon-arrow-left:before {
+  content: "\e608";
+}
+.icon-checkbox-checked:before {
+  content: "\e60d";
+}
+.icon-checkbox-unchecked:before {
+  content: "\e60e";
+}
+.icon-checkbox-partial:before {
+  content: "\e60f";
+}
 .icon-trash:before {
   content: "\e607";
 }
-

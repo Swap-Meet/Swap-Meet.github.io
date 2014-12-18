@@ -38,9 +38,14 @@ module.exports = function(app, auth) {
   app.post('/api/user', function(req, res) {
     var profile = {};
     var password = req.query.password;
-    var loc = req.query.zip;
+    var zip = req.query.zip;
+    var email = req.query.email;
+    var screenname = req.query.screenname;
 
-    User.findOne({email: req.query.email}, function(err, user) {
+    if (!password || !zip || !email || !screenname)
+      return helpers.returnError(res, 7, 'missing field');
+
+    User.findOne({email: email}, function(err, user) {
       if (err) return helpers.returnError(err, res, 1, 'cannot find user', 400);
 
       if (user) return helpers.returnError(res, 2, 'user already exists');
@@ -61,7 +66,7 @@ module.exports = function(app, auth) {
       newUser.email = req.query.email;
       newUser.password = newUser.generateHash(password);
       newUser.screenname = req.query.screenname;
-      newUser.zip = loc;
+      newUser.zip = zip;
       newUser.favorites = [];
       newUser.incomingRequests = [];
       newUser.outgoingRequests = [];

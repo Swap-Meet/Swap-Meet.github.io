@@ -2,11 +2,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService', 'Games',
-    function($scope, $routeParams, $http, $location, $cookies, AuthService, Games) {
-
-      // $scope.message = Games.message;
-      // console.log('GD-Message: ' + $scope.message);
+  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies',
+    function($scope, $routeParams, $http, $location, $cookies) {
 
       if (!$cookies.jwt) {
         $location.path('/login');

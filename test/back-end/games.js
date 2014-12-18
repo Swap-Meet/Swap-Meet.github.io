@@ -1,5 +1,5 @@
 'use strict';
-//var User = require('../../models/user.js');
+var Trade = require('../../models/trade.js');
 var Game = require('../../models/game.js');
 var _ = require('lodash');
 
@@ -7,7 +7,7 @@ module.exports = function() {
 
   //User.collection.remove(function(err) {if (err) throw err;});
   Game.collection.remove(function(err) {if (err) throw err;});
-
+  Trade.collection.remove(function(err) {if (err) throw err;});
   //var loginA = '?email=testA@example.com&password=Monkeys911' +
   //  '&screenname=BunniesFromHell&zip=99999';
   //var loginB = '?email=testB@example.com&password=Monkeys911' +
