@@ -359,9 +359,9 @@ describe('basic user tests', function() {
     .get('api/games/outgoingrequests')
     .set('jwt', jwtA)
     .end(function(err, res) {
-      console.log('see outgoing request', res.body);
-      console.log('see potential Trades', res.body.items[0].potentialTrades);
-      console.log('see game info', res.body.items[0].gameInfo);
+      //console.log('see outgoing request', res.body);
+      //console.log('see potential Trades', res.body.items[0].potentialTrades);
+      //console.log('see game info', res.body.items[0].gameInfo);
       tradeId = res.body.items[0]._id;
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -380,7 +380,7 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      console.log('output', res.body);
+      //console.log('output', res.body);
       //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
@@ -505,7 +505,6 @@ describe('trading routes tests', function() {
     .set('jwt', jwtB)
     .send({id: games[0]._id, gameIdArray: [games[1]._id, games[2]._id]})
     .end(function(err, res) {
-      console.log(res.body);
       expect(err).to.eql(null);
       tradeId = res.body.items._id;
       expect(res.body.error).to.eql(0);
@@ -697,7 +696,7 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtB)
     .send({id: games[4]._id})
     .end(function(err, res) {
-      console.log('id to be deleted is', games[4]._id);
+      //console.log('id to be deleted is', games[4]._id);
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       done();
@@ -721,7 +720,7 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log('the items are', res.body);
+      //console.log('the items are', res.body);
       expect(res.body.items.length).to.eql(0);
       done();
     });
@@ -733,7 +732,7 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log('itemsssss', res.body.items);
+      //console.log('itemsssss', res.body.items);
       expect(res.body.error).to.eql(0);
       expect(res.body.items[0].potentialTrades.length).to.eql(2);
       done();

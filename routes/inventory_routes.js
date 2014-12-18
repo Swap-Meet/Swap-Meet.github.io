@@ -18,7 +18,7 @@ module.exports = function(app, auth) {
       //remove the game from the game database
       Game.remove({ _id: gameId }, function(err) {
         if (err) return helpers.returnError(res, 10, 'invalid id');
-        console.log('removed game document');
+        //console.log('removed game document');
         callback();
       });
     },
@@ -36,19 +36,19 @@ module.exports = function(app, auth) {
     //delete from everyone who has favorited this game
     function(callback) {
       //find everyone who has favorited the game, delete game from their favorites
-      console.log('gameID:', gameId);
+      //console.log('gameID:', gameId);
       var counter = 0;
       User.find({favorites: gameId}, function(err, users) {
         if (!users) callback();
-        console.log('hi2', users);
+        //console.log('hi2', users);
         if (err || !users) callback();
         _.forEach(users, function(user) {
-          console.log('fav', user.favorites);
+          //console.log('fav', user.favorites);
           user.favorites = helpers.filterOutGame(user.favorites, gameId);
-          console.log('fav', user.favorites);
+          //console.log('fav', user.favorites);
           user.save(function() {
             counter++;
-            console.log('does it output', counter, users);
+            //console.log('does it output', counter, users);
             if (counter === users.length) {
               callback();
             }
