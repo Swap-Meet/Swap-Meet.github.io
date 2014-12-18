@@ -3,11 +3,12 @@
 module.exports = function(app) {
   app.controller('chooseGameCtrl', ['$scope', 'AuthService', '$http', '$cookies', '$location',
     function($scope, AuthService, $http, $cookies, $location) {
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Choose Game Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       $scope.games = [
         { id: '548f75df27398d8b9bfeac07',

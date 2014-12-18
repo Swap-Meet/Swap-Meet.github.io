@@ -10,6 +10,7 @@ module.exports = function(app) {
         $scope.games = data.items;
       });
     };
+    //
 
     // //Here is index called inside the controller (i.e. not as a service)
     // $scope.index = function() {

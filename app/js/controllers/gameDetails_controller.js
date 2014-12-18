@@ -5,11 +5,11 @@ module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService',
     function($scope, $routeParams, $http, $location, $cookies, AuthService) {
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Game Details Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       $http({
         method: 'GET',

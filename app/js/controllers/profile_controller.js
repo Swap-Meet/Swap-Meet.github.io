@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http', 'AuthService',
-    function($scope, $cookies, $location, $http, AuthService) {
+  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http',
+    function($scope, $cookies, $location, $http) {
 
-      if (!AuthService.isAuthenticated()) {
-        return $location.path('/login');
-      } else {
-        $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      if (!$cookies.jwt) {
+        $location.path('/login');
       }
+      console.log('Profile Controller Sees the Cookie');
+      $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       $http({
         method: 'GET',
