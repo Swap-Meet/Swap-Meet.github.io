@@ -3,9 +3,10 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 var getGameInfo = require('../lib/getGameInfo');
-//var _ = require('lodash');
-//var async = require('async');
+var _ = require('lodash');
+var async = require('async');
 var helpers = require('../lib/helpers');
+var Trade = require('../models/trade');
 
 module.exports = function(app, auth) {
 
@@ -13,11 +14,91 @@ module.exports = function(app, auth) {
   app.delete('/api/games/inventory', auth, function(req, res) {
     var gameId = req.body.id;
 
-    //remove the game from the game database
-    Game.remove({ _id: gameId }, function(err) {
-      if (err) return helpers.returnError(res, 10, 'invalid id');
-      console.log('removed game document');
+    async.parallel([function(callback) {
+      //remove the game from the game database
+      Game.remove({ _id: gameId }, function(err) {
+        if (err) return helpers.returnError(res, 10, 'invalid id');
+        //console.log('removed game document');
+        callback();
+      });
+    },
+    //delete from this user's inventory
+    function(callback) {
+      User.findById(req.user._id, function(err, user) {
+        if (err) callback(err);
+        user.inventory = helpers.filterOutGame(user.inventory, gameId);
+        user.save(function(err) {
+          if (err) callback(err);
+          callback();
+        });
+      });
+    },
+    //delete from everyone who has favorited this game
+    function(callback) {
+      //find everyone who has favorited the game, delete game from their favorites
+      //console.log('gameID:', gameId);
+      var counter = 0;
+      User.find({favorites: gameId}, function(err, users) {
+        if (!users) callback();
+        //console.log('hi2', users);
+        if (err || !users) callback();
+        _.forEach(users, function(user) {
+          //console.log('fav', user.favorites);
+          user.favorites = helpers.filterOutGame(user.favorites, gameId);
+          //console.log('fav', user.favorites);
+          user.save(function() {
+            counter++;
+            //console.log('does it output', counter, users);
+            if (counter === users.length) {
+              callback();
+            }
+          });
+        });
+      });
+    },
+
+    //delete all trades where this game is the main game
+    function(callback) {
+      //find all trades about gameId
+      Trade.find({gameId: gameId}, function(err, trades) {
+        async.each(trades, function(trade, done) {
+          trade.remove(function(err) {
+            if (err) callback(err);
+            done();
+          });
+        }, function(err) {
+          if (err) callback(err);
+          callback();
+        });
+      });
+    },
+
+    //splices from trades where this game is in the list of potential trades
+    function(callback) {
+      //console.log('these are the trades', gameId);
+      Trade.find({potentialTrades: gameId}, function(err, trades) {
+        //console.log('these are the trades', trades);
+        if (err || !trades) callback();
+        async.each(trades, function(trade, done) {
+          trade.potentialTrades = _.filter(trade.potentialTrades,
+            function(item) {
+            return (item == gameId) ? false : true;
+          });
+          trade.save(function() {
+            //if (err) //callback(err);
+            done();
+          });
+        }, function(err) {
+          if (err) callback(err);
+          callback();
+        });
+      });
+    }
+    ], function(err, results) {
+      if (err) return helpers.returnError(res, 55, 'error');
+      return helpers.returnSuccess(res, results);
     });
+  });
 
     //async.parallel([deleteGameFromDB(callback)])
     //find the user based on the incoming jwt token
@@ -67,7 +148,6 @@ module.exports = function(app, auth) {
     //       }
     //     });
     // });
-  });
 
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
@@ -112,7 +192,7 @@ module.exports = function(app, auth) {
           if (err) return helpers.returnError(res, 1, 'error saving game');
         });
       });
-
+      newGame._id = game._id;
       return helpers.returnSuccess(res, newGame);
     });
   });

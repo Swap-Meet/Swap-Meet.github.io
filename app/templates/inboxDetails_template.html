@@ -1,31 +1,44 @@
 
 <h2 class="inform">Inbox Request Details</h2>
    <!--  accept trade button -->
-  <button class="btn-add" ng-click="acceptTrade()"> Accept Trade </button>
 
   <!-- USER A SECTION-->
   <!-- USER A - MY GAME: Title-->
-<section class="my-game">
   <h4>My Game</h4>
   <h2>{{ trade[0].title }}</h2>
     <!-- USER A - MY GAME: platform-->
     <h3>{{ trade[0].platform }}</h3>
    <!-- USER A - MY GAME: short description-->
-  <p>{{ trade[0].short_description }}</p>
-</section>
+<!--   <p>{{ trade[0].short_description }}</p> -->
+
 
 
   <!-- USER B SECTION-->
-  <h1 class="game-title_trade">Trade For This Game</h1>
+<!--   <h1 class="game-title_trade">Trade For This Game</h1> -->
   <!-- USER B - TRADING FOR GAME: Image -->
-    <img src='{{ trade[1].image_urls[0] }}'></img>
+    <img class="game-image" src='{{ trade[1].image_urls[0] }}'></img>
 
 <section class="game-info_main">
   <!-- USER B - TRADING FOR GAME: Title -->
-  <h1>{{ trade[1].title }}</h2>
+  <h1>{{ trade[1].title }}</h1>
   <!-- USER B - TRADING FOR GAME: platform -->
-  <h2>{{ trade[1].platform }}</h3>
+  <h2>{{ trade[1].platform }}</h2>
 </section>
 
-  <!--  decline trade button -->
-  <button class="btn-remove" ng-click="declineTrade()"> Decline Trade</button>
+ <!-- Send request and cancel request buttons -->
+<section class="btn-pair section group">
+  <button class="btn-pair_pos col span_3_of_4" data-ng-click="sendRequest()">Yes</button>
+  <button class="btn-pair_neg col span_1_of_4" ng-click="cancelRequest()">No</button>
+</section>
+
+  <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+    <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
+      <img  src='{{ game.image_urls[0] }}'></img>
+    </a>
+    <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_3_of_6">
+      <h1>{{game.title}}</h1>
+      <h2>{{game.platform}}</h2>
+      <!-- <p>User Name {{ games[whichGame].owner_screenname }}</p> -->
+    </a>
+    <button class="icon-star2 game-summary_select col span_1_of_6" ng-click="addFavorite()"></button>
+  </section>
