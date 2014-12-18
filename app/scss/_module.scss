@@ -255,31 +255,29 @@
 
 // Remove Button Module
 .btn-remove {
-  // display: block;
+  display: block;
   background-color: $accent-color;
   font-family: $primary-font;
-  // width: 80%;
+  width: 80%;
   color: white;
-  // margin: auto;
+  margin: auto;
   font-size: 1.5em;
-  // padding: .5em 0;
+  padding: .5em 0;
 }
 
 //Add Button Module
 .btn-add {
-  // display: block;
+  display: block;
+  width:80%;
   background-color: $primary-color;
   font-family: $primary-font;
-  // width: 100%;
   color: white;
-  // margin: auto;
+  margin: auto;
   font-size: 1.5em;
-
   padding: .5em 0;
   width: 80%;
-
-
 }
+
 
 // Buttons on Login Page
 
@@ -314,4 +312,33 @@
   display: block;
   width:80%;
   margin: 0 10%;
+}
+
+.filter {
+
+}
+
+.title-single {
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: .15em;
+  color: black;
+  text-align: center;
+  margin-top: 1em;
+  border-bottom: solid;
+  border-width: .1em;
+  border-color: $primary-color;
+  width: 80%;
+  margin: 1em auto;
+}
+
+.buttons-checks{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: .5em 1em;
+  font-size: 1em;
+  font-family: $primary-font;
+  background-color: $info-color;
 }
