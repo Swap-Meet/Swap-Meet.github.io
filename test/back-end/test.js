@@ -17,33 +17,33 @@ var games;
 User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
 
+var jwtA;
+var jwtB;
+var gameA3Id;
+var gameA2Id;
+var gameB1Id;
+var Agames;
+var AId;
+var BId;
+var url = 'http://localhost:3000/';
+var loginA = '?email=testA@example.com&password=Monkeys911' +
+  '&screenname=BunniesFromHell&zip=99999';
+var loginB = '?email=testB@example.com&password=Monkeys911' +
+  '&screenname=BunniesFromHell&zip=99999';
+var loginURLBadPW =
+  '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
+var loginURLNoZip =
+  '?email=munchkins&password=pie&screenname=yoyoyosup';
+var game1A = {title: 'Monkey Island', platform:'XBOX'};
+var game2A = {title: 'Grim Fandango', platform:'PC'};
+var game3A = {title: 'Settlers of Catan', platform:'Board'};
+//var game4A = {title: 'Uno', platform:'Card'};
+var game1B = {title: 'Heroes of Might and Magic', platform:'PC'};
+var game2B = {title: 'Mental Floss', platform:'Board'};
+//var game3B = {title: 'Chess', platform:'Board'};
+//var game4B = {title: 'Team Fortress 2', platform:'PC'};
+
 describe('basic user tests', function() {
-  this.timeout(2000);
-  var jwtA;
-  var jwtB;
-  var gameA3Id;
-  var gameA2Id;
-  var gameB1Id;
-  var Agames;
-  var AId;
-  var BId;
-  var url = 'http://localhost:3000/';
-  var loginA = '?email=testA@example.com&password=Monkeys911' +
-    '&screenname=BunniesFromHell&zip=99999';
-  var loginB = '?email=testB@example.com&password=Monkeys911' +
-    '&screenname=BunniesFromHell&zip=99999';
-  var loginURLBadPW =
-    '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
-  //var loginURLNoZip =
-   // '?email=munchkins&password=pie&zip=35847&screenname=crazyfool';
-  var game1A = {title: 'Monkey Island', platform:'XBOX'};
-  var game2A = {title: 'Grim Fandango', platform:'PC'};
-  var game3A = {title: 'Settlers of Catan', platform:'Board'};
-  //var game4A = {title: 'Uno', platform:'Card'};
-  var game1B = {title: 'Heroes of Might and Magic', platform:'PC'};
-  var game2B = {title: 'Mental Floss', platform:'Board'};
-  //var game3B = {title: 'Chess', platform:'Board'};
-  //var game4B = {title: 'Team Fortress 2', platform:'PC'};
 
   it('should be able to create a new user A and get back info', function(done) {
     chai.request(url)
@@ -75,13 +75,23 @@ describe('basic user tests', function() {
     });
   });
 
+  it('should be refuse to create a new user with no zip', function(done) {
+    chai.request(url)
+    .post('api/user' + loginURLNoZip)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.not.eql(0);
+      done();
+    });
+  });
+
   it('should refuse to create a user with the same email', function(done) {
     chai.request(url)
     .post('api/user' + loginA)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.be.gt(0);
-      console.log(res.body.msg);
+      //console.log(res.body.msg);
       done();
     });
   });
@@ -256,7 +266,7 @@ describe('basic user tests', function() {
     });
   });
 
-  it('B now have 2 games in favorites', function(done) {
+  it('B now have a game in favorites', function(done) {
     chai.request(url)
     .get('api/games/favorites')
     .set('jwt', jwtB)
@@ -296,6 +306,7 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0]._id).to.be.a('String');
+      expect(res.body.items.length).to.eql(5);
       done();
     });
   });
@@ -366,19 +377,6 @@ describe('basic user tests', function() {
     });
   });
 
-  // it('B should be able to delete an incoming request', function(done) {
-  //   chai.request(url)
-  //   .delete('api/games/incomingrequests')
-  //   .set('jwt', jwtB)
-  //   .send({gameId: gameB1Id, ownerId: AId})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log('gameId to look for', gameB1Id);
-  //     expect(res.body.error).to.eql(0);
-  //     done();
-  //   });
-  // });
-
   it('A should be able to delete an outgoing request', function(done) {
     chai.request(url)
     .delete('api/games/outgoingrequests')
@@ -391,7 +389,9 @@ describe('basic user tests', function() {
       done();
     });
   });
+});
 
+describe('trading routes tests', function() {
   it('should be able to populate the games DB', function(done) {
     games = require('./games')();
     //console.log(games);
@@ -406,7 +406,7 @@ describe('basic user tests', function() {
     .send(games[0])
     .end(function(err, res) {
       expect(err).to.eql(null);
-      games[0]._id = res.body._id;//console.log('gameId to look for', gameB1Id);
+      games[0]._id = res.body.items._id;//console.log('gameId to look for', gameB1Id);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -419,46 +419,301 @@ describe('basic user tests', function() {
     .send(games[1])
     .end(function(err, res) {
       expect(err).to.eql(null);
-      games[1]._id = res.body._id;
+      games[1]._id = res.body.items._id;
       //console.log('gameId to look for', gameB1Id);
       expect(res.body.error).to.eql(0);
       done();
     });
   });
-  // it('should be able to populate the games DB', function(done) {
-  //   var games = require('./games')();
-  //   console.log(games);
-  //   expect(games).to.be.an('Array');
-  //   done();
-  // });
+
+  it('should be able to add a game to B', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(games[2])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log('response is', res.body);
+      games[2]._id = res.body.items._id;
+      //console.log('gameId to look for', gameB1Id);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should not be possible for B to propose a bad trade', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .send({id: games[2]._id, gameIdArray: [games[1]._id, games[2]._id]})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.not.eql(0);
+      done();
+    });
+  });
+
+  it('should not be possible for B to propose an empty trade', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .send({id: games[0]._id, gameIdArray: []})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.not.eql(0);
+      done();
+    });
+  });
+
+  it('should not be possible for B propose an invalid trade', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .send({id: 34534, gameIdArray: []})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.not.eql(0);
+      done();
+    });
+  });
+
+  it('should be possible for B to propose an valid trade', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .send({id: games[0]._id, gameIdArray: [games[1]._id, games[2]._id]})
+    .end(function(err, res) {
+      //console.log(games);
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should be possible for B to see this outgoing trade', function(done) {
+    chai.request(url)
+    .get('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log(res.body.items);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items).to.be.an('Array');
+      done();
+    });
+  });
+
+  it('should be possible for A to refuse a trade', function(done) {
+    chai.request(url)
+    .delete('api/games/incomingrequests')
+    .set('jwt', jwtA)
+    .send({gameId: games[0]._id, ownerId: BId})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      //console.log('a', res.body);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should not be possible for B to see a deleted trade', function(done) {
+    chai.request(url)
+    .get('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      //console.log('b', res.body);
+      expect(res.body.items).to.eql([]);
+      done();
+    });
+  });
 });
-// function callback() {
 
-// }
+describe('inventory deletion tests', function() {
+  it('should be able to populate the games DB', function(done) {
+    var games = require('./games')();
+    //console.log(games);
+    expect(games).to.be.an('Array');
+    done();
+  });
 
-// describe('favorites testing', function() {
+  //A has games 1, 2, 3, B has games 4, 5, 6
+  it('should be able to add a game to A', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(games[0])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[0]._id = res.body.items._id;//console.log('gameId to look for', gameB1Id);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
 
-//   var MongoClient = require('mongodb').MongoClient;
-//   var format = require('util').format;
+  it('should be able to add a game to A', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(games[1])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[1]._id = res.body.items._id;
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
 
-//   //connect away
-//   MongoClient.connect('mongodb://localhost/game_swap_test', function(err, db) {
-//     if (err) throw err;
-//     console.log('Connected to Database');
+  it('should be able to add a game to A', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(games[2])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[2]._id = res.body.items._id;
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
 
-//     //User.collection.remove(function(err) {if (err) throw err;});
-//     //Game.collection.remove(function(err) {if (err) throw err;});
-//     //simple json record
-//     var game1A = {_id:'1A', title:'Monkey Island', platform:'XBOX'};
-//     var game2A = {_id:'2A', title:'God of War', platform:'PC'};
-//     var game3A = {_id:'3A', title:'Bunny Wars', platform:'XBOX'};
-//     var game1B = {_id:'1B', title:'Pokemon Snap', platform:'PS2'};
-//     var game2B = {_id:'2B', title:'Monkey Island 4', platform:'XBOX'};
-//     var game3B = {_id:'3B', title:'Sam and Max', platform:'PC'};
-//     //insert record
-//     db.collection('games').insert([game1A, game2A, game3A, game1B, game2B, game3B], function(err, records) {
-//       if (err) throw err;
-//       console.log('Record added');
-//     });
-//   });
-// });
+  it('should be able to add a game to A', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtA)
+    .send(games[5])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[5]._id = res.body.items._id;
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should be able to add a game to B', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(games[3])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[3]._id = res.body.items._id;
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should be able to add a game to B', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtB)
+    .send(games[4])
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      games[4]._id = res.body.items._id;
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should increase num games in B inventory', function(done) {
+    chai.request(url)
+    .get('api/games/inventory')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.items.length).to.eql(6);
+      done();
+    });
+  });
+
+  it('should allow A to favorite Bs game', function(done) {
+    chai.request(url)
+    .post('api/games/favorites')
+    .set('jwt', jwtA)
+    .send({'_id': games[4]._id})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should allow A to propose a trade to B', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtA)
+    .send({id: games[4]._id,
+      gameIdArray: [games[0]._id,  games[1]._id, games[2]._id]
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should allow B to propose a trade to A', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .send({id: games[0]._id,
+      gameIdArray: [games[4]._id, games[3]._id, games[5]._id]
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should allow B to delete a game', function(done) {
+    chai.request(url)
+    .delete('api/games/inventory')
+    .set('jwt', jwtB)
+    .send({id: games[4]._id})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.error).to.eql(0);
+      done();
+    });
+  });
+
+  it('should decrease num games in B inventory', function(done) {
+    chai.request(url)
+    .get('api/games/inventory')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.items.length).to.eql(5);
+      done();
+    });
+  });
+
+  it('should decrease num games in A favorites', function(done) {
+    chai.request(url)
+    .get('api/games/favorites')
+    .set('jwt', jwtA)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log('the items are', res.body);
+      expect(res.body.items.length).to.eql(1);
+      done();
+    });
+  });
+
+  it('should decrease the offers in Bs outgoing request', function(done) {
+    chai.request(url)
+    .get('api/games/outgoingrequests')
+    .set('jwt', jwtB)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log('itemsssss', res.body.items);
+      expect(res.body.error).to.eql(0);
+      expect(res.body.items.potentialTrades.length).to.eql(2);
+      done();
+    });
+  });
+
+});
