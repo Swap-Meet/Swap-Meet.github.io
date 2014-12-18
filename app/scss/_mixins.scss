@@ -42,5 +42,12 @@
   font-family: $primary-font;
   margin: 0;
   height: 3.25em;
+}
 
+@mixin button-upload {
+  background-color: $primary-color;
+  color: white;
+  font-size: 1em;
+  font-family: $primary-font;
+  padding: 1em;
 }

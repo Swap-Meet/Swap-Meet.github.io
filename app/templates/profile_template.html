@@ -1,10 +1,30 @@
-<div class="container">
-  <div>
-    My Profile
-  </div>
-  <img src='{{ avatar_url }}'></img>
-  <br>
-  <p>username: {{screenname}}</p>
-  <p>email: {{email}}</p>
-  <p>location: {{zip}}</p>
-</div>
+  <!-- information bar -->
+  <section class="inform">
+      <h2>My Profile</h2>
+  </section>
+
+  <section class="profile section group">
+    <div class="profile_img col span 3_of_6">
+      <img src='{{ avatar_url }}'></img>
+      <button class="profile_upload"></button>
+    </div>
+    <div class="profile_info col span 3_of_6">>
+      <h1>User Name{{screenname}}</h1>
+      <p>email: {{email}}</p>
+      <p>location: {{zip}}</p>
+    </div>
+  </section>
+
+<button class="btn-add" ng-click="">Add Game<button>
+
+
+
+
+
+
+
+
+
+
+
+
