@@ -39,23 +39,15 @@
   }
 }
 
-.game-summary_select {
+.game-summary_fav {
   color: white;
   background-color: black;
   font-size: 1.9em;
   margin-top: .4em;
 }
 
-.game-summary_select {
-  &~input {
-    position:absolute;
-    left:-9999px;
-    top:-9999px;
-  }
-}
+.game-summary_check {
 
-.icon-checkbox-checked:checked, icon-star:checked {
-  color: $accent-color;
 }
 
 
@@ -247,5 +239,37 @@
   font-size: .6em;
   margin-top: .25em;
   padding: 1em;
+}
+
+// Search Module
+.search {
+  width: 100%;
+}
+
+.search-input {
+  border: none;
+  font-size: 1.2em;
+  padding: .5em;
+  @include secondary-font;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.icon-search {
+  background-color: white;
+  font-size: 1.2em;
+  color: $primary-color;
+  margin: 0;
+  padding: .58em 0em .58em 2em;
+}
+
+.btn-filter-search {
+  font-family: $primary-font;
+  font-size: 1.2em;
+  background-color: $primary-color;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: .62em;
 }
 
