@@ -8,7 +8,7 @@
   </head>
   <body>
       <main data-ng-app="swapApp">
-        <header class="header_main section group" data-ng-controller="navCtrl">
+        <header class="header_main section group">
           <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
           <a href="#/profile" class="icon-user header-profile"></a>
         </header>
@@ -18,7 +18,8 @@
         </article>
         <script src='http://localhost:35729/livereload.js'></script>
       </main>
-    <footer>
+    <footer data-ng-controller = "navCtrl">
+      <button data-ng-click="signOut()">Sign Out</button>
       <a href="#/">1-Search</a><br>
       <a href="#/login">2-Login</a><br>
       <a href="#/filtersearch">3-Filter</a><br>
@@ -31,7 +32,6 @@
       <a href="#/addgame">10-Add Game</a><br>
       <a href="#/inboxrequestdetails">11-Inbox</a><br>
       <a href="#/outboxrequestdetails">12-Outbox</a><br>
-      <button data-ng-click="signOut()">Sign Out</button>
     </footer>
   <script src="client_bundle.js"></script>
   </body>
