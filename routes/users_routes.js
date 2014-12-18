@@ -108,7 +108,7 @@ module.exports = function(app, auth) {
   //allow user to update avatar_url upon sending jwt token, returns profile info
   app.put('/api/user/myprofile', auth, function(req, res) {
     var passback = {};
-
+    console.log('body is', req.body);
     User.findById(req.user._id, function(err, user) {
       if (err) return helpers.returnError(res, 1, 'cannot find user');
 
@@ -118,15 +118,11 @@ module.exports = function(app, auth) {
 
       //updating zip code needs to change lat/long
       user.zip = req.body.zip || user.zip || '';
-      //user.latitude
-      //user.longitude
-
-      user.avatar_url = req.bodyuser.avatar_url || '';
-
+      console.log(user);
       passback.email = req.body.email || user.email;
       passback.screename = req.body.screenname || user.screenname || '';
       passback.zip = req.body.zip || user.zip || '';
-      passback.avatar_url = req.bodyuser.avatar_url || '';
+      passback.avatar_url = req.body.avatar_url || '';
 
       user.save(function(err) {
         if (err) return helpers.returnError(res, 1, 'cannot save user');
