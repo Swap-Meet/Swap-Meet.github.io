@@ -1,21 +1,33 @@
-          <section class ="search">
-            <input type="text" class="search-input" data-ng-model="search.title" placeholder="search"/>
+<!-- initial search populate list -->
+<div data-ng-init="index()">
 
-            <button class="icon-search" data-ng-click="filterSearch()"></button>
-            <a href="#/filtersearch" class="search-button">Filter</a>
-            <p class="inform">
-              Recent Games
-            </p>
-          </section>
+  <!-- sets position of view -->
+  <div class="position-view_search"></div>
 
-          <main class="game-summary">
-            <div ng-repeat="game in games | limitTo:10" class="row">
-              <div class="col-md-9">
-                <img src='{{ game.image_urls[0] }}'></img>
-                <a href="#/gamedetails/{{game._id}}">{{game.title}}: {{game.platform}}</a>
+  <!-- information bar -->
+  <section class="inform">
+      <h2>Games Available</h2>
+  </section>
 
-                <button class="icon-star btn-fav" ng-click="addFavorite()"></button>
-              </div>
-            </div>
-          </main>
+  <!-- search bar -->
+  <section class ="search section group">
+    <input type="text" class="search-input col span_2_of_4" data-ng-model="search.title" placeholder="search"/>
+    <button class="icon-search col span_1_of_4" data-ng-click="filterSearch()"></button>
+    <a href="#/filtersearch" class="btn-filter-search col span_1_of_4">Filter</a>
+  </section>
 
+  <!-- browse games list -->
+  <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+    <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
+      <img  src='{{ game.image_urls[0] }}'></img>
+    </a>
+    <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_3_of_6">
+      <h1>{{game.title}}</h1>
+      <h2>{{game.platform}}</h2>
+      <!-- <p>User Name {{ games[whichGame].owner_screenname }}</p> -->
+    </a>
+    <button class="icon-star2 game-summary_select col span_1_of_6" ng-click="addFavorite()"></button>
+  </section>
+
+<!-- END search populate list -->
+</div>

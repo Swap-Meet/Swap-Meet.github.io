@@ -3,13 +3,16 @@
 require('angular/angular');
 require('angular-route');
 require('angular-resource');
+require('angular-cookies');
+require('angular-base64');
 
-//var swapApp = angular.module('swapApp', ['ngRoute']);
-var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
+//var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
+var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute', 'ngCookies', 'base64']);
 
 // load services
 require('./services/resource_backend_service')(swapApp);
 require('./services/game_service')(swapApp);
+require('./services/auth_service')(swapApp);
 
 // load controllers
 require('./controllers/search_controller')(swapApp);
@@ -23,9 +26,11 @@ require('./controllers/outboxDetails_controller')(swapApp);
 require('./controllers/login_controller')(swapApp);
 require('./controllers/chooseGame_controller')(swapApp);
 require('./controllers/offerGames_controller')(swapApp);
+require('./controllers/nav_controller')(swapApp);
 
 //setup $routeProvider
-swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) {
+swapApp.config(['$routeProvider', function($routeProvider) {
+//swapApp.config(['$routeProvider', 'AuthService', function($routeProvider, AuthService) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',
@@ -39,11 +44,11 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
       templateUrl: 'templates/filter_template.html',
       controller: 'searchCtrl'
     })
-    .when('/gamedetails', {
+    .when('/gamedetails/:gameID', {
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
     })
-    .when('/offerGames', {
+    .when('/offergames', {
       templateUrl: 'templates/offerGames_template.html',
       controller: 'offerGamesCtrl'
     })
@@ -62,6 +67,7 @@ swapApp.config(['$routeProvider', '$locationProvider', function($routeProvider) 
     .when('/profile', {
       templateUrl: 'templates/profile_template.html',
       controller: 'profileCtrl'
+      //resolve: AuthService.isAuthenticated()
     })
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',

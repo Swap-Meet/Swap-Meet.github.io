@@ -1,0 +1,14 @@
+        <p>Choose A Game<p>
+        <!-- game title -->
+        <p>Title: {{ game.title }}    My Game</p>
+        <!-- game info -->
+        <main class="game-summary">
+          <div ng-repeat="game in games | limitTo:10" class="row">
+            <div class="col-md-9">
+              <img src='{{ game.image_urls[0] }}'></img>
+              <a href="#/gamedetails/{{game._id}}">{{ game.title }}: {{ game.platform }}</a>
+            </div>
+          </div>
+        </main>
+        <br>
+        <input type="button" ng-click="declineRequest()" value="Decline Request"/><br/>

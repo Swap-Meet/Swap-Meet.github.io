@@ -10,56 +10,64 @@
 }
 
 
-// Search Module
-.search {
-  @include secondary-font;
-  padding: 2em 0;
-  border: none;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  background-color: white;
-}
-
-.icon-search {
-  background-color: white;
-  font-size: 1.5em;
-  color: $primary-color;
-}
-
-.search-input {
-  @include secondary-font;
-  padding: 2em 0;
-  text-transform: uppercase;
-}
-
-.search-button{
-  font-family: $primary-font;
-  font-size: 1.25em;
-  background-color: $primary-color;
-  color: white;
-  text-align: center;
-}
-
-
 // Game Summary Module
 .game-summary {
-   font-family: $primary-font;
-   a {
-    color: black;
-    line-height: 2em;
-    font-size: 1.25em;
+  border-bottom: .4em solid $secondary-color;
+  background-color: black;
+}
+
+.game-summary_img {
+  padding: .8em;
+  &>img {
+  width: 100%;
   }
+}
+
+.game-summary_info {
+  color: white;
+  padding-left: .7em;
+  padding-top: .8em;
+  font-family: $primary-font;
+  &>h1 {
+    font-size: 1.4em;
+    text-transform: uppercase;
+  }
+  &>h2 {
+    color: $primary-color;
+    margin-top: 1.3em;
+    font-size: 1.4em;
+  }
+}
+
+.game-summary_select {
+  color: white;
+  background-color: black;
+  font-size: 1.9em;
+  margin-top: .4em;
+}
+
+.game-summary_select {
+  &~input {
+    position:absolute;
+    left:-9999px;
+    top:-9999px;
+  }
+}
+
+.icon-checkbox-checked:checked, icon-star:checked {
+  color: $accent-color;
 }
 
 
 // Information Bar Module
 .inform {
+  text-align: center;
   background-color: $info-color;
   margin: 0 auto;
   @include secondary-font;
   text-transform: uppercase;
-  padding: 0.2em 0 0.1em 1em;
+  padding: 0.2em 0 0 1em;
+  width: 100%;
 }
 
 
@@ -72,6 +80,7 @@
   text-align: center;
   padding: 1em 0;
   font-family: $primary-font;
+
 }
 
 
@@ -121,27 +130,122 @@
     text-transform: uppercase;
   }
   &>h2 {
-    font-size: 1.25em;
+    margin: .5em 0;
+    font-size: 1.5em;
     color: $primary-color;
+    border-top: solid;
+    border-bottom: solid;
     }
+  p {
+    margin-top: .5em;
+  }
+}
+
+// Login Page
+
+.login{
+  background-color: $primary-color;
+   @include login-page;
+   input {
+   @include login-input;
+   background-color: $primary-color;
+   }
+}
+
+.create-account {
+  background-color: $secondary-color;
+   @include login-page;
+   input {
+   @include login-input;
+   background-color: $secondary-color;
+  }
 }
 
 
+// My game Module
+.my-game {
+  font-family: $primary-font;
+  padding-bottom: 1em;
+  border-bottom: solid;
+  border-top: solid;
+  border-color: black;
+  background-color: $secondary-color;
+  color: white;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h3 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 1.2em;
+    padding: .25em;
+  }
+  h2 {
+    font-size: 2.5em;
+    padding: .5em 0 .25em 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $Gasalt;
+  }
+  p {
+    padding: 0 .5em;
+    margin: 0 10%;
+  }
+}
+.game-title_trade {
+  text-align: center;
+  margin: .5em 0;
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: .075em;
+}
+
 // Upload Button Module
+.upload{
+  overflow: hidden;
+}
+
 .btn-upload {
   background-color: $primary-color;
   color: white;
+  font-size: 1em;
   font-family: $primary-font;
+  float: right;
+  padding: 1em;
 }
 
 
-// Remove Button Module
-.btn-remove {
-  background-color: $accent-color;
-  font-family: $primary-font;
+// Positive and negative button pair
+.btn-pair_pos, .btn-pair_neg {
+  font-size: 1.3em;
   color: white;
+  font-family: $primary-font;
+  margin: 0;
+}
+
+.btn-pair_neg {
+  background-color: $accent-color;
+  padding: .43em;
+}
+
+.btn-pair_pos {
+  background-color: $primary-color;
+  padding: 1em;
 }
 
 
-
+// Buttons on Login Page
+.btn-login {
+  background-color: white;
+  width: 80%;
+  font-family: $primary-font;
+  font-size: .6em;
+  margin-top: .25em;
+  padding: 1em;
+}
 

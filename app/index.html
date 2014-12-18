@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- <base href="/#/" /> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Swap Meet</title>
     <link href="css/app.css" rel="stylesheet">
   </head>
   <body>
-    <main data-ng-app="swapApp">
-      <header class="header_main section group">
-        <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
-        <a href="#/profile" class="icon-user header-profile"></a>
-      </header>
+      <main data-ng-app="swapApp">
+        <header class="header_main section group" data-ng-controller="navCtrl">
+          <a href="#/"><img class="logo" src="assets/imgs/logo-501.png"></a>
+          <a href="#/profile" class="icon-user header-profile"></a>
+        </header>
 
-      <article class="content">
-        <section ng-view></section>
-      </article>
-      <script src='http://localhost:35729/livereload.js'></script>
-    </main>
+        <article class="content">
+          <section ng-view></section>
+        </article>
+        <script src='http://localhost:35729/livereload.js'></script>
+      </main>
     <footer>
       <a href="#/">1-Search</a><br>
       <a href="#/login">2-Login</a><br>
       <a href="#/filtersearch">3-Filter</a><br>
-      <a href="#/gamedetails">4-Game Details</a><br>
+      <a href="#/gamedetails/:gameID">4-Game Details</a><br>
       <a href="#/offergames">5-Offer Games</a><br>
       <a href="#/choosegame">6-Choose Game</a><br>
       <a href="#/mygamedetails">7-My Game Details</a><br>

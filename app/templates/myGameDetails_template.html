@@ -1,22 +1,21 @@
-<div class="container">
-  My Game Details Page
+
+<h2 class="inform"> My Game Details Page </h2>
   <!-- title bar -->
-  <div>{{ game.title }}</div>
+  <h1 class="game-title_main"> {{ game.title }} </h1>
 
   <!-- game image -->
   <img src='{{ game.image_urls[0] }}'></img>
 
   <!-- user name --> <!-- TODO: id number -->
-  <div>TODO: id number -> UserName HERE
-    <div>{{ game.owner }}</div>
-  </div>
+
+
 
   <!-- game info -->
-  <div>Game Info:
-    <div>{{ game.platform }}</div>
-    <div>{{ game.short_description }}</div>
-  </div>
+ <section class="game-info_main">
+    <h1> Gamer4000 {{ game.owner }}</h1>
+    <h2>{{ game.platform }}</h2>
+    <p>{{ game.short_description }}</p>
+  </section>
 
-  <input type="button" ng-click="removeGame()" value="Remove Game"/><br />
+  <button class="btn-remove" ng-click="removeGame()"> Remove Game </button>
 
-</div><!-- end container -->
