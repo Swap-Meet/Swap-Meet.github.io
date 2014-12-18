@@ -48,8 +48,8 @@
 
 // Game Summary Module
 .game-summary {
-  border-bottom: .4em solid $secondary-color;
-  background-color: black;
+  border-bottom: .4em solid white;
+  background-color: #1b465a;
 }
 
 .game-summary_img {
@@ -77,7 +77,7 @@
 
 .game-summary_select {
   color: white;
-  background-color: black;
+  background-color: #1b465a;
   font-size: 1.9em;
   margin-top: .4em;
 }
@@ -104,6 +104,7 @@
   padding: 0.2em 0 0 1em;
   top: 10.5%;
   width: 100%;
+  color: $secondary-color;
 }
 
 
@@ -333,7 +334,7 @@
   text-transform: uppercase;
   font-size: 1.5em;
   letter-spacing: .15em;
-  color: black;
+  color: #1b465a;
   text-align: center;
   margin-top: 1em;
   border-bottom: solid;
@@ -372,5 +373,34 @@
     font-size: 1.25em;
     color: $primary-color;
   }
+}
+
+.game-swap {
+  margin: 2em 0;
+  text-align: center;
+  h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    }
+  &>img {
+    width: 100%;
+  }
+}
+
+.game-swap_title {
+    font-family: $primary-font;
+    color: $primary-color;
+}
+
+.icon-arrow-right {
+  font-size: 4em;
+  margin-top: .25em;
 
 }
+
+.icon-arrow-left {
+  font-size: 4em;
+  margin-top: .25em;
+}
+
+
