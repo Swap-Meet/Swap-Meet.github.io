@@ -1,15 +1,29 @@
-  <div>
-    <p>My Games to Trade</p>
 
-  </div>
-<main>
-  <div ng-repeat="game in games" class="row">
-    <div class="col-md-9">
-      <input type="checkbox" ng-model="checkbox"><br/>
-      <p> {{ game.title }} </p>
-      <p> {{ game.platform }} </p>
-      <button data-ng-click="sendRequest()"></button>
-      <button ng-click="cancelRequest()"></button>
-    </div>
-  </div>
-</main>
+<section class="inform">
+
+</section>
+
+
+
+
+  <input type="checkbox" ng-model="checkbox"><br/>
+
+
+<!-- browse games list -->
+<section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
+    <img  src='{{ game.image_urls[0] }}'></img>
+  </a>
+  <a href="#/gamedetails/{{game._id}}" class="game-summary_info col span_3_of_6">
+    <h1>{{game.title}}</h1>
+    <h2>{{game.platform}}</h2>
+  </a>
+  <button class="icon-star2 game-summary_fav col span_1_of_6" ng-click="addFavorite()"></button>
+</section>
+
+<!-- Send request and cancel request buttons -->
+<section class="section group">
+  <button class="btn-add col span_3_of_4" data-ng-click="sendRequest()">Send Request</button>
+  <button class="btn-remove col span_1_of_4" ng-click="cancelRequest()">Cancel Request</button>
+</section>
+>>>>>>> dev
