@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'AuthService', 'Games',
     function($scope, $routeParams, $http, $location, $cookies, AuthService, Games) {
 
-      $scope.message = Games.message;
+      // $scope.message = Games.message;
       // console.log('GD-Message: ' + $scope.message);
 
       if (!$cookies.jwt) {
@@ -29,15 +29,15 @@ module.exports = function(app) {
       // when this page loads, calls the service Games in game_service
       // use the results to populate the game info
 
-      $scope.filterSearch2 = function() {
-        var querySuffix = $scope.message;
-        console.log('start gD search with: message: ' + $scope.message);
+      // $scope.filterSearch2 = function() {
+      //   // var querySuffix = $scope.message;
+      //   // console.log('start gD search with: message: ' + $scope.message);
 
-        Games.filterSearch(querySuffix)
-          .success(function(data) {
-            $scope.games = data.items;
-          });
-      };
+      //   Games.filterSearch(querySuffix)
+      //     .success(function(data) {
+      //       $scope.games = data.items;
+      //     });
+      // };
 
       // $scope.game = {
       //   //title: 'De Blob',

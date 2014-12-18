@@ -1,14 +1,11 @@
 'use strict';
-
 module.exports = function(app) {
   var handleErrors = function(data) {
     console.log('game_service error: ' + data);
   };
 
   app.factory('Games', ['$http', function($http) {
-
     return {
-
       index: function() {
         return $http({
           method: 'GET',
@@ -16,19 +13,13 @@ module.exports = function(app) {
         })
         .error(handleErrors);
       },
-
       filterSearch: function(searchTitleString) {
-        console.log('game_service searching w ' + searchTitleString);
         return $http({
           method: 'GET',
           url: '/api/search/' + searchTitleString
         })
         .error(handleErrors);
-      },
-
-      message: 'I am a message from game_service'
-      // TODO - try message: searchTitleString
-
+      }
     };
 
   }]);
