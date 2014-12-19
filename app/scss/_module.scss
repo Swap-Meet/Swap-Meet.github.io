@@ -117,16 +117,23 @@
   color: white;
   font-family: $primary-font;
   padding: 1em 0;
+  border-bottom: 4px solid $primary-color-dark;
+  &:hover {
+    background-color: $primary-color-light;
+  }
 }
 
 .create_fav {
   margin: 0 auto;
   background-color: $secondary-color;
   padding: 1em 0;
-  border: none;
+  border-bottom: 4px solid $secondary-color-dark;
   &>span {
     color: white;
     font-size: 2.4em;
+  }
+  &:hover {
+    background-color: $secondary-color-light;
   }
 }
 
@@ -239,6 +246,7 @@
 
 .btn-upload {
   @include button-upload;
+  margin-top: .5em;
 }
 
 // Remove Button Module
@@ -251,6 +259,10 @@
   margin: 1em auto;
   font-size: 1.5em;
   padding: .5em 0;
+  border-bottom: 4px solid $accent-color-dark;
+  &:hover {
+    background-color: $accent-color-light;
+  }
 }
 
 //Add Button Module
@@ -264,17 +276,29 @@
   font-size: 1.5em;
   padding: .5em 0;
   width: 80%;
+  border-bottom: 4px solid $primary-color-dark;
+  &:hover {
+    background-color: $primary-color-light;
+  }
 }
 
 // Positive and negative button pair
 .btn-pair_neg {
   background-color: $accent-color;
   @include button-pair;
+  border-bottom: 4px solid $accent-color-dark;
+  &:hover {
+    background-color: $accent-color-light;
+  }
 }
 
 .btn-pair_pos {
   background-color: $primary-color;
   @include button-pair;
+  border-bottom: 4px solid $primary-color-dark;
+  &:hover {
+    background-color: $primary-color-light;
+  }
 }
 
 
@@ -383,13 +407,14 @@
     }
   img {
     width: 100%;
+    border: .4em solid $secondary-color;
   }
 }
 
-.game-swap_img {
-  width: 100%;
-  margin: 0;
-}
+// .game-swap_img {
+//   width: 100%;
+//   margin: 0;
+// }
 
 .swap-info {
   text-align: center;
@@ -462,26 +487,6 @@
   margin-bottom: .5em;
 }
 
-// profile module
-.profile_img {
-  margin: 0;
-  width: 50%;
-  &>img {
-  width: 100%;
-  margin: 0;
-  border: solid .15em $secondary-color;
-  }
-}
-
-.profile_upload {
-  @include button-upload;
-  width: 100%;
-  margin: 0;
-}
-
-.profile_info {
-  margin: 0;
-}
 
 // tabs module
 .tab {
@@ -497,6 +502,7 @@
     font-size: .8em;
     height: 3em;
     color: $secondary-color;
+    text-transform: uppercase;
   }
   .active {
     color: $primary-color;
@@ -504,11 +510,12 @@
   }
 }
 
+// list of games under tabs
 .tab_list {
   font-family: $primary-font;
   color: white;
   background-color: $secondary-color;
-  height: 20em;
+  height: 30em;
   .tab_list_game {
     border-bottom: 1px solid $info-color;
     padding: .3em .75em;
@@ -529,18 +536,29 @@
     padding-left: 1.7em;
   }
   .tab_list_btn>button {
-    background-color: $secondary-color;
+    background-color: transparent;
     color: white;
     font-size: 1.2em;
     margin-top: .5em;
   }
 }
 
+.tab_list_game:hover {
+  background-color: $secondary-color-light;
+}
+
 // profile module
 .profile {
   margin-bottom: .5em;
-  .profile_img {
+}
+
+.profile_img {
+  margin: 0;
   padding: .5em;
+  // width: 80%;
+  &>img {
+  width: 100%;
+  margin: 0;
   }
 }
 
@@ -557,7 +575,7 @@
 }
 
 .profile_info p {
-  font-size: 1em;
+  font-size: .8em;
   color: $primary-color;
   line-height: 1.5em;
 }
@@ -568,6 +586,16 @@
 
 .star-active {
   color: $accent-color;
+}
+
+.header-profile:hover {
+  color: $primary-color-light;
+}
+
+.profile_upload {
+  @include button-upload;
+  width: 50%;
+  margin: 0;
 }
 
 
