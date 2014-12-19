@@ -31,6 +31,12 @@ module.exports = function(app) {
         console.log(data);
       });
 
+      $scope.sendRequest = function() {
+        window.location.href = 'mailto:bunnies@example.com?' +
+        'subject=SwapMeet%20Trade%20Alert:%20"FIFA%2015"%20for%20"Settlers%20of%20Catan:%20Knights%20and%20Cities"' +
+        '&body=%20Lets%20Meet%20and%20Swap!';
+      };
+
       //I think that this will be an array holding 2 games:
       //The first game is this user A's game.
       //The second game is user B's game.
