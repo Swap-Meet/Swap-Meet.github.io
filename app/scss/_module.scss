@@ -18,11 +18,9 @@
 .search-input {
   outline: none;
   border: none;
-  font-size: 1.2em;
-  @include secondary-font;
-  text-transform: uppercase;
-  margin: 0;
+  padding-left: 1em;
   height: 2.5em;
+  font-size: 1.2em;
 }
 
 .icon-search {
@@ -48,8 +46,8 @@
 
 // Game Summary Module
 .game-summary {
-  border-bottom: .4em solid $secondary-color;
-  background-color: black;
+  border-bottom: .1em solid $info-color;
+  background-color: $secondary-color;
 }
 
 .game-summary_img {
@@ -70,14 +68,14 @@
   }
   &>h2 {
     color: $primary-color;
-    margin-top: 1.3em;
+    margin-top: 1em;
     font-size: 1.4em;
   }
 }
 
 .game-summary_fav {
   color: white;
-  background-color: black;
+  background-color: $secondary-color;
   font-size: 1.9em;
   margin-top: .4em;
   &:active {
@@ -105,6 +103,7 @@
   padding: 0.2em 0 0 1em;
   top: 10.5%;
   width: 100%;
+  color: $secondary-color;
 }
 
 
@@ -187,6 +186,9 @@
    @include login-input;
    background-color: $primary-color;
    }
+   button {
+    color: $primary-color;
+   }
 }
 
 .create-account {
@@ -196,8 +198,10 @@
    @include login-input;
    background-color: $secondary-color;
   }
+    button {
+    color: $secondary-color;
+   }
 }
-
 
 // My game Module
 .top-game {
@@ -217,7 +221,6 @@
   }
   h2 {
     font-size: 2.5em;
-    padding: .5em 0 .25em 0;
     text-align: center;
     text-transform: uppercase;
     font-family: $Gasalt;
@@ -227,6 +230,7 @@
     margin: 0 10%;
   }
 }
+
 .game-title_trade {
   text-align: center;
   margin: .5em 0;
@@ -380,6 +384,49 @@
   }
 }
 
+.game-swap {
+  margin: 2em 0;
+  text-align: center;
+  h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    }
+  &>img {
+    width: 100%;
+  }
+}
+
+.game-swap_img {
+  width: 100%
+  margin:
+}
+
+.swap-info {
+  text-align: center;
+  margin-top: 1em;
+  h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    color: $secondary-color;
+ }
+  h2 {
+    font-family: $primary-font;
+    color: $primary-color;
+  }
+}
+
+.icon-arrow-right {
+  font-size: 3em;
+  color: $secondary-color;
+  padding-top: .15em;
+
+}
+
+.icon-arrow-left {
+  @extend .icon-arrow-right;
+}
+
+
 // profile module
 .profile_img {
   margin: 0;
@@ -475,6 +522,7 @@
 .profile_info span {
   margin-top: 1em;
 }
+
 
 
 
