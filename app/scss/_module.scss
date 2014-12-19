@@ -238,8 +238,6 @@
 
 .btn-upload {
   @include button-upload;
-  float: right;
-  margin-right:10%;
 }
 
 // Remove Button Module
@@ -312,7 +310,7 @@
 
 .game-image {
   display: block;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   border: .4em solid $secondary-color;
 }
