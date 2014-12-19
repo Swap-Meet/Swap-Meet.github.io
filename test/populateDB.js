@@ -19,6 +19,7 @@ var url = 'http://localhost:3000/';
 User.collection.remove(function(err) {if (err) throw err;});
 Game.collection.remove(function(err) {if (err) throw err;});
 Trade.collection.remove(function(err) {if (err) throw err;});
+
 var games = [];
 var users = [];
 var jwtA;
@@ -61,11 +62,11 @@ condition: 'used', short_description:
 // users[2] = {email:'test@example.com', password:'SecretPW101',
 //   username: 'MonkeysAreCute', zip: '99999'};
 
-users[0] = '?email=bunnies@example.com&password=SecretPW101&screenname=' +
+users[0] = '?email=bunnies@example.com&password=Password123&screenname=' +
   'IHeartGames&zip=99999';
 users[1] = '?email=user@example.com&password=Password123&screenname=' +
   'PCs4Eva&zip=99999';
-users[2] = '?email=fluffy@example.com&password=SecretPW101&screenname=' +
+users[2] = '?email=fluffy@example.com&password=Password123&screenname=' +
   'MonkeysAreCute&zip=99999';
 //users[1] = {email:'user@example.com', password:'Password123',
   //username: 'PCs4Eva', zip: '99999'};
@@ -270,12 +271,10 @@ describe('should populate the database', function() {
     .end(function(err, res) {
       //gameIds[6] = res.body._id;
       console.log(res.body);
-        console.log('the ids are', gameIds);
+      console.log('the ids are', gameIds);
       done();
     });
   });
-
-
 
 });
 
