@@ -7,23 +7,13 @@ var tradeSchema = new Schema({
 
   outgoing_user: String,
   outgoing_user_screenname: String,
+  outgoing_user_email: String,
   incoming_user: String,
   incoming_user_screenname: String,
+  incoming_user_email: String,
   gameId: String,
   potentialTrades: [String]
-  //potentialTrades: [{ type: Schema.Types.ObjectId, ref: 'Game' }]
-  // title: String,
-  // score: String,
-  // publisher: String,
-  // zip: String,
-  // latitude: String,
-  // longitude: String,
-  // owner: String, //id number
-  // owner_screenname: String,
-  // date_added: Object,
-  // short_description: String,
-  // platform: String,
-  // image_urls: ['String']
+
 });
 
 module.exports = mongoose.model('Trade', tradeSchema);

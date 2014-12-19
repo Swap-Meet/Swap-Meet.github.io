@@ -1,0 +1,25 @@
+
+   <section class="error">{{ errors }}</section>
+
+  <section class="login">
+    <h1>Login</h1>
+    <form name="userForm">
+      <input type="text" class="login-e-mail" data-ng-model="user.email" placeholder="email">
+      <input type="password" class="login-password" data-ng-model="user.password" placeholder="password">
+      <button class="btn-login" data-ng-click="signIn()">Sign In</button>
+    </form>
+  </section>
+
+  <section class="create-account">
+    <h1>Create Account</h1>
+    <form name="newUser">
+      <input type="text" data-ng-model="newUser.email" placeholder="email">
+      <input type="password" data-ng-model="newUser.password" placeholder="password">
+      <input type="password" data-ng-model="newUser.passwordConfirmation" placeholder="confirm password">
+      <input type="text" data-ng-model="newUser.screenname" placeholder="user name">
+      <input type="text" data-ng-model="newUser.zip" placeholder="zipcode">
+      <button class="btn-login" data-ng-click="signUp()">Create New User</button>
+    </form>
+  </section>
+
+

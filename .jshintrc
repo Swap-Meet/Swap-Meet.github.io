@@ -27,7 +27,7 @@
   "newcap": true,
   "quotmark": "single",
   "undef": true,
-  "unused": true,
+  "unused": false,
   "eqnull": true,
   "sub": true
 }
