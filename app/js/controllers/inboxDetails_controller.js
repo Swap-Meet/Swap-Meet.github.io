@@ -11,37 +11,54 @@ module.exports = function(app) {
       console.log('Inbox Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
+      $http({
+        method: 'GET',
+        url: '/api/games/incomingrequests'
+      })
+      .success(function(data) {
+        $scope.trade[0] = data.gameInfo;
+        for (var i = 1; i < data.potentialTrades.length + 1; i++) {
+          $scope.trade[i] = data.potentialTrades[i - 1];
+        }
+        //$scope.screenname = data.profile.screenname;
+        //$scope.email = data.profile.email;
+        //$scope.zip = data.profile.zip;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
       //I think that this will be an array holding 2 games:
       //The first game is this user A's game.
       //The second game is user B's game.
-      $scope.trade = [{
-        title: 'Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner_screenname: 'SeahawksDude123',
-        owner: 'String_id_number', //id number
-        short_description: 'Eat all the dots, run from the ghosts, for now...',
-        platform: 'NES',
-        image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      },
-      {
-        title: 'Ms. Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner_screenname: 'RockingRedXYZ',
-        owner: 'String_id_number', //id number
-        short_description: 'Be awesome...',
-        platform: 'NES',
-        image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      }];
+      // $scope.trade = [{
+      //   title: 'Pac Man',
+      //   score: 'String',
+      //   publisher: 'String',
+      //   zip: '98087',
+      //   latitude: 'String',
+      //   longitude: 'String',
+      //   owner_screenname: 'SeahawksDude123',
+      //   owner: 'String_id_number', //id number
+      //   short_description: 'Eat all the dots, run from the ghosts, for now...',
+      //   platform: 'NES',
+      //   image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
+      //   'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
+      // },
+      // {
+      //   title: 'Ms. Pac Man',
+      //   score: 'String',
+      //   publisher: 'String',
+      //   zip: '98087',
+      //   latitude: 'String',
+      //   longitude: 'String',
+      //   owner_screenname: 'RockingRedXYZ',
+      //   owner: 'String_id_number', //id number
+      //   short_description: 'Be awesome...',
+      //   platform: 'NES',
+      //   image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
+      //   'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
+      // }];
 
       $scope.declineTrade = function() {
         console.log('Imagine I am declining a trade request now...');
