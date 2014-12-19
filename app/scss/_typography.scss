@@ -89,6 +89,7 @@
 }
 .icon-checkbox-checked:before {
   content: "\e60d";
+  background-color: $secondary-color;
 }
 .icon-checkbox-unchecked:before {
   content: "\e60e";

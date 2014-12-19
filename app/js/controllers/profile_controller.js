@@ -20,6 +20,7 @@ module.exports = function(app) {
         } else {
           $scope.avatar_url = data.profile.avatar_url;
         }
+
         $scope.screenname = data.profile.screenname;
         $scope.email = data.profile.email;
         $scope.zip = data.profile.zip;
