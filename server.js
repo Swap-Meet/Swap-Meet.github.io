@@ -11,7 +11,7 @@ app.use(express.static(staticDir));
 
 //connect to mongoose
 mongoose.connect(process.env.MONGOLAB_URI ||
-	process.env.MONGO_URL || 'mongodb://localhost/gameSwap');
+	process.env.MONGO_URL || 'mongodb://localhost/game_swap_test');
 
 //use bodyparser middleware for encoded (thanks to Jake for helping me )
 //necessary to use postman!
