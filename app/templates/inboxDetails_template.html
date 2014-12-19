@@ -16,14 +16,17 @@
 
   <section class="swap-info">
     <h1> Trading </h1>
- <h2>{{ trade[0].title }}</h2>
+   <section class="swap-info_details">
+ <h2>{{ trade[0].title }}Pac Man</h2>
     <!-- USER A - MY GAME: platform-->
- <h3 class="swap-info_title">{{ trade[0].platform }}</h3>
-  <h1> For </h1>
-
- <h2>{{ trade[1].title }}</h2>
+ <h3 class="swap-info_title">{{ trade[0].platform }} NES</h3>
+</section>
+  <h1> For</h1>
+<section class="swap-info_details">
+  <h2>{{ trade[1].title }} Ms.Pac Man</h2>
   <!-- USER B - TRADING FOR GAME: platform -->
-    <h3 class="swap-info_title">{{ trade[1].platform }}</h3>
+    <h3 class="swap-info_title">{{ trade[1].platform }} NES</h3>
+</section>
 </section>
 
  <section class="game-swap section group">
@@ -41,6 +44,14 @@
   <!-- USER B - TRADING FOR GAME: Title -->
   </section>
 </section>
+
+<section class="game-description">
+  <h1> Description </h1>
+  <p>Eat all the dots, run from the ghosts, for now...
+  </p>
+</section>
+
+<h1 class="swap-question"> swap? </h1>
 
  <!-- Send request and cancel request buttons -->
 <section class="btn-pair section group">

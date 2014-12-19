@@ -325,6 +325,7 @@ button {
   text-transform: uppercase;
   font-size: 2.5em;
   margin: 5% 1.6%;
+  color: #1b465a;
   line-spacing: 0.25em;
   font-family: 'Gasalt-Regular';
   text-transform: uppercase; }
@@ -337,7 +338,8 @@ button {
 .game-info_main {
   font-family: 'ABeeZee';
   text-align: center;
-  margin: 5% 10%; }
+  margin: 5% 10%;
+  color: #1b465a; }
   .game-info_main > h1 {
     font-size: 1.5em;
     text-transform: uppercase; }
@@ -424,7 +426,8 @@ button {
   font-family: 'Gasalt-Regular';
   text-transform: uppercase;
   font-size: 2em;
-  letter-spacing: 0.075em; }
+  letter-spacing: 0.075em;
+  color: #1b465a; }
 
 .upload {
   overflow: hidden; }
@@ -581,21 +584,58 @@ button {
 
 .swap-info {
   text-align: center;
-  margin-top: 1em; }
+  margin-top: 2em; }
   .swap-info h1 {
-    line-spacing: 0.25em;
-    font-family: 'Gasalt-Regular';
-    text-transform: uppercase;
-    font-size: 1.5em;
-    color: #1b465a; }
+    font-family: 'ABeeZee';
+    font-size: 2em;
+    color: #1b465a;
+    margin-bottom: 0.25em; }
   .swap-info h2 {
     font-family: 'ABeeZee';
+    color: #1b465a;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    margin-bottom: 0.25em; }
+  .swap-info h3 {
+    font-family: 'ABeeZee';
     color: #009999; }
+
+.swap-info_details {
+  padding: 1em;
+  width: 80%;
+  margin: auto;
+  border: solid 0.15em #009999;
+  margin-bottom: 0.5em; }
 
 .icon-arrow-right, .icon-arrow-left {
   font-size: 3em;
   color: #1b465a;
   padding-top: 0.15em; }
+
+.game-description {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  border: solid 0.15em #009999;
+  margin-bottom: 2em; }
+  .game-description h1 {
+    color: #009999;
+    line-spacing: 0.25em;
+    font-family: 'Gasalt-Regular';
+    text-transform: uppercase;
+    font-size: 2em;
+    margin-bottom: 0.25em; }
+  .game-description p {
+    font-family: 'ABeeZee';
+    color: #1b465a; }
+
+.swap-question {
+  font-family: 'ABeeZee';
+  color: #009999;
+  font-size: 4.5em;
+  text-align: center;
+  margin-bottom: 0.5em; }
 
 .profile_img {
   margin: 0; }
