@@ -348,7 +348,6 @@
   }
 }
 
-
 .filter_platform {
   background-color: $secondary-color;
   padding-bottom: 3em;
@@ -396,6 +395,11 @@
   }
 }
 
+.game-swap_img {
+  width: 100%
+  margin:
+}
+
 .swap-info {
   text-align: center;
   margin-top: 1em;
@@ -411,15 +415,14 @@
 }
 
 .icon-arrow-right {
-  font-size: 4em;
+  font-size: 3em;
   color: $secondary-color;
+  padding-top: .15em;
 
 }
 
 .icon-arrow-left {
-  font-size: 4em;
-  margin-top: .15em;
-  color: $secondary-color;
+  @extend .icon-arrow-right;
 }
 
 

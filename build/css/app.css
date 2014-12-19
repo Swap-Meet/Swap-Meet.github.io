@@ -120,7 +120,7 @@ button {
 .icon-checkmark:before {
   content: "\e60b"; }
 
-.icon-arrow-right:before {
+.icon-arrow-right:before, .icon-arrow-left:before {
   content: "\e60c"; }
 
 .icon-arrow-left:before {
@@ -589,14 +589,10 @@ button {
     font-family: 'ABeeZee';
     color: #009999; }
 
-.icon-arrow-right {
-  font-size: 4em;
-  color: #1b465a; }
-
-.icon-arrow-left {
-  font-size: 4em;
-  margin-top: 0.15em;
-  color: #1b465a; }
+.icon-arrow-right, .icon-arrow-left {
+  font-size: 3em;
+  color: #1b465a;
+  padding-top: 0.15em; }
 
 .profile_img {
   margin: 0; }
