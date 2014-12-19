@@ -56,6 +56,7 @@ module.exports = function(app, auth) {
         trade = new Trade();
         trade.outgoing_user = user._id;
         trade.outgoing_user_screenname = user.screenname;
+        trade.outgoing_user_email = user.email;
         trade.gameId = gameId;
         trade.potentialTrades = potentialTrades;
 
@@ -64,6 +65,7 @@ module.exports = function(app, auth) {
           if (err) return helpers.returnError(res, 1, 'error finding owner');
           trade.incoming_user = gameOwner._id;
           trade.incoming_user_screenname = gameOwner.screenname;
+          trade.outgoing_user_email = gameOwner.email;
 
           trade.save(function(err, data) {
             if (err) return helpers.returnError(res, 1, 'error finding owner');
@@ -101,13 +103,12 @@ module.exports = function(app, auth) {
 
   //get all outgoing requests
   app.get('/api/games/outgoingrequests', auth, function(req, res) {
-    //var user = req.user._id;
-    //var requests;
 
     //find user making the request
     User.findById(req.user._id, function(err, user) {
       if (err) return helpers.returnError(res, 2, 'cannot find user');
 
+      //return info about the trade
       return getTradeArrayInfo(res, user.outgoingRequests);
 
     });

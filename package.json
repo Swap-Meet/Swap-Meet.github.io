@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "node_modules/grunt-cli/bin/grunt",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "bower install && grunt build"
   },
   "repository": {
     "type": "git",
