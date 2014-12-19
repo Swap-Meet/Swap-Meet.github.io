@@ -63,24 +63,22 @@
   padding-top: .8em;
   font-family: $primary-font;
   &>h1 {
-    font-size: 1.4em;
+    font-size: 1em;
     text-transform: uppercase;
   }
   &>h2 {
     color: $primary-color;
     margin-top: 1em;
-    font-size: 1.4em;
+    font-size: .8em;
   }
 }
 
 .game-summary_fav {
   color: white;
   background-color: $secondary-color;
-  font-size: 1.9em;
+  font-size: 1.5em;
   margin-top: .4em;
-  &:active {
-    color: $accent-color;
-  }
+  text-align: right;
 }
 
 .game-summary_check {
@@ -88,9 +86,6 @@
   background-color: black;
   font-size: 1.9em;
   margin-top: .4em;
-  &:active {
-    color: $accent-color;
-  }
 }
 
 
@@ -315,7 +310,7 @@
 .error {
   font-family: $primary-font;
   color: $accent-color;
-  padding: 1em
+  // padding: 1em
   }
 
 .game-image {
@@ -397,8 +392,8 @@
 }
 
 .game-swap_img {
-  width: 100%
-  margin:
+  width: 100%;
+  margin: 0;
 }
 
 .swap-info {
