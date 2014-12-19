@@ -16,9 +16,12 @@ module.exports = function(app) {
         url: '/api/games/incomingrequests'
       })
       .success(function(data) {
-        $scope.trade[0] = data.gameInfo;
-        for (var i = 1; i < data.potentialTrades.length + 1; i++) {
-          $scope.trade[i] = data.potentialTrades[i - 1];
+        $scope.trade = [];
+        console.log(data.items[0]);
+        $scope.trade[0] = data.items[0].gameInfo;
+        for (var i = 1; i < data.items[0].potentialTrades.length + 1; i++) {
+          $scope.trade[i] = data.items[0].potentialTrades[i - 1];
+          console.log(data.items[0].potentialTrades);
         }
         //$scope.screenname = data.profile.screenname;
         //$scope.email = data.profile.email;
