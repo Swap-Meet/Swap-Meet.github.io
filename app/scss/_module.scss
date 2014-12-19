@@ -133,9 +133,10 @@
 // Main Game Details Modules
 .game-title_main {
   text-align: center;
-  font-size: 2em;
-  margin: 1em 0 .5em 0;
-  display: block;
+  text-transform: uppercase;
+  font-size: 2.5em;
+  margin: 5% 1.6%;
+  color: $secondary-color;
   @include secondary-font;
 }
 
@@ -149,6 +150,7 @@
   font-family: $primary-font;
   text-align: center;
   margin: 5% 10%;
+  color: $secondary-color;
   &>h1 {
     font-size: 1.5em;
     text-transform: uppercase;
@@ -226,6 +228,7 @@
   text-transform: uppercase;
   font-size: 2em;
   letter-spacing: .075em;
+  color: $secondary-color;
 }
 
 // Upload Button Module
@@ -235,8 +238,6 @@
 
 .btn-upload {
   @include button-upload;
-  float: right;
-  margin-right:10%;
 }
 
 // Remove Button Module
@@ -309,7 +310,7 @@
 
 .game-image {
   display: block;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   border: .4em solid $secondary-color;
 }
@@ -380,7 +381,7 @@
     @include secondary-font;
     font-size: 1.5em;
     }
-  &>img {
+  img {
     width: 100%;
   }
 }
@@ -392,16 +393,33 @@
 
 .swap-info {
   text-align: center;
-  margin-top: 1em;
+  margin-top: 2em;
   h1 {
-    @include secondary-font;
-    font-size: 1.5em;
-    color: $secondary-color;
+  font-family: $primary-font;
+   font-size: 2em;
+   color: $secondary-color;
+   margin-bottom: .25em;
  }
   h2 {
     font-family: $primary-font;
+    color: $secondary-color;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    margin-bottom: .25em;
+  }
+  h3 {
+    font-family: $primary-font;
     color: $primary-color;
   }
+}
+
+.swap-info_details {
+  padding: 1em;
+  width: 80%;
+  margin: auto;
+  border: solid .15em
+  $primary-color;
+  margin-bottom: .5em;
 }
 
 .icon-arrow-right {
@@ -415,6 +433,33 @@
   @extend .icon-arrow-right;
 }
 
+.game-description {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  border: solid .15em
+  $primary-color;
+  margin-bottom: 2em;
+
+  h1 {
+    color: $primary-color;
+    @include secondary-font;
+    font-size: 2em;
+    margin-bottom: .25em;
+  }
+  p {
+    font-family: $primary-font;
+    color: $secondary-color;
+  }
+}
+.swap-question {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-size: 4.5em;
+  text-align: center;
+  margin-bottom: .5em;
+}
 
 // profile module
 .profile_img {
