@@ -268,7 +268,8 @@ html {
   color: white;
   padding-left: 0.7em;
   padding-top: 0.8em;
-  font-family: 'ABeeZee'; }
+  font-family: 'ABeeZee';
+  height: 100%; }
   .game-summary_info > h1 {
     font-size: 1em;
     text-transform: uppercase; }
@@ -310,16 +311,21 @@ html {
   background-color: #009999;
   color: white;
   font-family: 'ABeeZee';
-  padding: 1em 0; }
+  padding: 1em 0;
+  border-bottom: 4px solid #006666; }
+  .create_btn:hover {
+    background-color: #00b3b3; }
 
 .create_fav {
   margin: 0 auto;
   background-color: #1b465a;
   padding: 1em 0;
-  border: none; }
+  border-bottom: 4px solid #0f2733; }
   .create_fav > span {
     color: white;
     font-size: 2.4em; }
+  .create_fav:hover {
+    background-color: #21556e; }
 
 .game-title_main {
   text-align: center;
@@ -440,7 +446,9 @@ html {
   font-family: 'ABeeZee';
   padding: 1em;
   margin: 0 10%;
-  width: 80%; }
+  width: 80%;
+  border-bottom: 4px solid #006666;
+  margin-top: 0.5em; }
 
 .btn-remove {
   display: block;
@@ -450,7 +458,10 @@ html {
   color: white;
   margin: 1em auto;
   font-size: 1.5em;
-  padding: 0.5em 0; }
+  padding: 0.5em 0;
+  border-bottom: 4px solid #cf0a0a; }
+  .btn-remove:hover {
+    background-color: #f64949; }
 
 .btn-add {
   display: block;
@@ -461,7 +472,10 @@ html {
   margin: auto;
   font-size: 1.5em;
   padding: 0.5em 0;
-  width: 80%; }
+  width: 80%;
+  border-bottom: 4px solid #006666; }
+  .btn-add:hover {
+    background-color: #00b3b3; }
 
 .btn-pair_neg {
   background-color: #f53131;
@@ -470,7 +484,10 @@ html {
   font-family: 'ABeeZee';
   margin: 0;
   height: 3.25em;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  border-bottom: 4px solid #cf0a0a; }
+  .btn-pair_neg:hover {
+    background-color: #f64949; }
 
 .btn-pair_pos {
   background-color: #009999;
@@ -479,7 +496,10 @@ html {
   font-family: 'ABeeZee';
   margin: 0;
   height: 3.25em;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  border-bottom: 4px solid #006666; }
+  .btn-pair_pos:hover {
+    background-color: #00b3b3; }
 
 .btn-login {
   background-color: white;
@@ -582,11 +602,8 @@ html {
     text-transform: uppercase;
     font-size: 1.5em; }
   .game-swap img {
-    width: 100%; }
-
-.game-swap_img {
-  width: 100%;
-  margin: 0; }
+    width: 100%;
+    border: 0.4em solid #1b465a; }
 
 .swap-info {
   text-align: center;
@@ -644,28 +661,6 @@ html {
   text-align: center;
   margin-bottom: 0.5em; }
 
-.profile_img {
-  margin: 0;
-  width: 50%; }
-  .profile_img > img {
-    width: 100%;
-    margin: 0;
-    border: solid 0.15em #1b465a; }
-
-.profile_upload {
-  background-color: #009999;
-  color: white;
-  font-size: 1em;
-  font-family: 'ABeeZee';
-  padding: 1em;
-  margin: 0 10%;
-  width: 80%;
-  width: 100%;
-  margin: 0; }
-
-.profile_info {
-  margin: 0; }
-
 .tab {
   margin-top: 1em; }
 
@@ -677,7 +672,8 @@ html {
     border: 1px #1b465a solid;
     font-size: 0.8em;
     height: 3em;
-    color: #1b465a; }
+    color: #1b465a;
+    text-transform: uppercase; }
   .tab_tabs .active {
     color: #009999;
     background-color: white; }
@@ -685,7 +681,8 @@ html {
 .tab_list {
   font-family: 'ABeeZee';
   color: white;
-  background-color: #1b465a; }
+  background-color: #1b465a;
+  height: 30em; }
   .tab_list .tab_list_game {
     border-bottom: 1px solid #d7d7d7;
     padding: 0.3em 0.75em;
@@ -702,15 +699,23 @@ html {
   .tab_list .tab_list_btn {
     padding-left: 1.7em; }
   .tab_list .tab_list_btn > button {
-    background-color: #1b465a;
+    background-color: transparent;
     color: white;
     font-size: 1.2em;
     margin-top: 0.5em; }
 
+.tab_list_game:hover {
+  background-color: #21556e; }
+
 .profile {
   margin-bottom: 0.5em; }
-  .profile .profile_img {
-    padding: 0.5em; }
+
+.profile_img {
+  margin: 0;
+  padding: 0.5em; }
+  .profile_img > img {
+    width: 100%;
+    margin: 0; }
 
 .profile_info {
   font-family: 'ABeeZee';
@@ -723,7 +728,7 @@ html {
   color: #1b465a; }
 
 .profile_info p {
-  font-size: 1em;
+  font-size: 0.8em;
   color: #009999;
   line-height: 1.5em; }
 
@@ -732,6 +737,21 @@ html {
 
 .star-active {
   color: #f53131; }
+
+.header-profile:hover {
+  color: #00b3b3; }
+
+.profile_upload {
+  background-color: #009999;
+  color: white;
+  font-size: 1em;
+  font-family: 'ABeeZee';
+  padding: 1em;
+  margin: 0 10%;
+  width: 80%;
+  border-bottom: 4px solid #006666;
+  width: 50%;
+  margin: 0; }
 
 .btn-fav:active {
   background-color: #f53131; }
