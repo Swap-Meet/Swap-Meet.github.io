@@ -18,8 +18,6 @@ module.exports = function(app, auth) {
     var potentialTrades = req.body.gameIdArray;
     //console.log(gameId, potentialTrades);
     var owner;
-    //var alreadyWanted;
-    //var i;
 
     //if game of game array are undefined, return error
     if (!gameId || potentialTrades.length === 0)
@@ -69,7 +67,7 @@ module.exports = function(app, auth) {
 
           trade.save(function(err, data) {
             if (err) return helpers.returnError(res, 1, 'error finding owner');
-
+            console.log('data is', data);
             //add to appropriate incoming/outgoing requests
             user.outgoingRequests.push(data._id);
             gameOwner.incomingRequests.push(data._id);
@@ -89,13 +87,11 @@ module.exports = function(app, auth) {
 
   //get all incoming requests
   app.get('/api/games/incomingrequests', auth, function(req, res) {
-  //  var user = req.user._id;
-   // var requests;
-
+    console.log('the restponse', res);
     //find user making the request
     User.findById(req.user._id, function(err, user) {
       if (err) return helpers.returnError(res, 2, 'cannot find user');
-
+      console.log('requests', user);
       return getTradeArrayInfo(res, user.incomingRequests);
 
     });

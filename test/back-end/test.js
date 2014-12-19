@@ -381,9 +381,9 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      //console.log('output', res.body);
-      //console.log('potential trades', res.body.items[0].potentialTrades);
-      //console.log('game info', res.body.items[0].gameInfo);
+      console.log('output', res.body);
+      console.log('potential trades', res.body.items[0].potentialTrades);
+      console.log('game info', res.body.items[0].gameInfo);
       //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
