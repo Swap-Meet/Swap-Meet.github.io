@@ -23,9 +23,9 @@
     <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_info col span_3_of_6">
       <h1>{{game.title}}</h1>
       <h2>{{game.platform}}</h2>
-      <!-- <p>User Name {{ games[whichGame].owner_screenname }}</p> -->
     </a>
-    <button class="icon-star2 game-summary_fav col span_1_of_6" ng-model='game.id' ng-click="addFavorite()"></button>
+    <button class="icon-star2 game-summary_select col span_1_of_6" ng-hide="isToggled" ng-click="addFavorite(game._id)"></button>
+    <button class="icon-arrow-left game-summary_select col span_1_of_6" ng-show="isToggled" ng-click="removeFavorite(game._id)"></button>
   </section>
 
 <!-- END search populate list -->
