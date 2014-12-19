@@ -173,6 +173,8 @@ module.exports = function(app, auth) {
     newGame.owner_screenname = req.user.screenname;
     newGame.date_added = Date.now();
     newGame.owner = req.user._id;
+    //newGame.owner_email = req.user.email;
+    //console.log(req.user.owner_email)
 
     //console.log(newGame);
     //save the new game

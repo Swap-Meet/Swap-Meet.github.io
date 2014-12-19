@@ -39,7 +39,13 @@ module.exports = function(grunt) {
     },
 
     simplemocha: {
-      src: ['test/back-end/test.js']
+      populate: {
+        src: ['test/populateDB.js']
+      },
+      test: {
+        src: ['test/back-end/test.js']
+      }
+
     },
 
     sass: {
@@ -130,7 +136,8 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
+  grunt.registerTask('populate', ['simplemocha:populate']);
+  grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha:test']);
   grunt.registerTask('test:client', ['browserify:test', 'karma:unit']);
   grunt.registerTask('build', ['clean:dev', 'browserify:dev', 'copy:dev',
     'sass:dev']);
