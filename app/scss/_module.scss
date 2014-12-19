@@ -21,15 +21,17 @@
   padding-left: 1em;
   height: 2.5em;
   font-size: 1.2em;
+  color: $secondary-color;
 }
 
 .icon-search {
   border: none;
   background-color: white;
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: $primary-color;
   margin: 0;
   height: 2.5em;
+  padding-left: 2em;
 }
 
 .btn-filter-search {
@@ -63,24 +65,22 @@
   padding-top: .8em;
   font-family: $primary-font;
   &>h1 {
-    font-size: 1.4em;
+    font-size: 1em;
     text-transform: uppercase;
   }
   &>h2 {
     color: $primary-color;
     margin-top: 1em;
-    font-size: 1.4em;
+    font-size: 1em;
   }
 }
 
 .game-summary_fav {
   color: white;
   background-color: $secondary-color;
-  font-size: 1.9em;
-  margin-top: .4em;
-  &:active {
-    color: $accent-color;
-  }
+  font-size: 1.5em;
+  padding-top: .6em;
+  text-align: center;
 }
 
 .game-summary_check {
@@ -88,9 +88,6 @@
   background-color: black;
   font-size: 1.9em;
   margin-top: .4em;
-  &:active {
-    color: $accent-color;
-  }
 }
 
 
@@ -101,28 +98,27 @@
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  top: 10.5%;
   width: 100%;
   color: $secondary-color;
 }
 
 
-// Button Positive Module
-.btn-positive {
-  text-decoration: none;
-  margin: 0;
-  background-color: $primary-color;
-  color: white;
+// Create Button/Fav pair Module
+.create {
+  height: 2.5em;
   text-align: center;
-  padding: 1em 0;
-  font-family: $primary-font;
-
+  // margin-bottom: 3em;
 }
 
+.create_btn {
+  margin: 0 auto;
+  background-color: $primary-color;
+  color: white;
+  font-family: $primary-font;
+  padding: 1em 0;
+}
 
-// Favorite Button Module
-.btn-fav {
-  text-align: center;
+.create_fav {
   margin: 0 auto;
   background-color: $secondary-color;
   padding: 1em 0;
@@ -134,20 +130,12 @@
 }
 
 
-// Button Negative Module
-.btn-negative {
-  background-color: $accent-color;
-  color: white;
-  font-family: $primary-font;
-}
-
-
 // Main Game Details Modules
 .game-title_main {
   text-align: center;
-  text-transform: uppercase;
-  font-size: 2.5em;
-  margin: 5% 1.6%;
+  font-size: 2em;
+  margin: 1em 0 .5em 0;
+  display: block;
   @include secondary-font;
 }
 
@@ -315,13 +303,15 @@
 .error {
   font-family: $primary-font;
   color: $accent-color;
-  padding: 1em
+  text-align: center;
+  font-size: 3em;
   }
 
 .game-image {
   display: block;
-  width:80%;
-  margin: 0 10%;
+  width: 90%;
+  margin: 0 auto;
+  border: .4em solid $secondary-color;
 }
 
 // filter
@@ -397,6 +387,7 @@
 
 .game-swap_img {
   width: 100%;
+  margin: 0;
 }
 
 .swap-info {
@@ -455,7 +446,8 @@
   .tab_tabs_btn {
     margin: 0;
     border: 1px $secondary-color solid;
-    font-size: .9em;
+    font-size: .8em;
+    height: 3em;
   }
   .active {
     background-color: $secondary-color;
@@ -474,6 +466,7 @@
   }
   .tab_list_info {
     color: white;
+    font-size: .9em;
   }
   .tab_list_info>p {
     font-size: .8em;
@@ -497,18 +490,28 @@
   .profile_img {
   padding: .5em;
   }
-  .profile_info {
+}
+
+.profile_info {
+  font-family: $primary-font;
   padding: .5em;
-  }
-  .profile_info>h1 {
-    font-family: $primary-font;
-    font-size: 1.3em;
-    color: $secondary-color;
-    margin-bottom: 1em;
-  }
-  .profile_info>p {
-    font-size: 1em;
-  }
+}
+
+.profile_info>h1 {
+  font-family: $primary-font;
+  font-size: 1.3em;
+  margin-bottom: 1em;
+  color: $secondary-color;
+}
+
+.profile_info p {
+  font-size: 1em;
+  color: $primary-color;
+  line-height: 1.5em;
+}
+
+.profile_info span {
+  margin-top: 1em;
 }
 
 
