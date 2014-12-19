@@ -1,0 +1,21 @@
+
+<h2 class="inform"> My Game Details Page </h2>
+  <!-- title bar -->
+  <h1 class="game-title_main"> {{ game.title }} </h1>
+
+  <!-- game image -->
+  <img class="game-image" src= '{{ game.image_urls[0] }}'></img>
+
+  <!-- user name --> <!-- TODO: id number -->
+
+
+
+  <!-- game info -->
+ <section class="game-info_main">
+    <h1>{{ game.owner_screenname }}</h1>
+    <h2>{{ game.platform }}</h2>
+    <p>{{ game.short_description }}</p>
+  </section>
+
+  <button class="btn-remove" ng-click="removeGame()"> Remove Game </button>
+

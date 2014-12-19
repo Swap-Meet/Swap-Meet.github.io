@@ -1,0 +1,574 @@
+@import "variables";
+@import "mixins";
+
+
+// Logo large
+.logo {
+  width: 50%;
+  float: left;
+  padding: 1em;
+}
+
+
+// Search Module
+.search {
+  width: 100%;
+}
+
+.search-input {
+  outline: none;
+  border: none;
+  padding-left: 1em;
+  height: 2.5em;
+  font-size: 1.2em;
+  color: $secondary-color;
+}
+
+.icon-search {
+  border: none;
+  background-color: white;
+  font-size: 1.4em;
+  color: $primary-color;
+  margin: 0;
+  height: 2.5em;
+  padding-left: 2em;
+}
+
+.btn-filter-search {
+  font-family: $primary-font;
+  font-size: 1.2em;
+  background-color: $primary-color;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: .7em;
+  height: 2.5em;
+}
+
+
+// Game Summary Module
+.game-summary {
+  border-bottom: .1em solid $info-color;
+  background-color: $secondary-color;
+}
+
+.game-summary_img {
+  padding: .8em;
+  &>img {
+  width: 100%;
+  }
+}
+
+.game-summary_info {
+  color: white;
+  padding-left: .7em;
+  padding-top: .8em;
+  font-family: $primary-font;
+  &>h1 {
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+  &>h2 {
+    color: $primary-color;
+    margin-top: 1em;
+    font-size: 1em;
+  }
+}
+
+.game-summary_fav {
+  color: white;
+  background-color: $secondary-color;
+  font-size: 1.5em;
+  padding-top: .6em;
+  text-align: center;
+}
+
+.game-summary_check {
+  color: white;
+  font-size: 1.25em;
+  margin-top: 1em;
+  background-color: $secondary-color;
+}
+
+
+// Information Bar Module
+.inform {
+  background-color: $info-color;
+  margin: 0 auto;
+  @include secondary-font;
+  text-transform: uppercase;
+  padding: 0.2em 0 0 1em;
+  width: 100%;
+  color: $secondary-color;
+}
+
+
+// Create Button/Fav pair Module
+.create {
+  height: 2.5em;
+  text-align: center;
+  // margin-bottom: 3em;
+}
+
+.create_btn {
+  margin: 0 auto;
+  background-color: $primary-color;
+  color: white;
+  font-family: $primary-font;
+  padding: 1em 0;
+}
+
+.create_fav {
+  margin: 0 auto;
+  background-color: $secondary-color;
+  padding: 1em 0;
+  border: none;
+  &>span {
+    color: white;
+    font-size: 2.4em;
+  }
+}
+
+
+// Main Game Details Modules
+.game-title_main {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2.5em;
+  margin: 5% 1.6%;
+  color: $secondary-color;
+  @include secondary-font;
+}
+
+.img_main {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-info_main {
+  font-family: $primary-font;
+  text-align: center;
+  margin: 5% 10%;
+  color: $secondary-color;
+  &>h1 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+  &>h2 {
+    margin: .5em 0;
+    font-size: 1.5em;
+    color: $primary-color;
+    border-top: solid;
+    border-bottom: solid;
+    }
+  p {
+    margin-top: .5em;
+  }
+}
+
+// Login Page
+
+.login {
+  background-color: $primary-color;
+   @include login-page;
+   input {
+   @include login-input;
+   background-color: $primary-color;
+   }
+   button {
+    color: $primary-color;
+   }
+}
+
+.create-account {
+  background-color: $secondary-color;
+   @include login-page;
+   input {
+   @include login-input;
+   background-color: $secondary-color;
+  }
+    button {
+    color: $secondary-color;
+   }
+}
+
+// My game Module
+.top-game {
+  @include top;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h3 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 1.2em;
+    padding: .25em;
+  }
+  h2 {
+    font-size: 2.5em;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $Gasalt;
+  }
+  p {
+    padding: 0 .5em;
+    margin: 0 10%;
+  }
+}
+
+.game-title_trade {
+  text-align: center;
+  margin: .5em 0;
+  font-family: $Gasalt;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: .075em;
+  color: $secondary-color;
+}
+
+// Upload Button Module
+.upload{
+  overflow: hidden;
+}
+
+.btn-upload {
+  @include button-upload;
+}
+
+// Remove Button Module
+.btn-remove {
+  display: block;
+  background-color: $accent-color;
+  font-family: $primary-font;
+  width: 80%;
+  color: white;
+  margin: 1em auto;
+  font-size: 1.5em;
+  padding: .5em 0;
+}
+
+//Add Button Module
+.btn-add {
+  display: block;
+  width:80%;
+  background-color: $primary-color;
+  font-family: $primary-font;
+  color: white;
+  margin: auto;
+  font-size: 1.5em;
+  padding: .5em 0;
+  width: 80%;
+}
+
+// Positive and negative button pair
+.btn-pair_neg {
+  background-color: $accent-color;
+  @include button-pair;
+}
+
+.btn-pair_pos {
+  background-color: $primary-color;
+  @include button-pair;
+}
+
+
+// Buttons on Login Page
+.btn-login {
+  background-color: white;
+  width: 80%;
+  font-family: $primary-font;
+  font-size: .6em;
+  margin-top: .25em;
+  padding: 1em;
+}
+
+
+// Choose Platfom
+.choose-platform {
+  width: 80%;
+  border-color: $primary-color;
+  border-radius: none;
+  text-align: center;
+  border-radius: 0;
+  border-width: .15em;
+  // -webkit-appearance: none;
+  margin: 1em;
+  font-size: 1em;
+}
+
+.error {
+  font-family: $primary-font;
+  color: $accent-color;
+  font-size: 1em;
+  }
+
+.game-image {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  border: .4em solid $secondary-color;
+}
+
+// filter
+.title-single {
+    font-family: $Gasalt;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: .15em;
+    color: white;
+    text-align: center;
+    border-bottom: solid .1em $primary-color;
+    width: 80%;
+    margin: 2em auto 1em;
+  }
+
+.filter_radius {
+  background-color: $secondary-color;
+  .filter_radius_select {
+    font-size: 1em;
+    font-family: $primary-font;
+    @include login-input;
+    color: $info-color;
+    background-color: $secondary-color;
+  }
+}
+
+.filter_platform {
+  background-color: $secondary-color;
+  padding-bottom: 3em;
+  .filter_platform_select {
+    @include login-input;
+    font-size: 1em;
+    border-radius: 5px;
+    color: $info-color;
+    background-color: $secondary-color;
+  }
+}
+
+
+// users game preview
+.game-preview {
+  @include top;
+  h4 {
+    text-transform: uppercase;
+    text-align: right;
+    border-bottom: dotted;
+    border-bottom-width: .15em;
+    padding: .5em 1em;
+  }
+  h1 {
+    padding: .5em 0 .25em 1em;
+    font-size: 1.25em;
+    text-transform: uppercase;
+  }
+  h2 {
+    padding: .25em 1em;
+    font-size: 1.25em;
+    color: $primary-color;
+  }
+}
+
+.game-swap {
+  margin: 2em 0;
+  text-align: center;
+  h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    }
+  img {
+    width: 100%;
+  }
+}
+
+.game-swap_img {
+  width: 100%;
+  margin: 0;
+}
+
+.swap-info {
+  text-align: center;
+  margin-top: 2em;
+  h1 {
+  font-family: $primary-font;
+   font-size: 2em;
+   color: $secondary-color;
+   margin-bottom: .25em;
+ }
+  h2 {
+    font-family: $primary-font;
+    color: $secondary-color;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    margin-bottom: .25em;
+  }
+  h3 {
+    font-family: $primary-font;
+    color: $primary-color;
+    font-size: 1.5em;
+  }
+}
+
+.swap-info_details {
+  padding: 1em;
+  width: 80%;
+  margin: auto;
+  border: solid .15em
+  $primary-color;
+  margin-bottom: .5em;
+}
+
+.icon-arrow-right {
+  font-size: 3em;
+  color: $secondary-color;
+  padding-top: .15em;
+
+}
+
+.icon-arrow-left {
+  @extend .icon-arrow-right;
+}
+
+.game-description {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  border: solid .15em
+  $primary-color;
+  margin-bottom: 2em;
+
+  h1 {
+    color: $primary-color;
+    @include secondary-font;
+    font-size: 2em;
+    margin-bottom: .25em;
+  }
+  p {
+    font-family: $primary-font;
+    color: $secondary-color;
+  }
+}
+.swap-question {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-size: 4.5em;
+  text-align: center;
+  margin-bottom: .5em;
+}
+
+// profile module
+.profile_img {
+  margin: 0;
+  width: 50%;
+  &>img {
+  width: 100%;
+  margin: 0;
+  border: solid .15em $secondary-color;
+  }
+}
+
+.profile_upload {
+  @include button-upload;
+  width: 100%;
+  margin: 0;
+}
+
+.profile_info {
+  margin: 0;
+}
+
+// tabs module
+.tab {
+  margin-top: 1em;
+}
+
+.tab_tabs {
+  background-color: white;
+  font-family: $primary-font;
+  .tab_tabs_btn {
+    margin: 0;
+    border: 1px $secondary-color solid;
+    font-size: .8em;
+    height: 3em;
+    color: $secondary-color;
+  }
+  .active {
+    color: $primary-color;
+    background-color: white;
+  }
+}
+
+.tab_list {
+  font-family: $primary-font;
+  color: white;
+  background-color: $secondary-color;
+  .tab_list_game {
+    border-bottom: 1px solid $info-color;
+    padding: .3em .75em;
+    color: white;
+  }
+  h1 {
+    text-transform: uppercase;
+    font-size: 1em;
+    color: white;
+    padding:.35em;
+  }
+  p {
+    font-size: .9em;
+    color: $primary-color;
+    padding: 0 .35em;
+  }
+  .tab_list_btn {
+    padding-left: 1.7em;
+  }
+  .tab_list_btn>button {
+    background-color: $secondary-color;
+    color: white;
+    font-size: 1.2em;
+    margin-top: .5em;
+  }
+}
+
+// profile module
+.profile {
+  margin-bottom: .5em;
+  .profile_img {
+  padding: .5em;
+  }
+}
+
+.profile_info {
+  font-family: $primary-font;
+  padding: .5em;
+}
+
+.profile_info>h1 {
+  font-family: $primary-font;
+  font-size: 1.3em;
+  margin-bottom: 1em;
+  color: $secondary-color;
+}
+
+.profile_info p {
+  font-size: 1em;
+  color: $primary-color;
+  line-height: 1.5em;
+}
+
+.profile_info span {
+  margin-top: 1em;
+}
+
+.star-active {
+  color: $accent-color;
+}
+
+
+
+
+

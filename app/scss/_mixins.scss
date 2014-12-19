@@ -1,0 +1,54 @@
+@import "variables";
+
+@mixin secondary-font {
+  line-spacing: .25em;
+  font-family: $Gasalt;
+  text-transform: uppercase;
+}
+
+@mixin login-page {
+    text-align: center;
+    font-family: $Gasalt;
+    text-transform: uppercase;
+    font-size: 1.75em;
+    color: white;
+    letter-spacing: .15em;
+    padding: 1.5em 0;
+  }
+
+@mixin login-input {
+    display: block;
+    width: 80%;
+    margin: 1em auto;
+    padding: 1em;
+    border: solid;
+    border-color: white;
+    color: white;
+    outline-color: white;
+}
+
+@mixin top {
+  font-family: $primary-font;
+  background-color: $primary-color;
+  color: white;
+}
+
+
+@mixin button-pair {
+  font-size: 1.3em;
+  color: white;
+  font-family: $primary-font;
+  margin: 0;
+  height: 3.25em;
+  text-transform: uppercase;
+}
+
+@mixin button-upload {
+  background-color: $primary-color;
+  color: white;
+  font-size: 1em;
+  font-family: $primary-font;
+  padding: 1em;
+  margin: 0 10%;
+  width: 80%;
+}

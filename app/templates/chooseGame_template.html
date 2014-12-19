@@ -1,0 +1,24 @@
+<p class="inform">Choose A Game<p>
+
+
+<!-- game preview -->
+<section class= "game-preview">
+  <h4>My Game</h4>
+  <h1 {{ game.title }}> Settlers of Catan: Knights and Cities</h1>
+  <h2>{{ game.platform }} XBox</h2>
+</section>
+
+<!-- browse games list -->
+<section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <a href="#/inboxrequestdetails" class="game-summary_img col span_2_of_6">
+    <img  src='{{ game.image_urls[0] }}'></img>
+  </a>
+  <a href="#/inboxrequestdetails" class="game-summary_info col span_3_of_6">
+    <h1>{{game.title}}</h1>
+    <h2>{{game.platform}}</h2>
+  </a>
+  <!-- <button class="icon-star2 game-summary_fav col span_1_of_6" ng-model="checkbox"></button> -->
+</section>
+
+<button class="btn-remove"ng-click="declineRequest()">Decline Request<button>
+

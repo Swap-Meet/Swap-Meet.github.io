@@ -1,23 +1,24 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var gameSchema = new Schema({
 
-  title: 'String',
-  score: 'String',
-  publisher: 'String',
-  zip: 'String',
-  owner: 'String',
-  short_description: 'String',
-  platform: 'String',
-  thumb: 'String'
+  title: String,
+  score: String,
+  publisher: String,
+  zip: String,
+  latitude: String,
+  longitude: String,
+  condition: String,
+  owner: String, //id number
+  owner_screenname: String,
+  //owner_email: String,
+  date_added: Object,
+  short_description: String,
+  platform: String,
+  image_urls: ['String']
 });
-
-var Games = mongoose.model('Game', gameSchema);
-
-
-//thanks to the Mongoose validation docs:
-// http://mongoosejs.com/docs/2.7.x/docs/validation.html
-
 
 module.exports = mongoose.model('Game', gameSchema);
