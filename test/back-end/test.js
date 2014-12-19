@@ -307,6 +307,7 @@ describe('basic user tests', function() {
     .get('api/browse')
     .end(function(err, res) {
       expect(err).to.eql(null);
+      //console.log(res.body);
       expect(res.body.items).to.be.an('Array');
       expect(res.body.items[0]._id).to.be.a('String');
       expect(res.body.items.length).to.eql(5);
@@ -381,6 +382,8 @@ describe('basic user tests', function() {
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       //console.log('output', res.body);
+      //console.log('potential trades', res.body.items[0].potentialTrades);
+      //console.log('game info', res.body.items[0].gameInfo);
       //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
