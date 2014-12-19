@@ -1,5 +1,5 @@
 
-<h2 class="inform">Inbox Request Details</h2>
+<h2 class="inform">Trade Completion Details</h2>
 
   <!--  accept trade button -->
   <!-- USER A SECTION-->
@@ -13,23 +13,25 @@
   <!-- USER B SECTION-->
 <!--   <h1 class="game-title_trade">Trade For This Game</h1> -->
   <!-- USER B - TRADING FOR GAME: Image -->
-<section class="swap-info section group">
-  <section class="swap-info col span_2_of_4">
- <h1>{{ trade[0].title }}</h1>
-    <!-- USER A - MY GAME: platform-->
- <h2 class="swap-info_title">{{ trade[0].platform }}</h2>
-  </section>
-    <section class="swap-info col span_2_of_4">
-<h1>{{ trade[1].title }}</h1>
-  <!-- USER B - TRADING FOR GAME: platform -->
-    <h2 class="swap-info_title">{{ trade[1].platform }}</h2>
-  </section>
-</section>
 
+  <section class="swap-info">
+    <h1> Trading </h1>
+   <section class="swap-info_details">
+ <h2>{{ trade[0].title }}</h2>
+    <!-- USER A - MY GAME: platform-->
+ <h3 class="swap-info_title">{{ trade[0].platform }} </h3>
+</section>
+  <h1> For</h1>
+<section class="swap-info_details">
+  <h2>{{ trade[1].title }}</h2>
+  <!-- USER B - TRADING FOR GAME: platform -->
+    <h3 class="swap-info_title">{{ trade[1].platform }}</h3>
+</section>
+</section>
 
  <section class="game-swap section group">
   <section class="game-swap_img col span_2_of_6">
-    <img src='{{ trade[1].image_urls[0] }}'></img>
+    <img src='{{ trade[0].image_urls[0] }}'></img>
   </section>
   <section class="col span_2_of_6">
     <p class="icon-arrow-right"></p>
@@ -43,8 +45,12 @@
   </section>
 </section>
 
+<h1 class="swap-question"> swap? </h1>
+
  <!-- Send request and cancel request buttons -->
 <section class="btn-pair section group">
   <button class="btn-pair_pos col span_3_of_4" data-ng-click="sendRequest()">Yes</button>
   <button class="btn-pair_neg col span_1_of_4" ng-click="cancelRequest()">No</button>
 </section>
+
+

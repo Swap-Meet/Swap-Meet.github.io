@@ -12,7 +12,11 @@
     <h1>{{game.title}}</h1>
     <h2>{{game.platform}}</h2>
   </a>
-  <button class="icon-checkmark game-summary_check col span_1_of_6"></button>
+  <!-- <input class="game-summary_check col span_1_of_6" type="checkbox" ng-model="checkbox"> -->
+  <div ng-class="{'icon-checkbox-unchecked game-summary_check col span_1_of_6': !isActive, 'icon-checkbox-checked game-summary_check col span_1_of_6': isActive}" ng-init="isActive = false" ng-click="isActive = !isActive"></div>
+<!--   <button class="icon-checkbox-unchecked game-summary_check col span_1_of_6" ng-hide="isToggled" ng-click="addGameToOfferList(game._id)"></button>
+  <button class="icon-checkbox-checked game-summary_check col span_1_of_6" ng-show="isToggled" ng-click="removeGameFromOfferList(game._id)"></button> -->
+
 </section>
 
 <!-- Send request and cancel request buttons -->

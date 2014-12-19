@@ -13,6 +13,7 @@ var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute', 'ngCookies', '
 // load services
 require('./services/resource_backend_service')(swapApp);
 require('./services/game_service')(swapApp);
+require('./services/offer_service')(swapApp);
 require('./services/auth_service')(swapApp);
 
 // load controllers
@@ -88,7 +89,7 @@ swapApp.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-},{"./../../bower_components/angular-base64/angular-base64.js":19,"./../../bower_components/angular-cookies/angular-cookies.js":20,"./../../bower_components/angular-resource/angular-resource.js":21,"./../../bower_components/angular-route/angular-route.js":22,"./../../bower_components/angular/angular":23,"./controllers/addGame_controller":2,"./controllers/chooseGame_controller":3,"./controllers/gameDetails_controller":4,"./controllers/inboxDetails_controller":5,"./controllers/login_controller":6,"./controllers/myFavDetails_controller":7,"./controllers/myGameDetails_controller":8,"./controllers/nav_controller":9,"./controllers/offerGames_controller":10,"./controllers/outboxDetails_controller":11,"./controllers/profileTabs_controller":12,"./controllers/profile_controller":13,"./controllers/search_controller":14,"./services/auth_service":15,"./services/game_service":16,"./services/resource_backend_service":18}],2:[function(require,module,exports){
+},{"./../../bower_components/angular-base64/angular-base64.js":20,"./../../bower_components/angular-cookies/angular-cookies.js":21,"./../../bower_components/angular-resource/angular-resource.js":22,"./../../bower_components/angular-route/angular-route.js":23,"./../../bower_components/angular/angular":24,"./controllers/addGame_controller":2,"./controllers/chooseGame_controller":3,"./controllers/gameDetails_controller":4,"./controllers/inboxDetails_controller":5,"./controllers/login_controller":6,"./controllers/myFavDetails_controller":7,"./controllers/myGameDetails_controller":8,"./controllers/nav_controller":9,"./controllers/offerGames_controller":10,"./controllers/outboxDetails_controller":11,"./controllers/profileTabs_controller":12,"./controllers/profile_controller":13,"./controllers/search_controller":14,"./services/auth_service":15,"./services/game_service":16,"./services/offer_service":18,"./services/resource_backend_service":19}],2:[function(require,module,exports){
 // controller for view 10, Add Game
 'use strict';
 
@@ -146,22 +147,19 @@ module.exports = function(app) {
       $scope.games = [
         { id: '548f75df27398d8b9bfeac07',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Monkey Island',
-          platform: 'XBOX',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']},
+          title: 'The Curse of Monkey Island',
+          platform: 'PC',
+          image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']},
         { id: '548f75df27398d8b9bfeac08',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Grim Fandango',
-          platform: 'PC',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']},
+          title: 'God of War',
+          platform: 'PS3',
+          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941698/God_of_War_Ascension_eseajx.jpg']},
         { id: '548f75df27398d8b9bfeac09',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Settlers of Catan',
-          platform: 'Board',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']}
+          title: 'FIFA 15',
+          platform: 'XBOX',
+          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']}
       ];
 
       $scope.declineRequest = function() {
@@ -175,11 +173,11 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games',
-    function($scope, $routeParams, $http, $location, $cookies, Games) {
+  app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
+    function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
 
       if (!$cookies.jwt) {
-        $location.path('/login');
+        $location.path('#/login');
       }
       console.log('Game Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
@@ -187,13 +185,70 @@ module.exports = function(app) {
       $scope.games = Games.getList();
       $scope.whichGame = $routeParams.gameID;
 
-      $scope.sendRequest = function() {
-        console.log('Imagine I am sending a request now...');
+      $scope.createRequest = function(gameID) {
+        Offers.setWantGame(gameID);
+        //$location.path('#/offergames');
+        console.log('Setting game id in Offers');
       };
 
-      $scope.addFavorite = function() {
-        console.log('Imagine Adding to favorites');
-      };
+      // $scope.addFavorite = function(gameID) {
+      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+      //     $location.path('#/');
+      //   } else {
+
+      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //     $http({
+      //       method: 'POST',
+      //       url: '/api/games/favorites',
+      //       data: { _id: gameID }
+      //     })
+      //     .success(function(data) {
+      //       if ($scope.isToggled === false) {
+      //         $scope.isToggled = true;
+      //       }
+      //       else {
+      //         $scope.isToggled = false;
+      //       }
+      //       //update the 'already favorited portion of the game service cache
+      //       console.log('success! added to favorites: ' + data.items);
+
+      //       //return $scope.isToggled;
+
+      //     })
+      //     .error(function(data) {
+      //       console.log(data);
+      //     });
+      //   }
+      // };
+
+      // $scope.removeFavorite = function(gameID) {
+      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+      //     $location.path('#/');
+      //   } else {
+      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //     $http({
+      //       method: 'DELETE',
+      //       url: '/api/games/favorites',
+      //       data: { id: gameID }
+      //     })
+      //     .success(function(data) {
+      //       if ($scope.isToggled === false) {
+      //         $scope.isToggled = true;
+      //       }
+      //       else {
+      //         $scope.isToggled = false;
+      //       }
+      //       //update the 'already favorited portion of the game service cache
+      //       console.log('success! removed from favorites: ' + data.items);
+
+      //       //return $scope.isToggled;
+
+      //     })
+      //     .error(function(data) {
+      //       console.log(data);
+      //     });
+      //   }
+      // };
 
     }]);
 
@@ -213,57 +268,52 @@ module.exports = function(app) {
       console.log('Inbox Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
-      $http({
-        method: 'GET',
-        url: '/api/games/incomingrequests'
-      })
-      .success(function(data) {
-        $scope.trade = [];
-        console.log(data.items[0]);
-        $scope.trade[0] = data.items[0].gameInfo;
-        for (var i = 1; i < data.items[0].potentialTrades.length + 1; i++) {
-          $scope.trade[i] = data.items[0].potentialTrades[i - 1];
-          console.log(data.items[0].potentialTrades);
-        }
-        //$scope.screenname = data.profile.screenname;
-        //$scope.email = data.profile.email;
-        //$scope.zip = data.profile.zip;
-      })
-      .error(function(data) {
-        console.log(data);
-      });
+      // $http({
+      //   method: 'GET',
+      //   url: '/api/games/incomingrequests'
+      // })
+      // .success(function(data) {
+      //   // $scope.trade = [];
+      //   // console.log(data.items[0]);
+      //   // $scope.trade[0] = data.items[0].gameInfo;
+      //   // for (var i = 1; i < data.items[0].potentialTrades.length + 1; i++) {
+      //   //   $scope.trade[i] = data.items[0].potentialTrades[i - 1];
+      //   //   console.log(data.items[0].potentialTrades);
+      //   // }
+      //   //$scope.screenname = data.profile.screenname;
+      //   //$scope.email = data.profile.email;
+      //   //$scope.zip = data.profile.zip;
+      // })
+      // .error(function(data) {
+      //   console.log(data);
+      // });
 
-      //I think that this will be an array holding 2 games:
-      //The first game is this user A's game.
-      //The second game is user B's game.
-      // $scope.trade = [{
-      //   title: 'Pac Man',
-      //   score: 'String',
-      //   publisher: 'String',
-      //   zip: '98087',
-      //   latitude: 'String',
-      //   longitude: 'String',
-      //   owner_screenname: 'SeahawksDude123',
-      //   owner: 'String_id_number', //id number
-      //   short_description: 'Eat all the dots, run from the ghosts, for now...',
-      //   platform: 'NES',
-      //   image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
-      //   'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      // },
-      // {
-      //   title: 'Ms. Pac Man',
-      //   score: 'String',
-      //   publisher: 'String',
-      //   zip: '98087',
-      //   latitude: 'String',
-      //   longitude: 'String',
-      //   owner_screenname: 'RockingRedXYZ',
-      //   owner: 'String_id_number', //id number
-      //   short_description: 'Be awesome...',
-      //   platform: 'NES',
-      //   image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
-      //   'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      // }];
+      $scope.sendRequest = function() {
+        window.location.href = 'mailto:bunnies@example.com?' +
+        'subject=SwapMeet%20Trade%20Alert:%20"Settlers%20of%20Catan:%20Knights%20and%20Cities"%20for%20"FIFA%2015!"' +
+        '&body=%20Lets%20Meet...%20and%20Swap!';
+      };
+
+      $scope.cancelRequest = function() {
+        $location.path('/search');
+      };
+
+      // I think that this will be an array holding 2 games:
+      // The first game is this user A's game.
+      // The second game is user B's game.
+      $scope.trade = [{
+        title: 'Settlers of Catan: Knights and Cities',
+        owner_screenname: 'PCs4Eva',
+        platform: 'Board',
+        image_urls: ['http://images.fanpop.com/images/image_uploads/Differents-' +
+  'Boards-settlers-of-catan-521934_1157_768.jpg']
+      },
+      {
+        title: 'FIFA 2015',
+        owner_screenname: 'IHeartGames',
+        platform: 'PS3',
+        image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']
+      }];
 
       $scope.declineTrade = function() {
         console.log('Imagine I am declining a trade request now...');
@@ -385,17 +435,11 @@ module.exports = function(app) {
     //this is fake data
 
       $scope.game = {
-        title: 'Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner: 'String_id_number', //id number
-        short_description: 'Eat all the dots, run from the ghosts, for now...',
-        platform: 'NES',
-        image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
+        title: 'The Curse of Monkey Island',
+        owner_screenname: 'IHeartGames', //id number
+        short_description: 'insult sword fighting FTW!',
+        platform: 'PC',
+        image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']
       };
 
       $scope.removeGame = function() {
@@ -410,30 +454,29 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
-    function($scope, $location, $cookies, $http, AuthService) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http',
+    function($scope, $location, $cookies, $http) {
 
-      if ($cookies.jwt) {
-        console.log('Nav Controller Sees the Cookie!');
-        $location.path('/');
-      }
+      // if ($cookies.jwt) {
+      //   console.log('Nav Controller Sees the Cookie!');
+      //   $location.path('/');
+      // }
       //$scope.identity = AuthService;
 
-      $scope.signIn = function() {
-        if ($cookies.jwt) {
-          console.log('You already have a cookie');
-          $location.path('/');
-        } else {
-          console.log('signing in');
-          $location.path('#/login');
-        }
-      };
+      // $scope.signIn = function() {
+      //   if ($cookies.jwt) {
+      //     console.log('You already have a cookie');
+      //     $location.path('/');
+      //   } else {
+      //     console.log('signing in');
+      //     $location.path('#/login');
+      //   }
+      // };
       $scope.signOut = function() {
         delete $cookies.jwt;
-        // $http.defaults.headers.common['jwt'] = null;
-        AuthService.currentUser = undefined;
+        $http.defaults.headers.common['jwt'] = null;
         console.log('signing out');
-        $location.path('/');
+        $location.path('#/');
       };
     }]);
 };
@@ -488,7 +531,7 @@ module.exports = function(app) {
     function($scope, $location, $http, $cookies) {
 
       if (!$cookies.jwt) {
-        $location.path('/login');
+        $location.path('#/login');
       }
       console.log('Offer Games Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
@@ -496,25 +539,27 @@ module.exports = function(app) {
       $scope.games = [
         { id: '548f75df27398d8b9bfeac07',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Monkey Island',
-          platform: 'XBOX',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']},
+          title: 'The Curse of Monkey Island',
+          platform: 'PC',
+          image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']},
         { id: '548f75df27398d8b9bfeac08',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Grim Fandango',
-          platform: 'PC',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']},
+          title: 'God of War',
+          platform: 'PS3',
+          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941698/God_of_War_Ascension_eseajx.jpg']},
         { id: '548f75df27398d8b9bfeac09',
           owner: '548f75df27398d8b9bfeac05',
-          title: 'Settlers of Catan',
-          platform: 'Board',
-          image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-          'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']}
+          title: 'FIFA 15',
+          platform: 'PS3',
+          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']}
       ];
 
+      $scope.sendRequest = function() {
+        $location.path('#/');
+        console.log('Imagine I am sending a request now...');
+      };
       $scope.cancelRequest = function() {
+        $location.path('#/');
         console.log('Imagine I am cancelling a request now...');
       };
 
@@ -591,6 +636,13 @@ module.exports = function(app) {
       console.log('Profile Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
+      $scope.signOut = function() {
+        delete $cookies.jwt;
+        $http.defaults.headers.common['jwt'] = null;
+        console.log('signing out');
+        $location.path('#/');
+      };
+
       $http({
         method: 'GET',
         url: '/api/user/myprofile'
@@ -601,6 +653,7 @@ module.exports = function(app) {
         } else {
           $scope.avatar_url = data.profile.avatar_url;
         }
+
         $scope.screenname = data.profile.screenname;
         $scope.email = data.profile.email;
         $scope.zip = data.profile.zip;
@@ -608,12 +661,6 @@ module.exports = function(app) {
       .error(function(data) {
         console.log(data);
       });
-
-      $scope.signOut = function() {
-        delete $cookies.jwt;
-        console.log('signing out');
-        $location.path('/');
-      };
 
     }]);
 };
@@ -624,6 +671,7 @@ module.exports = function(app) {
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
       function($scope, $http, $cookies, $location, $routeParams, Games) {
+      //$scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
 
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
@@ -659,7 +707,7 @@ module.exports = function(app) {
             });
           } else { // if the search bar is NOT empty create a query string & call search route
             querySuffix = $scope.search.title;
-            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%20');
 
             $http({
               method: 'GET',
@@ -677,22 +725,74 @@ module.exports = function(app) {
         }
       };
 
-      $scope.addFavorite = function() {
+      $scope.addFavorite = function(gameID) {
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
+
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
             method: 'POST',
             url: '/api/games/favorites',
-            //how do I know which array item the game should be?
-            data: {_id: Games.getList()[0]._id}
+            data: { _id: gameID }
           })
           .success(function(data) {
-            //Create a shared data for Favorites? Just like games
-            //At this point, probably not, maybe for the profile partials
-            //Favorites.setList(data.items);
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
+            //update the 'already favorited portion of the game service cache
             console.log('success! added to favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
+
+      $scope.removeFavorite = function(gameID) {
+        //show hide logic
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+        //
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('#/');
+        } else {
+
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'DELETE',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
+            //update the 'already favorited portion of the game service cache
+            console.log('success! removed from favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
           })
           .error(function(data) {
             console.log(data);
@@ -849,6 +949,31 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
+  app.factory('Offers', [function() {
+
+    var data = {
+        gameId: '',
+        potentialTrades: []
+    };
+
+    return {
+        getOffer: function() {
+          return data;
+        },
+        setWantGame: function(wantGame) {
+          data.gameId = wantGame;
+        },
+        setPotentialTrade: function(offerArray) {
+          data.potentialTrades = offerArray;
+        }
+    };
+  }]);
+};
+
+},{}],19:[function(require,module,exports){
+'use strict';
+
+module.exports = function(app) {
   var handleErrors = function(data) {
     console.log(data);
   };
@@ -894,7 +1019,7 @@ module.exports = function(app) {
   }]);
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function() {
     'use strict';
 
@@ -1062,7 +1187,7 @@ module.exports = function(app) {
 
 })();
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -1270,7 +1395,7 @@ angular.module('ngCookies', ['ng']).
 
 })(window, window.angular);
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -1939,7 +2064,7 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -2936,7 +3061,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -28974,4 +29099,4 @@ var styleDirective = valueFn({
 })(window, document);
 
 !window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}</style>');
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]);

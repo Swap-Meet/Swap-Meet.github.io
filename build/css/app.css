@@ -47,6 +47,9 @@ button {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
 
+html {
+  word-wrap: normal; }
+
 @font-face {
   font-family: 'ABeeZee';
   src: url('../assets/fonts/ABeeZee-Regular.otf') format('opentype');
@@ -117,6 +120,9 @@ button {
 .icon-close:before {
   content: "\e603"; }
 
+.icon-close:active {
+  color: #f53131; }
+
 .icon-checkmark:before {
   content: "\e60b"; }
 
@@ -127,7 +133,8 @@ button {
   content: "\e608"; }
 
 .icon-checkbox-checked:before {
-  content: "\e60d"; }
+  content: "\e60d";
+  background-color: #1b465a; }
 
 .icon-checkbox-unchecked:before {
   content: "\e60e"; }
@@ -210,6 +217,9 @@ button {
   font-size: 1.5em;
   padding: 0.75em 1em; }
 
+.game-swap_img {
+  padding: 0 1em; }
+
 .logo {
   width: 50%;
   float: left;
@@ -276,9 +286,9 @@ button {
 
 .game-summary_check {
   color: white;
-  background-color: black;
-  font-size: 1.9em;
-  margin-top: 0.4em; }
+  font-size: 1.25em;
+  margin-top: 1em;
+  background-color: #1b465a; }
 
 .inform {
   background-color: #d7d7d7;
@@ -313,9 +323,10 @@ button {
 
 .game-title_main {
   text-align: center;
-  font-size: 2em;
-  margin: 1em 0 0.5em 0;
-  display: block;
+  text-transform: uppercase;
+  font-size: 2.5em;
+  margin: 5% 1.6%;
+  color: #1b465a;
   line-spacing: 0.25em;
   font-family: 'Gasalt-Regular';
   text-transform: uppercase; }
@@ -328,7 +339,8 @@ button {
 .game-info_main {
   font-family: 'ABeeZee';
   text-align: center;
-  margin: 5% 10%; }
+  margin: 5% 10%;
+  color: #1b465a; }
   .game-info_main > h1 {
     font-size: 1.5em;
     text-transform: uppercase; }
@@ -415,7 +427,8 @@ button {
   font-family: 'Gasalt-Regular';
   text-transform: uppercase;
   font-size: 2em;
-  letter-spacing: 0.075em; }
+  letter-spacing: 0.075em;
+  color: #1b465a; }
 
 .upload {
   overflow: hidden; }
@@ -426,8 +439,8 @@ button {
   font-size: 1em;
   font-family: 'ABeeZee';
   padding: 1em;
-  float: right;
-  margin-right: 10%; }
+  margin: 0 10%;
+  width: 80%; }
 
 .btn-remove {
   display: block;
@@ -489,12 +502,11 @@ button {
 .error {
   font-family: 'ABeeZee';
   color: #f53131;
-  text-align: center;
-  font-size: 3em; }
+  font-size: 1em; }
 
 .game-image {
   display: block;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   border: 0.4em solid #1b465a; }
 
@@ -569,7 +581,7 @@ button {
     font-family: 'Gasalt-Regular';
     text-transform: uppercase;
     font-size: 1.5em; }
-  .game-swap > img {
+  .game-swap img {
     width: 100%; }
 
 .game-swap_img {
@@ -578,27 +590,67 @@ button {
 
 .swap-info {
   text-align: center;
-  margin-top: 1em; }
+  margin-top: 2em; }
   .swap-info h1 {
-    line-spacing: 0.25em;
-    font-family: 'Gasalt-Regular';
-    text-transform: uppercase;
-    font-size: 1.5em;
-    color: #1b465a; }
+    font-family: 'ABeeZee';
+    font-size: 2em;
+    color: #1b465a;
+    margin-bottom: 0.25em; }
   .swap-info h2 {
     font-family: 'ABeeZee';
-    color: #009999; }
+    color: #1b465a;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    margin-bottom: 0.25em; }
+  .swap-info h3 {
+    font-family: 'ABeeZee';
+    color: #009999;
+    font-size: 1.5em; }
+
+.swap-info_details {
+  padding: 1em;
+  width: 80%;
+  margin: auto;
+  border: solid 0.15em #009999;
+  margin-bottom: 0.5em; }
 
 .icon-arrow-right, .icon-arrow-left {
   font-size: 3em;
   color: #1b465a;
   padding-top: 0.15em; }
 
+.game-description {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  border: solid 0.15em #009999;
+  margin-bottom: 2em; }
+  .game-description h1 {
+    color: #009999;
+    line-spacing: 0.25em;
+    font-family: 'Gasalt-Regular';
+    text-transform: uppercase;
+    font-size: 2em;
+    margin-bottom: 0.25em; }
+  .game-description p {
+    font-family: 'ABeeZee';
+    color: #1b465a; }
+
+.swap-question {
+  font-family: 'ABeeZee';
+  color: #009999;
+  font-size: 4.5em;
+  text-align: center;
+  margin-bottom: 0.5em; }
+
 .profile_img {
-  margin: 0; }
+  margin: 0;
+  width: 50%; }
   .profile_img > img {
     width: 100%;
-    margin: 0; }
+    margin: 0;
+    border: solid 0.15em #1b465a; }
 
 .profile_upload {
   background-color: #009999;
@@ -606,6 +658,8 @@ button {
   font-size: 1em;
   font-family: 'ABeeZee';
   padding: 1em;
+  margin: 0 10%;
+  width: 80%;
   width: 100%;
   margin: 0; }
 
@@ -616,16 +670,17 @@ button {
   margin-top: 1em; }
 
 .tab_tabs {
-  background-color: #d7d7d7;
+  background-color: white;
   font-family: 'ABeeZee'; }
   .tab_tabs .tab_tabs_btn {
     margin: 0;
     border: 1px #1b465a solid;
     font-size: 0.8em;
-    height: 3em; }
+    height: 3em;
+    color: #1b465a; }
   .tab_tabs .active {
-    background-color: #1b465a;
-    color: white; }
+    color: #009999;
+    background-color: white; }
 
 .tab_list {
   font-family: 'ABeeZee';
@@ -633,21 +688,24 @@ button {
   background-color: #1b465a; }
   .tab_list .tab_list_game {
     border-bottom: 1px solid #d7d7d7;
-    padding: 0.3em 0.6em;
-    color: #d7d7d7; }
-  .tab_list .tab_list_info {
+    padding: 0.3em 0.75em;
+    color: white; }
+  .tab_list h1 {
+    text-transform: uppercase;
+    font-size: 1em;
     color: white;
-    font-size: 0.9em; }
-  .tab_list .tab_list_info > p {
-    font-size: 0.8em;
-    color: #009999; }
+    padding: 0.35em; }
+  .tab_list p {
+    font-size: 0.9em;
+    color: #009999;
+    padding: 0 0.35em; }
   .tab_list .tab_list_btn {
     padding-left: 1.7em; }
   .tab_list .tab_list_btn > button {
     background-color: #1b465a;
-    color: #f53131;
+    color: white;
     font-size: 1.2em;
-    text-align: center; }
+    margin-top: 0.5em; }
 
 .profile {
   margin-bottom: 0.5em; }
@@ -672,6 +730,9 @@ button {
 .profile_info span {
   margin-top: 1em; }
 
+.star-active {
+  color: #f53131; }
+
 .btn-fav:active {
   background-color: #f53131; }
 
@@ -683,3 +744,6 @@ button {
 
 .icon-search:active {
   color: #1b465a; }
+
+.tab_list_btn > button:active {
+  color: #f53131; }

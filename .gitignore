@@ -30,6 +30,4 @@ test/angular_testbundle.js
 .DS_Store
 bootstrap.css
 temp.json
-build/
-build/css/app.css
 
