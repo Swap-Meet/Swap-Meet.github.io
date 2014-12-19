@@ -85,9 +85,9 @@
 
 .game-summary_check {
   color: white;
-  background-color: black;
-  font-size: 1.9em;
-  margin-top: .4em;
+  font-size: 1.25em;
+  margin-top: 1em;
+  background-color: $secondary-color;
 }
 
 
@@ -562,6 +562,10 @@
 
 .profile_info span {
   margin-top: 1em;
+}
+
+.star-active {
+  color: $accent-color;
 }
 
 
