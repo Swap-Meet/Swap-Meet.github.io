@@ -3,6 +3,7 @@
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
       function($scope, $http, $cookies, $location, $routeParams, Games) {
+      //$scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
 
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
@@ -57,6 +58,13 @@ module.exports = function(app) {
       };
 
       $scope.addFavorite = function(gameID) {
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
@@ -68,12 +76,12 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
-            if ($scope.isToggled === false) {
-              $scope.isToggled = true;
-            }
-            else {
-              $scope.isToggled = false;
-            }
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
             //update the 'already favorited portion of the game service cache
             console.log('success! added to favorites: ' + data.items);
 
@@ -87,6 +95,14 @@ module.exports = function(app) {
       };
 
       $scope.removeFavorite = function(gameID) {
+        //show hide logic
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+        //
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
@@ -98,12 +114,12 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
-            if ($scope.isToggled === false) {
-              $scope.isToggled = true;
-            }
-            else {
-              $scope.isToggled = false;
-            }
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
             //update the 'already favorited portion of the game service cache
             console.log('success! removed from favorites: ' + data.items);
 

@@ -5,7 +5,7 @@ module.exports = function(app) {
     function($scope, $location, $http, $cookies) {
 
       if (!$cookies.jwt) {
-        $location.path('/login');
+        $location.path('#/login');
       }
       console.log('Offer Games Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
@@ -31,7 +31,12 @@ module.exports = function(app) {
           'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']}
       ];
 
+      $scope.sendRequest = function() {
+        $location.path('#/');
+        console.log('Imagine I am sending a request now...');
+      };
       $scope.cancelRequest = function() {
+        $location.path('#/');
         console.log('Imagine I am cancelling a request now...');
       };
 

@@ -20,7 +20,7 @@ module.exports = function(app) {
         zip: '98087',
         latitude: 'String',
         longitude: 'String',
-        owner: 'String_id_number', //id number
+        owner_screenname: 'Gamer4001', //id number
         short_description: 'Eat all the dots, run from the ghosts, for now...',
         platform: 'NES',
         image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',

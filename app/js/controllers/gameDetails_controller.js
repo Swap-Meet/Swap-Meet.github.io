@@ -4,7 +4,7 @@
 module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
     function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
-//
+
       if (!$cookies.jwt) {
         $location.path('#/login');
       }
@@ -16,7 +16,7 @@ module.exports = function(app) {
 
       $scope.createRequest = function(gameID) {
         Offers.setWantGame(gameID);
-        $location.path('#/offergames');
+        //$location.path('#/offergames');
         console.log('Setting game id in Offers');
       };
 
