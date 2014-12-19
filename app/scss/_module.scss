@@ -390,13 +390,9 @@
     @include secondary-font;
     font-size: 1.5em;
     }
-  &>img {
+  img {
     width: 100%;
   }
-}
-
-.game-swap_img {
-  width: 100%;
 }
 
 .swap-info {
