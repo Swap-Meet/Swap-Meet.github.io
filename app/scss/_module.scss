@@ -316,8 +316,9 @@
 
 .game-image {
   display: block;
-  width:80%;
-  margin: 0 10%;
+  width: 90%;
+  margin: 0 auto;
+  border: .4em solid $secondary-color;
 }
 
 // filter
@@ -409,7 +410,7 @@
   .tab_tabs_btn {
     margin: 0;
     border: 1px $secondary-color solid;
-    font-size: .9em;
+    font-size: .8em;
   }
   .active {
     background-color: $secondary-color;
@@ -451,18 +452,28 @@
   .profile_img {
   padding: .5em;
   }
-  .profile_info {
+}
+
+.profile_info {
+  font-family: $primary-font;
   padding: .5em;
-  }
-  .profile_info>h1 {
-    font-family: $primary-font;
-    font-size: 1.3em;
-    color: $secondary-color;
-    margin-bottom: 1em;
-  }
-  .profile_info>p {
-    font-size: 1em;
-  }
+}
+
+.profile_info>h1 {
+  font-family: $primary-font;
+  font-size: 1.3em;
+  margin-bottom: 1em;
+  color: $secondary-color;
+}
+
+.profile_info p {
+  font-size: 1em;
+  color: $primary-color;
+  line-height: 1.5em;
+}
+
+.profile_info span {
+  margin-top: 1em;
 }
 
 

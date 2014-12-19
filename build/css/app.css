@@ -44,6 +44,9 @@ button {
   border: none;
   outline: none; }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important; }
+
 @font-face {
   font-family: 'ABeeZee';
   src: url('../assets/fonts/ABeeZee-Regular.otf') format('opentype');
@@ -271,6 +274,16 @@ button {
   background-color: black;
   font-size: 1.9em;
   margin-top: 0.4em; }
+  .game-summary_fav:active {
+    color: #ff9c01; }
+
+.game-summary_check {
+  color: white;
+  background-color: black;
+  font-size: 1.9em;
+  margin-top: 0.4em; }
+  .game-summary_check:active {
+    color: #ff9c01; }
 
 .inform {
   background-color: #d7d7d7;
@@ -485,8 +498,9 @@ button {
 
 .game-image {
   display: block;
-  width: 80%;
-  margin: 0 10%; }
+  width: 90%;
+  margin: 0 auto;
+  border: 0.4em solid #383736; }
 
 .title-single {
   font-family: 'Gasalt-Regular';
@@ -555,14 +569,78 @@ button {
 .profile_img {
   margin: 0; }
   .profile_img > img {
-    width: 100%; }
+    width: 100%;
+    margin: 0; }
 
 .profile_upload {
   background-color: #007aff;
   color: white;
   font-size: 1em;
   font-family: 'ABeeZee';
-  padding: 1em; }
+  padding: 1em;
+  width: 100%;
+  margin: 0; }
+
+.profile_info {
+  margin: 0; }
+
+.tab {
+  margin-top: 1em; }
+
+.tab_tabs {
+  background-color: #d7d7d7;
+  font-family: 'ABeeZee'; }
+  .tab_tabs .tab_tabs_btn {
+    margin: 0;
+    border: 1px #383736 solid;
+    font-size: 0.8em; }
+  .tab_tabs .active {
+    background-color: #383736;
+    color: white; }
+
+.tab_list {
+  font-family: 'ABeeZee';
+  color: white;
+  background-color: #383736; }
+  .tab_list .tab_list_game {
+    border-bottom: 1px solid #d7d7d7;
+    padding: 0.3em 0.6em;
+    color: #d7d7d7; }
+  .tab_list .tab_list_info {
+    color: white; }
+  .tab_list .tab_list_info > p {
+    font-size: 0.8em;
+    color: #007aff; }
+  .tab_list .tab_list_btn {
+    padding-left: 1.7em; }
+  .tab_list .tab_list_btn > button {
+    background-color: #383736;
+    color: #ff9c01;
+    font-size: 1.2em;
+    text-align: center; }
+
+.profile {
+  margin-bottom: 0.5em; }
+  .profile .profile_img {
+    padding: 0.5em; }
+
+.profile_info {
+  font-family: 'ABeeZee';
+  padding: 0.5em; }
+
+.profile_info > h1 {
+  font-family: 'ABeeZee';
+  font-size: 1.3em;
+  margin-bottom: 1em;
+  color: #383736; }
+
+.profile_info p {
+  font-size: 1em;
+  color: #007aff;
+  line-height: 1.5em; }
+
+.profile_info span {
+  margin-top: 1em; }
 
 .btn-fav:active {
   background-color: #ff9c01; }

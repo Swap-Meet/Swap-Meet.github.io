@@ -1921,7 +1921,7 @@ angular.module('ngResource', ['ng']).
 
 },{}],22:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.7
+ * @license AngularJS v1.3.6
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
