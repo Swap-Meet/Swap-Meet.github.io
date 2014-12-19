@@ -33,7 +33,8 @@ module.exports = function(app, auth) {
 
       //game exists and can be deleted
       if (gameIndex !== -1) {
-        user.favorites = user.favorites.slice(gameIndex, gameIndex + 1);
+        user.favorites.splice(gameIndex, 1);
+        //user.favorites = user.favorites.slice(gameIndex, gameIndex + 1);
         user.save(function(err) {
           if (err) return helpers.returnError(err, res, 1, 'error saving favs');
           return helpers.returnSuccess(res);
