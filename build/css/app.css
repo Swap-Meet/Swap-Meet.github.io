@@ -223,15 +223,17 @@ button {
   border: none;
   padding-left: 1em;
   height: 2.5em;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  color: #1b465a; }
 
 .icon-search {
   border: none;
   background-color: white;
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #009999;
   margin: 0;
-  height: 2.5em; }
+  height: 2.5em;
+  padding-left: 2em; }
 
 .btn-filter-search {
   font-family: 'ABeeZee';
@@ -263,14 +265,14 @@ button {
   .game-summary_info > h2 {
     color: #009999;
     margin-top: 1em;
-    font-size: 0.8em; }
+    font-size: 1em; }
 
 .game-summary_fav {
   color: white;
   background-color: #1b465a;
   font-size: 1.5em;
-  margin-top: 0.4em;
-  text-align: right; }
+  padding-top: 0.6em;
+  text-align: center; }
 
 .game-summary_check {
   color: white;
@@ -286,39 +288,35 @@ button {
   text-transform: uppercase;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  top: 10.5%;
   width: 100%;
   color: #1b465a; }
 
-.btn-positive {
-  text-decoration: none;
-  margin: 0;
+.create {
+  height: 2.5em;
+  text-align: center;
+  margin-bottom: 3em; }
+
+.create_btn {
+  margin: 0 auto;
   background-color: #009999;
   color: white;
-  text-align: center;
-  padding: 1em 0;
-  font-family: 'ABeeZee'; }
+  font-family: 'ABeeZee';
+  padding: 1em 0; }
 
-.btn-fav {
-  text-align: center;
+.create_fav {
   margin: 0 auto;
   background-color: #1b465a;
   padding: 1em 0;
   border: none; }
-  .btn-fav > span {
+  .create_fav > span {
     color: white;
     font-size: 2.4em; }
 
-.btn-negative {
-  background-color: #f53131;
-  color: white;
-  font-family: 'ABeeZee'; }
-
 .game-title_main {
   text-align: center;
-  text-transform: uppercase;
-  font-size: 2.5em;
-  margin: 5% 1.6%;
+  font-size: 2em;
+  margin: 0 0 0.5em 0;
+  display: block;
   line-spacing: 0.25em;
   font-family: 'Gasalt-Regular';
   text-transform: uppercase; }
@@ -491,7 +489,9 @@ button {
 
 .error {
   font-family: 'ABeeZee';
-  color: #f53131; }
+  color: #f53131;
+  text-align: center;
+  font-size: 3em; }
 
 .game-image {
   display: block;
@@ -622,7 +622,8 @@ button {
   .tab_tabs .tab_tabs_btn {
     margin: 0;
     border: 1px #1b465a solid;
-    font-size: 0.8em; }
+    font-size: 0.8em;
+    height: 3em; }
   .tab_tabs .active {
     background-color: #1b465a;
     color: white; }
@@ -636,7 +637,8 @@ button {
     padding: 0.3em 0.6em;
     color: #d7d7d7; }
   .tab_list .tab_list_info {
-    color: white; }
+    color: white;
+    font-size: 0.9em; }
   .tab_list .tab_list_info > p {
     font-size: 0.8em;
     color: #009999; }

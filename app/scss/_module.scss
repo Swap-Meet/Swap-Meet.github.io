@@ -21,15 +21,17 @@
   padding-left: 1em;
   height: 2.5em;
   font-size: 1.2em;
+  color: $secondary-color;
 }
 
 .icon-search {
   border: none;
   background-color: white;
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: $primary-color;
   margin: 0;
   height: 2.5em;
+  padding-left: 2em;
 }
 
 .btn-filter-search {
@@ -69,7 +71,7 @@
   &>h2 {
     color: $primary-color;
     margin-top: 1em;
-    font-size: .8em;
+    font-size: 1em;
   }
 }
 
@@ -77,8 +79,8 @@
   color: white;
   background-color: $secondary-color;
   font-size: 1.5em;
-  margin-top: .4em;
-  text-align: right;
+  padding-top: .6em;
+  text-align: center;
 }
 
 .game-summary_check {
@@ -96,28 +98,27 @@
   @include secondary-font;
   text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  top: 10.5%;
   width: 100%;
   color: $secondary-color;
 }
 
 
-// Button Positive Module
-.btn-positive {
-  text-decoration: none;
-  margin: 0;
-  background-color: $primary-color;
-  color: white;
+// Create Button/Fav pair Module
+.create {
+  height: 2.5em;
   text-align: center;
-  padding: 1em 0;
-  font-family: $primary-font;
-
+  margin-bottom: 3em;
 }
 
+.create_btn {
+  margin: 0 auto;
+  background-color: $primary-color;
+  color: white;
+  font-family: $primary-font;
+  padding: 1em 0;
+}
 
-// Favorite Button Module
-.btn-fav {
-  text-align: center;
+.create_fav {
   margin: 0 auto;
   background-color: $secondary-color;
   padding: 1em 0;
@@ -130,19 +131,19 @@
 
 
 // Button Negative Module
-.btn-negative {
-  background-color: $accent-color;
-  color: white;
-  font-family: $primary-font;
-}
+// .btn-negative {
+//   background-color: $accent-color;
+//   color: white;
+//   font-family: $primary-font;
+// }
 
 
 // Main Game Details Modules
 .game-title_main {
   text-align: center;
-  text-transform: uppercase;
-  font-size: 2.5em;
-  margin: 5% 1.6%;
+  font-size: 2em;
+  margin: 0 0 .5em 0;
+  display: block;
   @include secondary-font;
 }
 
@@ -310,7 +311,8 @@
 .error {
   font-family: $primary-font;
   color: $accent-color;
-  // padding: 1em
+  text-align: center;
+  font-size: 3em;
   }
 
 .game-image {
@@ -453,6 +455,7 @@
     margin: 0;
     border: 1px $secondary-color solid;
     font-size: .8em;
+    height: 3em;
   }
   .active {
     background-color: $secondary-color;
@@ -471,6 +474,7 @@
   }
   .tab_list_info {
     color: white;
+    font-size: .9em;
   }
   .tab_list_info>p {
     font-size: .8em;
