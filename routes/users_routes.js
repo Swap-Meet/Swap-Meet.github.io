@@ -15,8 +15,8 @@ module.exports = function(app, auth) {
 
     //look for a user with this email in the DB
     User.findOne({email: email}, function(err, user) {
-      if (err) return helpers.returnError(err, res, 1, 'cannot find user');
-      if (!user) return helpers.returnError(user, res, 6, 'user not defined');
+      if (err) return helpers.returnError(res, 1, 'cannot find user');
+      if (!user) return helpers.returnError(res, 6, 'user not defined');
 
       //access is denied for invalid password
       if (!user.validPassword(password))
