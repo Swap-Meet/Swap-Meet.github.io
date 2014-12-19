@@ -31,4 +31,5 @@ test/angular_testbundle.js
 bootstrap.css
 temp.json
 build/
+build/css/app.css
 
