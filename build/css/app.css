@@ -576,6 +576,9 @@ button {
   .game-swap > img {
     width: 100%; }
 
+.game-swap_img {
+  width: 100%; }
+
 .swap-info {
   text-align: center;
   margin-top: 1em; }
