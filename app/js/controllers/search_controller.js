@@ -3,6 +3,7 @@
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
       function($scope, $http, $cookies, $location, $routeParams, Games) {
+      //$scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
 
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
@@ -38,7 +39,7 @@ module.exports = function(app) {
             });
           } else { // if the search bar is NOT empty create a query string & call search route
             querySuffix = $scope.search.title;
-            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%20');
 
             $http({
               method: 'GET',
@@ -56,22 +57,74 @@ module.exports = function(app) {
         }
       };
 
-      $scope.addFavorite = function() {
+      $scope.addFavorite = function(gameID) {
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
+
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
             method: 'POST',
             url: '/api/games/favorites',
-            //how do I know which array item the game should be?
-            data: {_id: Games.getList()[0]._id}
+            data: { _id: gameID }
           })
           .success(function(data) {
-            //Create a shared data for Favorites? Just like games
-            //At this point, probably not, maybe for the profile partials
-            //Favorites.setList(data.items);
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
+            //update the 'already favorited portion of the game service cache
             console.log('success! added to favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
+
+      $scope.removeFavorite = function(gameID) {
+        //show hide logic
+        if ($scope.$index === false) {
+          $scope.$index = true;
+        }
+        else {
+          $scope.$index = false;
+        }
+        //
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('#/');
+        } else {
+
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'DELETE',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
+            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
+            // } else {
+            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+            // }
+
+            //update the 'already favorited portion of the game service cache
+            console.log('success! removed from favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
           })
           .error(function(data) {
             console.log(data);

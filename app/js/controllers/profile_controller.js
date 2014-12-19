@@ -10,6 +10,13 @@ module.exports = function(app) {
       console.log('Profile Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
+      $scope.signOut = function() {
+        delete $cookies.jwt;
+        $http.defaults.headers.common['jwt'] = null;
+        console.log('signing out');
+        $location.path('#/');
+      };
+
       $http({
         method: 'GET',
         url: '/api/user/myprofile'
@@ -20,6 +27,7 @@ module.exports = function(app) {
         } else {
           $scope.avatar_url = data.profile.avatar_url;
         }
+
         $scope.screenname = data.profile.screenname;
         $scope.email = data.profile.email;
         $scope.zip = data.profile.zip;
@@ -27,12 +35,6 @@ module.exports = function(app) {
       .error(function(data) {
         console.log(data);
       });
-
-      $scope.signOut = function() {
-        delete $cookies.jwt;
-        console.log('signing out');
-        $location.path('/');
-      };
 
     }]);
 };
