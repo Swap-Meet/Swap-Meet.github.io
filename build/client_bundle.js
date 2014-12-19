@@ -1252,7 +1252,7 @@ angular.module('ngCookies', ['ng']).
 
 },{}],21:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.7
+ * @license AngularJS v1.3.6
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -1369,7 +1369,7 @@ function shallowClearAndCopy(src, dst) {
  *   example, if the `defaultParam` object is `{someParam: '@someProp'}` then the value of `someParam`
  *   will be `data.someProp`.
  *
- * @param {Object.<Object>=} actions Hash with declaration of custom actions that should extend
+ * @param {Object.<Object>=} actions Hash with declaration of custom action that should extend
  *   the default set of resource actions. The declaration should be created in the format of {@link
  *   ng.$http#usage $http.config}:
  *
@@ -1921,7 +1921,7 @@ angular.module('ngResource', ['ng']).
 
 },{}],22:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.7
+ * @license AngularJS v1.3.6
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
