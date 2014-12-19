@@ -80,10 +80,19 @@
   background-color: black;
   font-size: 1.9em;
   margin-top: .4em;
+  &:active {
+    color: $accent-color;
+  }
 }
 
 .game-summary_check {
-
+  color: white;
+  background-color: black;
+  font-size: 1.9em;
+  margin-top: .4em;
+  &:active {
+    color: $accent-color;
+  }
 }
 
 
@@ -375,10 +384,87 @@
   margin: 0;
   &>img {
   width: 100%;
+  margin: 0;
   }
 }
 
 .profile_upload {
   @include button-upload;
+  width: 100%;
+  margin: 0;
 }
+
+.profile_info {
+  margin: 0;
+}
+
+// tabs module
+.tab {
+  margin-top: 1em;
+}
+
+.tab_tabs {
+  background-color: $info-color;
+  font-family: $primary-font;
+  .tab_tabs_btn {
+    margin: 0;
+    border: 1px $secondary-color solid;
+    font-size: .9em;
+  }
+  .active {
+    background-color: $secondary-color;
+    color: white;
+  }
+}
+
+.tab_list {
+  font-family: $primary-font;
+  color: white;
+  background-color: $secondary-color;
+  .tab_list_game {
+    border-bottom: 1px solid $info-color;
+    padding: .3em .6em;
+    color: $info-color;
+  }
+  .tab_list_info {
+    color: white;
+  }
+  .tab_list_info>p {
+    font-size: .8em;
+    color: $primary-color;
+  }
+  .tab_list_btn {
+    padding-left: 1.7em;
+  }
+  .tab_list_btn>button {
+    background-color: $secondary-color;
+    color: $accent-color;
+    font-size: 1.2em;
+    text-align: center;
+  }
+}
+
+
+// profile module
+.profile {
+  margin-bottom: .5em;
+  .profile_img {
+  padding: .5em;
+  }
+  .profile_info {
+  padding: .5em;
+  }
+  .profile_info>h1 {
+    font-family: $primary-font;
+    font-size: 1.3em;
+    color: $secondary-color;
+    margin-bottom: 1em;
+  }
+  .profile_info>p {
+    font-size: 1em;
+  }
+}
+
+
+
 

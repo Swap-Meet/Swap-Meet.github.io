@@ -13,8 +13,9 @@
     <h2>{{game.platform}}</h2>
   </a>
   <!-- <input class="game-summary_check col span_1_of_6" type="checkbox" ng-model="checkbox"> -->
-  <button class="icon-star2 game-summary_select col span_1_of_6" ng-hide="isToggled" ng-click="addGameToOfferList(game._id)"></button>
-  <button class="icon-arrow-left game-summary_select col span_1_of_6" ng-show="isToggled" ng-click="removeGameFromOfferList(game._id)"></button>
+  <button class="icon-checkbox-unchecked game-summary_check col span_1_of_6" ng-hide="isToggled" ng-click="addGameToOfferList(game._id)"></button>
+  <button class="icon-checkbox-checked game-summary_check col span_1_of_6" ng-show="isToggled" ng-click="removeGameFromOfferList(game._id)"></button>
+
 </section>
 
 <!-- Send request and cancel request buttons -->
