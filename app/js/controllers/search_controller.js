@@ -39,7 +39,7 @@ module.exports = function(app) {
             });
           } else { // if the search bar is NOT empty create a query string & call search route
             querySuffix = $scope.search.title;
-            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%20');
 
             $http({
               method: 'GET',

@@ -10,6 +10,13 @@ module.exports = function(app) {
       console.log('Profile Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
+      $scope.signOut = function() {
+        delete $cookies.jwt;
+        $http.defaults.headers.common['jwt'] = null;
+        console.log('signing out');
+        $location.path('#/');
+      };
+
       $http({
         method: 'GET',
         url: '/api/user/myprofile'

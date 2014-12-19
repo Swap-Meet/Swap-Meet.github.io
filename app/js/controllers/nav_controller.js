@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies',
-    function($scope, $location, $cookies) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http',
+    function($scope, $location, $cookies, $http) {
 
       // if ($cookies.jwt) {
       //   console.log('Nav Controller Sees the Cookie!');
@@ -21,8 +21,9 @@ module.exports = function(app) {
       // };
       $scope.signOut = function() {
         delete $cookies.jwt;
+        $http.defaults.headers.common['jwt'] = null;
         console.log('signing out');
-        $location.path('/');
+        $location.path('#/');
       };
     }]);
 };
