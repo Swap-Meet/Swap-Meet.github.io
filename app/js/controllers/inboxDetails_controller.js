@@ -11,6 +11,26 @@ module.exports = function(app) {
       console.log('Inbox Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
+      $http({
+        method: 'GET',
+        url: '/api/games/incomingrequests'
+      })
+      .success(function(data) {
+        $scope.trade = [];
+        console.log(data.items[0]);
+        $scope.trade[0] = data.items[0].gameInfo;
+        for (var i = 1; i < data.items[0].potentialTrades.length + 1; i++) {
+          $scope.trade[i] = data.items[0].potentialTrades[i - 1];
+          console.log(data.items[0].potentialTrades);
+        }
+        //$scope.screenname = data.profile.screenname;
+        //$scope.email = data.profile.email;
+        //$scope.zip = data.profile.zip;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
       //I think that this will be an array holding 2 games:
       //The first game is this user A's game.
       //The second game is user B's game.

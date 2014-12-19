@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
 var Trade = require('../models/trade.js');
@@ -22,8 +24,9 @@ var users = [];
 var jwtA;
 var jwtB;
 var jwtC;
+var gameIds = [];
 
-games[0] = {_id: 6, title:'The Curse of Monkey Island', platform:'PC',
+games[0] = {title:'The Curse of Monkey Island', platform:'PC',
 image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg'],
 condition: 'good', short_description: 'insult sword fighting FTW!'};
 games[1] = {title:'God of War', platform:'PS3',
@@ -142,6 +145,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[0])
     .end(function(err, res) {
+      gameIds[0] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -153,6 +157,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[1])
     .end(function(err, res) {
+      gameIds[1] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -163,6 +168,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtA)
     .send(games[2])
     .end(function(err, res) {
+      gameIds[2] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -173,6 +179,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[3])
     .end(function(err, res) {
+      gameIds[3] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -183,6 +190,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[4])
     .end(function(err, res) {
+      gameIds[4] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -193,6 +201,7 @@ describe('should populate the database', function() {
     .set('jwt', jwtB)
     .send(games[5])
     .end(function(err, res) {
+      gameIds[5] = res.body.items._id;
       console.log(res.body);
       done();
     });
@@ -203,10 +212,71 @@ describe('should populate the database', function() {
     .set('jwt', jwtC)
     .send(games[6])
     .end(function(err, res) {
+      gameIds[6] = res.body.items._id;
       console.log(res.body);
       done();
     });
   });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtC)
+    .send(games[6])
+    .end(function(err, res) {
+      gameIds[6] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add a favorite', function(done) {
+    chai.request(url)
+    .post('api/games/favorites')
+    .set('jwt', jwtA)
+    .send({_id: gameIds[6]})
+    .end(function(err, res) {
+      //gameIds[6] = res.body._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add a favorite', function(done) {
+    chai.request(url)
+    .post('api/game/favorites')
+    .set('jwt', jwtA)
+    .send({_id: gameIds[4]})
+    .end(function(err, res) {
+      //gameIds[6] = res.body._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add an outgoing request', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtA)
+    .send({id: gameIds[4], gameIdArray:[gameIds[0], gameIds[1]]})
+    .end(function(err, res) {
+      //gameIds[6] = res.body._id;
+      console.log(res.body);
+      done();
+    });
+  });
+
+  it('should add an outgoing request', function(done) {
+    chai.request(url)
+    .post('api/games/outgoingrequests')
+    .set('jwt', jwtC)
+    .send({id: gameIds[0], gameIdArray:[gameIds[5], gameIds[6]]})
+    .end(function(err, res) {
+      //gameIds[6] = res.body._id;
+      console.log(res.body);
+        console.log('the ids are', gameIds);
+      done();
+    });
+  });
+
+
+
 });
 
 // _.forEach(games, function(item) {
