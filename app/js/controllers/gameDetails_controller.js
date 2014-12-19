@@ -4,7 +4,7 @@
 module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
     function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
-
+//
       if (!$cookies.jwt) {
         $location.path('#/login');
       }
@@ -54,12 +54,11 @@ module.exports = function(app) {
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
-
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
             method: 'DELETE',
             url: '/api/games/favorites',
-            data: { _id: gameID }
+            data: { id: gameID }
           })
           .success(function(data) {
             if ($scope.isToggled === false) {
@@ -69,7 +68,7 @@ module.exports = function(app) {
               $scope.isToggled = false;
             }
             //update the 'already favorited portion of the game service cache
-            console.log('success! added to favorites: ' + data.items);
+            console.log('success! removed from favorites: ' + data.items);
 
             //return $scope.isToggled;
 

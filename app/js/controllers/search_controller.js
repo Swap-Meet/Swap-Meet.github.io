@@ -105,7 +105,7 @@ module.exports = function(app) {
               $scope.isToggled = false;
             }
             //update the 'already favorited portion of the game service cache
-            console.log('success! added to favorites: ' + data.items);
+            console.log('success! removed from favorites: ' + data.items);
 
             //return $scope.isToggled;
 
