@@ -1,20 +1,17 @@
-
-<section class="section group">
-  <!-- information bar -->
+<!-- information bar -->
   <h2 class="inform col span_4_of_4">Game Details</h2>
 
+<section class="create section group">
   <!--  send req button -->
-  <a href="#/offergames" class="btn-positive col span_3_of_4" type="button" ng-click="createRequest(games[whichGame]._id)" value="Send Request"/>SEND REQUEST</a>
+  <a href="#/offergames" class="create_btn col span_3_of_4" type="button" ng-click="createRequest(games[whichGame]._id)" value="Send Request"/>CREATE REQUEST</a>
+
    <!-- favorite button -->
-  <button class="btn-fav col span_1_of_4"><span class="icon-star"></span></button>
-  <!-- <button class="btn-fav col span_1_of_4"><span class="icon-star star" ng-hide="isToggled" ng-click="addFavorite(games[whichGame]._id)"></span></button> -->
-  <!-- <button class="btn-fav col span_1_of_4"><span class="icon-star star-active" ng-show="isToggled" ng-click="removeFavorite(games[whichGame]._id)"></span></button> -->
+  <button class="create_fav col span_1_of_4"><span class="icon-star2" ng-click="addFavorite()"></span></button>
 </section>
 
-
-<article class="game-details_main" data-ng-model="games">
+<article data-ng-model="games">
   <!-- title bar -->
-  <h1 class="game-title_main">{{games[whichGame].title}}</h1>
+  <h1 class="game-title_main">HERE{{games[whichGame].title}}</h1>
 
   <!-- game image -->
   <img class="game-image" src='{{ games[whichGame].image_urls[0] }}' ></img>
