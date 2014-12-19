@@ -60,6 +60,7 @@ module.exports = function(app) {
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
           $location.path('#/');
         } else {
+
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
             method: 'POST',
@@ -67,8 +68,47 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
+            if ($scope.isToggled === false) {
+              $scope.isToggled = true;
+            }
+            else {
+              $scope.isToggled = false;
+            }
             //update the 'already favorited portion of the game service cache
             console.log('success! added to favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
+
+      $scope.removeFavorite = function(gameID) {
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('#/');
+        } else {
+
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'DELETE',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            if ($scope.isToggled === false) {
+              $scope.isToggled = true;
+            }
+            else {
+              $scope.isToggled = false;
+            }
+            //update the 'already favorited portion of the game service cache
+            console.log('success! added to favorites: ' + data.items);
+
+            //return $scope.isToggled;
+
           })
           .error(function(data) {
             console.log(data);

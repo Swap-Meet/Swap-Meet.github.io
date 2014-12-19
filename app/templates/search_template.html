@@ -24,7 +24,8 @@
       <h1>{{game.title}}</h1>
       <h2>{{game.platform}}</h2>
     </a>
-    <button class="icon-star2 game-summary_select col span_1_of_6" ng-click="addFavorite(game._id)"></button>
+    <button class="icon-star2 game-summary_select col span_1_of_6" ng-hide="isToggled" ng-click="addFavorite(game._id)"></button>
+    <button class="icon-arrow-left game-summary_select col span_1_of_6" ng-show="isToggled" ng-click="removeFavorite(game._id)"></button>
   </section>
 
 <!-- END search populate list -->

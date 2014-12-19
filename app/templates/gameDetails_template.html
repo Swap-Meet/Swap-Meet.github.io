@@ -4,10 +4,12 @@
   <h2 class="inform col span_4_of_4">Game Details</h2>
 
   <!--  send req button -->
-  <a href="#/gamedetails" class="btn-positive col span_3_of_4" type="button" ng-click="sendRequest()" value="Send Request"/>SEND REQUEST</a>
+  <a href="#/gamedetails" class="btn-positive col span_3_of_4" type="button" ng-click="createRequest(games[whichGame]._id)" value="Send Request"/>SEND REQUEST</a>
 
    <!-- favorite button -->
-  <button class="btn-fav col span_1_of_4"><span class="icon-star" ng-click="addFavorite()"></span></button>
+  <!-- <button class="btn-fav col span_1_of_4"><span class="icon-star" ng-click="addFavorite()"></span></button> -->
+  <button class="btn-fav col span_1_of_4"><span class="icon-star" ng-hide="isToggled" ng-click="addFavorite(game._id)"></span></button>
+  <button class="btn-fav col span_1_of_4"><span class="icon-star" ng-show="isToggled" ng-click="removeFavorite(game._id)"></span></button>
 </section>
 
 
