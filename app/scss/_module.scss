@@ -391,21 +391,29 @@
   }
 }
 
-.game-swap_title {
+.swap-info {
+  text-align: center;
+  margin-top: 1em;
+  h1 {
+    @include secondary-font;
+    font-size: 1.5em;
+    color: $secondary-color;
+ }
+  h2 {
     font-family: $primary-font;
     color: $primary-color;
+  }
 }
 
 .icon-arrow-right {
   font-size: 4em;
-  margin-top: .25em;
-   color: $secondary-color;
+  color: $secondary-color;
 
 }
 
 .icon-arrow-left {
   font-size: 4em;
-  margin-top: .25em;
+  margin-top: .15em;
   color: $secondary-color;
 }
 
