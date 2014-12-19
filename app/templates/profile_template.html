@@ -8,14 +8,14 @@
   <section class="profile section group">
     <section class="profile_img col span_3_of_6">
       <img src='{{ avatar_url }}'>
-      <button class="profile_upload">Add/Edit</button>
+     <!--  <button class="profile_upload">Add/Edit</button> -->
     </section>
     <section class="profile_info col span_3_of_6">
       <h1>{{screenname}}</h1>
       <span>E-mail</span>
       <p>{{email}}</p>
       <span>Zip</span>
-      <p>{{zip}}</p>
+      <p data-ng-click="signOut()">{{zip}}</p>
     </section>
   </section>
 
@@ -46,23 +46,64 @@
   <section class="tab_list" ng-show="panel.isSelected(1)">
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}}</h1>
-        <p>{{ }}</p>
+        <h1>{{game.title}} Super Mario Bros</h1>
+        <p>{{ }} reddragon54</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}}</h1>
-        <p>{{ }}</p>
+        <h1>{{game.title}} Crash Bandicoot</h1>
+        <p>{{ }} raymond28</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
+
+    <section class="tab_list_game section group">
+      <a href="" class="tab_list_info col span_5_of_6">
+        <h1>{{game.title}} Warhammer</h1>
+        <p>{{ }} gnarlyWaves</p>
+      </a>
+      <div class="tab_list_btn col span_1_of_6">
+        <button class="icon-close"></button>
+      </div>
+    </section>
+
+    <section class="tab_list_game section group">
+      <a href="" class="tab_list_info col span_5_of_6">
+        <h1>{{game.title}} Halo 3</h1>
+        <p>{{ }} jalisco23</p>
+      </a>
+      <div class="tab_list_btn col span_1_of_6">
+        <button class="icon-close"></button>
+      </div>
+    </section>
+
+    <section class="tab_list_game section group">
+      <a href="" class="tab_list_info col span_5_of_6">
+        <h1>{{game.title}} Titan Fall</h1>
+        <p>{{ }} theDoodAbides</p>
+      </a>
+      <div class="tab_list_btn col span_1_of_6">
+        <button class="icon-close"></button>
+      </div>
+    </section>
+
+  <section class="tab_list_game section group">
+    <a href="#/choosegame" class="tab_list_info col span_5_of_6">
+      <h1>{{game.title}} Settlers of Catan: Knights and Cities</h1>
+      <p>{{ }} IHeartGames</p>
+    </a>
+    <div class="tab_list_btn col span_1_of_6">
+      <button class="icon-close"></button>
+    </div>
+  </section>
+
   </section>
 
   <!-- outbox -->
@@ -73,28 +114,28 @@
         <p>somberdinosaur {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>Teenage Mutant Ninja Turtles {{game.title}}</h1>
+        <p>bballplyr4 {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>Shoots and Ladders {{game.title}}</h1>
+        <p>maria552 {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
   </section>
@@ -102,42 +143,32 @@
   <!-- my games -->
   <section class="tab_list" ng-show="panel.isSelected(3)">
     <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+      <a href="#/mygamedetails" class="tab_list_info col span_5_of_6">
+        <h1>The Curse of Monkey Island {{game.title}}</h1>
+        <p>IHeartGames{{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>God of War {{game.title}}</h1>
+        <p>IHeartGames {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>FIFA 15{{game.title}}</h1>
+        <p>IHeartGames {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
   </section>
@@ -146,31 +177,31 @@
   <section class="tab_list" ng-show="panel.isSelected(4)">
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>Crash Bandicoot {{game.title}}</h1>
+        <p>Crash4000 {{ }}</p>
+      </a>
+      <section class="tab_list_btn col span_1_of_6">
+        <button class="icon-close"></button>
+      </section>
+    </section>
+
+    <section class="tab_list_game section group">
+      <a href="" class="tab_list_info col span_5_of_6">
+        <h1>Luigi {{game.title}}</h1>
+        <p>KevinPP3{{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
 
     <section class="tab_list_game section group">
       <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
+        <h1>Crunk Spelunker {{game.title}}</h1>
+        <p>LL423 {{ }}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-trash"></button>
+        <button class="icon-close"></button>
       </div>
     </section>
   </section>

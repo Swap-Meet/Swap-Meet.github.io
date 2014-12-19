@@ -1,6 +1,7 @@
 <!-- initial search populate list -->
 <div data-ng-init="filterSearch()">
 
+
   <!-- sets position of view -->
   <div class="position-view_search"></div>
 
@@ -16,17 +17,24 @@
   </section>
 
   <!-- browse games list -->
-  <section class="game-summary section group" ng-repeat="game in games | limitTo:10">
+  <section class="game-summary section group" ng-repeat="game in games">
     <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_img col span_2_of_6">
       <img  src='{{ game.image_urls[0] }}'></img>
     </a>
     <a href="#/gamedetails/{{games.indexOf(game)}}" class="game-summary_info col span_3_of_6">
       <h1>{{game.title}}</h1>
       <h2>{{game.platform}}</h2>
-      <!-- <p>User Name {{ games[whichGame].owner_screenname }}</p> -->
+      <!-- <h3>index = {{$index}}</h3> -->
     </a>
-    <button class="icon-star2 game-summary_fav col span_1_of_6" ng-model='game.id' ng-click="addFavorite()"></button>
+    <!-- <button class="icon-star2 star game-summary_fav col span_1_of_6" ng-hide="$index" ng-click="addFavorite(game._id)"></button> -->
+    <!-- <button class="icon-star2 star-active game-summary_fav col span_1_of_6" ng-show="$index" ng-click="removeFavorite(game._id)"></button> -->
+    <div ng-class="{'icon-star2 star game-summary_fav col span_1_of_6': !isActive, 'icon-star2 star-active game-summary_fav col span_1_of_6': isActive}" ng-init="isActive = false" ng-click="isActive = !isActive"></div>
+    <!-- <input type="checkbox"> -->
+
   </section>
 
 <!-- END search populate list -->
 </div>
+
+<!-- <button ng-click="playTrack(s)" ng-show="s.visible != false">Play</button>
+<button ng-click="pauseTrack(s)" ng-show="s.visible == false">Pause</button> -->

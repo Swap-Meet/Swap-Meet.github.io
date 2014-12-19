@@ -1,30 +1,29 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http', 'AuthService',
-    function($scope, $location, $cookies, $http, AuthService) {
+  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http',
+    function($scope, $location, $cookies, $http) {
 
-      if ($cookies.jwt) {
-        console.log('Nav Controller Sees the Cookie!');
-        $location.path('/');
-      }
+      // if ($cookies.jwt) {
+      //   console.log('Nav Controller Sees the Cookie!');
+      //   $location.path('/');
+      // }
       //$scope.identity = AuthService;
 
-      $scope.signIn = function() {
-        if ($cookies.jwt) {
-          console.log('You already have a cookie');
-          $location.path('/');
-        } else {
-          console.log('signing in');
-          $location.path('#/login');
-        }
-      };
+      // $scope.signIn = function() {
+      //   if ($cookies.jwt) {
+      //     console.log('You already have a cookie');
+      //     $location.path('/');
+      //   } else {
+      //     console.log('signing in');
+      //     $location.path('#/login');
+      //   }
+      // };
       $scope.signOut = function() {
         delete $cookies.jwt;
-        // $http.defaults.headers.common['jwt'] = null;
-        AuthService.currentUser = undefined;
+        $http.defaults.headers.common['jwt'] = null;
         console.log('signing out');
-        $location.path('/');
+        $location.path('#/');
       };
     }]);
 };
