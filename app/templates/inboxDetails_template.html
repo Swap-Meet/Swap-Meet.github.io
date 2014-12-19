@@ -13,19 +13,21 @@
   <!-- USER B SECTION-->
 <!--   <h1 class="game-title_trade">Trade For This Game</h1> -->
   <!-- USER B - TRADING FOR GAME: Image -->
-<section class="swap-info section group">
-  <section class="swap-info col span_2_of_4">
- <h1>{{ trade[0].title }}</h1>
-    <!-- USER A - MY GAME: platform-->
- <h2 class="swap-info_title">{{ trade[0].platform }}</h2>
-  </section>
-    <section class="swap-info col span_2_of_4">
-<h1>{{ trade[1].title }}</h1>
-  <!-- USER B - TRADING FOR GAME: platform -->
-    <h2 class="swap-info_title">{{ trade[1].platform }}</h2>
-  </section>
-</section>
 
+  <section class="swap-info">
+    <h1> Trading </h1>
+   <section class="swap-info_details">
+ <h2>{{ trade[0].title }}Pac Man</h2>
+    <!-- USER A - MY GAME: platform-->
+ <h3 class="swap-info_title">{{ trade[0].platform }} NES</h3>
+</section>
+  <h1> For</h1>
+<section class="swap-info_details">
+  <h2>{{ trade[1].title }} Ms.Pac Man</h2>
+  <!-- USER B - TRADING FOR GAME: platform -->
+    <h3 class="swap-info_title">{{ trade[1].platform }} NES</h3>
+</section>
+</section>
 
  <section class="game-swap section group">
   <section class="game-swap_img col span_2_of_6">
@@ -42,6 +44,14 @@
   <!-- USER B - TRADING FOR GAME: Title -->
   </section>
 </section>
+
+<section class="game-description">
+  <h1> Description </h1>
+  <p>Eat all the dots, run from the ghosts, for now...
+  </p>
+</section>
+
+<h1 class="swap-question"> swap? </h1>
 
  <!-- Send request and cancel request buttons -->
 <section class="btn-pair section group">
