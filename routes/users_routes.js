@@ -118,7 +118,7 @@ module.exports = function(app, auth) {
 
       //updating zip code needs to change lat/long
       user.zip = req.body.zip || user.zip || '';
-      console.log(user);
+      //console.log(user);
       passback.email = req.body.email || user.email;
       passback.screename = req.body.screenname || user.screenname || '';
       passback.zip = req.body.zip || user.zip || '';

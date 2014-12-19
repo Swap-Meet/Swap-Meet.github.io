@@ -45,7 +45,7 @@ module.exports = function(app, auth) {
         _.forEach(users, function(user) {
           //console.log('fav', user.favorites);
           user.favorites = helpers.filterOutGame(user.favorites, gameId);
-          //console.log('fav', user.favorites);
+
           user.save(function() {
             counter++;
             //console.log('does it output', counter, users);
