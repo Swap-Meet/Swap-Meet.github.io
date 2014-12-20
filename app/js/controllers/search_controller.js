@@ -3,26 +3,43 @@
 module.exports = function(app) {
   app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
       function($scope, $http, $cookies, $location, $routeParams, Games) {
-      //$scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
 
+      var querySuffix = '';
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
-          /// the old browse route until linda get's a chance to update browse
-          $http({
-            method: 'GET',
-            url: '/api/browse'
-          })
-          .success(function(data) {
-            console.log('set the list in Games service');
-            Games.setList(data.items); //set the shared data
-            $scope.games = data.items;
-          })
-          .error(function(data) {
-            console.log(data);
-          });
+          if ($scope.search === undefined) { //if search bar is empty, query all
+            $http({
+              method: 'GET',
+              url: '/api/browse'
+            })
+            .success(function(data) {
+              console.log('set the list in Games service');
+              Games.setList(data.items); //set the shared data on the Games service
+              $scope.games = data.items;
+            })
+            .error(function(data) {
+              console.log(data);
+            });
+          } else { // if the search bar is NOT empty, create a query string & call search route
+            querySuffix = $scope.search.title;
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+
+            $http({
+              method: 'GET',
+              url: '/api/browse/' + querySuffix
+            })
+            .success(function(data) {
+              console.log('set the list in Games service');
+              Games.setList(data.items); //set the shared data on the Games service
+              $scope.games = data.items;
+            })
+            .error(function(data) {
+              console.log(data);
+            });
+          }
         } else { //but if a cookie exists, then set the headers & use search route
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-          var querySuffix = '';
+          querySuffix = '';
           if ($scope.search === undefined) { //if search bar is empty, query all
             $http({
               method: 'GET',
@@ -31,7 +48,6 @@ module.exports = function(app) {
             .success(function(data) {
               console.log('set the list in Games service');
               Games.setList(data.items); //set the shared data on the Games service
-              //console.dir(Games.getList());
               $scope.games = data.items;
             })
             .error(function(data) {
@@ -39,7 +55,7 @@ module.exports = function(app) {
             });
           } else { // if the search bar is NOT empty create a query string & call search route
             querySuffix = $scope.search.title;
-            querySuffix = '?q=' + querySuffix.replace(/ /g, '%20');
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
 
             $http({
               method: 'GET',
@@ -58,15 +74,15 @@ module.exports = function(app) {
       };
 
       $scope.addFavorite = function(gameID) {
-        if ($scope.$index === false) {
-          $scope.$index = true;
-        }
-        else {
-          $scope.$index = false;
-        }
+        // if ($scope.$index === false) {
+        //   $scope.$index = true;
+        // }
+        // else {
+        //   $scope.$index = false;
+        // }
 
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('#/');
+          $location.path('/');
         } else {
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
@@ -76,17 +92,7 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
-            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
-            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
-            // } else {
-            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
-            // }
-
-            //update the 'already favorited portion of the game service cache
-            console.log('success! added to favorites: ' + data.items);
-
-            //return $scope.isToggled;
-
+            console.log('Added to favorites: ' + data.items);
           })
           .error(function(data) {
             console.log(data);
@@ -95,16 +101,16 @@ module.exports = function(app) {
       };
 
       $scope.removeFavorite = function(gameID) {
-        //show hide logic
-        if ($scope.$index === false) {
-          $scope.$index = true;
-        }
-        else {
-          $scope.$index = false;
-        }
+        // //show hide logic
+        // if ($scope.$index === false) {
+        //   $scope.$index = true;
+        // }
+        // else {
+        //   $scope.$index = false;
+        // }
         //
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('#/');
+          $location.path('/');
         } else {
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
@@ -114,16 +120,7 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
-            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
-            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
-            // } else {
-            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
-            // }
-
-            //update the 'already favorited portion of the game service cache
-            console.log('success! removed from favorites: ' + data.items);
-
-            //return $scope.isToggled;
+            console.log('Removed from favorites: ' + data.items);
 
           })
           .error(function(data) {
@@ -133,80 +130,3 @@ module.exports = function(app) {
       };
     }]);
 };
-
-// 'use strict';
-
-// module.exports = function(app) {
-//   app.controller('searchCtrl', ['$scope', '$http', '$cookies', 'Games',
-//       function($scope, $http, $cookies, Games) {
-
-//       var querySuffix = '';
-//       $scope.filterSearch = function() {
-//         if (!$cookies.jwt) { //if there is no cookie, then call browse route
-//           if ($scope.search === undefined) { //if search bar is empty, query all
-//             $http({
-//               method: 'GET',
-//               url: '/api/browse'
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           } else { // if the search bar is NOT empty, create a query string & call search route
-//             querySuffix = $scope.search.title;
-//             querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
-
-//             $http({
-//               method: 'GET',
-//               url: '/api/browse/' + querySuffix
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           }
-//         } else { //but if a cookie exists, then set the headers & use search route
-//           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-//           querySuffix = '';
-//           if ($scope.search === undefined) { //if search bar is empty, query all
-//             $http({
-//               method: 'GET',
-//               url: '/api/search'
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           } else { // if the search bar is NOT empty create a query string & call search route
-//             querySuffix = $scope.search.title;
-//             querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
-
-//             $http({
-//               method: 'GET',
-//               url: '/api/search/' + querySuffix
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           }
-//         }
-//       };
-//     }]);
-// };

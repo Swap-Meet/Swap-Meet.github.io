@@ -5,19 +5,20 @@ module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
     function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
 
-      if (!$cookies.jwt) {
-        $location.path('#/login');
-      }
-      console.log('Game Details Controller Sees the Cookie');
-      $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
       $scope.games = Games.getList();
       $scope.whichGame = $routeParams.gameID;
 
       $scope.createRequest = function(gameID) {
-        Offers.setWantGame(gameID);
-        //$location.path('#/offergames');
-        console.log('Setting game id in Offers');
+        if (!$cookies.jwt) {
+          $location.path('/login');
+
+        } else {
+          console.log('Game Details Controller Sees the Cookie');
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          Offers.setWantGame(gameID);
+          $location.path('/offergames');
+          console.log('Setting game id in Offers');
+        }
       };
 
       // $scope.addFavorite = function(gameID) {

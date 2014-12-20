@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 
     jshint: {
       src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      'test/back-end/*.js', 'test/front-end/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         node: true,
         jshintrc: '.jshintrc'
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
     jscs: {
       src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      'test/back-end/*.js', 'test/front-end/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         config: '.jscsrc'
       }
