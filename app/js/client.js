@@ -24,10 +24,8 @@ require('angular-base64');
 var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute', 'ngCookies', 'base64']);
 
 // load services
-require('./services/resource_backend_service')(swapApp);
 require('./services/game_service')(swapApp);
 require('./services/offer_service')(swapApp);
-require('./services/auth_service')(swapApp);
 
 // load controllers
 require('./controllers/search_controller')(swapApp);

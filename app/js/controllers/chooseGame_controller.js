@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.controller('chooseGameCtrl', ['$scope', 'AuthService', '$http', '$cookies', '$location',
-    function($scope, AuthService, $http, $cookies, $location) {
+    function($scope, $http, $cookies, $location) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
