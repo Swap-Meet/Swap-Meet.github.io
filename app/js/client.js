@@ -1,4 +1,19 @@
 'use strict';
+/* Special thanks to all these individual people who helped us with this project:
+Ivan Storck, Tyler Morgan , Brook Riggio, Charles Renwick, Jacob Schafer, Stephanie Lingwood
+
+Citation of references that were used to help put this application together:
+1. ng-book by Ari Lerner
+  https://www.ng-book.com/
+2. All You Need to Know About AngularJS by Johnny Tran
+  https://www.youtube.com/playlist?list=PLzJZ3ahfm9Q8pwP88ZRSdjwlwn6lrHzrT
+3. Pluralsight: Building AngularJS and Node.js Apps with the MEAN Stack by Joe Eames
+  http://www.pluralsight.com/courses/building-angularjs-nodejs-apps-mean
+4. Scotch IO - How To Use ngShow and ngHide by Chris Sevilleja
+  http://scotch.io/tutorials/javascript/how-to-use-ngshow-and-nghide
+5. Ideyatech: Introduction to Angular Framework by Chastine Bayubay
+  http://www.ideyatech.com/2013/11/angularjs-intro/
+*/
 
 require('angular/angular');
 require('angular-route');
@@ -6,7 +21,6 @@ require('angular-resource');
 require('angular-cookies');
 require('angular-base64');
 
-//var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
 var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute', 'ngCookies', 'base64']);
 
 // load services
@@ -27,12 +41,10 @@ require('./controllers/outboxDetails_controller')(swapApp);
 require('./controllers/login_controller')(swapApp);
 require('./controllers/chooseGame_controller')(swapApp);
 require('./controllers/offerGames_controller')(swapApp);
-require('./controllers/nav_controller')(swapApp);
 require('./controllers/profileTabs_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', function($routeProvider) {
-//swapApp.config(['$routeProvider', 'AuthService', function($routeProvider, AuthService) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',
@@ -69,7 +81,6 @@ swapApp.config(['$routeProvider', function($routeProvider) {
     .when('/profile', {
       templateUrl: 'templates/profile_template.html',
       controller: 'profileCtrl'
-      //resolve: AuthService.isAuthenticated()
     })
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',
