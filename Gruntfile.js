@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     project: {
       app: ['app'],
       scss: ['<%= project.app %>/scss/**/*.scss'],
-      alljs: ['<%= project.app %>/js/**/*.js']
+      alljs: ['<%= project.app %>/js/**/*.js'],
+      templates: ['<%= project.app %>/templates/**/*.html']
     },
 
     jshint: {

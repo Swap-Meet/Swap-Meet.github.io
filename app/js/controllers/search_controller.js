@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
-      function($scope, $http, $cookies, $location, $routeParams, Games) {
+  app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', '$route', 'Games',
+      function($scope, $http, $cookies, $location, $routeParams, $route, Games) {
 
       var querySuffix = '';
       $scope.filterSearch = function() {
@@ -73,17 +73,13 @@ module.exports = function(app) {
         }
       };
 
-      $scope.addFavorite = function(gameID) {
-        // if ($scope.$index === false) {
-        //   $scope.$index = true;
-        // }
-        // else {
-        //   $scope.$index = false;
-        // }
-
+      $scope.addFavorite = function(gameID, gameIndex) {
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('/');
+          $location.path('/login');
         } else {
+          var gameList = Games.getList();
+          gameList[gameIndex].already_wanted = true;
+          Games.setList(gameList);
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
@@ -100,22 +96,18 @@ module.exports = function(app) {
         }
       };
 
-      $scope.removeFavorite = function(gameID) {
-        // //show hide logic
-        // if ($scope.$index === false) {
-        //   $scope.$index = true;
-        // }
-        // else {
-        //   $scope.$index = false;
-        // }
-        //
-        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('/');
+      $scope.removeFavorite = function(gameID, gameIndex) {
+
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow removFav
+          $location.path('/login');
         } else {
+          var gameList = Games.getList();
+          gameList[gameIndex].already_wanted = false;
+          Games.setList(gameList);
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
-            method: 'DELETE',
+            method: 'PUT',
             url: '/api/games/favorites',
             data: { _id: gameID }
           })

@@ -24,12 +24,12 @@ module.exports = function(app, auth) {
   });
 
   //delete a game from favorites
-  app.delete('/api/games/favorites', auth, function(req, res) {
+  app.put('/api/games/favorites', auth, function(req, res) {
     var gameIndex;
 
     //find user making the request
     User.findById(req.user._id, function(err, user) {
-      gameIndex = user.favorites.indexOf(req.body.id);
+      gameIndex = user.favorites.indexOf(req.body._id);
 
       //game exists and can be deleted
       if (gameIndex !== -1) {

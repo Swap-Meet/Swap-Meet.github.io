@@ -56,7 +56,7 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/filter_template.html',
       controller: 'searchCtrl'
     })
-    .when('/gamedetails/:gameID', {
+    .when('/gamedetails/:indexID', {
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
     })
@@ -68,11 +68,11 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/chooseGame_template.html',
       controller: 'chooseGameCtrl'
     })
-    .when('/mygamedetails', {
+    .when('/mygamedetails/:indexID', {
       templateUrl: 'templates/myGameDetails_template.html',
       controller: 'myGameDetailsCtrl'
     })
-    .when('/myfavdetails', {
+    .when('/myfavdetails/:indexID', {
       templateUrl: 'templates/myFavDetails_template.html',
       controller: 'myFavDetailsCtrl'
     })
@@ -84,11 +84,11 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/addGame_template.html',
       controller: 'addGameCtrl'
     })
-    .when('/inboxrequestdetails', {
+    .when('/inboxrequestdetails/:indexID', {
       templateUrl: 'templates/inboxDetails_template.html',
       controller: 'inboxDetailsCtrl'
     })
-    .when('/outboxrequestdetails', {
+    .when('/outboxrequestdetails/:indexID', {
       templateUrl: 'templates/outboxDetails_template.html',
       controller: 'outboxDetailsCtrl'
     })

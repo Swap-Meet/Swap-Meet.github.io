@@ -21,16 +21,60 @@ module.exports = function(app) {
         method: 'GET',
         url: '/api/user/myprofile'
       })
-      .success(function(data) {
-        if (!data.profile.avatar_url) {
+      .success(function(user) {
+        if (!user.profile.avatar_url) {
           $scope.avatar_url = 'http://res.cloudinary.com/swapmeet/image/upload/v1418819684/avatar_olifrr.png';
         } else {
-          $scope.avatar_url = data.profile.avatar_url;
+          $scope.avatar_url = user.profile.avatar_url;
         }
 
-        $scope.screenname = data.profile.screenname;
-        $scope.email = data.profile.email;
-        $scope.zip = data.profile.zip;
+        $scope.screenname = user.profile.screenname;
+        $scope.email = user.profile.email;
+        $scope.zip = user.profile.zip;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/incomingrequests'
+      })
+      .success(function(incoming) {
+        $scope.inbox = incoming.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/outgoingrequests'
+      })
+      .success(function(outgoing) {
+        $scope.outbox = outgoing.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/inventory'
+      })
+      .success(function(mygames) {
+        $scope.inventory = mygames.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/favorites'
+      })
+      .success(function(favs) {
+        $scope.favorites = favs.items;
       })
       .error(function(data) {
         console.log(data);
