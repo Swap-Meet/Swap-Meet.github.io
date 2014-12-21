@@ -13,7 +13,6 @@ module.exports = function(app) {
           $location.path('/login');
 
         } else {
-          console.log('Game Details Controller Sees the Cookie');
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           Offers.setWantGame(gameID);
           $location.path('/offergames');

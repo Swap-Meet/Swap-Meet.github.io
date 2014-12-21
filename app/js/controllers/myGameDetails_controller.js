@@ -8,17 +8,22 @@ module.exports = function(app) {
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('My Game Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
     //this is fake data
 
       $scope.game = {
-        title: 'The Curse of Monkey Island',
-        owner_screenname: 'IHeartGames', //id number
-        short_description: 'insult sword fighting FTW!',
-        platform: 'PC',
-        image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']
+        title: 'Pac Man',
+        score: 'String',
+        publisher: 'String',
+        zip: '98087',
+        latitude: 'String',
+        longitude: 'String',
+        owner: 'String_id_number', //id number
+        short_description: 'Eat all the dots, run from the ghosts, for now...',
+        platform: 'NES',
+        image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
+        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
       };
 
       $scope.removeGame = function() {
