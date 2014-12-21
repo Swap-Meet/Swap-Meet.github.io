@@ -83,5 +83,31 @@ module.exports = function(app) {
         console.log(data);
       });
 
+      // $scope.removeFavorite = function(gameID, gameIndex) {
+      //   favs[whichFav]._id, $index
+      //   var gameList = Games.getList();
+      //   gameList[gameIndex].already_wanted = false;
+      //   Games.setList(gameList);
+
+      //   var favList = Games.getFavList();
+      //   favList.splice(gameIndex, 1);
+      //   Games.setFavList(favList);
+
+      //   $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //   $http({
+      //     method: 'PUT',
+      //     url: '/api/games/favorites',
+      //     data: { _id: gameID }
+      //   })
+      //   .success(function(data) {
+      //     console.log('Removed from favorites: ' + data.items);
+      //     $route.reload();
+
+      //   })
+      //   .error(function(data) {
+      //     console.log(data);
+      //   });
+      // };
+
     }]);
 };
