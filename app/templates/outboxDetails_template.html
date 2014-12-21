@@ -3,15 +3,15 @@
 <section class="top-game">
   <h4>Game Requested</h4>
   <!--  game requested: title -->
-  <h2>{{ game.title }}</h1>
+  <h2>{{ outs[whichOut].gameInfo.title }}</h1>
 </section>
   <!--  game requested: img-->
-  <img class="game-image" src= '{{ game.image_urls[0] }}'></img>
+  <img class="game-image" src= '{{ outs[whichOut].gameInfo.image_urls[0] }}'></img>
 
   <!--  game requested: platform -->
 <section class="game-info_main">
-  <h2>{{game.platform}}</h2>
-  <p>{{game.short_description}}</p>
+  <h2>{{outs[whichOut].gameInfo.platform}}</h2>
+  <p>{{outs[whichOut].gameInfo.short_description}}</p>
 </section>
 
   <!--  game requested: short description -->
