@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http',
-    function($scope, $cookies, $location, $http) {
+  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http', 'Games',
+    function($scope, $cookies, $location, $http, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
@@ -40,6 +40,7 @@ module.exports = function(app) {
         url: '/api/games/incomingrequests'
       })
       .success(function(incoming) {
+        Games.setChooseList(incoming.items);
         $scope.inbox = incoming.items;
       })
       .error(function(data) {
@@ -51,6 +52,7 @@ module.exports = function(app) {
         url: '/api/games/outgoingrequests'
       })
       .success(function(outgoing) {
+        Games.setOutList(outgoing.items);
         $scope.outbox = outgoing.items;
       })
       .error(function(data) {
@@ -62,6 +64,7 @@ module.exports = function(app) {
         url: '/api/games/inventory'
       })
       .success(function(mygames) {
+        Games.setMyList(mygames.items);
         $scope.inventory = mygames.items;
       })
       .error(function(data) {
@@ -73,6 +76,7 @@ module.exports = function(app) {
         url: '/api/games/favorites'
       })
       .success(function(favs) {
+        Games.setFavList(favs.items);
         $scope.favorites = favs.items;
       })
       .error(function(data) {

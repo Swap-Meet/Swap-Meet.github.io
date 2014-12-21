@@ -64,7 +64,7 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/offerGames_template.html',
       controller: 'offerGamesCtrl'
     })
-    .when('/choosegame', {
+    .when('/choosegame/:indexID', {
       templateUrl: 'templates/chooseGame_template.html',
       controller: 'chooseGameCtrl'
     })

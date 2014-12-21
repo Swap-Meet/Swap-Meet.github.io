@@ -47,7 +47,7 @@
   <!-- inbox -->
   <section class="tab_list" ng-show="panel.isSelected(1)" ng-repeat="inrequest in inbox">
     <section class="tab_list_game section group">
-      <a href="#//inboxrequestdetails/{{inbox.indexOf(inrequest)}}" class="tab_list_info col span_5_of_6">
+      <a href="#/choosegame/{{$index}}" class="tab_list_info col span_5_of_6">
         <h1>{{inrequest.gameInfo.title}}</h1>
         <p>from: {{inrequest.outgoing_user_screenname}}</p>
       </a>
@@ -60,7 +60,7 @@
   <!-- outbox -->
   <section class="tab_list" ng-show="panel.isSelected(2)" ng-repeat="outrequest in outbox">
     <section class="tab_list_game section group">
-      <a href="#//outboxrequestdetails/{{outbox.indexOf(outrequest)}}" class="tab_list_info col span_5_of_6">
+      <a href="#/outboxrequestdetails/{{$index}}" class="tab_list_info col span_5_of_6">
         <h1>{{outrequest.gameInfo.title}}</h1>
         <p>to: {{outrequest.incoming_user_screenname}}</p>
       </a>
@@ -73,7 +73,7 @@
   <!-- my games -->
   <section class="tab_list" ng-show="panel.isSelected(3)" ng-repeat="mygame in inventory">
     <section class="tab_list_game section group">
-      <a href="#/mygamedetails/{{inventory.indexOf(mygame)}}" class="tab_list_info col span_5_of_6">
+      <a href="#/mygamedetails/{{$index}}" class="tab_list_info col span_5_of_6">
         <h1>{{mygame.title}}</h1>
         <p>{{mygame.platform}}</p>
       </a>
@@ -87,7 +87,7 @@
   <!-- my favs -->
   <section class="tab_list" ng-show="panel.isSelected(4)" ng-repeat="fav in favorites">
     <section class="tab_list_game section group">
-      <a href="#/myfavdetails/{{favorites.indexOf(fav)}}" class="tab_list_info col span_5_of_6">
+      <a href="#/myfavdetails/{{$index}}" class="tab_list_info col span_5_of_6">
         <h1>{{fav.title}}</h1>
         <p>{{fav.platform}}</p>
       </a>
