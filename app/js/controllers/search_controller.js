@@ -13,7 +13,7 @@ module.exports = function(app) {
               url: '/api/browse'
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Unauthenticated Default Landing Search');
               Games.setList(data.items); //set the shared data on the Games service
               $scope.games = data.items;
             })
@@ -29,7 +29,7 @@ module.exports = function(app) {
               url: '/api/browse/' + querySuffix
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Unauthenticated Search with Title (Empty or Non-Empty');
               Games.setList(data.items); //set the shared data on the Games service
               $scope.games = data.items;
             })
@@ -46,7 +46,7 @@ module.exports = function(app) {
               url: '/api/search'
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Authenticated User Search with No Input');
               Games.setList(data.items); //set the shared data on the Games service
               $scope.games = data.items;
             })
@@ -62,7 +62,7 @@ module.exports = function(app) {
               url: '/api/search/' + querySuffix
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Authenticated User Search with Title Input');
               Games.setList(data.items); //set the shared data
               $scope.games = data.items;
             })

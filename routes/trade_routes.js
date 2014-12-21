@@ -16,7 +16,7 @@ module.exports = function(app, auth) {
   app.post('/api/games/outgoingrequests', auth, function(req, res) {
     var gameId = req.body.id;
     var potentialTrades = req.body.gameIdArray;
-    //console.log(gameId, potentialTrades);
+    console.log(req.body);
     var owner;
 
     //if game of game array are undefined, return error
