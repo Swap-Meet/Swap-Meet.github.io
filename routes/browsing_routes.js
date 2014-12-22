@@ -50,7 +50,7 @@ module.exports = function(app) {
         dataObj = _.pick(data[i],
         ['_id', 'title', 'zip', 'owner', 'owner_screenname',
         'date_added', 'short_description', 'platform', 'owner', 'image_urls']);
-
+        dataObj.already_wanted = false;
         actualResult.push(dataObj);
       }
 

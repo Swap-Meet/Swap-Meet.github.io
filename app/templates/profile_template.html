@@ -15,12 +15,14 @@
       <span>E-mail</span>
       <p>{{email}}</p>
       <span>Zip</span>
-      <p data-ng-click="signOut()">{{zip}}</p>
+      <p>{{zip}}</p>
+      <br>
+      <button data-ng-click="signOut()">Sign Out</button>
     </section>
   </section>
 
 <!-- add game button -->
-<button class="btn-add" ng-click="">Add Game</button>
+<a href="#/addgame" class="btn-add">Add Game</a>
 
 <!-- tabs -->
 <article class="tab" ng-controller="TabCtrl as panel">
@@ -43,96 +45,24 @@
   {{ tab }}
 
   <!-- inbox -->
-  <section class="tab_list" ng-show="panel.isSelected(1)">
+  <section class="tab_list" ng-show="panel.isSelected(1)" ng-repeat="inrequest in inbox">
     <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}} Super Mario Bros</h1>
-        <p>{{ }} reddragon54</p>
+      <a href="#/choosegame/{{$index}}" class="tab_list_info col span_5_of_6">
+        <h1>{{inrequest.gameInfo.title}}</h1>
+        <p>from: {{inrequest.outgoing_user_screenname}}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
         <button class="icon-close"></button>
       </div>
     </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}} Crash Bandicoot</h1>
-        <p>{{ }} raymond28</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}} Warhammer</h1>
-        <p>{{ }} gnarlyWaves</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}} Halo 3</h1>
-        <p>{{ }} jalisco23</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>{{game.title}} Titan Fall</h1>
-        <p>{{ }} theDoodAbides</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-  <section class="tab_list_game section group">
-    <a href="#/choosegame" class="tab_list_info col span_5_of_6">
-      <h1>{{game.title}} Settlers of Catan: Knights and Cities</h1>
-      <p>{{ }} IHeartGames</p>
-    </a>
-    <div class="tab_list_btn col span_1_of_6">
-      <button class="icon-close"></button>
-    </div>
-  </section>
-
   </section>
 
   <!-- outbox -->
-  <section class="tab_list" ng-show="panel.isSelected(2)">
+  <section class="tab_list" ng-show="panel.isSelected(2)" ng-repeat="outrequest in outbox">
     <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Pokémon Black and White {{game.title}}</h1>
-        <p>somberdinosaur {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Teenage Mutant Ninja Turtles {{game.title}}</h1>
-        <p>bballplyr4 {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Shoots and Ladders {{game.title}}</h1>
-        <p>maria552 {{ }}</p>
+      <a href="#/outboxrequestdetails/{{$index}}" class="tab_list_info col span_5_of_6">
+        <h1>{{outrequest.gameInfo.title}}</h1>
+        <p>to: {{outrequest.incoming_user_screenname}}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
         <button class="icon-close"></button>
@@ -141,58 +71,29 @@
   </section>
 
   <!-- my games -->
-  <section class="tab_list" ng-show="panel.isSelected(3)">
+  <section class="tab_list" ng-show="panel.isSelected(3)" ng-repeat="mygame in inventory">
     <section class="tab_list_game section group">
-      <a href="#/mygamedetails" class="tab_list_info col span_5_of_6">
-        <h1>The Curse of Monkey Island {{game.title}}</h1>
-        <p>IHeartGames{{ }}</p>
+      <a href="#/mygamedetails/{{$index}}" class="tab_list_info col span_5_of_6">
+        <h1>{{mygame.title}}</h1>
+        <p>{{mygame.platform}}</p>
       </a>
       <div class="tab_list_btn col span_1_of_6">
         <button class="icon-close"></button>
       </div>
     </section>
 
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>God of War {{game.title}}</h1>
-        <p>IHeartGames {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
   </section>
 
   <!-- my favs -->
-  <section class="tab_list" ng-show="panel.isSelected(4)">
+  <section class="tab_list" ng-show="panel.isSelected(4)" ng-repeat="fav in favorites">
     <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Crash Bandicoot {{game.title}}</h1>
-        <p>Crash4000 {{ }}</p>
+      <a href="#/myfavdetails/{{$index}}" class="tab_list_info col span_5_of_6">
+        <h1>{{fav.title}}</h1>
+        <p>{{fav.platform}}</p>
       </a>
       <section class="tab_list_btn col span_1_of_6">
         <button class="icon-close"></button>
       </section>
-    </section>
 
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Luigi {{game.title}}</h1>
-        <p>KevinPP3{{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
-
-    <section class="tab_list_game section group">
-      <a href="" class="tab_list_info col span_5_of_6">
-        <h1>Crunk Spelunker {{game.title}}</h1>
-        <p>LL423 {{ }}</p>
-      </a>
-      <div class="tab_list_btn col span_1_of_6">
-        <button class="icon-close"></button>
-      </div>
-    </section>
   </section>
 </article>

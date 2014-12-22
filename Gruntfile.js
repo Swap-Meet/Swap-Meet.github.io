@@ -18,12 +18,13 @@ module.exports = function(grunt) {
     project: {
       app: ['app'],
       scss: ['<%= project.app %>/scss/**/*.scss'],
-      alljs: ['<%= project.app %>/js/**/*.js']
+      alljs: ['<%= project.app %>/js/**/*.js'],
+      templates: ['<%= project.app %>/templates/**/*.html']
     },
 
     jshint: {
       src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      'test/back-end/*.js', 'test/front-end/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         node: true,
         jshintrc: '.jshintrc'
@@ -32,7 +33,7 @@ module.exports = function(grunt) {
 
     jscs: {
       src: ['server.js', 'app/js/**/*.js', 'lib/**/*.js', 'Gruntfile.js',
-      'test/**/*.js', 'models/**/*.js', 'routes/**/*.js'],
+      'test/back-end/*.js', 'test/front-end/*.js', 'models/**/*.js', 'routes/**/*.js'],
       options: {
         config: '.jscsrc'
       }

@@ -3,10 +3,11 @@
 
 <section class="create section group">
   <!--  send req button -->
-  <a href="#/offergames" class="create_btn col span_3_of_4" type="button" ng-click="createRequest(games[whichGame]._id)" value="Send Request"/>CREATE REQUEST</a>
+  <div class="create_btn col span_3_of_4" type="button" ng-click="createRequest(games[whichGame]._id)" value="Send Request"/>CREATE REQUEST</div>
 
    <!-- favorite button -->
-  <button class="create_fav col span_1_of_4"><span class="icon-star2" ng-click="addFavorite()"></span></button>
+  <button class="game-summary_fav col span_1_of_4"><span class="icon-star2 star" ng-show="!isActive" ng-init="isActive = games[whichGame].already_wanted " ng-click="isActive = !isActive; addFavorite(games[whichGame]._id)"></span></button>
+  <button class="game-summary_fav col span_1_of_4"><span class="icon-star2 star-active" ng-show="isActive" ng-init="isActive = games[whichGame].already_wanted " ng-click="isActive = !isActive; removeFavorite(games[whichGame]._id)"></span></button>
 </section>
 
 <article data-ng-model="games">
