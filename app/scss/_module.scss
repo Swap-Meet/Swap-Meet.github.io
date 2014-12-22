@@ -103,12 +103,19 @@
 // Information Bar Module
 .inform {
   background-color: $info-color;
-  margin: 0 auto;
   @include secondary-font;
-  text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  width: 100%;
   color: $secondary-color;
+  &>button {
+    @include secondary-font;
+    cursor: pointer;
+    cursor: hand;
+    background-color: transparent;
+    color: $secondary-color;
+  }
+  &>button:hover {
+    color: white;
+  }
 }
 
 
@@ -136,10 +143,10 @@
   background-color: $secondary-color;
   padding: 1em 0;
   border-bottom: 4px solid $secondary-color-dark;
+  color: white;
   cursor: pointer;
   cursor: hand;
   &>span {
-    color: white;
     font-size: 2.4em;
   }
   &:hover {
@@ -281,15 +288,15 @@
 
 //Add Button Module
 .btn-add {
+  text-align: center;
   display: block;
   width:80%;
   background-color: $primary-color;
   font-family: $primary-font;
   color: white;
-  margin: auto;
+  margin: 0 auto;
   font-size: 1.5em;
   padding: .5em 0;
-  width: 80%;
   border-bottom: 4px solid $primary-color-dark;
   cursor: pointer;
   cursor: hand;
@@ -537,17 +544,16 @@
   font-family: $primary-font;
   color: white;
   background-color: $secondary-color;
-  height: 30em;
+  height: 15em;
+  overflow: auto;
   h1 {
     text-transform: uppercase;
     font-size: .9em;
     color: white;
-    // padding: .3em 0 0 0;
   }
   p {
     font-size: .8em;
     color: $primary-color;
-    // padding: 0 .3em;
   }
 }
 
@@ -561,11 +567,10 @@
 }
 
 .tab_list_btn {
-  // padding-left: 1.5em;
   text-align: right;
   button {
   background-color: transparent;
-  color: white;
+  color: $accent-color;
   font-size: 1.2em;
   cursor: pointer;
   cursor: hand;

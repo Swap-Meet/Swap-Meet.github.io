@@ -1,7 +1,8 @@
 
   <!-- information bar -->
-  <section class="inform">
-      <h2>My Profile</h2>
+  <section class="inform section group">
+      <h2 class="col span_5_of_6">My Profile</h2>
+      <button class="col span_1_of_6" data-ng-click="signOut()">Sign Out</button>
   </section>
 
   <!-- profile image and info -->
@@ -16,8 +17,6 @@
       <p>{{email}}</p>
       <span>Zip</span>
       <p>{{zip}}</p>
-      <br>
-      <button data-ng-click="signOut()">Sign Out</button>
     </section>
   </section>
 
@@ -71,8 +70,8 @@
   </section>
 
   <!-- my games -->
-  <section class="tab_list" ng-show="panel.isSelected(3)" ng-repeat="mygame in inventory">
-    <section class="tab_list_game section group">
+  <section class="tab_list">
+    <section class="tab_list_game section group" ng-show="panel.isSelected(3)" ng-repeat="mygame in inventory">
       <a href="#/mygamedetails/{{$index}}" class="tab_list_info col span_5_of_6">
         <h1>{{mygame.title}}</h1>
         <p>{{mygame.platform}}</p>

@@ -25,7 +25,7 @@
       <h1>{{game.title}}</h1>
       <h2>{{game.platform}}</h2>
     </a>
-    <button class="icon-star2 star game-summary_fav col span_1_of_6" ng-show="!isActive" ng-init="isActive = game.already_wanted " ng-click="isActive = !isActive; addFavorite(game._id, $index)"></button>
+    <button class="icon-star2 game-summary_fav col span_1_of_6" ng-show="!isActive" ng-init="isActive = game.already_wanted " ng-click="isActive = !isActive; addFavorite(game._id, $index)"></button>
     <button class="icon-star2 star-active game-summary_fav col span_1_of_6" ng-show="isActive" ng-init="isActive = game.already_wanted " ng-click="isActive = !isActive; removeFavorite(game._id, $index)"></button>
 
     <!-- <input type="checkbox"> -->
