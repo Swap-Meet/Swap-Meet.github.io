@@ -50,12 +50,16 @@
 .game-summary {
   border-bottom: .1em solid $info-color;
   background-color: $secondary-color;
+  &:hover {
+    background-color: $secondary-color-light;
+  }
 }
 
 .game-summary_img {
-  padding: .8em;
+  padding: .5em;
+  margin: 0 auto;
   &>img {
-  width: 100%;
+  width: 80%;
   }
 }
 
@@ -66,22 +70,24 @@
   font-family: $primary-font;
   height: 100%;
   &>h1 {
-    font-size: 1em;
+    font-size: .8em;
     text-transform: uppercase;
   }
   &>h2 {
     color: $primary-color;
     margin-top: 1em;
-    font-size: 1em;
+    font-size: .8em;
   }
 }
 
 .game-summary_fav {
   color: white;
-  background-color: $secondary-color;
-  font-size: 1.5em;
+  background-color: transparent;
+  font-size: 1em;
   padding-top: .6em;
   text-align: center;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .game-summary_check {
@@ -89,6 +95,8 @@
   font-size: 1.25em;
   margin-top: 1em;
   background-color: $secondary-color;
+  cursor: pointer;
+  cursor: hand;
 }
 
 
@@ -128,6 +136,8 @@
   background-color: $secondary-color;
   padding: 1em 0;
   border-bottom: 4px solid $secondary-color-dark;
+  cursor: pointer;
+  cursor: hand;
   &>span {
     color: white;
     font-size: 2.4em;
@@ -247,6 +257,8 @@
 .btn-upload {
   @include button-upload;
   margin-top: .5em;
+  cursor: pointer;
+  cursor: hand;
 }
 
 // Remove Button Module
@@ -260,6 +272,8 @@
   font-size: 1.5em;
   padding: .5em 0;
   border-bottom: 4px solid $accent-color-dark;
+  cursor: pointer;
+  cursor: hand;
   &:hover {
     background-color: $accent-color-light;
   }
@@ -277,6 +291,8 @@
   padding: .5em 0;
   width: 80%;
   border-bottom: 4px solid $primary-color-dark;
+  cursor: pointer;
+  cursor: hand;
   &:hover {
     background-color: $primary-color-light;
   }
@@ -287,6 +303,8 @@
   background-color: $accent-color;
   @include button-pair;
   border-bottom: 4px solid $accent-color-dark;
+  cursor: pointer;
+  cursor: hand;
   &:hover {
     background-color: $accent-color-light;
   }
@@ -296,6 +314,8 @@
   background-color: $primary-color;
   @include button-pair;
   border-bottom: 4px solid $primary-color-dark;
+  cursor: pointer;
+  cursor: hand;
   &:hover {
     background-color: $primary-color-light;
   }
@@ -503,6 +523,8 @@
     height: 3em;
     color: $secondary-color;
     text-transform: uppercase;
+    cursor: pointer;
+  cursor: hand;
   }
   .active {
     color: $primary-color;
@@ -510,42 +532,46 @@
   }
 }
 
-// list of games under tabs
+// list of games in tab module
 .tab_list {
   font-family: $primary-font;
   color: white;
   background-color: $secondary-color;
   height: 30em;
-  .tab_list_game {
-    border-bottom: 1px solid $info-color;
-    padding: .3em .75em;
-    color: white;
-  }
   h1 {
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: .9em;
     color: white;
-    padding:.35em;
+    // padding: .3em 0 0 0;
   }
   p {
-    font-size: .9em;
+    font-size: .8em;
     color: $primary-color;
-    padding: 0 .35em;
-  }
-  .tab_list_btn {
-    padding-left: 1.7em;
-  }
-  .tab_list_btn>button {
-    background-color: transparent;
-    color: white;
-    font-size: 1.2em;
-    margin-top: .5em;
+    // padding: 0 .3em;
   }
 }
 
-.tab_list_game:hover {
-  background-color: $secondary-color-light;
+.tab_list_game {
+  border-bottom: 1px solid $info-color;
+  padding: .3em .5em;
+  color: white;
+  &:hover {
+    background-color: $secondary-color-light;
+  }
 }
+
+.tab_list_btn {
+  // padding-left: 1.5em;
+  text-align: right;
+  button {
+  background-color: transparent;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  cursor: hand;
+  }
+}
+
 
 // profile module
 .profile {
