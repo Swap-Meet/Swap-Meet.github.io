@@ -11,8 +11,8 @@ chai.use(chaihttp);
 
 require('../server');
 
-var url = 'http://localhost:3000/';
-//var url = 'https://cryptic-savannah-2534.herokuapp.com/';
+//var url = 'http://localhost:3000/';
+var url = 'https://cryptic-savannah-2534.herokuapp.com/';
 //var expect = chai.expect;
 
 //clear existing users and games

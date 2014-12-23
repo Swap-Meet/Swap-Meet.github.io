@@ -2,20 +2,18 @@
 
 <section class="top-game">
   <h4>Game Requested</h4>
-  <!--  game requested: title -->
+  <!--  game title -->
   <h2>{{ outs[whichOut].gameInfo.title }}</h1>
 </section>
-  <!--  game requested: img-->
+
+  <!--  game image-->
   <img class="game-image" src= '{{ outs[whichOut].gameInfo.image_urls[0] }}'></img>
 
-  <!--  game requested: platform -->
+  <!--  game info-->
 <section class="game-info_main">
   <h2>{{outs[whichOut].gameInfo.platform}}</h2>
   <p>{{outs[whichOut].gameInfo.short_description}}</p>
 </section>
-
-  <!--  game requested: short description -->
-
 
   <!-- cancel request -->
   <button class="btn-remove" ng-click="cancelRequest()"> Cancel Request<button>
