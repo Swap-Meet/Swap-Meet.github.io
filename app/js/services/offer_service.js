@@ -3,21 +3,15 @@
 module.exports = function(app) {
   app.factory('Offers', [function() {
 
-    var data = {
-        gameId: '',
-        potentialTrades: []
-    };
+    var gameId = '';
 
     return {
-        getOffer: function() {
-          return data;
-        },
-        setWantGame: function(wantGame) {
-          data.gameId = wantGame;
-        },
-        setPotentialTrade: function(offerArray) {
-          data.potentialTrades = offerArray;
-        }
+      setWantGame: function(wantGame) {
+        gameId = wantGame;
+      },
+      getWantGame: function() {
+        return gameId;
+      }
     };
   }]);
 };

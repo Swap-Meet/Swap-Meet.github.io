@@ -2,33 +2,42 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('myFavDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
+  app.controller('myFavDetailsCtrl', ['$scope', '$location', '$http', '$cookies', '$routeParams', '$route', 'Games',
+    function($scope, $location, $http, $cookies, $routeParams, $route, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('My Fav Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
-    //this is fake data
+      console.log(Games.getFavList());
+      $scope.favs = Games.getFavList();
+      $scope.whichFav = $routeParams.indexID;
 
-      $scope.game = {
-        title: 'Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner: 'String_id_number', //id number
-        short_description: 'Eat all the dots, run from the ghosts, for now...',
-        platform: 'NES',
-        image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      };
+      // $scope.removeFavorite = function(gameID, gameIndex) {
+      //   favs[whichFav]._id, $index
+      //   var gameList = Games.getList();
+      //   gameList[gameIndex].already_wanted = false;
+      //   Games.setList(gameList);
 
-      $scope.removeFavorite = function() {
-        console.log('Imagine removing from favorites');
-      };
+      //   var favList = Games.getFavList();
+      //   favList.splice(gameIndex, 1);
+      //   Games.setFavList(favList);
+
+      //   $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //   $http({
+      //     method: 'PUT',
+      //     url: '/api/games/favorites',
+      //     data: { _id: gameID }
+      //   })
+      //   .success(function(data) {
+      //     console.log('Removed from favorites: ' + data.items);
+      //     $route.reload();
+
+      //   })
+      //   .error(function(data) {
+      //     console.log(data);
+      //   });
+      // };
 
     }]);
 

@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('loginCtrl', ['$scope', '$http', '$cookies', '$base64', '$location', 'AuthService',
-    function($scope, $http, $cookies, $base64, $location, AuthService) {
+  app.controller('loginCtrl', ['$scope', '$http', '$cookies', '$base64', '$location',
+    function($scope, $http, $cookies, $base64, $location) {
 
     $scope.signIn = function() {
       var signInSuffix = '?email=' + $scope.user.email + '&password=' + $scope.user.password;
@@ -12,7 +12,6 @@ module.exports = function(app) {
       })
       .success(function(data) {
         console.log('logged in!');
-        AuthService.currentUser = data.profile.email;
         $cookies.jwt = data.jwt;
         $location.path('/profile');
       })
@@ -48,7 +47,6 @@ module.exports = function(app) {
         .error(function(data) {
           console.log(data);
           $scope.errors = 'sign-up failed!';
-          //$scope.errors = data;
         });
       }
     };

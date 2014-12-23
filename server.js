@@ -32,17 +32,6 @@ require('./routes/trade_routes')(app, jwtauth);
 require('./routes/favorites_routes')(app, jwtauth);
 require('./routes/browsing_routes')(app);
 
-//*** Karl's Possibilities
-//For the potential of using jade
-// app.set('views', config.rootPath + '/server/views');
-// app.set('view engine', 'jade');
-// app.get('/templates/:partialPath', function(req, res) {
-//   res.render('/templates/' + req.params.partialPath);
-// });
-// app.get('*', function(req, res) {
-//   res.render('index');
-// });
-
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log('Server listening on port 3000');

@@ -1,35 +1,30 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('chooseGameCtrl', ['$scope', 'AuthService', '$http', '$cookies', '$location',
-    function($scope, AuthService, $http, $cookies, $location) {
+  app.controller('chooseGameCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
+    function($scope, $http, $cookies, $location, $routeParams, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Choose Game Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      var email = Games.getChooseList()[0].outgoing_user_email;
+      var allIns = Games.getChooseList();
+      $scope.ins = Games.getChooseList();
+      var which = $routeParams.indexID;
+      $scope.whichIn = $routeParams.indexID;
 
-      $scope.games = [
-        { id: '548f75df27398d8b9bfeac07',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'The Curse of Monkey Island',
-          platform: 'PC',
-          image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']},
-        { id: '548f75df27398d8b9bfeac08',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'God of War',
-          platform: 'PS3',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941698/God_of_War_Ascension_eseajx.jpg']},
-        { id: '548f75df27398d8b9bfeac09',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'FIFA 15',
-          platform: 'XBOX',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']}
-      ];
+      $scope.acceptRequest = function(gameIndex) {
+        var trades = [];
+        trades.push(allIns[which].gameInfo);
+        trades.push(allIns[which].potentialTrades[gameIndex]);
+        trades.push(email);
+        Games.setInList(trades);
+      };
 
       $scope.declineRequest = function() {
-        console.log('Imagine I am declining a request now...');
+        $location.path('/profile');
+        //ultimately should remove from inbox list
       };
     }]);
 };
