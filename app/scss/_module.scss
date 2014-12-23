@@ -13,25 +13,26 @@
 // Search Module
 .search {
   width: 100%;
+  padding: .2em 0 .2em .3em;
+  background-color: $primary-color;
 }
 
 .search-input {
+  border-radius: 10px;
   outline: none;
   border: none;
   padding-left: 1em;
   height: 2.5em;
-  font-size: 1.2em;
+  font-size: .9em;
   color: $secondary-color;
 }
 
-.icon-search {
+.search_btn {
   border: none;
-  background-color: white;
+  background-color: transparent;
   font-size: 1.4em;
-  color: $primary-color;
-  margin: 0;
-  height: 2.5em;
-  padding-left: 2em;
+  color: white;
+  height: 1.7em;
 }
 
 .btn-filter-search {
@@ -57,9 +58,8 @@
 
 .game-summary_img {
   padding: .5em;
-  margin: 0 auto;
   &>img {
-  width: 80%;
+  width: 95%;
   }
 }
 
@@ -83,7 +83,7 @@
 .game-summary_fav {
   color: white;
   background-color: transparent;
-  font-size: 1em;
+  font-size: 1.1em;
   padding-top: .6em;
   text-align: center;
   cursor: pointer;
@@ -106,6 +106,7 @@
   @include secondary-font;
   padding: 0.2em 0 0 1em;
   color: $secondary-color;
+  margin: 0 auto;
   &>button {
     @include secondary-font;
     cursor: pointer;
@@ -544,7 +545,7 @@
   font-family: $primary-font;
   color: white;
   background-color: $secondary-color;
-  height: 15em;
+  height: 20em;
   overflow: auto;
   h1 {
     text-transform: uppercase;
