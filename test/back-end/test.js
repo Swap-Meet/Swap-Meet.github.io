@@ -239,6 +239,7 @@ describe('basic user tests', function() {
     .send({_id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
+      console.log(gameA3Id);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -251,6 +252,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
+      console.log(res.body.items);
       expect(res.body.items).to.be.an('array');
       expect(res.body.items.length).to.eql(2);
       done();
@@ -259,9 +261,9 @@ describe('basic user tests', function() {
 
   it('B should be able to delete a favorite', function(done) {
     chai.request(url)
-    .delete('api/games/favorites')
+    .put('api/games/favorites')
     .set('jwt', jwtB)
-    .send({id: gameA3Id})
+    .send({_id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -283,9 +285,9 @@ describe('basic user tests', function() {
 
   it('should not be able to delete a favorite w/ invalid id', function(done) {
     chai.request(url)
-    .delete('api/games/favorites')
+    .put('api/games/favorites')
     .set('jwt', jwtB)
-    .send({id: '8675309'})
+    .send({_id: '8675309'})
     .end(function(err, res) {
       expect(res.body.error).to.eql(7);
       done();
