@@ -25,6 +25,8 @@ var users = [];
 var jwtA;
 var jwtB;
 var jwtC;
+var jwtD;
+var jwtE;
 var gameIds = [];
 
 games[0] = {title:'The Curse of Monkey Island', platform:'PC',
@@ -97,6 +99,73 @@ image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
 condition: 'used', short_description:
   'Evil resides underneath an umbrella'};
 
+games[16] = {title:'Super Mario Galaxy 2', platform:'Wii',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292522/Super-Mario-Galaxy-2_WII_US_ESRB_z5mepy.jpg'],
+condition: 'used', short_description:
+  'Shoot into space with Mario and the gang.'};
+games[17] = {title:'Assassin\'s Creed: Heritage Collection', platform:'PC',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292503/cc1d0bf2aa86d056889bfbb9481ddc5d96c55310_r8phqs.jpg'],
+condition: 'used', short_description:
+  'I feel the need... the need for creed.'};
+games[18] = {title:'World of Warcraft', platform:'PC',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292488/20111227110019_WoW_Box_Art1_khl4ea.jpg'],
+condition: 'used', short_description:
+  'Oh, baby, baby it\'s a wild world of warcraft.'};
+games[19] = {title:'Far Cry', platform:'PC',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292475/1_Far_Cry_pc_qnjkc7.jpg'],
+condition: 'used', short_description:
+  'It\'s a far cry from something, but I don\'t know what.' };
+games[20] = {title:'Watch Dogs', platform:'PS4',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292275/watch-dogs-ps4_mc7o5a.jpg'],
+condition: 'used', short_description:
+  'Who let the dogs out? Who.. Who.. Who..'};
+games[21] = {title:'The Legend of Zelda: Twilight Princess', platform:'Wii',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292269/TwilightPrincessRatingTFinalBox_fpikey.jpg'],
+condition: 'used', short_description:
+  'It is legendary.'};
+games[22] = {title:'KC Munchkin', platform:'Odyssey2',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292260/odyssey_2_kc_munchkin_box_mopfgm.jpg'],
+condition: 'used', short_description:
+  'The original Pacman imitator!'};
+games[23] = {title:'Metroid', platform:'NES',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292252/Metroid_hud84t.jpg'],
+condition: 'used', short_description:
+  'Metroid kills space stuff'};
+games[24] = {title:'Second Son: Limited Edition', platform:'PS4',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292240/infamous-second-son-01_bsi9vq.jpg'],
+condition: 'used', short_description:
+  'What happened to my first son?'};
+games[25] = {title:'Gauntlet', platform:'NES',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292232/Gauntlet-NES-1989_fbx2ht.jpg'],
+condition: 'used', short_description:
+  'Run the Gauntlet!'};
+games[26] = {title:'Grand Theft Auto: San Andreas', platform:'PS2',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292224/FOB_ps2_jekp0r.jpg'],
+condition: 'used', short_description:
+  'Steal cars in California.'};
+games[27] = {title:'Excitebike', platform:'NES',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292216/Excitebike_cover_uihgbx.jpg'],
+condition: 'used', short_description:
+  'The original dirt bike game.'};
+games[28] = {title:'Madden NFL 13', platform:'XBOX360',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292207/en-INTL_L_Xbox360_Madden_NFL_13_FKF-00364_ajs1ok.jpg'],
+condition: 'used', short_description:
+  'Football!'};
+games[29] = {title:'Computer Golf', platform:'Odyssey2',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/' +
+'v1419292197/Computer_Golf_-_Magnavox_Odyssey_200001_yshxyw.jpg'],
+condition: 'used', short_description:
+  'Get your putter ready for some intense 8-bit golf action'};
+games[30] = {title:'Forza 5 Motorsport', platform:'XBOXONE',
+image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1419292189/B00CMQTTQG_box_eqifxm.jpg'],
+condition: 'used', short_description:
+  'Vrooom Vrooom'};
+
 // users[0] = {email:'test@example.com', password:'SecretPW101',
 //   username: 'IHeartGames', zip: '99999'};
 // users[1] = {email:'user@example.com', password:'Password123',
@@ -110,6 +179,10 @@ users[1] = '?email=user@example.com&password=Password123&screenname=' +
   'PCs4Eva&zip=99999';
 users[2] = '?email=fluffy@example.com&password=Password123&screenname=' +
   'MonkeysAreCute&zip=99999';
+users[3] = '?email=rainbows@example.com&password=Password123&screenname=' +
+  'Booyah&zip=99999';
+users[4] = '?email=unicorns@example.com&password=Password123&screenname=' +
+  'SeahawksRule&zip=99999';
 //users[1] = {email:'user@example.com', password:'Password123',
   //username: 'PCs4Eva', zip: '99999'};
 //users[2] = {email:'test@example.com', password:'SecretPW101',
@@ -146,6 +219,26 @@ describe('should populate the database', function() {
     });
   });
 
+  it('should make a user and get a jwt', function(done) {
+    chai.request(url)
+    .post('api/user' + users[3])
+    .end(function(err, res) {
+      console.log(res.body);
+      jwtD = res.body.jwt;
+      done();
+    });
+  });
+
+  it('should make a user and get a jwt', function(done) {
+    chai.request(url)
+    .post('api/user' + users[4])
+    .end(function(err, res) {
+      console.log(res.body);
+      jwtE = res.body.jwt;
+      done();
+    });
+  });
+
   it('should add a profile pic', function(done) {
     chai.request(url)
     .put('api/user/myprofile')
@@ -176,6 +269,30 @@ describe('should populate the database', function() {
     .set('jwt', jwtC)
     .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/a_auto_right/' +
       'v1418941330/20141218_221829687_iOS_nzzyim.jpg'})
+    .end(function(err, res) {
+      console.log(res.body);
+      done();
+    });
+  });
+
+  it('should add a profile pic', function(done) {
+    chai.request(url)
+    .put('api/user/myprofile')
+    .set('jwt', jwtD)
+    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
+      'a_auto_right/v1418941317/20141218_221750433_iOS_agylvg.jpg'})
+    .end(function(err, res) {
+      console.log(res.body);
+      done();
+    });
+  });
+
+  it('should add a profile pic', function(done) {
+    chai.request(url)
+    .put('api/user/myprofile')
+    .set('jwt', jwtE)
+    .send({'avatar_url': 'http://res.cloudinary.com/swapmeet/image/upload/' +
+      'a_auto_right/v1418941202/20140123_204033588_iOS_oqnes8.jpg'})
     .end(function(err, res) {
       console.log(res.body);
       done();
@@ -359,6 +476,174 @@ describe('should populate the database', function() {
       done();
     });
   });
+  //////
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[16])
+    .end(function(err, res) {
+      gameIds[16] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[17])
+    .end(function(err, res) {
+      gameIds[17] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[18])
+    .end(function(err, res) {
+      gameIds[18] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[19])
+    .end(function(err, res) {
+      gameIds[19] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[20])
+    .end(function(err, res) {
+      gameIds[20] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[21])
+    .end(function(err, res) {
+      gameIds[21] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[22])
+    .end(function(err, res) {
+      gameIds[22] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtD)
+    .send(games[23])
+    .end(function(err, res) {
+      gameIds[23] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[24])
+    .end(function(err, res) {
+      gameIds[24] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[25])
+    .end(function(err, res) {
+      gameIds[25] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[26])
+    .end(function(err, res) {
+      gameIds[26] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[27])
+    .end(function(err, res) {
+      gameIds[27] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[28])
+    .end(function(err, res) {
+      gameIds[28] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[29])
+    .end(function(err, res) {
+      gameIds[29] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+  it('should add game', function(done) {
+    chai.request(url)
+    .post('api/games/inventory')
+    .set('jwt', jwtE)
+    .send(games[30])
+    .end(function(err, res) {
+      gameIds[30] = res.body.items._id;
+      console.log(res.body);
+      done();
+    });
+  });
+
+  //////
   it('should add a favorite', function(done) {
     chai.request(url)
     .post('api/games/favorites')
