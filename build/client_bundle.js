@@ -1,5 +1,20 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
+/* Special thanks to all these individual people who helped us with this project:
+Ivan Storck, Tyler Morgan , Brook Riggio, Charles Renwick, Jacob Schafer, Stephanie Lingwood
+
+Citation of references that were used to help put this application together:
+1. ng-book by Ari Lerner
+  https://www.ng-book.com/
+2. All You Need to Know About AngularJS by Johnny Tran
+  https://www.youtube.com/playlist?list=PLzJZ3ahfm9Q8pwP88ZRSdjwlwn6lrHzrT
+3. Pluralsight: Building AngularJS and Node.js Apps with the MEAN Stack by Joe Eames
+  http://www.pluralsight.com/courses/building-angularjs-nodejs-apps-mean
+4. Scotch IO - How To Use ngShow and ngHide by Chris Sevilleja
+  http://scotch.io/tutorials/javascript/how-to-use-ngshow-and-nghide
+5. Ideyatech: Introduction to Angular Framework by Chastine Bayubay
+  http://www.ideyatech.com/2013/11/angularjs-intro/
+*/
 
 require("./../../bower_components/angular/angular");
 require("./../../bower_components/angular-route/angular-route.js");
@@ -7,14 +22,11 @@ require("./../../bower_components/angular-resource/angular-resource.js");
 require("./../../bower_components/angular-cookies/angular-cookies.js");
 require("./../../bower_components/angular-base64/angular-base64.js");
 
-//var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute']);
 var swapApp = angular.module('swapApp', ['ngResource', 'ngRoute', 'ngCookies', 'base64']);
 
 // load services
-require('./services/resource_backend_service')(swapApp);
 require('./services/game_service')(swapApp);
 require('./services/offer_service')(swapApp);
-require('./services/auth_service')(swapApp);
 
 // load controllers
 require('./controllers/search_controller')(swapApp);
@@ -28,12 +40,10 @@ require('./controllers/outboxDetails_controller')(swapApp);
 require('./controllers/login_controller')(swapApp);
 require('./controllers/chooseGame_controller')(swapApp);
 require('./controllers/offerGames_controller')(swapApp);
-require('./controllers/nav_controller')(swapApp);
 require('./controllers/profileTabs_controller')(swapApp);
 
 //setup $routeProvider
 swapApp.config(['$routeProvider', function($routeProvider) {
-//swapApp.config(['$routeProvider', 'AuthService', function($routeProvider, AuthService) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/search_template.html',
@@ -47,7 +57,7 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/filter_template.html',
       controller: 'searchCtrl'
     })
-    .when('/gamedetails/:gameID', {
+    .when('/gamedetails/:indexID', {
       templateUrl: 'templates/gameDetails_template.html',
       controller: 'gameDetailsCtrl'
     })
@@ -55,32 +65,31 @@ swapApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/offerGames_template.html',
       controller: 'offerGamesCtrl'
     })
-    .when('/choosegame', {
+    .when('/choosegame/:indexID', {
       templateUrl: 'templates/chooseGame_template.html',
       controller: 'chooseGameCtrl'
     })
-    .when('/mygamedetails', {
+    .when('/mygamedetails/:indexID', {
       templateUrl: 'templates/myGameDetails_template.html',
       controller: 'myGameDetailsCtrl'
     })
-    .when('/myfavdetails', {
+    .when('/myfavdetails/:indexID', {
       templateUrl: 'templates/myFavDetails_template.html',
       controller: 'myFavDetailsCtrl'
     })
     .when('/profile', {
       templateUrl: 'templates/profile_template.html',
       controller: 'profileCtrl'
-      //resolve: AuthService.isAuthenticated()
     })
     .when('/addgame', {
       templateUrl: 'templates/addGame_template.html',
       controller: 'addGameCtrl'
     })
-    .when('/inboxrequestdetails', {
+    .when('/inboxrequestdetails/:indexID', {
       templateUrl: 'templates/inboxDetails_template.html',
       controller: 'inboxDetailsCtrl'
     })
-    .when('/outboxrequestdetails', {
+    .when('/outboxrequestdetails/:indexID', {
       templateUrl: 'templates/outboxDetails_template.html',
       controller: 'outboxDetailsCtrl'
     })
@@ -89,7 +98,7 @@ swapApp.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-},{"./../../bower_components/angular-base64/angular-base64.js":20,"./../../bower_components/angular-cookies/angular-cookies.js":21,"./../../bower_components/angular-resource/angular-resource.js":22,"./../../bower_components/angular-route/angular-route.js":23,"./../../bower_components/angular/angular":24,"./controllers/addGame_controller":2,"./controllers/chooseGame_controller":3,"./controllers/gameDetails_controller":4,"./controllers/inboxDetails_controller":5,"./controllers/login_controller":6,"./controllers/myFavDetails_controller":7,"./controllers/myGameDetails_controller":8,"./controllers/nav_controller":9,"./controllers/offerGames_controller":10,"./controllers/outboxDetails_controller":11,"./controllers/profileTabs_controller":12,"./controllers/profile_controller":13,"./controllers/search_controller":14,"./services/auth_service":15,"./services/game_service":16,"./services/offer_service":18,"./services/resource_backend_service":19}],2:[function(require,module,exports){
+},{"./../../bower_components/angular-base64/angular-base64.js":16,"./../../bower_components/angular-cookies/angular-cookies.js":17,"./../../bower_components/angular-resource/angular-resource.js":18,"./../../bower_components/angular-route/angular-route.js":19,"./../../bower_components/angular/angular":20,"./controllers/addGame_controller":2,"./controllers/chooseGame_controller":3,"./controllers/gameDetails_controller":4,"./controllers/inboxDetails_controller":5,"./controllers/login_controller":6,"./controllers/myFavDetails_controller":7,"./controllers/myGameDetails_controller":8,"./controllers/offerGames_controller":9,"./controllers/outboxDetails_controller":10,"./controllers/profileTabs_controller":11,"./controllers/profile_controller":12,"./controllers/search_controller":13,"./services/game_service":14,"./services/offer_service":15}],2:[function(require,module,exports){
 // controller for view 10, Add Game
 'use strict';
 
@@ -100,7 +109,6 @@ module.exports = function(app) {
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Add Game Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       //this is fake data
@@ -135,35 +143,30 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('chooseGameCtrl', ['$scope', 'AuthService', '$http', '$cookies', '$location',
-    function($scope, AuthService, $http, $cookies, $location) {
+  app.controller('chooseGameCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
+    function($scope, $http, $cookies, $location, $routeParams, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Choose Game Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      var email = Games.getChooseList()[0].outgoing_user_email;
+      var allIns = Games.getChooseList();
+      $scope.ins = Games.getChooseList();
+      var which = $routeParams.indexID;
+      $scope.whichIn = $routeParams.indexID;
 
-      $scope.games = [
-        { id: '548f75df27398d8b9bfeac07',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'The Curse of Monkey Island',
-          platform: 'PC',
-          image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']},
-        { id: '548f75df27398d8b9bfeac08',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'God of War',
-          platform: 'PS3',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941698/God_of_War_Ascension_eseajx.jpg']},
-        { id: '548f75df27398d8b9bfeac09',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'FIFA 15',
-          platform: 'XBOX',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']}
-      ];
+      $scope.acceptRequest = function(gameIndex) {
+        var trades = [];
+        trades.push(allIns[which].gameInfo);
+        trades.push(allIns[which].potentialTrades[gameIndex]);
+        trades.push(email);
+        Games.setInList(trades);
+      };
 
       $scope.declineRequest = function() {
-        console.log('Imagine I am declining a request now...');
+        $location.path('/profile');
+        //ultimately should remove from inbox list
       };
     }]);
 };
@@ -176,79 +179,68 @@ module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
     function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
 
-      if (!$cookies.jwt) {
-        $location.path('#/login');
-      }
-      console.log('Game Details Controller Sees the Cookie');
-      $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
       $scope.games = Games.getList();
-      $scope.whichGame = $routeParams.gameID;
+      $scope.whichGame = $routeParams.indexID;
 
       $scope.createRequest = function(gameID) {
-        Offers.setWantGame(gameID);
-        //$location.path('#/offergames');
-        console.log('Setting game id in Offers');
+        if (!$cookies.jwt) {
+          $location.path('/login');
+
+        } else {
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          Offers.setWantGame(gameID);
+          $location.path('/offergames');
+          console.log('Setting game id in Offers');
+        }
       };
 
-      // $scope.addFavorite = function(gameID) {
-      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-      //     $location.path('#/');
-      //   } else {
+      $scope.addFavorite = function(gameID) {
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('/login');
+        } else {
+          var gameList = Games.getList();
+          gameList[$routeParams.indexID].already_wanted = true;
+          Games.setList(gameList);
 
-      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
-      //     $http({
-      //       method: 'POST',
-      //       url: '/api/games/favorites',
-      //       data: { _id: gameID }
-      //     })
-      //     .success(function(data) {
-      //       if ($scope.isToggled === false) {
-      //         $scope.isToggled = true;
-      //       }
-      //       else {
-      //         $scope.isToggled = false;
-      //       }
-      //       //update the 'already favorited portion of the game service cache
-      //       console.log('success! added to favorites: ' + data.items);
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'POST',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            console.log('Added to favorites: ' + data.items);
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
 
-      //       //return $scope.isToggled;
+      $scope.removeFavorite = function(gameID) {
 
-      //     })
-      //     .error(function(data) {
-      //       console.log(data);
-      //     });
-      //   }
-      // };
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow removFav
+          $location.path('/login');
+        } else {
+          var gameList = Games.getList();
+          gameList[$routeParams.indexID].already_wanted = false;
+          Games.setList(gameList);
 
-      // $scope.removeFavorite = function(gameID) {
-      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-      //     $location.path('#/');
-      //   } else {
-      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
-      //     $http({
-      //       method: 'DELETE',
-      //       url: '/api/games/favorites',
-      //       data: { id: gameID }
-      //     })
-      //     .success(function(data) {
-      //       if ($scope.isToggled === false) {
-      //         $scope.isToggled = true;
-      //       }
-      //       else {
-      //         $scope.isToggled = false;
-      //       }
-      //       //update the 'already favorited portion of the game service cache
-      //       console.log('success! removed from favorites: ' + data.items);
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'PUT',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            console.log('Removed from favorites: ' + data.items);
 
-      //       //return $scope.isToggled;
-
-      //     })
-      //     .error(function(data) {
-      //       console.log(data);
-      //     });
-      //   }
-      // };
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
 
     }]);
 
@@ -259,64 +251,23 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('inboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
+  app.controller('inboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies', '$routeParams', 'Games',
+    function($scope, $location, $http, $cookies, $routeParams, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Inbox Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
-      // $http({
-      //   method: 'GET',
-      //   url: '/api/games/incomingrequests'
-      // })
-      // .success(function(data) {
-      //   // $scope.trade = [];
-      //   // console.log(data.items[0]);
-      //   // $scope.trade[0] = data.items[0].gameInfo;
-      //   // for (var i = 1; i < data.items[0].potentialTrades.length + 1; i++) {
-      //   //   $scope.trade[i] = data.items[0].potentialTrades[i - 1];
-      //   //   console.log(data.items[0].potentialTrades);
-      //   // }
-      //   //$scope.screenname = data.profile.screenname;
-      //   //$scope.email = data.profile.email;
-      //   //$scope.zip = data.profile.zip;
-      // })
-      // .error(function(data) {
-      //   console.log(data);
-      // });
+      $scope.trades = Games.getInList();
+      var email = Games.getInList()[2];
 
       $scope.sendRequest = function() {
-        window.location.href = 'mailto:bunnies@example.com?' +
-        'subject=SwapMeet%20Trade%20Alert:%20"Settlers%20of%20Catan:%20Knights%20and%20Cities"%20for%20"FIFA%2015!"' +
-        '&body=%20Lets%20Meet...%20and%20Swap!';
+        window.location.href = 'mailto:' + email;
       };
 
       $scope.cancelRequest = function() {
-        $location.path('/search');
-      };
-
-      // I think that this will be an array holding 2 games:
-      // The first game is this user A's game.
-      // The second game is user B's game.
-      $scope.trade = [{
-        title: 'Settlers of Catan: Knights and Cities',
-        owner_screenname: 'PCs4Eva',
-        platform: 'Board',
-        image_urls: ['http://images.fanpop.com/images/image_uploads/Differents-' +
-  'Boards-settlers-of-catan-521934_1157_768.jpg']
-      },
-      {
-        title: 'FIFA 2015',
-        owner_screenname: 'IHeartGames',
-        platform: 'PS3',
-        image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']
-      }];
-
-      $scope.declineTrade = function() {
-        console.log('Imagine I am declining a trade request now...');
+        $location.path('/profile');
+        //ultimately should remove from inbox list
       };
 
     }]);
@@ -327,8 +278,8 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('loginCtrl', ['$scope', '$http', '$cookies', '$base64', '$location', 'AuthService',
-    function($scope, $http, $cookies, $base64, $location, AuthService) {
+  app.controller('loginCtrl', ['$scope', '$http', '$cookies', '$base64', '$location',
+    function($scope, $http, $cookies, $base64, $location) {
 
     $scope.signIn = function() {
       var signInSuffix = '?email=' + $scope.user.email + '&password=' + $scope.user.password;
@@ -338,7 +289,6 @@ module.exports = function(app) {
       })
       .success(function(data) {
         console.log('logged in!');
-        AuthService.currentUser = data.profile.email;
         $cookies.jwt = data.jwt;
         $location.path('/profile');
       })
@@ -374,7 +324,6 @@ module.exports = function(app) {
         .error(function(data) {
           console.log(data);
           $scope.errors = 'sign-up failed!';
-          //$scope.errors = data;
         });
       }
     };
@@ -386,33 +335,42 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('myFavDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
+  app.controller('myFavDetailsCtrl', ['$scope', '$location', '$http', '$cookies', '$routeParams', '$route', 'Games',
+    function($scope, $location, $http, $cookies, $routeParams, $route, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('My Fav Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
-    //this is fake data
+      console.log(Games.getFavList());
+      $scope.favs = Games.getFavList();
+      $scope.whichFav = $routeParams.indexID;
 
-      $scope.game = {
-        title: 'Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner: 'String_id_number', //id number
-        short_description: 'Eat all the dots, run from the ghosts, for now...',
-        platform: 'NES',
-        image_urls: ['http://www.colinpurcell.ca/wp-content/uploads/2013/10/Pacman-02_640x250px.jpg',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      };
+      // $scope.removeFavorite = function(gameID, gameIndex) {
+      //   favs[whichFav]._id, $index
+      //   var gameList = Games.getList();
+      //   gameList[gameIndex].already_wanted = false;
+      //   Games.setList(gameList);
 
-      $scope.removeFavorite = function() {
-        console.log('Imagine removing from favorites');
-      };
+      //   var favList = Games.getFavList();
+      //   favList.splice(gameIndex, 1);
+      //   Games.setFavList(favList);
+
+      //   $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //   $http({
+      //     method: 'PUT',
+      //     url: '/api/games/favorites',
+      //     data: { _id: gameID }
+      //   })
+      //   .success(function(data) {
+      //     console.log('Removed from favorites: ' + data.items);
+      //     $route.reload();
+
+      //   })
+      //   .error(function(data) {
+      //     console.log(data);
+      //   });
+      // };
 
     }]);
 
@@ -423,27 +381,18 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('myGameDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
+  app.controller('myGameDetailsCtrl', ['$scope', '$location', '$http', '$cookies', '$routeParams', 'Games',
+    function($scope, $location, $http, $cookies, $routeParams, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('My Game Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
-    //this is fake data
-
-      $scope.game = {
-        title: 'The Curse of Monkey Island',
-        owner_screenname: 'IHeartGames', //id number
-        short_description: 'insult sword fighting FTW!',
-        platform: 'PC',
-        image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']
-      };
+      $scope.myGames = Games.getMyList();
+      $scope.whichGame = $routeParams.indexID;
 
       $scope.removeGame = function() {
-        console.log('Imagine a game now...');
+        //should remove game from inventory
       };
 
     }]);
@@ -454,157 +403,102 @@ module.exports = function(app) {
 'use strict';
 
 module.exports = function(app) {
-  app.controller('navCtrl', ['$scope', '$location', '$cookies', '$http',
-    function($scope, $location, $cookies, $http) {
+  app.controller('offerGamesCtrl', ['$scope', '$location', '$http', '$cookies', 'Offers',
+    function($scope, $location, $http, $cookies, Offers) {
 
-      // if ($cookies.jwt) {
-      //   console.log('Nav Controller Sees the Cookie!');
-      //   $location.path('/');
-      // }
-      //$scope.identity = AuthService;
-
-      // $scope.signIn = function() {
-      //   if ($cookies.jwt) {
-      //     console.log('You already have a cookie');
-      //     $location.path('/');
-      //   } else {
-      //     console.log('signing in');
-      //     $location.path('#/login');
-      //   }
-      // };
-      $scope.signOut = function() {
-        delete $cookies.jwt;
-        $http.defaults.headers.common['jwt'] = null;
-        console.log('signing out');
-        $location.path('#/');
-      };
-    }]);
-};
-
-//       $scope.isAuthenticated = function() {
-//         if (!$cookies.jwt || $cookies.jwt.length === 0) {
-//           $location.path('/');
-//           return false;
-//         } else {
-//           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-//           return true;
-//         }
-//       };
-//       $scope.isAuthenticated = function() {
-//         if (!$cookies.jwt || $cookies.jwt.length === 0) {
-//           $location.path('/');
-//           return false;
-//         } else {
-//           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-//           return true;
-//         }
-//       };
-//       //log out & return to main page
-//       $scope.logOut = function() {
-//         $cookies.jwt = null;
-//         $http.defaults.headers.common['jwt'] = null;
-//         $location.path('/');
-//       };
-
-//   }]);
-// };
-// .controller('NavController',function($scope,$http, $rootScope) {
-
-//     $scope.isLoggedIn = function() {
-
-//       $http.get('/checklogin')
-//         .success(function(data) {
-//           console.log(data);
-//           $rootScope.loggedIn = data;
-//         })
-//         .error(function(data) {
-//           console.log('error: ' + data);
-//         });
-//     };
-// };
-
-},{}],10:[function(require,module,exports){
-'use strict';
-
-module.exports = function(app) {
-  app.controller('offerGamesCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
-
+      var tradeIndeces = [];
+      //if the user is not signed in, then send them to login
       if (!$cookies.jwt) {
         $location.path('#/login');
       }
-      console.log('Offer Games Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
-      $scope.games = [
-        { id: '548f75df27398d8b9bfeac07',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'The Curse of Monkey Island',
-          platform: 'PC',
-          image_urls: ['http://ecx.images-amazon.com/images/I/51JHJN1YW3L._SY300_.jpg']},
-        { id: '548f75df27398d8b9bfeac08',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'God of War',
-          platform: 'PS3',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941698/God_of_War_Ascension_eseajx.jpg']},
-        { id: '548f75df27398d8b9bfeac09',
-          owner: '548f75df27398d8b9bfeac05',
-          title: 'FIFA 15',
-          platform: 'PS3',
-          image_urls: ['http://res.cloudinary.com/swapmeet/image/upload/v1418941855/FIFA_15_Cover_Art_grdzh9.jpg']}
-      ];
+      //get my inventory
+      $http({
+        method: 'GET',
+        url: '/api/games/inventory'
+      })
+      .success(function(mygames) {
+        $scope.games = mygames.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
 
-      $scope.sendRequest = function() {
-        $location.path('#/');
-        console.log('Imagine I am sending a request now...');
+      //add game from offer list
+      $scope.addGameToTrades = function(game) {
+        tradeIndeces.push(game);
+        tradeIndeces.sort(function(a, b) { return a - b; });
       };
+
+      //remove game from offer list
+      $scope.removeGameFromTrades = function(game) {
+        var index = tradeIndeces.indexOf(game);
+        tradeIndeces.splice(index, 1);
+
+      };
+
+      //send request and return to search page
+      $scope.sendRequest = function() {
+        //set the game you want & the games you want to trade
+        var trades = [];
+        var gameId = Offers.getWantGame();
+        console.log(gameId);
+        for (var i = 0; i < tradeIndeces.length; i++) {
+          var index = tradeIndeces[i];
+          trades.push($scope.games[index]._id);
+        }
+        //send request to server
+        $http({
+          method: 'POST',
+          url: '/api/games/outgoingrequests',
+          data: { id: gameId, gameIdArray: trades }
+        })
+        .success(function(data) {
+          console.log('Added to outgoing requests: ' + data.items);
+          Offers.setWantGame('');
+          $location.path('#/');
+        })
+        .error(function(data) {
+          console.log(data);
+          $location.path('#/');
+        });
+      };
+
+      //cancel request and return to search page
       $scope.cancelRequest = function() {
+        Offers.setWantGame('');
         $location.path('#/');
-        console.log('Imagine I am cancelling a request now...');
       };
 
     }]);
 };
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // controller for view 4, Browse Game Details.
 'use strict';
 
 module.exports = function(app) {
-  app.controller('outboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies',
-    function($scope, $location, $http, $cookies) {
+  app.controller('outboxDetailsCtrl', ['$scope', '$location', '$http', '$cookies', '$routeParams', 'Games',
+    function($scope, $location, $http, $cookies, $routeParams, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Outbox Details Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
-      //this is fake data
-
-      $scope.game = {
-        title: 'Pac Man',
-        score: 'String',
-        publisher: 'String',
-        zip: '98087',
-        latitude: 'String',
-        longitude: 'String',
-        owner: 'String_id_number', //id number
-        short_description: 'Eat all the dots, run from the ghosts, for now...',
-        platform: 'NES',
-        image_urls: ['http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/400px-Pac_Man.svg.png',
-        'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mspacmancabinet.png/512px-Mspacmancabinet.png']
-      };
+      $scope.outs = Games.getOutList();
+      $scope.whichOut = $routeParams.indexID;
 
       $scope.cancelRequest = function() {
-        console.log('Imagine I am canceling a request now...');
+        $location.path('/profile');
+        //ultimately should remove from inbox list
       };
 
     }]);
 
 };
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -623,17 +517,16 @@ module.exports = function(app) {
 
 };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
-  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http',
-    function($scope, $cookies, $location, $http) {
+  app.controller('profileCtrl', ['$scope', '$cookies', '$location', '$http', 'Games',
+    function($scope, $cookies, $location, $http, Games) {
 
       if (!$cookies.jwt) {
         $location.path('/login');
       }
-      console.log('Profile Controller Sees the Cookie');
       $http.defaults.headers.common['jwt'] = $cookies.jwt;
 
       $scope.signOut = function() {
@@ -647,59 +540,149 @@ module.exports = function(app) {
         method: 'GET',
         url: '/api/user/myprofile'
       })
-      .success(function(data) {
-        if (!data.profile.avatar_url) {
+      .success(function(user) {
+        if (!user.profile.avatar_url) {
           $scope.avatar_url = 'http://res.cloudinary.com/swapmeet/image/upload/v1418819684/avatar_olifrr.png';
         } else {
-          $scope.avatar_url = data.profile.avatar_url;
+          $scope.avatar_url = user.profile.avatar_url;
         }
 
-        $scope.screenname = data.profile.screenname;
-        $scope.email = data.profile.email;
-        $scope.zip = data.profile.zip;
+        $scope.screenname = user.profile.screenname;
+        $scope.email = user.profile.email;
+        $scope.zip = user.profile.zip;
       })
       .error(function(data) {
         console.log(data);
       });
 
+      $http({
+        method: 'GET',
+        url: '/api/games/incomingrequests'
+      })
+      .success(function(incoming) {
+        Games.setChooseList(incoming.items);
+        $scope.inbox = incoming.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/outgoingrequests'
+      })
+      .success(function(outgoing) {
+        Games.setOutList(outgoing.items);
+        $scope.outbox = outgoing.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/inventory'
+      })
+      .success(function(mygames) {
+        Games.setMyList(mygames.items);
+        $scope.inventory = mygames.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/games/favorites'
+      })
+      .success(function(favs) {
+        Games.setFavList(favs.items);
+        $scope.favorites = favs.items;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
+      // $scope.removeFavorite = function(gameID, gameIndex) {
+      //   favs[whichFav]._id, $index
+      //   var gameList = Games.getList();
+      //   gameList[gameIndex].already_wanted = false;
+      //   Games.setList(gameList);
+
+      //   var favList = Games.getFavList();
+      //   favList.splice(gameIndex, 1);
+      //   Games.setFavList(favList);
+
+      //   $http.defaults.headers.common['jwt'] = $cookies.jwt;
+      //   $http({
+      //     method: 'PUT',
+      //     url: '/api/games/favorites',
+      //     data: { _id: gameID }
+      //   })
+      //   .success(function(data) {
+      //     console.log('Removed from favorites: ' + data.items);
+      //     $route.reload();
+
+      //   })
+      //   .error(function(data) {
+      //     console.log(data);
+      //   });
+      // };
+
     }]);
 };
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
-  app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', 'Games',
-      function($scope, $http, $cookies, $location, $routeParams, Games) {
-      //$scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
+  app.controller('searchCtrl', ['$scope', '$http', '$cookies', '$location', '$routeParams', '$route', 'Games',
+      function($scope, $http, $cookies, $location, $routeParams, $route, Games) {
 
+      var querySuffix = '';
       $scope.filterSearch = function() {
         if (!$cookies.jwt) { //if there is no cookie, then call browse route
-          /// the old browse route until linda get's a chance to update browse
-          $http({
-            method: 'GET',
-            url: '/api/browse'
-          })
-          .success(function(data) {
-            console.log('set the list in Games service');
-            Games.setList(data.items); //set the shared data
-            $scope.games = data.items;
-          })
-          .error(function(data) {
-            console.log(data);
-          });
+          if ($scope.search === undefined) { //if search bar is empty, query all
+            $http({
+              method: 'GET',
+              url: '/api/browse'
+            })
+            .success(function(data) {
+              console.log('Unauthenticated Default Landing Search');
+              Games.setList(data.items); //set the shared data on the Games service
+              $scope.games = data.items;
+            })
+            .error(function(data) {
+              console.log(data);
+            });
+          } else { // if the search bar is NOT empty, create a query string & call search route
+            querySuffix = $scope.search.title;
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
+
+            $http({
+              method: 'GET',
+              url: '/api/browse/' + querySuffix
+            })
+            .success(function(data) {
+              console.log('Unauthenticated Search with Title (Empty or Non-Empty');
+              Games.setList(data.items); //set the shared data on the Games service
+              $scope.games = data.items;
+            })
+            .error(function(data) {
+              console.log(data);
+            });
+          }
         } else { //but if a cookie exists, then set the headers & use search route
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-          var querySuffix = '';
+          querySuffix = '';
           if ($scope.search === undefined) { //if search bar is empty, query all
             $http({
               method: 'GET',
               url: '/api/search'
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Authenticated User Search with No Input');
               Games.setList(data.items); //set the shared data on the Games service
-              //console.dir(Games.getList());
               $scope.games = data.items;
             })
             .error(function(data) {
@@ -707,14 +690,14 @@ module.exports = function(app) {
             });
           } else { // if the search bar is NOT empty create a query string & call search route
             querySuffix = $scope.search.title;
-            querySuffix = '?q=' + querySuffix.replace(/ /g, '%20');
+            querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
 
             $http({
               method: 'GET',
               url: '/api/search/' + querySuffix
             })
             .success(function(data) {
-              console.log('set the list in Games service');
+              console.log('Authenticated User Search with Title Input');
               Games.setList(data.items); //set the shared data
               $scope.games = data.items;
             })
@@ -725,17 +708,13 @@ module.exports = function(app) {
         }
       };
 
-      $scope.addFavorite = function(gameID) {
-        if ($scope.$index === false) {
-          $scope.$index = true;
-        }
-        else {
-          $scope.$index = false;
-        }
-
+      $scope.addFavorite = function(gameID, gameIndex) {
         if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('#/');
+          $location.path('/login');
         } else {
+          var gameList = Games.getList();
+          gameList[gameIndex].already_wanted = true;
+          Games.setList(gameList);
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
@@ -744,17 +723,7 @@ module.exports = function(app) {
             data: { _id: gameID }
           })
           .success(function(data) {
-            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
-            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
-            // } else {
-            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
-            // }
-
-            //update the 'already favorited portion of the game service cache
-            console.log('success! added to favorites: ' + data.items);
-
-            //return $scope.isToggled;
-
+            console.log('Added to favorites: ' + data.items);
           })
           .error(function(data) {
             console.log(data);
@@ -762,36 +731,23 @@ module.exports = function(app) {
         }
       };
 
-      $scope.removeFavorite = function(gameID) {
-        //show hide logic
-        if ($scope.$index === false) {
-          $scope.$index = true;
-        }
-        else {
-          $scope.$index = false;
-        }
-        //
-        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-          $location.path('#/');
+      $scope.removeFavorite = function(gameID, gameIndex) {
+
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow removFav
+          $location.path('/login');
         } else {
+          var gameList = Games.getList();
+          gameList[gameIndex].already_wanted = false;
+          Games.setList(gameList);
 
           $http.defaults.headers.common['jwt'] = $cookies.jwt;
           $http({
-            method: 'DELETE',
+            method: 'PUT',
             url: '/api/games/favorites',
             data: { _id: gameID }
           })
           .success(function(data) {
-            // if ($scope.class === 'icon-star2 star game-summary_fav col span_1_of_6') {
-            //   $scope.class = 'icon-star2 star-active game-summary_fav col span_1_of_6';
-            // } else {
-            //   $scope.class = 'icon-star2 star game-summary_fav col span_1_of_6';
-            // }
-
-            //update the 'already favorited portion of the game service cache
-            console.log('success! removed from favorites: ' + data.items);
-
-            //return $scope.isToggled;
+            console.log('Removed from favorites: ' + data.items);
 
           })
           .error(function(data) {
@@ -802,224 +758,87 @@ module.exports = function(app) {
     }]);
 };
 
-// 'use strict';
-
-// module.exports = function(app) {
-//   app.controller('searchCtrl', ['$scope', '$http', '$cookies', 'Games',
-//       function($scope, $http, $cookies, Games) {
-
-//       var querySuffix = '';
-//       $scope.filterSearch = function() {
-//         if (!$cookies.jwt) { //if there is no cookie, then call browse route
-//           if ($scope.search === undefined) { //if search bar is empty, query all
-//             $http({
-//               method: 'GET',
-//               url: '/api/browse'
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           } else { // if the search bar is NOT empty, create a query string & call search route
-//             querySuffix = $scope.search.title;
-//             querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
-
-//             $http({
-//               method: 'GET',
-//               url: '/api/browse/' + querySuffix
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           }
-//         } else { //but if a cookie exists, then set the headers & use search route
-//           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-//           querySuffix = '';
-//           if ($scope.search === undefined) { //if search bar is empty, query all
-//             $http({
-//               method: 'GET',
-//               url: '/api/search'
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data on the Games service
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           } else { // if the search bar is NOT empty create a query string & call search route
-//             querySuffix = $scope.search.title;
-//             querySuffix = '?q=' + querySuffix.replace(/ /g, '%');
-
-//             $http({
-//               method: 'GET',
-//               url: '/api/search/' + querySuffix
-//             })
-//             .success(function(data) {
-//               console.log('set the list in Games service');
-//               Games.setList(data.items); //set the shared data
-//               $scope.games = data.items;
-//             })
-//             .error(function(data) {
-//               console.log(data);
-//             });
-//           }
-//         }
-//       };
-//     }]);
-// };
-
-},{}],15:[function(require,module,exports){
-'use strict';
-
-module.exports = function(app) {
-  app.factory('AuthService', [function() {
-
-    return {
-      currentUser: undefined,
-      isAuthenticated: function() {
-        console.log(this.currentUser);
-        return !!this.currentUser;
-      }
-    };
-  }]);
-};
-
-// 'use strict';
-
-// module.exports = function(app) {
-//   app.factory('AuthService', ['$http', '$cookies', '$location', function($http, $cookies, $location) {
-
-//     return {
-//       isAuthenticated: function() {
-//         if (!$cookies.jwt || $cookies.jwt.length === 0) {
-//           $location.path('/');
-//           return false;
-//         } else {
-//           $http.defaults.headers.common['jwt'] = $cookies.jwt;
-//           return true;
-//         }
-//       },
-//       logOut: function() {
-//         $cookies.jwt = null;
-//         $http.defaults.headers.common['jwt'] = null;
-//         return $location.path('/');
-//       }
-//     };
-//   }]);
-// };
-
-},{}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
   app.factory('Games', [function() {
 
     var data = {
-        list: []
+        list: [],
+        chooseList: [],
+        inList: [],
+        outList: [],
+        myList: [],
+        favList: []
     };
 
     return {
         getList: function() {
-          console.dir('getting List Inside Games Service');
           return data.list;
         },
         setList: function(gameArray) {
-          console.dir('setting List Inside Games Service');
           data.list = gameArray;
+        },
+
+        getChooseList: function() {
+          return data.chooseList;
+        },
+        setChooseList: function(inboxArray) {
+          data.chooseList = inboxArray;
+        },
+
+        getInList: function() {
+          return data.inList;
+        },
+        setInList: function(tradeArray) {
+          data.inList = tradeArray;
+        },
+
+        getOutList: function() {
+          return data.outList;
+        },
+        setOutList: function(outboxArray) {
+          data.outList = outboxArray;
+        },
+
+        getMyList: function() {
+          return data.myList;
+        },
+        setMyList: function(myGameArray) {
+          data.myList = myGameArray;
+        },
+
+        getFavList: function() {
+          return data.favList;
+        },
+        setFavList: function(favArray) {
+          data.favList = favArray;
         }
     };
   }]);
 };
 
-},{}],17:[function(require,module,exports){
-//
-
-},{}],18:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
   app.factory('Offers', [function() {
 
-    var data = {
-        gameId: '',
-        potentialTrades: []
-    };
+    var gameId = '';
 
     return {
-        getOffer: function() {
-          return data;
-        },
-        setWantGame: function(wantGame) {
-          data.gameId = wantGame;
-        },
-        setPotentialTrade: function(offerArray) {
-          data.potentialTrades = offerArray;
-        }
+      setWantGame: function(wantGame) {
+        gameId = wantGame;
+      },
+      getWantGame: function() {
+        return gameId;
+      }
     };
   }]);
 };
 
-},{}],19:[function(require,module,exports){
-'use strict';
-
-module.exports = function(app) {
-  var handleErrors = function(data) {
-    console.log(data);
-  };
-
-  app.factory('ResourceBackend', ['$http', function($http) {
-    return function(resourceName) {
-      return {
-        index: function() {
-          return $http({
-            method: 'GET',
-            url: '/api/' + resourceName
-          })
-          .error(handleErrors);
-        }
-
-        // saveNew: function(resource) {
-        //   return $http({
-        //     method: 'POST',
-        //     url: '/api/' + resourceName,
-        //     data: resource
-        //   })
-        //   .error(handleErrors);
-        // },
-
-        // save: function(resource) {
-        //   return $http({
-        //     method: 'PUT',
-        //     url: '/api/' + resourceName + '/' + resource._id,
-        //     data: resource
-        //   })
-        //   .error(handleErrors);
-        // },
-
-        // delete: function(resource) {
-        //   return $http({
-        //     method: 'DELETE',
-        //     url: '/api/' + resourceName + '/' + resource._id
-        //   })
-        //   .error(handleErrors);
-        // }
-      };
-    };
-  }]);
-};
-
-},{}],20:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function() {
     'use strict';
 
@@ -1187,7 +1006,7 @@ module.exports = function(app) {
 
 })();
 
-},{}],21:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -1395,7 +1214,7 @@ angular.module('ngCookies', ['ng']).
 
 })(window, window.angular);
 
-},{}],22:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -2064,7 +1883,7 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],23:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -3061,7 +2880,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],24:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -29099,4 +28918,4 @@ var styleDirective = valueFn({
 })(window, document);
 
 !window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}</style>');
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);

@@ -215,7 +215,7 @@ html {
   color: #009999;
   float: right;
   font-size: 1.5em;
-  padding: 0.75em 1em; }
+  padding: 0.75em 0.8em; }
 
 .game-swap_img {
   padding: 0 1em; }
@@ -258,11 +258,14 @@ html {
 .game-summary {
   border-bottom: 0.1em solid #d7d7d7;
   background-color: #1b465a; }
+  .game-summary:hover {
+    background-color: #21556e; }
 
 .game-summary_img {
-  padding: 0.8em; }
+  padding: 0.5em;
+  margin: 0 auto; }
   .game-summary_img > img {
-    width: 100%; }
+    width: 80%; }
 
 .game-summary_info {
   color: white;
@@ -271,36 +274,47 @@ html {
   font-family: 'ABeeZee';
   height: 100%; }
   .game-summary_info > h1 {
-    font-size: 1em;
+    font-size: 0.8em;
     text-transform: uppercase; }
   .game-summary_info > h2 {
     color: #009999;
     margin-top: 1em;
-    font-size: 1em; }
+    font-size: 0.8em; }
 
 .game-summary_fav {
   color: white;
-  background-color: #1b465a;
-  font-size: 1.5em;
+  background-color: transparent;
+  font-size: 1em;
   padding-top: 0.6em;
-  text-align: center; }
+  text-align: center;
+  cursor: pointer;
+  cursor: hand; }
 
 .game-summary_check {
   color: white;
   font-size: 1.25em;
   margin-top: 1em;
-  background-color: #1b465a; }
+  background-color: #1b465a;
+  cursor: pointer;
+  cursor: hand; }
 
 .inform {
   background-color: #d7d7d7;
-  margin: 0 auto;
   line-spacing: 0.25em;
   font-family: 'Gasalt-Regular';
   text-transform: uppercase;
-  text-transform: uppercase;
   padding: 0.2em 0 0 1em;
-  width: 100%;
   color: #1b465a; }
+  .inform > button {
+    line-spacing: 0.25em;
+    font-family: 'Gasalt-Regular';
+    text-transform: uppercase;
+    cursor: pointer;
+    cursor: hand;
+    background-color: transparent;
+    color: #1b465a; }
+  .inform > button:hover {
+    color: white; }
 
 .create {
   height: 2.5em;
@@ -320,9 +334,11 @@ html {
   margin: 0 auto;
   background-color: #1b465a;
   padding: 1em 0;
-  border-bottom: 4px solid #0f2733; }
+  border-bottom: 4px solid #0f2733;
+  color: white;
+  cursor: pointer;
+  cursor: hand; }
   .create_fav > span {
-    color: white;
     font-size: 2.4em; }
   .create_fav:hover {
     background-color: #21556e; }
@@ -448,7 +464,9 @@ html {
   margin: 0 10%;
   width: 80%;
   border-bottom: 4px solid #006666;
-  margin-top: 0.5em; }
+  margin-top: 0.5em;
+  cursor: pointer;
+  cursor: hand; }
 
 .btn-remove {
   display: block;
@@ -459,21 +477,25 @@ html {
   margin: 1em auto;
   font-size: 1.5em;
   padding: 0.5em 0;
-  border-bottom: 4px solid #cf0a0a; }
+  border-bottom: 4px solid #cf0a0a;
+  cursor: pointer;
+  cursor: hand; }
   .btn-remove:hover {
-    background-color: #f64949; }
+    background-color: #f76262; }
 
 .btn-add {
+  text-align: center;
   display: block;
   width: 80%;
   background-color: #009999;
   font-family: 'ABeeZee';
   color: white;
-  margin: auto;
+  margin: 0 auto;
   font-size: 1.5em;
   padding: 0.5em 0;
-  width: 80%;
-  border-bottom: 4px solid #006666; }
+  border-bottom: 4px solid #006666;
+  cursor: pointer;
+  cursor: hand; }
   .btn-add:hover {
     background-color: #00b3b3; }
 
@@ -485,9 +507,11 @@ html {
   margin: 0;
   height: 3.25em;
   text-transform: uppercase;
-  border-bottom: 4px solid #cf0a0a; }
+  border-bottom: 4px solid #cf0a0a;
+  cursor: pointer;
+  cursor: hand; }
   .btn-pair_neg:hover {
-    background-color: #f64949; }
+    background-color: #f76262; }
 
 .btn-pair_pos {
   background-color: #009999;
@@ -497,7 +521,9 @@ html {
   margin: 0;
   height: 3.25em;
   text-transform: uppercase;
-  border-bottom: 4px solid #006666; }
+  border-bottom: 4px solid #006666;
+  cursor: pointer;
+  cursor: hand; }
   .btn-pair_pos:hover {
     background-color: #00b3b3; }
 
@@ -673,7 +699,9 @@ html {
     font-size: 0.8em;
     height: 3em;
     color: #1b465a;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    cursor: pointer;
+    cursor: hand; }
   .tab_tabs .active {
     color: #009999;
     background-color: white; }
@@ -682,30 +710,31 @@ html {
   font-family: 'ABeeZee';
   color: white;
   background-color: #1b465a;
-  height: 30em; }
-  .tab_list .tab_list_game {
-    border-bottom: 1px solid #d7d7d7;
-    padding: 0.3em 0.75em;
-    color: white; }
+  height: 15em;
+  overflow: auto; }
   .tab_list h1 {
     text-transform: uppercase;
-    font-size: 1em;
-    color: white;
-    padding: 0.35em; }
-  .tab_list p {
     font-size: 0.9em;
-    color: #009999;
-    padding: 0 0.35em; }
-  .tab_list .tab_list_btn {
-    padding-left: 1.7em; }
-  .tab_list .tab_list_btn > button {
-    background-color: transparent;
-    color: white;
-    font-size: 1.2em;
-    margin-top: 0.5em; }
+    color: white; }
+  .tab_list p {
+    font-size: 0.8em;
+    color: #009999; }
 
-.tab_list_game:hover {
-  background-color: #21556e; }
+.tab_list_game {
+  border-bottom: 1px solid #d7d7d7;
+  padding: 0.3em 0.5em;
+  color: white; }
+  .tab_list_game:hover {
+    background-color: #21556e; }
+
+.tab_list_btn {
+  text-align: right; }
+  .tab_list_btn button {
+    background-color: transparent;
+    color: #f53131;
+    font-size: 1.2em;
+    cursor: pointer;
+    cursor: hand; }
 
 .profile {
   margin-bottom: 0.5em; }
