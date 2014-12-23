@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
+//process.env.MONGO_URL = 'mongodb://localhost/game_swap_test';
 
 var User = require('../models/user.js');
 var Game = require('../models/game.js');
@@ -11,8 +11,8 @@ chai.use(chaihttp);
 
 require('../server');
 
-var url = 'http://localhost:3000/';
-//var url = 'https://cryptic-savannah-2534.herokuapp.com/';
+//var url = 'http://localhost:3000/';
+var url = 'https://cryptic-savannah-2534.herokuapp.com/';
 //var expect = chai.expect;
 
 //clear existing users and games
