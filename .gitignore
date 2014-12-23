@@ -26,11 +26,9 @@ node_modules
 bower_components
 db
 lib/findMatches.js
-build/
 test/angular_testbundle.js
 .DS_Store
 bootstrap.css
 temp.json
 build/
-build/css/app.css
 
