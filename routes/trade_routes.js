@@ -16,7 +16,6 @@ module.exports = function(app, auth) {
   app.post('/api/games/outgoingrequests', auth, function(req, res) {
     var gameId = req.body.id;
     var potentialTrades = req.body.gameIdArray;
-    //var owner;
     trade = new Trade();
 
     //if game of game array are undefined, return error
@@ -63,6 +62,7 @@ module.exports = function(app, auth) {
       },
 
       function(owner, user, callback) {
+        //find the owner, add their info to the trade object
         User.findById(owner, function(err, gameOwner) {
           if (err) callback('error finding owner');
           trade.incoming_user = gameOwner._id;
@@ -73,9 +73,10 @@ module.exports = function(app, auth) {
       },
 
       function(user, gameOwner, callback) {
+        //save the modified trade, user, and gameOwner objects
         trade.save(function(err, data) {
           if (err) callback('error finding owner');
-          //console.log('data is', data);
+
           //add to appropriate incoming/outgoing requests
           user.outgoingRequests.push(data._id);
           gameOwner.incomingRequests.push(data._id);
@@ -179,12 +180,13 @@ module.exports = function(app, auth) {
         User.findById(req.user._id, function(err, user) {
           if (err) return helpers.returnError(res, 99, 'cannot find user 1');
           if (!user) return helpers.returnError(res, 100, 'user is null');
-          //console.log('before', user.incomingRequests);
+
+          //remove tradeId from this user's incoming request array
           user.incomingRequests = _.remove(user.incomingRequests, function(item) {
             return (tradeId == item) ? false : true;
           });
-          //console.log('after', user.incomingRequests);
 
+          //save the user
           user.save(function(err) {
             if (err) helpers.returnError(res, 99, 'cannot save user', 400);
             callback(null);
@@ -207,16 +209,17 @@ module.exports = function(app, auth) {
       },
 
       function(ownerId, callback) {
-        //find the user the delete trade was directed at
+        //find the user the deleted trade was directed at
         User.findById(ownerId, function(err, otherUser) {
           if (err)
             return helpers.returnError(err, res, 99, 'cannot find user 2');
-          //console.log('before', otherUser.outgoingRequests);
+
+          //remove the corresponding outgoing request
           otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
             function(item) {
               return (tradeId == item) ? false : true;
             });
-          //console.log('after', otherUser.outgoingRequests);
+
           otherUser.save(function(err) {
             if (err) return helpers.returnError(res, 5, 'cannot save user 2', 403);
             callback(null); //helpers.returnSuccess(res);
