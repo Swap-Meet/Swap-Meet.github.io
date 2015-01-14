@@ -524,7 +524,6 @@ describe('trading routes tests', function() {
     .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body.items);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       done();
@@ -538,7 +537,6 @@ describe('trading routes tests', function() {
     .send({tradeId: tradeId})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log('a', res.body);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -551,7 +549,6 @@ describe('trading routes tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      console.log('b', res.body);
       expect(res.body.items.length).to.eql(1);
       done();
     });
@@ -726,7 +723,6 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('the items are', res.body);
       expect(res.body.items.length).to.eql(0);
       done();
     });
@@ -738,7 +734,6 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('itemsssss', res.body.items);
       expect(res.body.error).to.eql(0);
       expect(res.body.items[0].potentialTrades.length).to.eql(2);
       done();
