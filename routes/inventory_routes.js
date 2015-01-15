@@ -100,55 +100,6 @@ module.exports = function(app, auth) {
     });
   });
 
-    //async.parallel([deleteGameFromDB(callback)])
-    //find the user based on the incoming jwt token
-    //delete game from their inventory
-
-    //find everyone who has favorited the game, delete game from their favorites
-
-    //find everyone who has proposed a trade for this game, delete their trades
-
-    //find all trades the user has proposed with this game
-    //splice out the game, delete if there are no games left in the request
-
-    // User.findById(req.user._id, function(err, user) {
-    //   returnIfError(err, res, 6, 'error finding user');
-    //   if (user === null) return res.json({error:6, msg: 'user is null'});
-
-    //   //check to see if game is in this user's hasGames
-    //   var stillHas = true;
-    //   for (var i = 0; i < user.hasGames.length; i++) {
-    //     if (user.hasGames[i] === gameId) {
-    //       user.hasGames.splice(i, 1);
-    //       stillHas = false;
-    //       break;
-    //     }
-    //   }
-
-    //   //delete game from other user's wants games
-    //   User.find(
-    //     {wantsGames: {$elemMatch: {gameId: gameId}}}, function(err, data) {
-    //       if (!data) return res.json({error: 1});
-    //       for (var i = 0; i < data.length; i++) {
-    //         for (var j = 0; j < data[i].wantsGames.length; j++) {
-    //           if (data[i].wantsGames[j].gameId === gameId) {
-    //             data[i].wantsGames.splice(j, 1);
-    //             break;
-    //           }
-    //         }
-    //         data[i].save(returnIfError(err, res, 1, 'error saving'));
-    //       }
-    //       if (!stillHas) {
-    //         user.save(function(err) {
-    //           returnIfError(err, res, 1, 'error saving');
-    //           res.status(200).json({error: 0}); //updated user
-    //         });
-    //       } else {
-    //         res.json({error: 9, message: 'game not found in user list'});
-    //       }
-    //     });
-    // });
-
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {
     return getGameInfo(req.user.inventory, res);

@@ -1,9 +1,7 @@
 'use strict';
-//var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
 var Trade = require('../models/trade');
-//var findGameInDB = require('../lib/findGameInDB');
 var helpers = require('../lib/helpers');
 var _ = require('lodash');
 var trade;
@@ -181,8 +179,8 @@ module.exports = function(app, auth) {
         });
       }],
 
-      function(err) {
-        if (err) helpers.returnError(res, 99, err);
+      function(err, code) {
+        if (err) helpers.returnError(res, code || 99, err);
         helpers.returnSuccess(res);
       }
     );
@@ -196,8 +194,8 @@ module.exports = function(app, auth) {
     async.waterfall([
       function(callback) {
         User.findById(req.user._id, function(err, user) {
-          if (err) return helpers.returnError(res, 99, 'cannot find user 1');
-          if (!user) return helpers.returnError(res, 100, 'user is null');
+          if (err) callback('cannot find user 1');
+          if (!user) callback('user is null');
 
           //remove tradeId from this user's incoming request array
           user.incomingRequests = _.remove(user.incomingRequests, function(item) {
@@ -206,7 +204,7 @@ module.exports = function(app, auth) {
 
           //save the user
           user.save(function(err) {
-            if (err) helpers.returnError(res, 99, 'cannot save user', 400);
+            if (err) callback('cannot save user');
             callback(null);
           });
         });
@@ -216,11 +214,11 @@ module.exports = function(app, auth) {
         //find the trade obect and delete it, store other user id
         Trade.findById(tradeId, function(err, trade) {
 
-          if (err) return helpers.returnError(err, res, 99, 'cannot find trade');
+          if (err) callback('cannot find trade');
           var ownerId = trade.outgoing_user;
           trade.remove(function(err) {
             if (err)
-              return helpers.returnError(err, res, 99, 'cannot remove trade');
+              return callback('cannot remove trade');
             callback(null, ownerId);
           });
         });
@@ -230,7 +228,7 @@ module.exports = function(app, auth) {
         //find the user the deleted trade was directed at
         User.findById(ownerId, function(err, otherUser) {
           if (err)
-            return helpers.returnError(err, res, 99, 'cannot find user 2');
+            return callback('cannot find user 2');
 
           //remove the corresponding outgoing request
           otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
@@ -239,7 +237,7 @@ module.exports = function(app, auth) {
             });
 
           otherUser.save(function(err) {
-            if (err) return helpers.returnError(res, 5, 'cannot save user 2', 403);
+            if (err) callback('cannot save user 2');
             callback(null); //helpers.returnSuccess(res);
           });
         });
