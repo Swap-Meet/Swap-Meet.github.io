@@ -1,9 +1,7 @@
 'use strict';
-//var eachAsync = require('each-async');
 var User = require('../models/user');
 var Game = require('../models/game');
 var Trade = require('../models/trade');
-//var findGameInDB = require('../lib/findGameInDB');
 var helpers = require('../lib/helpers');
 var _ = require('lodash');
 var trade;
@@ -99,13 +97,12 @@ module.exports = function(app, auth) {
 
   //get all incoming requests
   app.get('/api/games/incomingrequests', auth, function(req, res) {
-    //console.log('the restponse', res);
+
     //find user making the request
     User.findById(req.user._id, function(err, user) {
       if (err) return helpers.returnError(res, 2, 'cannot find user');
-      //console.log('requests', user);
-      return getTradeArrayInfo(res, user.incomingRequests);
 
+      return getTradeArrayInfo(res, user.incomingRequests);
     });
   });
 
@@ -127,50 +124,69 @@ module.exports = function(app, auth) {
     var tradeId = req.body.tradeId;
     var ownerId;
 
-    //find this user
-    User.findById(req.user._id, function(err, user) {
-      if (err) return helpers.returnError(res, 99, 'cannot find user 1');
-      if (!user) return helpers.returnError(res, 100, 'user is null');
+    async.waterfall([
+      function(callback) {
+        //find this user
+        User.findById(req.user._id, function(err, user) {
+          if (err) callback('cannot find user 1');
+          if (!user) callback('user is null');
 
-      user.outgoingRequests = _.remove(user.outgoingRequests, function(item) {
-        return (tradeId == item) ? false : true;
-      });
-      //console.log("monkey", user);
-      user.save(function(err) {
-        if (err) helpers.returnError(res, 99, 'cannot save user', 400);
-        //console.log('it is', tradeId);
-        //find the trade obect and delete it, store other user id
-        Trade.findById(tradeId, function(err, trade) {
-          //console.log('tradidddd', tradeId);
-          if (err)
-            return helpers.returnError(err, res, 99, 'cannot find user 2');
-          ownerId = trade.incoming_user;
-          trade.remove(function(err) {
-            if (err)
-              return helpers.returnError(err, res, 99, 'cannot remove trade');
-            //find the user the delete trade was directed at
-            User.findById(ownerId, function(err, otherUser) {
-              if (err)
-                return helpers.returnError(err, res, 99, 'cannot find user 2');
-              //console.log('found other user', otherUser, gameId);
-              otherUser.incomingRequests = _.remove(otherUser.incomingRequests,
-                function(item) {
-                  return (tradeId == item) ? false : true;
-                });
-              //console.log('found other user', otherUser);
-              otherUser.save(function(err) {
-                if (err)
-                  return helpers.returnError(res, 5, 'cannot save user 2', 403);
-                helpers.returnSuccess(res);
-              });
-            });
+          user.outgoingRequests = _.remove(user.outgoingRequests, function(item) {
+            return (tradeId == item) ? false : true;
+          });
+
+          user.save(function(err) {
+            if (err) callback('cannot save user');
+            callback(null);
           });
         });
-      });
-    });
+      },
+
+      //remove the trade from the database
+      function(callback) {
+
+        Trade.findById(tradeId, function(err, trade) {
+
+          if (err) callback('cannot find user 2');
+
+          //store the other user for later use
+          ownerId = trade.incoming_user;
+
+          trade.remove(function(err) {
+            if (err) callback('cannot remove trade');
+            callback(null);
+          });
+        });
+      },
+
+      //look up the owner and remove this trade from incoming requests
+      function(callback) {
+        //look up owner
+        User.findById(ownerId, function(err, otherUser) {
+
+          if (err) callback('cannot find user 2');
+
+          //remove this trade from incoming requests
+          otherUser.incomingRequests = _.remove(otherUser.incomingRequests,
+            function(item) {
+              return (tradeId == item) ? false : true;
+            });
+
+          otherUser.save(function(err) {
+            if (err) callback('cannot save user 2');
+            callback(null);
+          });
+        });
+      }],
+
+      function(err, code) {
+        if (err) helpers.returnError(res, code || 99, err);
+        helpers.returnSuccess(res);
+      }
+    );
   });
 
-//delete an incoming request
+  //delete an incoming request
   app.delete('/api/games/incomingrequests', auth, function(req, res) {
     var tradeId = req.body.tradeId;
 
@@ -178,8 +194,8 @@ module.exports = function(app, auth) {
     async.waterfall([
       function(callback) {
         User.findById(req.user._id, function(err, user) {
-          if (err) return helpers.returnError(res, 99, 'cannot find user 1');
-          if (!user) return helpers.returnError(res, 100, 'user is null');
+          if (err) callback('cannot find user 1');
+          if (!user) callback('user is null');
 
           //remove tradeId from this user's incoming request array
           user.incomingRequests = _.remove(user.incomingRequests, function(item) {
@@ -188,7 +204,7 @@ module.exports = function(app, auth) {
 
           //save the user
           user.save(function(err) {
-            if (err) helpers.returnError(res, 99, 'cannot save user', 400);
+            if (err) callback('cannot save user');
             callback(null);
           });
         });
@@ -198,11 +214,11 @@ module.exports = function(app, auth) {
         //find the trade obect and delete it, store other user id
         Trade.findById(tradeId, function(err, trade) {
 
-          if (err) return helpers.returnError(err, res, 99, 'cannot find trade');
+          if (err) callback('cannot find trade');
           var ownerId = trade.outgoing_user;
           trade.remove(function(err) {
             if (err)
-              return helpers.returnError(err, res, 99, 'cannot remove trade');
+              return callback('cannot remove trade');
             callback(null, ownerId);
           });
         });
@@ -212,7 +228,7 @@ module.exports = function(app, auth) {
         //find the user the deleted trade was directed at
         User.findById(ownerId, function(err, otherUser) {
           if (err)
-            return helpers.returnError(err, res, 99, 'cannot find user 2');
+            return callback('cannot find user 2');
 
           //remove the corresponding outgoing request
           otherUser.outgoingRequests = _.remove(otherUser.outgoingRequests,
@@ -221,13 +237,14 @@ module.exports = function(app, auth) {
             });
 
           otherUser.save(function(err) {
-            if (err) return helpers.returnError(res, 5, 'cannot save user 2', 403);
+            if (err) callback('cannot save user 2');
             callback(null); //helpers.returnSuccess(res);
           });
         });
       }],
 
       function(err) {
+        if (err) helpers.returnError(res, 99, err);
         helpers.returnSuccess(res);
       });
   });
