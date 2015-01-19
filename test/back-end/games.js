@@ -7,11 +7,7 @@ module.exports = function() {
 
   //User.collection.remove(function(err) {if (err) throw err;});
   Game.collection.remove(function(err) {if (err) throw err;});
-  Trade.collection.remove(function(err) {if (err) throw err;});
-  //var loginA = '?email=testA@example.com&password=Monkeys911' +
-  //  '&screenname=BunniesFromHell&zip=99999';
-  //var loginB = '?email=testB@example.com&password=Monkeys911' +
-  //  '&screenname=BunniesFromHello&zip=99999';
+  //Trade.collection.remove(function(err) {if (err) throw err;});
 
   var games = [];
   //var users = [];
