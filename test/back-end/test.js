@@ -239,7 +239,7 @@ describe('basic user tests', function() {
     .send({_id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log(gameA3Id);
+      //console.log(gameA3Id);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -252,7 +252,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      console.log(res.body.items);
+      //console.log(res.body.items);
       expect(res.body.items).to.be.an('array');
       expect(res.body.items.length).to.eql(2);
       done();
@@ -351,7 +351,7 @@ describe('basic user tests', function() {
     .send({id: gameB1Id, gameIdArray: [Agames[0]._id, Agames[1]._id]})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log('the restponse is', res.body);
+      //console.log('the response is', res.body);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -433,7 +433,7 @@ describe('trading routes tests', function() {
     .send(games[0])
     .end(function(err, res) {
       expect(err).to.eql(null);
-      games[0]._id = res.body.items._id;//console.log('gameId to look for', gameB1Id);
+      games[0]._id = res.body.items._id;
       expect(res.body.error).to.eql(0);
       done();
     });
