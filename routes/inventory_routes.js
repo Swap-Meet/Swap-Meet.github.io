@@ -17,9 +17,9 @@ module.exports = function(app, auth) {
     async.parallel([function(callback) {
       //remove the game from the game database
       Game.remove({ _id: gameId }, function(err) {
-        if (err) return helpers.returnError(res, 10, 'invalid id');
+        if (err) callback('invalid id');
         //console.log('removed game document');
-        callback();
+        callback(null);
       });
     },
     //delete from this user's inventory
@@ -29,7 +29,7 @@ module.exports = function(app, auth) {
         user.inventory = helpers.filterOutGame(user.inventory, gameId);
         user.save(function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     },
@@ -50,7 +50,7 @@ module.exports = function(app, auth) {
             counter++;
             //console.log('does it output', counter, users);
             if (counter === users.length) {
-              callback();
+              callback(null);
             }
           });
         });
@@ -68,7 +68,7 @@ module.exports = function(app, auth) {
           });
         }, function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     },
@@ -78,24 +78,24 @@ module.exports = function(app, auth) {
       //console.log('these are the trades', gameId);
       Trade.find({potentialTrades: gameId}, function(err, trades) {
         //console.log('these are the trades', trades);
-        if (err || !trades) callback();
+        if (err || !trades) callback('cannot remove trade');
         async.each(trades, function(trade, done) {
           trade.potentialTrades = _.filter(trade.potentialTrades,
             function(item) {
             return (item == gameId) ? false : true;
           });
-          trade.save(function() {
-            //if (err) //callback(err);
+          trade.save(function(err) {
+            if (err) callback(err);
             done();
           });
         }, function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     }
     ], function(err, results) {
-      if (err) return helpers.returnError(res, 55, 'error');
+      if (err) return helpers.returnError(res, 55, err);
       return helpers.returnSuccess(res, results);
     });
   });
