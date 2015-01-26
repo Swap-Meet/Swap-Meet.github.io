@@ -10,11 +10,11 @@
       <h2>Games Available</h2>
   </section>
   <!-- search bar -->
-  <section class ="search section group">
+  <form class ="search section group">
     <input type="text" placeholder="search" class="search-input col span_5_of_6" data-ng-model="search.title">
     <button class="icon-search search_btn col span_1_of_6" data-ng-click="filterSearch()"></button>
   <!--   <a href="#/filtersearch" class="btn-filter-search col span_1_of_4">Go/<a> -->
-  </section>
+  </form>
 
   <!-- browse games list -->
   <section class="game-summary section group" ng-repeat="game in games">
