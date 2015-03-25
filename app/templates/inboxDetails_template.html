@@ -17,21 +17,21 @@
   <section class="swap-info">
     <h1> Trading </h1>
    <section class="swap-info_details">
- <h2>{{ trade[0].title }}</h2>
+ <h2>{{ trades[0].title }}</h2>
     <!-- USER A - MY GAME: platform-->
- <h3 class="swap-info_title">{{ trade[0].platform }} </h3>
+ <h3 class="swap-info_title">{{ trades[0].platform }} </h3>
 </section>
   <h1> For</h1>
 <section class="swap-info_details">
-  <h2>{{ trade[1].title }}</h2>
+  <h2>{{ trades[1].title }}</h2>
   <!-- USER B - TRADING FOR GAME: platform -->
-    <h3 class="swap-info_title">{{ trade[1].platform }}</h3>
+    <h3 class="swap-info_title">{{ trades[1].platform }}</h3>
 </section>
 </section>
 
  <section class="game-swap section group">
   <section class="game-swap_img col span_2_of_6">
-    <img src='{{ trade[0].image_urls[0] }}'></img>
+    <img src='{{ trades[0].image_urls[0] }}'></img>
   </section>
   <section class="col span_2_of_6">
     <p class="icon-arrow-right"></p>
@@ -40,7 +40,7 @@
   <!-- USER B - TRADING FOR GAME: Title -->
   </section>
   <section class=" game-swap_img col span_2_of_6">
-    <img src='{{ trade[1].image_urls[0] }}'></img>
+    <img src='{{ trades[1].image_urls[0] }}'></img>
   <!-- USER B - TRADING FOR GAME: Title -->
   </section>
 </section>
@@ -49,7 +49,7 @@
 
  <!-- Send request and cancel request buttons -->
 <section class="btn-pair section group">
-  <button class="btn-pair_pos col span_3_of_4" data-ng-click="sendRequest()">Yes</button>
+  <button class="btn-pair_pos col span_3_of_4" ng-click="sendRequest()">Yes</button>
   <button class="btn-pair_neg col span_1_of_4" ng-click="cancelRequest()">No</button>
 </section>
 

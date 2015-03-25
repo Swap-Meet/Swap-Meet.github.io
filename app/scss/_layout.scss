@@ -13,7 +13,10 @@
   color: $primary-color;
   float: right;
   font-size: 1.5em;
-  padding: .75em 1em;
+  padding: .75em .7em;
+  &:hover {
+  color: $primary-color-light;
+  }
 }
 
 .game-swap_img {

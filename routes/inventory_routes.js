@@ -17,9 +17,9 @@ module.exports = function(app, auth) {
     async.parallel([function(callback) {
       //remove the game from the game database
       Game.remove({ _id: gameId }, function(err) {
-        if (err) return helpers.returnError(res, 10, 'invalid id');
+        if (err) callback('invalid id');
         //console.log('removed game document');
-        callback();
+        callback(null);
       });
     },
     //delete from this user's inventory
@@ -29,7 +29,7 @@ module.exports = function(app, auth) {
         user.inventory = helpers.filterOutGame(user.inventory, gameId);
         user.save(function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     },
@@ -45,12 +45,12 @@ module.exports = function(app, auth) {
         _.forEach(users, function(user) {
           //console.log('fav', user.favorites);
           user.favorites = helpers.filterOutGame(user.favorites, gameId);
-          //console.log('fav', user.favorites);
+
           user.save(function() {
             counter++;
             //console.log('does it output', counter, users);
             if (counter === users.length) {
-              callback();
+              callback(null);
             }
           });
         });
@@ -68,7 +68,7 @@ module.exports = function(app, auth) {
           });
         }, function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     },
@@ -78,76 +78,27 @@ module.exports = function(app, auth) {
       //console.log('these are the trades', gameId);
       Trade.find({potentialTrades: gameId}, function(err, trades) {
         //console.log('these are the trades', trades);
-        if (err || !trades) callback();
+        if (err || !trades) callback('cannot remove trade');
         async.each(trades, function(trade, done) {
           trade.potentialTrades = _.filter(trade.potentialTrades,
             function(item) {
             return (item == gameId) ? false : true;
           });
-          trade.save(function() {
-            //if (err) //callback(err);
+          trade.save(function(err) {
+            if (err) callback(err);
             done();
           });
         }, function(err) {
           if (err) callback(err);
-          callback();
+          callback(null);
         });
       });
     }
     ], function(err, results) {
-      if (err) return helpers.returnError(res, 55, 'error');
+      if (err) return helpers.returnError(res, 55, err);
       return helpers.returnSuccess(res, results);
     });
   });
-
-    //async.parallel([deleteGameFromDB(callback)])
-    //find the user based on the incoming jwt token
-    //delete game from their inventory
-
-    //find everyone who has favorited the game, delete game from their favorites
-
-    //find everyone who has proposed a trade for this game, delete their trades
-
-    //find all trades the user has proposed with this game
-    //splice out the game, delete if there are no games left in the request
-
-    // User.findById(req.user._id, function(err, user) {
-    //   returnIfError(err, res, 6, 'error finding user');
-    //   if (user === null) return res.json({error:6, msg: 'user is null'});
-
-    //   //check to see if game is in this user's hasGames
-    //   var stillHas = true;
-    //   for (var i = 0; i < user.hasGames.length; i++) {
-    //     if (user.hasGames[i] === gameId) {
-    //       user.hasGames.splice(i, 1);
-    //       stillHas = false;
-    //       break;
-    //     }
-    //   }
-
-    //   //delete game from other user's wants games
-    //   User.find(
-    //     {wantsGames: {$elemMatch: {gameId: gameId}}}, function(err, data) {
-    //       if (!data) return res.json({error: 1});
-    //       for (var i = 0; i < data.length; i++) {
-    //         for (var j = 0; j < data[i].wantsGames.length; j++) {
-    //           if (data[i].wantsGames[j].gameId === gameId) {
-    //             data[i].wantsGames.splice(j, 1);
-    //             break;
-    //           }
-    //         }
-    //         data[i].save(returnIfError(err, res, 1, 'error saving'));
-    //       }
-    //       if (!stillHas) {
-    //         user.save(function(err) {
-    //           returnIfError(err, res, 1, 'error saving');
-    //           res.status(200).json({error: 0}); //updated user
-    //         });
-    //       } else {
-    //         res.json({error: 9, message: 'game not found in user list'});
-    //       }
-    //     });
-    // });
 
   //view the users's inventory
   app.get('/api/games/inventory', auth, function(req, res) {

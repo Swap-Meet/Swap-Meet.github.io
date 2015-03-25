@@ -41,6 +41,8 @@
   margin: 0;
   height: 3.25em;
   text-transform: uppercase;
+  cursor: pointer;
+  cursor: hand;
 }
 
 @mixin button-upload {
@@ -52,4 +54,6 @@
   margin: 0 10%;
   width: 80%;
   border-bottom: 4px solid $primary-color-dark;
+  cursor: pointer;
+  cursor: hand;
 }

@@ -239,6 +239,7 @@ describe('basic user tests', function() {
     .send({_id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
+      //console.log(gameA3Id);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -251,6 +252,7 @@ describe('basic user tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
+      //console.log(res.body.items);
       expect(res.body.items).to.be.an('array');
       expect(res.body.items.length).to.eql(2);
       done();
@@ -259,9 +261,9 @@ describe('basic user tests', function() {
 
   it('B should be able to delete a favorite', function(done) {
     chai.request(url)
-    .delete('api/games/favorites')
+    .put('api/games/favorites')
     .set('jwt', jwtB)
-    .send({id: gameA3Id})
+    .send({_id: gameA3Id})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
@@ -283,9 +285,9 @@ describe('basic user tests', function() {
 
   it('should not be able to delete a favorite w/ invalid id', function(done) {
     chai.request(url)
-    .delete('api/games/favorites')
+    .put('api/games/favorites')
     .set('jwt', jwtB)
-    .send({id: '8675309'})
+    .send({_id: '8675309'})
     .end(function(err, res) {
       expect(res.body.error).to.eql(7);
       done();
@@ -349,7 +351,7 @@ describe('basic user tests', function() {
     .send({id: gameB1Id, gameIdArray: [Agames[0]._id, Agames[1]._id]})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('the restponse is', res.body);
+      //console.log('the response is', res.body);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -381,9 +383,9 @@ describe('basic user tests', function() {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
-      console.log('output', res.body);
-      console.log('potential trades', res.body.items[0].potentialTrades);
-      console.log('game info', res.body.items[0].gameInfo);
+      //console.log('output', res.body);
+      //console.log('potential trades', res.body.items[0].potentialTrades);
+      //console.log('game info', res.body.items[0].gameInfo);
       //expect(res.body.items[0].owner).to.be.a('String');
       done();
     });
@@ -431,7 +433,7 @@ describe('trading routes tests', function() {
     .send(games[0])
     .end(function(err, res) {
       expect(err).to.eql(null);
-      games[0]._id = res.body.items._id;//console.log('gameId to look for', gameB1Id);
+      games[0]._id = res.body.items._id;
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -510,6 +512,7 @@ describe('trading routes tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       tradeId = res.body.items._id;
+      //console.log('the trade is ', res.body.items);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -521,7 +524,6 @@ describe('trading routes tests', function() {
     .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log(res.body.items);
       expect(res.body.error).to.eql(0);
       expect(res.body.items).to.be.an('Array');
       done();
@@ -535,7 +537,6 @@ describe('trading routes tests', function() {
     .send({tradeId: tradeId})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('a', res.body);
       expect(res.body.error).to.eql(0);
       done();
     });
@@ -548,8 +549,7 @@ describe('trading routes tests', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.error).to.eql(0);
-      //console.log('b', res.body);
-      expect(res.body.items).to.eql([]);
+      expect(res.body.items.length).to.eql(1);
       done();
     });
   });
@@ -723,7 +723,6 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtA)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('the items are', res.body);
       expect(res.body.items.length).to.eql(0);
       done();
     });
@@ -735,7 +734,6 @@ describe('inventory deletion tests', function() {
     .set('jwt', jwtB)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //console.log('itemsssss', res.body.items);
       expect(res.body.error).to.eql(0);
       expect(res.body.items[0].potentialTrades.length).to.eql(2);
       done();

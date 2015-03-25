@@ -41,6 +41,8 @@ module.exports = function(app, auth) {
     var zip = req.query.zip;
     var email = req.query.email;
     var screenname = req.query.screenname;
+    var passwordPattern;
+    var newUser;
 
     if (!password || !zip || !email || !screenname)
       return helpers.returnError(res, 7, 'missing field');
@@ -57,12 +59,13 @@ module.exports = function(app, auth) {
 
       //password pattern: any 8-12 character length combo of ASCII
       //with at least one number and one letter
-      var passwordPattern = /^(?=.*\d+)(?=.*[a-z A-Z])[ -~]{8,12}$/;
+      passwordPattern = /^(?=.*\d+)(?=.*[a-z A-Z])[ -~]{8,12}$/;
       if (!passwordPattern.test(password)) {
         return res.status(400).json({error: 4});
       }
 
-      var newUser = new User();
+      //create a new user
+      newUser = new User();
       newUser.email = req.query.email;
       newUser.password = newUser.generateHash(password);
       newUser.screenname = req.query.screenname;
@@ -73,6 +76,7 @@ module.exports = function(app, auth) {
       newUser.latitude = '';
       newUser.longitude = '';
 
+      //form profile object to pass back
       profile.email = newUser.email;
       profile.screename = newUser.screenname || '';
       profile.zip = newUser.zip || '';
@@ -118,7 +122,7 @@ module.exports = function(app, auth) {
 
       //updating zip code needs to change lat/long
       user.zip = req.body.zip || user.zip || '';
-      console.log(user);
+      //console.log(user);
       passback.email = req.body.email || user.email;
       passback.screename = req.body.screenname || user.screenname || '';
       passback.zip = req.body.zip || user.zip || '';

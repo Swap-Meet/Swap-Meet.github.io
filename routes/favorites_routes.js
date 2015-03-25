@@ -24,21 +24,18 @@ module.exports = function(app, auth) {
   });
 
   //delete a game from favorites
-  app.delete('/api/games/favorites', auth, function(req, res) {
+  app.put('/api/games/favorites', auth, function(req, res) {
     var gameIndex;
 
     //find user making the request
     User.findById(req.user._id, function(err, user) {
-      gameIndex = user.favorites.indexOf(req.body.id);
+      gameIndex = user.favorites.indexOf(req.body._id);
 
       //game exists and can be deleted
       if (gameIndex !== -1) {
-// <<<<<<< HEAD
-        // user.favorites.splice(gameIndex, gameIndex + 1);
-// =======
+
         user.favorites.splice(gameIndex, 1);
-        //user.favorites = user.favorites.slice(gameIndex, gameIndex + 1);
-// >>>>>>> 6e901fc9494bc6973b6f1d527316fde4594e76cc
+
         user.save(function(err) {
           if (err) return helpers.returnError(err, res, 1, 'error saving favs');
           return helpers.returnSuccess(res);
@@ -51,7 +48,6 @@ module.exports = function(app, auth) {
 
   //return an array of favorites
   app.get('/api/games/favorites', auth, function(req, res) {
-    //console.log('here is user infor', req.user.favorites);
     return getGameInfo(req.user.favorites, res);
   });
 };

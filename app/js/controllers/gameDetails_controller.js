@@ -5,79 +5,68 @@ module.exports = function(app) {
   app.controller('gameDetailsCtrl', ['$scope', '$routeParams', '$http', '$location', '$cookies', 'Games', 'Offers',
     function($scope, $routeParams, $http, $location, $cookies, Games, Offers) {
 
-      if (!$cookies.jwt) {
-        $location.path('#/login');
-      }
-      console.log('Game Details Controller Sees the Cookie');
-      $http.defaults.headers.common['jwt'] = $cookies.jwt;
-
       $scope.games = Games.getList();
-      $scope.whichGame = $routeParams.gameID;
+      $scope.whichGame = $routeParams.indexID;
 
       $scope.createRequest = function(gameID) {
-        Offers.setWantGame(gameID);
-        //$location.path('#/offergames');
-        console.log('Setting game id in Offers');
+        if (!$cookies.jwt) {
+          $location.path('/login');
+
+        } else {
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          Offers.setWantGame(gameID);
+          $location.path('/offergames');
+          console.log('Setting game id in Offers');
+        }
       };
 
-      // $scope.addFavorite = function(gameID) {
-      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-      //     $location.path('#/');
-      //   } else {
+      $scope.addFavorite = function(gameID) {
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
+          $location.path('/login');
+        } else {
+          var gameList = Games.getList();
+          gameList[$routeParams.indexID].already_wanted = true;
+          Games.setList(gameList);
 
-      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
-      //     $http({
-      //       method: 'POST',
-      //       url: '/api/games/favorites',
-      //       data: { _id: gameID }
-      //     })
-      //     .success(function(data) {
-      //       if ($scope.isToggled === false) {
-      //         $scope.isToggled = true;
-      //       }
-      //       else {
-      //         $scope.isToggled = false;
-      //       }
-      //       //update the 'already favorited portion of the game service cache
-      //       console.log('success! added to favorites: ' + data.items);
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'POST',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            console.log('Added to favorites: ' + data.items);
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
 
-      //       //return $scope.isToggled;
+      $scope.removeFavorite = function(gameID) {
 
-      //     })
-      //     .error(function(data) {
-      //       console.log(data);
-      //     });
-      //   }
-      // };
+        if (!$cookies.jwt) { //if there is no cookie, then do not allow removFav
+          $location.path('/login');
+        } else {
+          var gameList = Games.getList();
+          gameList[$routeParams.indexID].already_wanted = false;
+          Games.setList(gameList);
 
-      // $scope.removeFavorite = function(gameID) {
-      //   if (!$cookies.jwt) { //if there is no cookie, then do not allow addFav
-      //     $location.path('#/');
-      //   } else {
-      //     $http.defaults.headers.common['jwt'] = $cookies.jwt;
-      //     $http({
-      //       method: 'DELETE',
-      //       url: '/api/games/favorites',
-      //       data: { id: gameID }
-      //     })
-      //     .success(function(data) {
-      //       if ($scope.isToggled === false) {
-      //         $scope.isToggled = true;
-      //       }
-      //       else {
-      //         $scope.isToggled = false;
-      //       }
-      //       //update the 'already favorited portion of the game service cache
-      //       console.log('success! removed from favorites: ' + data.items);
+          $http.defaults.headers.common['jwt'] = $cookies.jwt;
+          $http({
+            method: 'PUT',
+            url: '/api/games/favorites',
+            data: { _id: gameID }
+          })
+          .success(function(data) {
+            console.log('Removed from favorites: ' + data.items);
 
-      //       //return $scope.isToggled;
-
-      //     })
-      //     .error(function(data) {
-      //       console.log(data);
-      //     });
-      //   }
-      // };
+          })
+          .error(function(data) {
+            console.log(data);
+          });
+        }
+      };
 
     }]);
 
