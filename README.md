@@ -2,18 +2,19 @@ Swap Meet
 =========
 <br>
 
-<a href="httpa://swapmeetproject.herokuapp.com/">Click here to see it on heroku</a>
+<a href="https://swapmeetproject.herokuapp.com/">Click here to see it on heroku</a>
 
 ###Summary
 This application allows members to trade video games with other members in their area.
 
 
 ###Project Team
-Linda Marie Mummy - Backend JS
-Christian Townsdin - Frontend JS
-Karl Gentner - Frontend & Backend JS
-Levi Zortman - UI/UX
-Marissa Felitto - UI/UX
+* Levi Zortman - UI/UX
+* Marissa Felitto - UI/UX
+* Linda Marie Mummy - Backend JS
+* Christian Townsdin - Frontend JS
+* Karl Gentner - Frontend & Backend JS
+
 
 
 ###Technologies
