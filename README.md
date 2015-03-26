@@ -1,11 +1,12 @@
 Swap Meet
 =========
+###(web version)
 <br>
 
 <a href="https://swapmeetproject.herokuapp.com/">Click here to see it on heroku</a>
 
 ###Summary
-This application allows members to trade video games with other members in their area.
+The purpose of this application is to allow members to trade video games and board games with other members in their area.
 
 
 ###Project Team
@@ -16,10 +17,9 @@ This application allows members to trade video games with other members in their
 * Karl Gentner - Frontend & Backend JS
 
 
-
 ###Technologies
 
-####Main
+####Main (Web)
 * MongoDB
 * Node.js
 * Express.js
