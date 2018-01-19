@@ -1,7 +1,6 @@
-Swap Meet
+# Swap Meet
 
-### (web version)
-<br>
+(web version)
 
 <a href="https://swapmeetproject.herokuapp.com/">Click here to see it on heroku</a>
 
