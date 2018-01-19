@@ -1,15 +1,15 @@
 Swap Meet
-=========
-###(web version)
+
+### (web version)
 <br>
 
 <a href="https://swapmeetproject.herokuapp.com/">Click here to see it on heroku</a>
 
-###Summary
+### Summary
 The purpose of this application is to allow members to trade video games and board games with other members in their area.
 
 
-###Project Team
+### Project Team
 * Levi Zortman - UI/UX
 * Marissa Felitto - UI/UX
 * Linda Marie Mummy - Backend JS
@@ -17,9 +17,9 @@ The purpose of this application is to allow members to trade video games and boa
 * Karl Gentner - Frontend & Backend JS
 
 
-###Technologies
+### Technologies
 
-####Main (Web)
+#### Main (Web)
 * MongoDB
 * Node.js
 * Express.js
@@ -29,11 +29,11 @@ The purpose of this application is to allow members to trade video games and boa
 * Browserify
 * Sass
 
-####Testing & Linting
+#### Testing & Linting
 * Mocha
 * Chai
 * JSHint
 * JSCS
 
-####Deployment
+#### Deployment
 * Heroku w/ MongoLab
